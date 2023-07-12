@@ -1,8 +1,9 @@
-# Rocket Builder
+# [Rocket Builder](https://rocket-builder.onrender.com/) `Free DnD Tool`
 
-Website builder that uses React as the core framework - Actively supported by [AppSeed](https://appseed.us/).
+**STATUS**: `Work in Progress` - Website builder that uses React as the core framework - Actively supported by [AppSeed](https://appseed.us/).
 
-> STATUS: `Work in Progress`, see **[FULL Specs](https://docs.google.com/document/d/1YbmZro0b8ucMGE227xSMzcQGNbWgTaiOKfjgEW9RsWE/edit?usp=sharing)** (Google Drive Link)
+- 👉 [Rocket Builder](https://rocket-builder.onrender.com/) - `Live DEMO`
+- 👉 [FULL Specs](https://docs.google.com/document/d/1YbmZro0b8ucMGE227xSMzcQGNbWgTaiOKfjgEW9RsWE/edit?usp=sharing), `Google Drive Link`
 
 <br />
 
@@ -37,9 +38,16 @@ The project should provide a way to empower users edit the website content:
 
 ## Manual Build
 
-@ToDo
+```bash
+$ git clone https://github.com/app-generator/rocket-builder.git
+$ cd builder
+$ yarn
+$ yarn start 
+```
+
+Visit the DnD builder in the browser: `http://localhost:3000/`
 
 <br />
 
 ---
-Rocket Builder - React Builder provided by **[AppSeed](https://appseed.us/)**.
+[Rocket Builder](https://rocket-builder.onrender.com/) `Free DnD Tool` - React Builder provided by **[AppSeed](https://appseed.us/)**.
