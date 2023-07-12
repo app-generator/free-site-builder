@@ -1,0 +1,17 @@
+.accordionDetailBox {
+    display: "inline-grid";
+    gap: "10px";
+}
+
+.componentImgBox {
+    border: "1px solid #f1f1f1";
+    background: "#e9ecef";
+    width: "75px";
+    border-radius: "5px";
+}
+.MenuBox {
+    display: flex;
+    justify-content: space-around;
+    height: 36px;
+    align-items: center;
+}
