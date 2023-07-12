@@ -1,5 +1,13 @@
 # Change Log
 
+## [0.0.3] 2023-07-12
+### Changes
+
+- Minimal DnD Capabilities
+- Added [LICENSE](./LICENSE.md) - `EULA Terms``
+- Activate CI/CD via Render
+  - [Rocket Builder](https://rocket-builder.onrender.com/)
+
 ## [0.0.2] 2023-07-04
 ### Changes
 
