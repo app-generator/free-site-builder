@@ -1,6 +1,6 @@
 # [Rocket Builder](https://rocket-builder.onrender.com/) `Free DnD Tool`
 
-**STATUS**: `Work in Progress` - Website builder that uses React as the core framework - Actively supported by [AppSeed](https://appseed.us/).
+**STATUS**: `Work in Progress` - Website builder that uses **Vanilla JS** and a **[Remote Server](https://components-server.onrender.com/kits/)** for components injection - Actively supported by [AppSeed](https://appseed.us/).
 
 - 👉 [Rocket Builder](https://rocket-builder.onrender.com/) - `Live DEMO`
 - 👉 [FULL Specs](https://docs.google.com/document/d/1YbmZro0b8ucMGE227xSMzcQGNbWgTaiOKfjgEW9RsWE/edit?usp=sharing), `Google Drive Link`
@@ -14,7 +14,6 @@
 | --- | --- | --- |
 | ✅ | **Core** |  `Vanilla JS` |
 | ✅ | **Components** | `Bootstrap 5` |
-| ✅ | **Dashboard Layout** | `Multiple Components` Drag & Drop |
 | ✅ | **Remote Components Server** | https://components-server.onrender.com/kits/ |
 | ✅ | **Persistence** (local storage) | Save, Restore, Clear |
 | ✅ | **One-Page Layout** | `Single Component` Drag & Drop |
@@ -27,6 +26,7 @@
 | ❌ | **PAGE Customization** | JS |
 | ❌ | **Manage SEO** | Title, Description, Keywords |
 | ❌ | **Handle Multiple Pages** | - |
+| ❌ | **Dashboard Layout** | `Multiple Components` Drag & Drop |
 
 <br />
 
