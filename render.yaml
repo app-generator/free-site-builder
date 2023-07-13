@@ -3,8 +3,9 @@ services:
     name: components-server
     plan: starter
     env: python
+    rootDir: backend
     region: frankfurt  # region should be same as your database region.
-    buildCommand: "./backend/build.sh"
+    buildCommand: "./build.sh"
     startCommand: "gunicorn run:app"
     envVars:
       - key: SECRET_KEY
