@@ -9,10 +9,19 @@ import { onDragStart, onDragEnd, onDragOver, onDrop, onClear, onSave, onRestore,
 // Using Promise syntax:
 function downloadComponents() {
 
-    return fetch('https://components-server.onrender.com/kits/bs5/div.html')
+    //return fetch('http://localhost:5000/kits/bs5/')
+    return fetch('https://components-server.onrender.com/kits/bs5/')
       .then(response => response.text())
-      .then(component => {
-        console.log( component );    
+      .then( response_raw => {
+
+        //console.log( response_raw );    
+
+        let response_json = JSON.parse( response_raw );
+
+        let component_base64 = response_json['content']['components']['general']['card.html'];
+        let component        = atob( component_base64 );
+
+        //console.log( component );
 
         let componentsContainer = document.getElementsByClassName('builder-components')[0];
 
