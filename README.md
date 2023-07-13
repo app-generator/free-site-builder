@@ -6,7 +6,7 @@
 - 👉 [FULL Specs](https://docs.google.com/document/d/1YbmZro0b8ucMGE227xSMzcQGNbWgTaiOKfjgEW9RsWE/edit?usp=sharing), `Google Drive Link`
 - 🫶 **Contribute** - see the [open issues](https://github.com/app-generator/rocket-builder/issues)  
 
-![Open-source DnD Tools and Visual Builders provided by AppSeed.](https://github.com/app-generator/opensource-dnd-tools/assets/51070104/b8f9ed0b-dbe4-429c-b96c-c32df831a1a2)
+![Rocket Builder - Open-Source DnD project crafted by AppSeed.](https://github.com/app-generator/rocket-builder/assets/51070104/b3be1e3d-a733-4aac-b938-5402e840553d)
 
 ## Roadmap & `Features` 
 
