@@ -6,7 +6,7 @@
     "demo": "https://django-pixel-lite.appseed-srv1.com/",
     "content": {
         "layouts": {
-            "base.html": "MD5_HASH"
+            "base.html": "BASE64"
         },
         "components": {
             "grid": {
