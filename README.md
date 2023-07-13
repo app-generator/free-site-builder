@@ -14,7 +14,6 @@
 | --- | --- | --- |
 | ✅ | **Core** |  `Vanilla JS` |
 | ✅ | **Components** | `Bootstrap 5` |
-| ✅ | **Dashboard Layout** | `Multiple Components` Drag & Drop |
 | ✅ | **Remote Components Server** | https://components-server.onrender.com/kits/ |
 | ✅ | **Persistence** (local storage) | Save, Restore, Clear |
 | ✅ | **One-Page Layout** | `Single Component` Drag & Drop |
@@ -27,6 +26,7 @@
 | ❌ | **PAGE Customization** | JS |
 | ❌ | **Manage SEO** | Title, Description, Keywords |
 | ❌ | **Handle Multiple Pages** | - |
+| ❌ | **Dashboard Layout** | `Multiple Components` Drag & Drop |
 
 <br />
 
