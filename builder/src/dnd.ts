@@ -181,7 +181,7 @@ export function onClick(event: any) {
     }
 
     // In place edit
-    targetComponent.contentEditable = 'true';
+    //targetComponent.contentEditable = 'true';
 
     console.log(' > ACTIVE Component: ' + targetComponent.id);
 
