@@ -15,17 +15,18 @@
 | ✅ | **Core** |  `Vanilla JS` |
 | ✅ | **Components** | `Bootstrap 5` |
 | ✅ | **Dashboard Layout** | `Multiple Components` Drag & Drop |
-| ❌ | **One-Page Layout** | `Single Component` Drag & Drop |
-| ❌ | **Persistence** (local storage) | Save, Restore, Clear |
-| ❌ | **Component Customization** | Text-Only |
-| ❌ | **Added Grid Component** | This allows to inject predefined rows (2,3,4 columns) |
+| ✅ | **Remote Components Server** | https://components-server.onrender.com/kits/ |
+| ✅ | **Persistence** (local storage) | Save, Restore, Clear |
+| ✅ | **One-Page Layout** | `Single Component` Drag & Drop |
+| ✅ | **Component Customization** | Text-Only |
+| ✅ | **Grid Components** | This allows to inject predefined rows (2,3,4 columns) |
+| ✅ | **USE Remote Components** | `Yes` |
 | ❌ | **Component Customization** | Images, Links |
 | ❌ | **Component Customization** | CSS |
 | ❌ | **PAGE Customization** | CSS |
 | ❌ | **PAGE Customization** | JS |
 | ❌ | **Manage SEO** | Title, Description, Keywords |
 | ❌ | **Handle Multiple Pages** | - |
-| ❌ | **Remote Component Server** | Load Components from distant Server |
 
 <br />
 
@@ -45,7 +46,7 @@ $ yarn build  # production  (dist FOLDER)
 
 ## Components Server
 
-> Managed by `Flask`
+> Managed by `Flask` (optional). By default, a **[LIVE Components Server](https://components-server.onrender.com/kits/)** is used.
 
 ```bash
 $ cd rocket-builder/builder
