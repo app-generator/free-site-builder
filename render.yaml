@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: components-server
+    plan: starter
+    env: python
+    region: frankfurt  # region should be same as your database region.
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn ./builder/run:app"
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
