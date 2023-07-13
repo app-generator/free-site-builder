@@ -1,6 +1,6 @@
 # [Rocket Builder](https://rocket-builder.onrender.com/) `Free DnD Tool`
 
-**STATUS**: `Work in Progress` - Website builder that uses React as the core framework - Actively supported by [AppSeed](https://appseed.us/).
+**STATUS**: `Work in Progress` - Website builder that uses **Vanilla JS** and a **Remote Server** for components injection - Actively supported by [AppSeed](https://appseed.us/).
 
 - 👉 [Rocket Builder](https://rocket-builder.onrender.com/) - `Live DEMO`
 - 👉 [FULL Specs](https://docs.google.com/document/d/1YbmZro0b8ucMGE227xSMzcQGNbWgTaiOKfjgEW9RsWE/edit?usp=sharing), `Google Drive Link`
