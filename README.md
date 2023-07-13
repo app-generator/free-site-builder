@@ -48,7 +48,7 @@ $ yarn build  # production  (dist FOLDER)
 > Managed by `Flask`
 
 ```bash
-$ cd backend
+$ cd rocket-builder/builder
 $ virtualenv env
 $ source env/bin/activate
 $ pip install -r requirements.txt

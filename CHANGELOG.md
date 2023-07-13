@@ -1,5 +1,12 @@
 # Change Log
 
+## [0.0.4] 2023-07-13
+### Changes
+
+- Switch from React to VanillaJS
+- Added Components Server
+  - powered by Flask
+
 ## [0.0.3] 2023-07-12
 ### Changes
 
