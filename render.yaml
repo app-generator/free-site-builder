@@ -4,8 +4,8 @@ services:
     plan: starter
     env: python
     region: frankfurt  # region should be same as your database region.
-    buildCommand: "./builder/build.sh"
-    startCommand: "gunicorn ./builder/run:app"
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn run:app"
     envVars:
       - key: SECRET_KEY
         generateValue: true
