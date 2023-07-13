@@ -1,5 +1,13 @@
 # Change Log
 
+## [0.0.5] 2023-07-13
+### Changes
+
+- Uses Remote Components Server:
+  - https://components-server.onrender.com/kits/
+- Added More controls for Components
+  - UP, Down, and delete
+
 ## [0.0.4] 2023-07-13
 ### Changes
 
