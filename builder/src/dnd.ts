@@ -53,34 +53,10 @@ export function onDragOver(event: any) {
     event.preventDefault();
 }
 
-export function onDrop(event: any) {
+const onReposition = (component: any) => {
+    console.log("' > onReposition() '")
+    const editableComponent = component;
 
-    console.log(' > on_DROP() ');
-
-    const id = event.dataTransfer.getData('text');
-
-    let editableComponent = <HTMLElement>document.getElementById(id)!.cloneNode(true);
-
-    console.log(' > CONTAINER: ' + event.target.id);
-    console.log(' > Component: ' + editableComponent.dataset.type);
-
-    // Customization
-    editableComponent.id = uuidv4();
-
-    if (event.target.id?.includes('grid-')) {
-        event.target.innerHTML = '';
-    }
-
-    //editableComponent.innerHTML += editableComponent.id;
-    editableComponent.classList.remove('draggable');
-    editableComponent.classList.add('component');
-    editableComponent.removeAttribute('draggable');
-
-    // Make it CLICK-able
-    editableComponent.addEventListener('click', (event) => { onClick(event); });
-
-    /*
-    // Some Stuff 
     const upElement = document.createElement("span");
     upElement.innerHTML = "<i class='fa-solid fa-caret-up'></i>";
     upElement.className = "upButton";
@@ -121,7 +97,38 @@ export function onDrop(event: any) {
     editableComponent.appendChild(downElement);
     editableComponent.appendChild(spanElement);
     editableComponent.appendChild(contentElement);
-    */
+}
+
+export function onDrop(event: any) {
+
+    console.log(' > on_DROP() ');
+
+    const id = event.dataTransfer.getData('text');
+
+    let editableComponent = <HTMLElement>document.getElementById(id)!.cloneNode(true);
+
+    console.log(' > CONTAINER: ' + event.target.id);
+    console.log(' > Component: ' + editableComponent.dataset.type);
+
+    // Customization
+    editableComponent.id = uuidv4();
+
+    if (event.target.id?.includes('grid-')) {
+        event.target.innerHTML = '';
+    }
+
+    //editableComponent.innerHTML += editableComponent.id;
+    editableComponent.classList.remove('draggable');
+    editableComponent.classList.add('component');
+    editableComponent.removeAttribute('draggable');
+
+    // Make it CLICK-able
+    // editableComponent.addEventListener('click', (event) => { onClick(event); });
+    // Some Stuff 
+    if (event.target.id == "dropzone") {
+        onReposition(editableComponent);
+    }
+    
 
     // Inject component in the builder
     //const dropzone = <HTMLElement>document.querySelector('#dropzone');
@@ -293,46 +300,38 @@ export function onRestore(event: any) {
         for (let i = 0; i < elems.length; i++) {
             const draggableElement = elems[i];
 
-            const upElement = document.createElement("span");
-            upElement.innerHTML = "<i class='fa-solid fa-caret-up'></i>";
-            upElement.className = "upButton";
-            upElement.onclick = function () {
-                var prevElement = draggableElement.previousElementSibling;
-                if (prevElement) {
-                    draggableElement.parentNode?.insertBefore(draggableElement, prevElement);
-                    i--;
+            const upButton = draggableElement.querySelector('.upButton');
+            const downButton = draggableElement.querySelector('.downButton');
+            const crossButton = draggableElement.querySelector('.cross-icon');
+            const parentElement = draggableElement.parentElement;
+
+            draggableElement.addEventListener('click', onClick);
+
+            if (parentElement) {
+                if (upButton) {
+                    upButton.addEventListener('click', function() {
+                        const currentIndex = Array.from(parentElement.children).indexOf(draggableElement);
+                        if (currentIndex > 0) {
+                            const previousElement = parentElement.children[currentIndex - 1];
+                            parentElement.insertBefore(draggableElement, previousElement); 
+                        } 
+                    });
+                }
+                if (downButton) {
+                    downButton.addEventListener('click', function() {  
+                        const currentIndex = Array.from(parentElement.children).indexOf(draggableElement);
+                        if (currentIndex < parentElement.children.length - 1) {
+                            const nextElement = parentElement.children[currentIndex + 1];
+                            parentElement.insertBefore(nextElement, draggableElement);
+                        }
+                    });
+                }
+                if (crossButton) {
+                    crossButton.addEventListener('click', function() {  
+                        onDelete(draggableElement);
+                    });
                 }
             }
-            const downElement = document.createElement("span");
-            downElement.innerHTML = "<i class='fa-solid fa-caret-down'></i>";
-            downElement.className = "downButton";
-            downElement.onclick = function () {
-                var nextElement = draggableElement.nextElementSibling;
-                if (nextElement) {
-                    draggableElement.parentNode?.insertBefore(nextElement, draggableElement);
-                    i++;
-                }
-            }
-            const crossElement = document.createElement("span");
-            crossElement.innerHTML = "<i class='fa-solid fa-xmark'></i>";
-            crossElement.className = "cross-icon";
-            crossElement.onclick = function () {
-                onDelete(draggableElement);
-            };
-
-            const contentElement = document.createElement("span");
-            contentElement.innerHTML = draggableElement.innerHTML.trim();
-            contentElement.style.display = "block";
-            contentElement.id = draggableElement.id;
-            contentElement.onclick = function (event) {
-                onClick(event)
-            };
-
-            draggableElement.innerHTML = "";
-            draggableElement.appendChild(upElement);
-            draggableElement.appendChild(downElement);
-            draggableElement.appendChild(crossElement);
-            draggableElement.appendChild(contentElement);
         }
     } else {
         console.log(' > NULL ELEMs ');

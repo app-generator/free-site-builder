@@ -148,9 +148,9 @@ button:focus-visible {
 .draggable:hover {
   border-color: red;
 }
-.draggable:hover .cross-icon,
-.draggable:hover .upButton,
-.draggable:hover .downButton {
+.component:hover .cross-icon,
+.component:hover .upButton,
+.component:hover .downButton {
   display: block;
 }
 
