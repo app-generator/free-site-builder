@@ -1,0 +1,19 @@
+{
+    "kits": {
+        "bs5": {
+            "meta": "info.json",
+            "description":"BS5 BASIC",
+            "demo":"https://django-pixel-lite.appseed-srv1.com/"
+        },        
+        "pixel-lite": {
+            "meta": "info.json",
+            "description":"BS5 Kit from Themesberg",
+            "demo":"https://django-pixel-lite.appseed-srv1.com/"
+        },
+        "material-kit": {
+            "meta": "info.json",
+            "description":"BS5 Kit from Creative-Tim",
+            "demo":"https://django-material-kit.appseed-srv1.com/"
+        }
+    }
+}

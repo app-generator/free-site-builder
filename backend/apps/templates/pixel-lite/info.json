@@ -1,0 +1,26 @@
+{
+    "name": "Pixel Lite",
+    "version": "1.0.0",
+    "type": "kit",
+    "description": "BS5 Kit from Themesberg",
+    "demo": "https://django-pixel-lite.appseed-srv1.com/",
+    "content": {
+        "layouts": {
+            "base.html": "MD5_HASH"
+        },
+        "components": {
+            "footers": {
+                "footer.html": "MD5_HASH"
+            },
+            "headers": {
+                "header.html": "MD5_HASH"
+            },
+            "navigation": {
+                "navigation.html": "MD5_HASH"
+            },
+            "general": {
+                "section1.html": "MD5_HASH"
+            }
+        }
+    }
+}
