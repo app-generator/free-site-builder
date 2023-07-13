@@ -9,7 +9,7 @@ import { onDragStart, onDragEnd, onDragOver, onDrop, onClear, onSave, onRestore,
 // Using Promise syntax:
 function downloadComponents() {
 
-    return fetch('http://127.0.0.1:5000/kits/bs5/div.html')
+    return fetch('https://components-server.onrender.com/kits/bs5/div.html')
       .then(response => response.text())
       .then(component => {
         console.log( component );    
