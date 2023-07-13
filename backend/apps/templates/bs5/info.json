@@ -14,6 +14,9 @@
                 "grid-3rows.html": "MD5_HASH",
                 "grid-4rows.html": "MD5_HASH"
             },
+            "footers": {
+                "footer.html": "MD5_HASH"
+            },
             "general": {
                 "div.html": "MD5_HASH"
             }
