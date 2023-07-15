@@ -2,7 +2,17 @@ export function setupGlobalEvents() {
 
     document.querySelector('#dropzone')?.addEventListener('click', event => {
         event.stopPropagation();
-    })
+    });
+
+    // Trigger onMouseOver
+    //document.addEventListener('mouseover', event => {
+    //    onMouseOver(event);
+    //});
+
+    //document.addEventListener('mouseout', event => {
+    //    event;
+    //    remClassProcessor('border-props');
+    //});         
 }
 
 export function uuidv4() {
@@ -11,6 +21,8 @@ export function uuidv4() {
         return v.toString(16);
     });
 }
+
+
 
 export function onDragStart(event: any) {
     console.log(' > onDrag_START() ');
@@ -27,6 +39,16 @@ export function onDragStart(event: any) {
     onSave(event);
 }
 
+export function onDragOver(event: any) {
+    console.log(' > onDrag_OVER() ');
+
+    // Remove all previous    
+    remClassProcessor('border-dotted');
+
+    event.target.classList.add('border-dotted');
+    event.preventDefault();
+}
+
 export function onDragEnd(event: any) {
     console.log(' > onDrag_END() ');
 
@@ -41,62 +63,6 @@ export function onDragEnd(event: any) {
         .currentTarget
         .style
         .backgroundColor = '#4AAE9B';
-}
-
-export function onDragOver(event: any) {
-    console.log(' > onDrag_OVER() ');
-
-    // Remove all previous    
-    remClassProcessor('border-dotted');
-
-    event.target.classList.add('border-dotted');
-    event.preventDefault();
-}
-
-const onReposition = (component: any) => {
-    console.log("' > onReposition() '")
-    const editableComponent = component;
-
-    const upElement = document.createElement("span");
-    upElement.innerHTML = "<i class='fa-solid fa-caret-up'></i>";
-    upElement.className = "upButton";
-    upElement.onclick = function() {
-        var prevElement = editableComponent.previousElementSibling;
-        if (prevElement) {
-            editableComponent.parentNode?.insertBefore(editableComponent, prevElement);
-        }
-    }
-
-    const downElement = document.createElement("span");
-    downElement.innerHTML = "<i class='fa-solid fa-caret-down'></i>";
-    downElement.className = "downButton";
-    downElement.onclick = function() {
-        var nextElement = editableComponent.nextElementSibling;
-        if (nextElement) {
-            editableComponent.parentNode?.insertBefore(nextElement, editableComponent);
-        }
-    }
-
-    const spanElement = document.createElement("span");
-    spanElement.innerHTML = "<i class='fa-solid fa-xmark'></i>";
-    spanElement.className = "cross-icon";
-    spanElement.onclick = function() {
-        onDelete(editableComponent);
-    };
-
-    const contentElement = document.createElement("span");
-    contentElement.innerHTML = editableComponent.innerHTML.trim();
-    contentElement.style.display = "block";
-    contentElement.id = editableComponent.id;
-    contentElement.onclick = function(event) {
-        onClick( event )
-    };
-
-    editableComponent.innerHTML = "";
-    editableComponent.appendChild(upElement);
-    editableComponent.appendChild(downElement);
-    editableComponent.appendChild(spanElement);
-    editableComponent.appendChild(contentElement);
 }
 
 export function onDrop(event: any) {
@@ -123,12 +89,11 @@ export function onDrop(event: any) {
     editableComponent.removeAttribute('draggable');
 
     // Make it CLICK-able
-    // editableComponent.addEventListener('click', (event) => { onClick(event); });
-    // Some Stuff 
-    if (event.target.id == "dropzone") {
-        onReposition(editableComponent);
-    }
-    
+    editableComponent.addEventListener('click', (event) => { onClick(event); });
+
+    // Activate Mouse Over
+    editableComponent.addEventListener('mouseover', (event) => { onMouseOver(event); });
+    //editableComponent.addEventListener('mouseout', (event) => { event; remClassProcessor('border-props'); });
 
     // Inject component in the builder
     //const dropzone = <HTMLElement>document.querySelector('#dropzone');
@@ -161,24 +126,91 @@ export function onDelete(element: any) {
     window.localStorage.setItem('editME', div.innerHTML)
 }
 
+export function getElemName(aElement: HTMLElement) {
+
+    let aNodeType = aElement.nodeName;
+
+    if ('P' === aNodeType) {
+        return 'Paragraph';
+    } else if ('A' === aNodeType) {
+        return 'Anchor';
+    } else if ('DIV' === aNodeType) {
+        return 'DIV';
+    } else if ('H5' === aNodeType) {
+        return 'H5 Tag';
+    } else {
+        return aNodeType;
+    }
+}
+
+export function getElemProps(aElement: HTMLElement) {
+
+    let aNodeType = aElement.nodeName;
+
+    if ('P' === aNodeType) {
+        return 'CSS, HtmlEdit';
+    } else if ('A' === aNodeType) {
+        return 'CSS, HREF'; // + aElement.getAttribute('href');
+    } else if ('DIV' === aNodeType) {
+        return 'CSS, HtmlEdit';
+    } else if ('H5' === aNodeType) {
+        return 'CSS, HtmlEdit';
+    } else {
+        return aNodeType.trim();
+    }
+}
+
+export function onMouseOver(event: any) {
+
+    console.log(' > on_MouseOver()');
+
+    if (!event.target.id) {
+        event.target.id = uuidv4();
+    }
+
+    let elem = <HTMLElement>document.getElementById(event.target.id);
+
+    console.log(' > id: ' + elem.id);
+    console.log(' > type: ' + elem.nodeName);
+
+    // let PROPS_TITLE   = <HTMLElement>document.getElementById('builder-props-title');
+    // let PROPS_CONTENT = <HTMLElement>document.getElementById('builder-props-content');
+
+    // PROPS_TITLE.innerHTML    = elem.id;
+    // PROPS_CONTENT.innerHTML  = '<br /><hr />';
+    // PROPS_CONTENT.innerHTML += '<strong><center>'+getElemName(elem)+'</center></strong>';
+    // PROPS_CONTENT.innerHTML += '<hr /><br />';
+    // PROPS_CONTENT.innerHTML += '<p>'+getElemProps(elem)+'</p>';
+
+    let targetComponent = event.target;
+
+    // Remove previous 
+    remClassProcessor('border-props');
+
+    // Update CSS
+    targetComponent.classList.add('border-props');
+}
+
 export function onClick(event: any) {
 
     console.log(' > on_CLICK() ');
 
-    var targetComponent;
+    let targetComponent;
 
-    if(event.target.classList.contains('component')){
+    if (event.target.classList.contains('component')) {
         targetComponent = event.target;
     } else {
         targetComponent = event.target.closest('.component');
     }
 
     if (targetComponent.id && !(targetComponent.id.includes('uuid'))) {
-        //console.log(' > ['+event.target.id+'] NOT a Component, skip the edit');
         console.log(' > GRID Component, skip the edit');
         event.preventDefault();
         return;
     }
+
+    // Save the active Component
+    window.localStorage.setItem("activeComponent", targetComponent.id);
 
     // In place edit
     targetComponent.contentEditable = 'true';
@@ -191,18 +223,27 @@ export function onClick(event: any) {
     // Update CSS
     targetComponent.classList.add('border-dotted');
 
-    if ( ! hasSiblings( event.target ) ) {
+    if (!hasSiblings(event.target)) {
+        let elem = <HTMLElement>document.getElementById(event.target.id);
 
         let propsPanel_title = <HTMLElement>document.querySelector('#builder-props-title');
         let propsPanel_content = <HTMLElement>document.querySelector('#builder-props-content');
-    
-        propsPanel_title.innerHTML = 'Props for ' + targetComponent.id;
-    
-        propsPanel_content.innerHTML = '<input id="props_text" data-target="'+event.target.id+'" value="' + event.target.innerHTML + '" />';
-    
-        let propsPanel_input = <HTMLElement>document.querySelector('input#props_text'  );
-        propsPanel_input.addEventListener('keyup', (event) => { onKeyUp( event ); });
-    
+        let propsPanel_attribute = <HTMLElement>document.querySelector('#builder-props-attribute');
+
+        propsPanel_title.innerHTML = 'Props for ' + event.target.id;
+
+        propsPanel_content.innerHTML = '<input id="props_text" data-target="' + event.target.id + '" value="' + event.target.innerHTML + '" />';
+
+        let selectedComponent = event.target;
+        if (elem.nodeName === "A") {
+            propsPanel_attribute.innerHTML = '<input id="props_attribute" data-target="' + event.target.id + '" value="' + event.target.href + '" />';
+            let propsPanel_attr_input = <HTMLElement>document.querySelector('input#props_attribute');
+            propsPanel_attr_input.addEventListener('keyup', (event) => { onKeyUp(event, selectedComponent, 'attr'); });
+        }
+
+        let propsPanel_input = <HTMLElement>document.querySelector('input#props_text');
+        propsPanel_input.addEventListener('keyup', (event) => { onKeyUp(event, selectedComponent, 'content'); });
+
     } else {
         console.log(' > Nested COMPONENT, skip PROPS');
     }
@@ -213,11 +254,11 @@ export function onClick(event: any) {
 
 export function hasSiblings(aNode: HTMLElement) {
 
-    if ( !aNode )
+    if (!aNode)
         return false;
 
-    let siblings = [];    
-    let sibling  = aNode.firstChild;
+    let siblings = [];
+    let sibling = aNode.firstChild;
 
     while (sibling) {
         if (sibling.nodeType === 1) {
@@ -226,12 +267,11 @@ export function hasSiblings(aNode: HTMLElement) {
         sibling = sibling.nextSibling;
     }
 
-    if ( siblings.length > 0)
+    if (siblings.length > 0)
         return true;
-    else 
-    return false;
+    else
+        return false;
 }
-
 
 export function remClassProcessor(aClass: string) {
 
@@ -244,15 +284,19 @@ export function remClassProcessor(aClass: string) {
     }
 }
 
-export function onKeyUp(event: any) {
+export function onKeyUp(event: any, target: any, flag: any) {
+    // if (event.keyCode !== 13) return;
+
     event;
-    //if (event.key === 'Enter' || event.keyCode === 13) {
-    const target_id = event.target.id;
-    //console.log(' > Save TEXT for ' + target_id);
+    const target_id = target.id;
 
     let activeComponent = document.querySelector('#' + target_id);
     if (activeComponent) {
-        activeComponent.innerHTML = event.target.innerHTML;
+        if(flag === 'attr') {
+            activeComponent.href = event.target.value;
+        } else {
+            activeComponent.innerHTML = event.target.value;
+        }
     } else {
         console.log(' > NULL target:' + target_id);
     }
@@ -300,13 +344,14 @@ export function onRestore(event: any) {
         for (let i = 0; i < elems.length; i++) {
             const draggableElement = elems[i];
 
-            const upButton = draggableElement.querySelector('.upButton');
-            const downButton = draggableElement.querySelector('.downButton');
-            const crossButton = draggableElement.querySelector('.cross-icon');
-            const parentElement = draggableElement.parentElement;
-
             draggableElement.addEventListener('click', onClick);
 
+            //const upButton = draggableElement.querySelector('.upButton');
+            //const downButton = draggableElement.querySelector('.downButton');
+            //const crossButton = draggableElement.querySelector('.cross-icon');
+            //const parentElement = draggableElement.parentElement;
+
+            /*
             if (parentElement) {
                 if (upButton) {
                     upButton.addEventListener('click', function() {
@@ -332,6 +377,7 @@ export function onRestore(event: any) {
                     });
                 }
             }
+            */
         }
     } else {
         console.log(' > NULL ELEMs ');

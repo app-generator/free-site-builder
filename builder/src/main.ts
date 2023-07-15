@@ -1,5 +1,5 @@
 import './style.css'
-import { onDragStart, onDragEnd, onDragOver, onDrop, onClear, onSave, onRestore, setupGlobalEvents } from './dnd.ts'
+import { onDragStart, onDragEnd, onDragOver, onDrop, onClear, onSave, onRestore, setupGlobalEvents} from './dnd.ts'
 
 //fetch('http://127.0.0.1:5000/kits/bs5/div.html') 
 //.then(response => response.text())               // response.text() has the component that needs to be saved in  
@@ -54,7 +54,7 @@ function misc() {
     for (let i = 0; i < draggableElems.length; i++) {
         draggableElems[i].addEventListener('dragstart', (event) => { onDragStart(event) });
         draggableElems[i].addEventListener('dragend', (event) => { onDragEnd(event) });
-    }
+    }   
 }
 
 // SETUP Master DROP Zone

@@ -148,11 +148,13 @@ button:focus-visible {
 .draggable:hover {
   border-color: red;
 }
+
+/*
 .component:hover .cross-icon,
 .component:hover .upButton,
 .component:hover .downButton {
   display: block;
-}
+}*/
 
 .dropzone {
   background-color: #6DB65B;
@@ -214,5 +216,11 @@ button:focus-visible {
 }
 
 .border-dotted {
-  border-style: dotted;
+  border-style: dotted !important;
+  margin: 2px;
+}
+
+.border-props {
+  border: 1px solid red !important;
+  margin: 2px;
 }
