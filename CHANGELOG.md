@@ -1,5 +1,11 @@
 # Change Log
 
+## [0.0.9] 2023-07-16
+### Changes
+
+- Update UI
+  - Add more styles 
+
 ## [0.0.8] 2023-07-16
 ### Changes
 

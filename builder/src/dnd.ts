@@ -34,7 +34,7 @@ export function onDragStart(event: any) {
     event
         .currentTarget
         .style
-        .backgroundColor = 'yellow';
+        .backgroundColor = 'white';
 
     onSave(event);
 }
@@ -62,7 +62,7 @@ export function onDragEnd(event: any) {
     event
         .currentTarget
         .style
-        .backgroundColor = '#4AAE9B';
+        .backgroundColor = '#ffffff';
 }
 
 export function onDrop(event: any) {
@@ -72,6 +72,9 @@ export function onDrop(event: any) {
     const id = event.dataTransfer.getData('text');
 
     let editableComponent = <HTMLElement>document.getElementById(id)!.cloneNode(true);
+    let content = <HTMLElement>document.querySelector('.drop-indicator');
+    content.className = "d-none";
+
 
     console.log(' > CONTAINER: ' + event.target.id);
     console.log(' > Component: ' + editableComponent.dataset.type);
@@ -230,13 +233,17 @@ export function onClick(event: any) {
         let propsPanel_content = <HTMLElement>document.querySelector('#builder-props-content');
         let propsPanel_attribute = <HTMLElement>document.querySelector('#builder-props-attribute');
 
+        propsPanel_title.className = "p-2 rounded-1 border mt-2 bg-light";
+        propsPanel_content.className = "p-2 rounded-1 border mt-2 bg-light";
+        propsPanel_attribute.className = "p-2 rounded-1 border mt-2 bg-light";
+
         propsPanel_title.innerHTML = 'Props for ' + event.target.id;
 
-        propsPanel_content.innerHTML = '<input id="props_text" data-target="' + event.target.id + '" value="' + event.target.innerHTML + '" />';
+        propsPanel_content.innerHTML = '<input id="props_text" class="form-control" data-target="' + event.target.id + '" value="' + event.target.innerHTML + '" />';
 
         let selectedComponent = event.target;
         if (elem.nodeName === "A") {
-            propsPanel_attribute.innerHTML = '<input id="props_attribute" data-target="' + event.target.id + '" value="' + event.target.href + '" />';
+            propsPanel_attribute.innerHTML = '<input id="props_attribute" class="form-control" data-target="' + event.target.id + '" value="' + event.target.href + '" />';
             let propsPanel_attr_input = <HTMLElement>document.querySelector('input#props_attribute');
             propsPanel_attr_input.addEventListener('keyup', (event) => { onKeyUp(event, selectedComponent, 'attr'); });
         }
@@ -293,7 +300,7 @@ export function onKeyUp(event: any, target: any, flag: any) {
     let activeComponent = document.querySelector('#' + target_id);
 
     if (activeComponent) {
-        if(flag === 'attr') {
+        if (flag === 'attr') {
             activeComponent.setAttribute('href', event.target.value);
         } else {
             activeComponent.innerHTML = event.target.value;
@@ -309,7 +316,8 @@ export function onClear(event: any) {
     console.log(' > ACTION: clear');
     let content = <HTMLElement>document.querySelector('#dropzone');
     // clear
-    content.innerHTML = 'dropzone';
+    let info='<div class="drop-indicator d-flex align-items-center justify-content-center"><div class="p-4 shadow bg-white rounded-3 text-center"><span class="icon text-primary h3"><i class="fa-solid fa-circle-plus"></i></span><h6 class="mt-3">Drop Here...</h6></div></div>'
+    content.innerHTML = info;
     window.localStorage.clear();
     //let builderContainer = document.querySelector('#layout')!.innerHTML;
     //document.querySelector<HTMLDivElement>('#app')!.innerHTML = builderContainer;    

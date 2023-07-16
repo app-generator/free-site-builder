@@ -2,7 +2,6 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
@@ -19,13 +18,15 @@ a {
   color: #646cff;
   text-decoration: inherit;
 }
+
 a:hover {
   color: #535bf2;
 }
 
 body {
   margin: 0;
-  display: flex;
+background: #f2f2f2;
+  padding: 0;
 }
 
 h1 {
@@ -36,8 +37,7 @@ h1 {
 #app {
   width: 100%;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+
 }
 
 .logo {
@@ -78,19 +78,23 @@ button {
 button:hover {
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+
 
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
   }
+
   a:hover {
     color: #747bff;
   }
+
   button {
     background-color: #f9f9f9;
   }
@@ -103,6 +107,7 @@ button:focus-visible {
   font-family: sans-serif;
   font-weight: bold;
 }
+
 .example-origin {
   flex-basis: 100%;
   flex-grow: 1;
@@ -110,13 +115,14 @@ button:focus-visible {
 }
 
 .draggable {
-  background-color: #4AAE9B;
+
   font-weight: normal;
-  margin-bottom: 10px;
-  margin-top: 10px;
-  padding: 10px;
-  border: 1px dashed transparent;
+  border: 1px solid #dedede;
   position: relative;
+  width: auto !important;
+  max-width: calc(100% - 30px);
+  margin: 0 auto;
+  padding: 15px !important;
 }
 
 .cross-icon {
@@ -136,6 +142,7 @@ button:focus-visible {
   cursor: pointer;
   display: none;
 }
+
 .downButton {
   position: absolute;
   left: 5px;
@@ -157,12 +164,10 @@ button:focus-visible {
 }*/
 
 .dropzone {
-  background-color: #6DB65B;
+  background-color: #f2f2f2;
   flex-basis: 100%;
   flex-grow: 1;
   margin-bottom: 10px;
-  margin-top: 10px;
-  padding: 10px;
 }
 
 .dropzone-elem {
@@ -183,10 +188,7 @@ button:focus-visible {
   margin-right: 0 !important;
 }
 
-#builder-navigation {
-  border: 1px solid red;
-  margin: 1px;
-}
+#builder-navigation {}
 
 #builder-log {
   border: 1px solid green;
@@ -194,33 +196,35 @@ button:focus-visible {
 }
 
 #builder-container {
-  border: 1px solid green;
-  margin: 1px;
-  width: 100%;
-  height: 100%;
+
+
+  min-height: calc(100vh - 75px);
 }
 
-#builder-components {
-  border: 1px solid blue;
-  margin: 1px;
+.builder-components {
+  border-right: 1px solid #dedede;
+
 }
 
 #builder-content {
-  border: 1px solid gray;
-  margin: 1px;
+  border-right: 1px solid #dedede;
 }
 
 #builder-props {
-  border: 1px solid magenta;
-  margin: 1px;
+
 }
 
 .border-dotted {
   border-style: dotted !important;
-  margin: 2px;
+
 }
 
 .border-props {
   border: 1px solid red !important;
-  margin: 2px;
+
+}
+
+
+button, input, optgroup, select, textarea{
+  max-width: 100%;
 }
