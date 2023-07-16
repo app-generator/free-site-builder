@@ -20,7 +20,8 @@
 | ✅ | **Component Customization** | Text-Only |
 | ✅ | **Grid Components** | This allows to inject predefined rows (2,3,4 columns) |
 | ✅ | **USE Remote Components** | `Yes` |
-| ❌ | **Component Customization** | Images, Links |
+| ✅ | **Component Customization** | Texts, Links |
+| ❌ | **Component Customization** | Links |
 | ❌ | **Component Customization** | CSS |
 | ❌ | **PAGE Customization** | CSS |
 | ❌ | **PAGE Customization** | JS |
