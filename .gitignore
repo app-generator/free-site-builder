@@ -39,3 +39,4 @@ env__/
 .vscode/symbols.json
 app/db.sqlite3
 
+config.bat

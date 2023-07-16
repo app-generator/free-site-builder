@@ -223,10 +223,6 @@ button:focus-visible {
   margin: 1px;
 }
 
-#builder-props {
-  
-}
-
 .border-dotted {
   border-style: dotted !important;
   margin: 2px;
