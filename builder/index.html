@@ -12,55 +12,272 @@
 </head>
 
 <body>
-  <div id="app"></div>
+  <div id="app" class="p-0"></div>
 
   <div id="layout" style="display: none;">
+    <div class="file-preview-main">
+      <div class="container-fluid h-100">
+          <div class="row h-100">
+            <div class="col-md-10 ps-0">
+                <div class="top-navbar bg-light border-bottom border-end d-flex flex-row flex-wrap justify-content-between align-items-center py-3 ps-5 pe-2 mb-2 ">
+                    <span class="ps-5">ads</span>
+                    <span><strong>index.html</strong></span>
+                    <div class="nav-top-btn">
+                      <button class="btn btn-dark btn-sm">Save</button>
+                      <button class="btn btn-primary btn-sm">Download Project</button>
+                      <button class="btn btn-outline-dark btn-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="15px" height="15px" viewBox="0 0 52 52" enable-background="new 0 0 52 52" xml:space="preserve">
+                          <g>
+                            <path d="M51.8,25.1C47.1,15.6,37.3,9,26,9S4.9,15.6,0.2,25.1c-0.3,0.6-0.3,1.3,0,1.8C4.9,36.4,14.7,43,26,43   s21.1-6.6,25.8-16.1C52.1,26.3,52.1,25.7,51.8,25.1z M26,37c-6.1,0-11-4.9-11-11s4.9-11,11-11s11,4.9,11,11S32.1,37,26,37z"/>
+                            <path d="M26,19c-3.9,0-7,3.1-7,7s3.1,7,7,7s7-3.1,7-7S29.9,19,26,19z"/>
+                          </g>
+                        </svg>
+                        Preview
+                      </button>
+                    </div>
+                </div>
 
-    <div class="container-fluid">
+                <div class="components-and-preview-main border-top ">
+                  <div class="add-components-main border-end"> 
+                      <nav>
+                        <div class="nav nav-tabs justify-content-between" id="nav-tab" role="tablist">
+                          <button class="nav-link" id="nav-left-grid-tab" data-bs-toggle="tab" data-bs-target="#grid-left" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Grid</button>
+                          <button class="nav-link active" id="nav-left-component-tab" data-bs-toggle="tab" data-bs-target="#components-left" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Components</button>
+                          <button class="nav-link" id="nav-left-editor-tab" data-bs-toggle="tab" data-bs-target="#editor-left" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Editor</button>
+                          <button class="nav-link" id="nav-left-pages-tab" data-bs-toggle="tab" data-bs-target="#pages-left" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Pages</button>
+                        </div>
+                      </nav>
+                      <div class="tab-content text-start px-0 pt-0" id="nav-tabContent">
+                        <div class="tab-pane fade" id="grid-left" role="tabpanel" aria-labelledby="nav-left-grid-tab">...1</div>
+                        <div class="tab-pane fade show active" id="components-left" role="tabpanel" aria-labelledby="nav-left-component-tab">
+                          <div class="accordion accordion-flush" id="accordionFlushExample">
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="flush-headingOne">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                  Cards
+                                  <span>10</span>
+                                </button>
+                              </h2>
+                              <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+                              </div>
+                            </div>
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="flush-headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                  Charts <span>8</span>
+                                </button>
+                              </h2>
+                              <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+                              </div>
+                            </div>
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="flush-headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                                  Components <span>9</span>
+                                </button>
+                              </h2>
+                              <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+                              </div>
+                            </div>
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="flush-heading4">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse4" aria-expanded="false" aria-controls="flush-collapse4">
+                                  Forms <span>2</span>
+                                </button>
+                              </h2>
+                              <div id="flush-collapse4" class="accordion-collapse collapse" aria-labelledby="flush-heading4" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+                              </div>
+                            </div>
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="flush-heading5">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse5" aria-expanded="false" aria-controls="flush-collapse5">
+                                  Headers <span>1</span>
+                                </button>
+                              </h2>
+                              <div id="flush-collapse5" class="accordion-collapse collapse" aria-labelledby="flush-heading5" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+                              </div>
+                            </div>
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="flush-heading6">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse6" aria-expanded="false" aria-controls="flush-collapse6">
+                                  Tables <span>6</span>
+                                </button>
+                              </h2>
+                              <div id="flush-collapse6" class="accordion-collapse collapse" aria-labelledby="flush-heading6" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+                              </div>
+                            </div>
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="flush-heading7">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse7" aria-expanded="false" aria-controls="flush-collapse7">
+                                  Typography <span>8</span>
+                                </button>
+                              </h2>
+                              <div id="flush-collapse7" class="accordion-collapse collapse" aria-labelledby="flush-heading7" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+                              </div>
+                            </div>
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="flush-heading8">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse8" aria-expanded="false" aria-controls="flush-collapse8">
+                                  Data Integration <span>1</span>
+                                </button>
+                              </h2>
+                              <div id="flush-collapse8" class="accordion-collapse collapse" aria-labelledby="flush-heading8" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+                              </div>
+                            </div>
+                            
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="editor-left" role="tabpanel" aria-labelledby="nav-left-editor-tab">
+                          <div class="editor-features">
+                            <h5 class="text-uppercase">DIv</h5>
+                            <div class="mt-4"> 
+                              <label for="newClass" class="form-label">Classes</label>
+                              <input type="email" class="form-control form-control-sm" id="newClass" placeholder="Add new class">
+                            </div>
+                            <div class="classes-added mt-2">
+                              <button type="button" class="btn btn-dark btn-sm mb-1"> d-flex</button>
+                              <button type="button" class="btn btn-dark btn-sm mb-1 "> flex-wrap</button>
+                              <button type="button" class="btn btn-dark btn-sm mb-1"> flex-row</button>
+                              <button type="button" class="btn btn-dark btn-sm mb-1"> p-4</button>
+                              <button type="button" class="btn btn-dark btn-sm mb-1"> justify-content-between</button>
+                              <button type="button" class="btn btn-dark btn-sm mb-1"> mt-3</button>
+  
+                            </div>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="pages-left" role="tabpanel" aria-labelledby="nav-left-pages-tab">...4</div>
+                      </div> 
+                      <div class="need-more-options">
+                        <span>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 7C9.23858 7 7 9.23858 7 12C7 13.3613 7.54402 14.5955 8.42651 15.4972C8.77025 15.8484 9.05281 16.2663 9.14923 16.7482L9.67833 19.3924C9.86537 20.3272 10.6862 21 11.6395 21H12.3605C13.3138 21 14.1346 20.3272 14.3217 19.3924L14.8508 16.7482C14.9472 16.2663 15.2297 15.8484 15.5735 15.4972C16.456 14.5955 17 13.3613 17 12C17 9.23858 14.7614 7 12 7Z" stroke="#000000" stroke-width="2"/>
+                            <path d="M12 4V3" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M18 6L19 5" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M20 12H21" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M4 12H3" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M5 5L6 6" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M10 17H14" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                        </span>
+                        <div class="options">
+                          <p>Need more options</p>
+                          <a href="#">Let me know what you need.</a>
+                        </div>
+                      </div>
+                  </div> 
+                  <div class="show-preview-main border-start">
+                      <p class="p-2 text-center">+</p>
 
-      <!-- Navigation -->
-      <div class="row" id="builder-navigation">
+                      <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                        
+                        <div class="carousel-inner">
+                          <div class="carousel-item active">
+                            <img src="https://media.istockphoto.com/id/1226232663/photo/cement-floor-and-black-wall-backgrounds-empty-room-interior-use-for-display-products.jpg?b=1&s=612x612&w=0&k=20&c=II9Fx7ATlxfNVDrXRXrrmkpQaBJiiRzYTW71sEPkozk=" class="d-block w-100" alt="...">
+                            <div class="carousel-caption d-none d-md-block">
+                              <h5>Work with the rockets</h5>
+                              <p>Wealth creation is an evolutionarily recent positive-sum game.</p>
+                            </div>
+                          </div>
+                          <div class="carousel-item">
+                            <img src="https://static.vecteezy.com/system/resources/previews/001/905/522/original/dark-blue-background-free-photo.jpg" class="d-block w-100" alt="...">
+                            <div class="carousel-caption d-none d-md-block">
+                              <h5>Second slide label</h5>
+                              <p>Some representative placeholder content for the second slide.</p>
+                            </div>
+                          </div>
+                          <div class="carousel-item">
+                            <img src="https://png.pngtree.com/thumb_back/fh260/background/20210810/pngtree-dark-red-abstract-smoke-cloud-dark-color-background-image_759871.jpg" class="d-block w-100" alt="...">
+                            <div class="carousel-caption d-none d-md-block">
+                              <h5>Third slide label</h5>
+                              <p>Some representative placeholder content for the third slide.</p>
+                            </div>
+                          </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Next</span>
+                        </button>
+                      </div>
 
-        <div class="row justify-content-md-center">
-          <div class="col col-lg-2">
-            <button id="action_clear" type="button" class="btn btn-secondary">clear</button>
+                      <p class="mt-5 text-center" style="font-size: 14px;">Start creating your template bt dragging elements from right <strong>></strong></p>
+                      
+                      <div class="bottom-fixed">
+                          <span>@2023.</span>
+                          <ul>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">License</a></li>
+                          </ul>
+                      </div>
+                  </div>  
+                </div>
+            </div>
+            <div class="col-md-2 px-0 h-100">
+                <div class="aside-bar border-start h-100">
+                  <div class="aside-top-bar">
+                    <nav>
+                      <div class="nav nav-tabs justify-content-between" id="nav-tab" role="tablist">
+                        <button class="nav-link" id="nav-grid-tab" data-bs-toggle="tab" data-bs-target="#grid" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Grid</button>
+                        <button class="nav-link" id="nav-component-tab" data-bs-toggle="tab" data-bs-target="#components" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Components</button>
+                        <button class="nav-link active" id="nav-editor-tab" data-bs-toggle="tab" data-bs-target="#editor" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Editor</button>
+                        <button class="nav-link" id="nav-pages-tab" data-bs-toggle="tab" data-bs-target="#pages" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Pages</button>
+                      </div>
+                    </nav>
+                    <div class="tab-content text-start px-3 pt-3" id="nav-tabContent">
+                      <div class="tab-pane fade" id="grid" role="tabpanel" aria-labelledby="nav-grid-tab">...1</div>
+                      <div class="tab-pane fade" id="components" role="tabpanel" aria-labelledby="nav-component-tab">...2</div>
+                      <div class="tab-pane fade show active" id="editor" role="tabpanel" aria-labelledby="nav-editor-tab">
+                        <div class="editor-features">
+                          <h5 class="text-uppercase">DIv</h5>
+                          <div class="mt-4"> 
+                            <label for="newClass" class="form-label">Classes</label>
+                            <input type="email" class="form-control form-control-sm" id="newClass" placeholder="Add new class">
+                          </div>
+                          <div class="classes-added mt-2">
+                            <button type="button" class="btn btn-dark btn-sm mb-1"> d-flex</button>
+                            <button type="button" class="btn btn-dark btn-sm mb-1 "> flex-wrap</button>
+                            <button type="button" class="btn btn-dark btn-sm mb-1"> flex-row</button>
+                            <button type="button" class="btn btn-dark btn-sm mb-1"> p-4</button>
+                            <button type="button" class="btn btn-dark btn-sm mb-1"> justify-content-between</button>
+                            <button type="button" class="btn btn-dark btn-sm mb-1"> mt-3</button>
+
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tab-pane fade" id="pages" role="tabpanel" aria-labelledby="nav-pages-tab">...4</div>
+                    </div>
+                  </div>
+                  <div class="aside-bottom-bar bg-light border-top d-flex flex-row flex-wrap justify-content-between p-1">
+                      <div class="show-grid-layout">
+                        <span style="font-size: 13px">Show Grid Layout</span><br />
+                        <label class="switch mt-2">
+                          <input type="checkbox" checked>
+                          <span class="slider round"></span>
+                        </label>
+                      </div>
+                      <div class="help-icon me-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px" viewBox="0 0 24 24" fill="none">
+                          <path d="M10.5 8.67709C10.8665 8.26188 11.4027 8 12 8C13.1046 8 14 8.89543 14 10C14 10.9337 13.3601 11.718 12.4949 11.9383C12.2273 12.0064 12 12.2239 12 12.5V12.5V13" stroke="#323232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M12 16H12.01" stroke="#323232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </div>
+                  </div>
+                </div>
+            </div>
           </div>
-          <div class="col col-lg-2">
-            <button id="action_save" type="button" class="btn btn-secondary">save</button>
-          </div>
-          <div class="col col-lg-2">
-            <button id="action_restore" type="button" class="btn btn-secondary">restore</button>
-          </div>
-          <div class="col col-lg-2">
-            <button id="action_undo" type="button" class="btn btn-secondary">undo</button>
-          </div>          
-        </div>
-
       </div>
-
     </div>
-
-    <!-- BUILDER -->
-    <div class="row" id="builder-container">
-      
-      <!-- Components -->
-      <div class="col builder-components" id="builder-components"></div>
-      
-      <!-- Current Page -->
-      <div class="col-8" id="builder-content">
-        <div id="dropzone" class="dropzone">dropzone</div>
-      </div>
-
-      <!-- PROPS -->
-      <div class="col" id="builder-props">
-        <div class="row" id="builder-props-title"></div>
-        <div class="row" id="builder-props-content"></div>
-        <div class="row" id="builder-props-attribute"></div>
-      </div>
-      
-    </div>
-
-  </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
