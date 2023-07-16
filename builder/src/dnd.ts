@@ -291,9 +291,10 @@ export function onKeyUp(event: any, target: any, flag: any) {
     const target_id = target.id;
 
     let activeComponent = document.querySelector('#' + target_id);
+
     if (activeComponent) {
         if(flag === 'attr') {
-            activeComponent.href = event.target.value;
+            activeComponent.setAttribute('href', event.target.value);
         } else {
             activeComponent.innerHTML = event.target.value;
         }
