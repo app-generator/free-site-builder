@@ -16,7 +16,7 @@
 
   <div id="layout" style="display: none;">
     <!-- Navigation -->
-    <ul class="d-flex py-2 no-guttters bg-dark px-3 align-items-center list-unstyled justify-content-end"
+    <ul class="d-flex py-2 no-guttters bg-dark px-3 align-items-center list-unstyled justify-content-center"
       id="builder-navigation">
       <li><button id="action_clear" type="button" class="btn btn-primary me-3">
           <i class="fa-solid fa-eraser me-2"></i>
@@ -47,15 +47,15 @@
             <div class="accordion accordion-flush" id="accordionFlushExample">
               <div class="accordion-item">
                 <h2 class="accordion-header" id="flush-headingThree">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="true" aria-controls="flush-collapseThree">
                     Components
                   </button>
                 </h2>
-                <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                <div id="flush-collapseThree" class="accordion-collapse collapse show" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
                   <div class="accordion-body components_contain"></div>
                 </div>
               </div>
-                            
+
               <div class="accordion-item">
                 <h2 class="accordion-header" id="flush-headingOne">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
@@ -95,19 +95,24 @@
         <div class="col-8 px-3 " id="builder-content">
           <div id="dropzone" class="dropzone h-100">
 
-            <div class="drop-indicator d-flex align-items-center justify-content-center">
+            <div id="drop-here-indicator" class="drop-indicator d-flex align-items-center justify-content-center">
               <div class="p-4 shadow bg-white rounded-3 text-center">
-                <span class="icon text-primary h3">
+                <span class="icon text-primary h5">
                   <i class="fa-solid fa-circle-plus"></i>
                 </span>
-                <h6 class="mt-3">Drop Here...</h6>
+                <h6 class="mt-1">Drop Here...</h6>
               </div>
             </div>
+            
           </div>
         </div>
 
         <!-- PROPS -->
         <div class="col-2 px-3 bg-white rounded-2 overflow-hidden border shadow" id="builder-props">
+          <h5 class="py-2 px-3 border-bottom mb-3">
+            <i class="fa-solid fa-edit me-1 "></i>
+            PROPS
+          </h5>          
           <div id="builder-props-title"></div>
           <div id="builder-props-content"></div>
           <div id="builder-props-attribute"></div>
