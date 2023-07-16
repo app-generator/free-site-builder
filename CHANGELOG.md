@@ -3,7 +3,7 @@
 ## [0.0.8] 2023-07-16
 ### Changes
 
-- Component Customization, coded by [topstar210](https://github.com/topstar210)
+- `Component Customization`, coded by [topstar210](https://github.com/topstar210)
   - Text & Links
 
 ## [0.0.7] 2023-07-13
