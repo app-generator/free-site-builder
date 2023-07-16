@@ -23,7 +23,7 @@ function downloadComponents() {
 
         //console.log( component );
 
-        let componentsContainer = document.getElementsByClassName('builder-components')[0];
+        let componentsContainer = document.getElementsByClassName('components_contain')[0];
 
         var div = document.createElement('div');
         div.innerHTML = component.trim();
