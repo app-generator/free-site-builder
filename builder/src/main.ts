@@ -72,3 +72,4 @@ for (let i = 0; i < dropZones.length; i++) {
 onRestore(null);
 
 setupGlobalEvents();
+
