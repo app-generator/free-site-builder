@@ -96,11 +96,9 @@ Here is the output:
 
 <br />
 
-## License
+## [License EULA ](./LICENSE.md)
 
-[EULA License](./LICENSE.md)
-
-For more information regarding licensing, please contact the [AppSeed](http://appseed.us/) Service < *support@appseed.us* >.
+For more information regarding `licensing`, please contact [AppSeed](http://appseed.us/), < *support@appseed.us* >.
 
 <br />
 
