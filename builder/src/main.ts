@@ -67,8 +67,8 @@ function misc() {
 }
 
 function openPreviewModal() {
-    let previewModal = document.querySelector('#previewModal');
-    let previewFrame = document.querySelector('#previewFrame');
+    let previewModal = document.querySelector('#previewModal') as HTMLElement;
+    let previewFrame = document.querySelector('#previewFrame') as HTMLIFrameElement;
     let dropzone = document.querySelector('#dropzone');
   
     // Load the content of the dropzone into the iframe
@@ -115,14 +115,14 @@ function openPreviewModal() {
 }
   
   function closePreviewModal() {
-    let previewModal = document.querySelector('#previewModal');
+    let previewModal = document.querySelector('#previewModal') as HTMLElement;
   
     // Hide the modal
     previewModal.style.display = "none";
   }
   
-  function setPreviewMode(mode) {
-    let previewFrame = document.querySelector('#previewFrame');
+  function setPreviewMode(mode: 'fullScreen' | 'tablet' | 'mobile') {
+    let previewFrame = document.querySelector('#previewFrame') as HTMLElement;
   
     // Set the width of the iframe based on the selected mode
     switch (mode) {
