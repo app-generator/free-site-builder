@@ -423,7 +423,10 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
   font-weight: 400;
   margin-top: 50px;
 }
-.drpznBttm img {margin-left: 1px;}
+.drpznBttm img {
+  margin-right: 1px;
+  transform: rotate(180deg);
+}
 .footer {
   position: absolute;
   left: 0;
@@ -711,3 +714,10 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
 body body {
   padding: 15px !important;
 }
+.helpText {
+  font-size: 13px;
+  font-weight: 400;
+  color: #1e1e1e;
+  margin: 15px 0;
+}
+.drop-indicator {display: none !important;}

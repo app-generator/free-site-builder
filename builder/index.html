@@ -66,27 +66,31 @@
       <aside class="leftAside">
         <button class="Click menuLeftbtn"><i class="fa-solid fa-chevron-right"></i></button>
         <ul class="nav nav-tabs defTabs" id="myTab" role="tablist">
-          <li class="nav-item" role="presentation">
+          <!-- <li class="nav-item" role="presentation">
             <button class="nav-link" id="grid-tab" data-bs-toggle="tab" data-bs-target="#grid" type="button" role="tab"
               aria-controls="grid" aria-selected="false">Grid</button>
-          </li>
+          </li> -->
           <li class="nav-item" role="presentation">
             <button class="nav-link active" id="components-tab" data-bs-toggle="tab" data-bs-target="#components"
               type="button" role="tab" aria-controls="components" aria-selected="true">Components</button>
           </li>
           <li class="nav-item" role="presentation">
+            <button class="nav-link" id="help-tab" data-bs-toggle="tab" data-bs-target="#help" type="button"
+              role="tab" aria-controls="help" aria-selected="false">Help</button>
+          </li>
+          <!-- <li class="nav-item" role="presentation">
             <button class="nav-link" id="editor-tab" data-bs-toggle="tab" data-bs-target="#editor" type="button"
               role="tab" aria-controls="editor" aria-selected="false">Editor</button>
-          </li>
-          <li class="nav-item" role="presentation">
+          </li> -->
+          <!-- <li class="nav-item" role="presentation">
             <button class="nav-link" id="page-tab" data-bs-toggle="tab" data-bs-target="#page" type="button" role="tab"
               aria-controls="page" aria-selected="false">Page</button>
-          </li>
+          </li> -->
         </ul>
         <div class="tab-content forScroll" id="myTabContent">
-          <div class="tab-pane fade" id="grid" role="tabpanel" aria-labelledby="grid-tab">
+          <!-- <div class="tab-pane fade" id="grid" role="tabpanel" aria-labelledby="grid-tab">
             Grid
-          </div>
+          </div> -->
           <div class="tab-pane fade show active" id="components" role="tabpanel" aria-labelledby="components-tab">
             <div class="accordion accordionCustom" id="accordionExample">
               <div class="accordion-item">
@@ -211,8 +215,11 @@
               </div> -->
             </div>
           </div>
-          <div class="tab-pane fade" id="editor" role="tabpanel" aria-labelledby="editor-tab">Editor</div>
-          <div class="tab-pane fade" id="page" role="tabpanel" aria-labelledby="page-tab">Page</div>
+          <div class="tab-pane fade" id="help" role="tabpanel" aria-labelledby="help-tab">
+            <p class="helpText">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+          </div>
+          <!-- <div class="tab-pane fade" id="editor" role="tabpanel" aria-labelledby="editor-tab">Editor</div>
+          <div class="tab-pane fade" id="page" role="tabpanel" aria-labelledby="page-tab">Page</div> -->
           <div class="forPdng">
             <a href="#" class="moreOption">
               <img src="/img/more.png" alt="" />
@@ -326,19 +333,15 @@
       <div class="rowa" id="builder-container">
         <!-- Current Page -->
         <div class="mainBuilder" id="builder-content">
-          <div id="drop-here-indicator">
-            <div class="addPage">
-              <button type="button" class="btn"><i class="fa-solid fa-plus"></i></button>
-            </div>
-          </div>
+          <div id="drop-here-indicator"></div>
           
           <!-- <div id="dropzone" class="dropzone">dropzone</div> -->
           <div id="dropzone" class="dropzone"></div>
           <!-- PROPS -->
           
           <div class="drpznBttm">
-            Start creating your template by dragging elements from right
             <img src="/img/arrow.png" alt="" />
+            Start creating your template by dragging elements from LEFT
           </div>
           <div class="footer">
             <p>© 2023,</p>
