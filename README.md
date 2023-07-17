@@ -54,9 +54,16 @@ $ yarn build  # production  (dist FOLDER)
 > Managed by `Flask` (optional). By default, a **[LIVE Components Server](https://components-server.onrender.com/kits/)** is used.
 
 ```bash
-$ cd rocket-builder/builder
+$ cd rocket-builder/backend
+$
 $ virtualenv env
-$ source env/bin/activate
+$ # Or
+$ python -m venv env 
+$
+$ source env/bin/activate  # Linux
+$ # Or
+$ .\env\Scripts\activate   # Windows
+$
 $ pip install -r requirements.txt
 $ flask run --debug
 ```
@@ -93,6 +100,32 @@ Here is the output:
     }
 }
 ```
+
+<br />
+
+## Add new component
+
+- Navigate to `backend/apps/templates/bs5/components`
+- create the component like `footer.html`
+- Edit the file and add the HTML code
+- Compute the `Base64` hash using service:
+  - https://www.base64encode.org/
+- Update `info.json` and add the new component using existing category or a new one
+  - Syntax:
+
+```json
+... (truncated) ...
+        "components": {
+            "footer": {
+                "footer.html": "BASE64_Hash HERE"
+            }, 
+        }   
+... (truncated) ...         
+```
+
+> NOTE: The UI Builder uses the `local storage` to cache the `info.json` pulled from the server.
+
+In order to have the latest version, please open an incognito window or clean manually the data from the local storage.
 
 <br />
 
