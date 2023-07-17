@@ -79,7 +79,7 @@ export function onDrop(event: any) {
 
     if (content) {
         content.className = "d-none";
-    }
+    }     
 
     console.log(' > CONTAINER: ' + event.target.id);
     console.log(' > Component: ' + editableComponent.dataset.type);
