@@ -1,5 +1,27 @@
 # Change Log
 
+## [0.0.13] 2023-07-17
+### Changes
+
+- UI Improvements
+  - Nicer GriD
+  - Dynamic Sidebar Fixes
+- LIVE Updates:
+  - [Components Server - BS5](https://components-server.onrender.com/kits/bs5/)
+  - [Dnd Builder](https://rocket-builder.onrender.com/)  
+
+## [0.0.12] 2023-07-17
+### Changes
+
+- DOCS Update (readme)
+
+## [0.0.11] 2023-07-17
+### Changes
+
+- Dynamic Sidebar
+- LocalStorage for Speed
+- Overall UI Improvements
+
 ## [0.0.10] 2023-07-16
 ### Changes
 
