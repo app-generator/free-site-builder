@@ -1,5 +1,12 @@
 # Change Log
 
+## [0.0.11] 2023-07-17
+### Changes
+
+- Dynamic Sidebar
+- LocalStorage for Speed
+- Overall UI Improvements
+
 ## [0.0.10] 2023-07-16
 ### Changes
 
