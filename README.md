@@ -18,7 +18,7 @@
 | --- | --- | --- |
 | ✅ | **Core** |  `Vanilla JS` |
 | ✅ | **Components** | `Bootstrap 5` |
-| ✅ | **Remote Components Server** | https://components-server.onrender.com/kits/ |
+| ✅ | **Remote Components Server** | https://components-server.onrender.com/kits/bs5/ |
 | ✅ | **Persistence** (local storage) | Save, Restore, Clear |
 | ✅ | **One-Page Layout** | `Single Component` Drag & Drop |
 | ✅ | **Component Customization** | Text-Only |
