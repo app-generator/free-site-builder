@@ -25,7 +25,7 @@
 | ✅ | **Grid Components** | This allows to inject predefined rows (2,3,4 columns) |
 | ✅ | **USE Remote Components** | `Yes` |
 | ✅ | **Component Customization** | Texts, Links |
-| ❌ | **Component Customization** | Links |
+| ❌ | **Component Customization** | Images |
 | ❌ | **Component Customization** | CSS |
 | ❌ | **PAGE Customization** | CSS |
 | ❌ | **PAGE Customization** | JS |
