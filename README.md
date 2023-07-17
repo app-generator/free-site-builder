@@ -8,7 +8,7 @@
 
 <br />
 
-![Rocket Builder - Open-Source DnD project crafted by AppSeed.](https://github.com/app-generator/rocket-builder/assets/51070104/05a3b4da-3c9e-4c84-a74c-f407f0d63324)
+![Rocket Builder - Open-Source DnD project crafted by AppSeed.](https://github.com/app-generator/rocket-builder/assets/51070104/5a6ac9fc-4620-4d2e-8750-e09f99be843e)
 
 <br />
 
@@ -25,7 +25,7 @@
 | ✅ | **Grid Components** | This allows to inject predefined rows (2,3,4 columns) |
 | ✅ | **USE Remote Components** | `Yes` |
 | ✅ | **Component Customization** | Texts, Links |
-| ❌ | **Component Customization** | Links |
+| ❌ | **Component Customization** | Images |
 | ❌ | **Component Customization** | CSS |
 | ❌ | **PAGE Customization** | CSS |
 | ❌ | **PAGE Customization** | JS |

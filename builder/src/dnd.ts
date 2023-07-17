@@ -42,6 +42,9 @@ export function onDragStart(event: any) {
 export function onDragOver(event: any) {
     console.log(' > onDrag_OVER() ');
 
+    let dropIndicator = <HTMLElement>document.getElementById('drop-here-indicator');
+    dropIndicator.style.display = 'none';
+
     // Remove all previous    
     remClassProcessor('border-dotted');
 
@@ -73,8 +76,10 @@ export function onDrop(event: any) {
 
     let editableComponent = <HTMLElement>document.getElementById(id)!.cloneNode(true);
     let content = <HTMLElement>document.querySelector('.drop-indicator');
-    content.className = "d-none";
 
+    if (content) {
+        content.className = "d-none";
+    }      
 
     console.log(' > CONTAINER: ' + event.target.id);
     console.log(' > Component: ' + editableComponent.dataset.type);
@@ -233,13 +238,13 @@ export function onClick(event: any) {
         let propsPanel_content = <HTMLElement>document.querySelector('#builder-props-content');
         let propsPanel_attribute = <HTMLElement>document.querySelector('#builder-props-attribute');
 
-        propsPanel_title.className = "p-2 rounded-1 border mt-2 bg-light";
+        propsPanel_title.className = "p-2 rounded-1 border mt-2 bg-light text-center";
         propsPanel_content.className = "p-2 rounded-1 border mt-2 bg-light";
         propsPanel_attribute.className = "p-2 rounded-1 border mt-2 bg-light";
 
-        propsPanel_title.innerHTML = 'Props for ' + event.target.id;
+        propsPanel_title.innerHTML = 'Component<br />' + event.target.id;
 
-        propsPanel_content.innerHTML = '<input id="props_text" class="form-control" data-target="' + event.target.id + '" value="' + event.target.innerHTML + '" />';
+        propsPanel_content.innerHTML = '<input id="props_text" class="form-control text-left" data-target="' + event.target.id + '" value="' + event.target.innerHTML + '" />';
 
         let selectedComponent = event.target;
         if (elem.nodeName === "A") {

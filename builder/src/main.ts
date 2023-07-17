@@ -43,6 +43,15 @@ document.querySelector('#action_save')!.addEventListener('click', (event) => { o
 document.querySelector('#action_restore')!.addEventListener('click', (event) => { onRestore(event) });
 document.querySelector('#action_undo')!.addEventListener('click', (event) => { onRestore(event) });
 
+// SETUP Preview
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector('#action_preview')!.addEventListener('click', openPreviewModal);
+    document.querySelector('#closeModal')!.addEventListener('click', closePreviewModal);
+    document.querySelector('#fullScreenOption')!.addEventListener('click', () => setPreviewMode('fullScreen'));
+    document.querySelector('#tabletOption')!.addEventListener('click', () => setPreviewMode('tablet'));
+    document.querySelector('#mobileOption')!.addEventListener('click', () => setPreviewMode('mobile'));
+});
+
 // PULL Components 
 downloadComponents().then(misc)
 
@@ -56,6 +65,78 @@ function misc() {
         draggableElems[i].addEventListener('dragend', (event) => { onDragEnd(event) });
     }   
 }
+
+function openPreviewModal() {
+    let previewModal = document.querySelector('#previewModal');
+    let previewFrame = document.querySelector('#previewFrame');
+    let dropzone = document.querySelector('#dropzone');
+  
+    // Load the content of the dropzone into the iframe
+    let iframeContent = `
+      <html>
+        <head>
+          <style>
+            ${Array.from(document.styleSheets)
+              .map(sheet => {
+                try {
+                  return Array.from(sheet.cssRules)
+                    .map(rule => rule.cssText)
+                    .join('\n');
+                } catch (e) {
+                  console.warn('Cannot load styles from stylesheet', e);
+                  return '';
+                }
+              })
+              .join('\n')}
+          </style>
+        </head>
+        <body>
+          ${dropzone?.innerHTML}
+        </body>
+        <script>
+          // Disable contentEditable for all elements
+          const allElements = document.getElementsByTagName('*');
+          for (let i=0; i<allElements.length; i++) {
+            allElements[i].contentEditable = "false";
+          }
+
+          // Ensure all links open in a new tab
+          const allLinks = document.getElementsByTagName('a');
+          for (let i=0; i<allLinks.length; i++) {
+            allLinks[i].target = "_blank";
+          }
+        </script>
+      </html>
+    `;
+    previewFrame.srcdoc = iframeContent;
+  
+    // Show the modal
+    previewModal.style.display = "block";
+}
+  
+  function closePreviewModal() {
+    let previewModal = document.querySelector('#previewModal');
+  
+    // Hide the modal
+    previewModal.style.display = "none";
+  }
+  
+  function setPreviewMode(mode) {
+    let previewFrame = document.querySelector('#previewFrame');
+  
+    // Set the width of the iframe based on the selected mode
+    switch (mode) {
+      case 'fullScreen':
+        previewFrame.style.width = "100%";
+        break;
+      case 'tablet':
+        previewFrame.style.width = "768px";
+        break;
+      case 'mobile':
+        previewFrame.style.width = "375px";
+        break;
+    }
+  }
 
 // SETUP Master DROP Zone
 document.querySelector('#dropzone')!.addEventListener('dragover', (event) => { onDragOver(event) });
