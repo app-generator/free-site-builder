@@ -1,4 +1,5 @@
 import './style.css'
+import JSZip from 'jszip';
 import { onDragStart, onDragEnd, onDragOver, onDrop, onClear, onSave, onRestore, setupGlobalEvents} from './dnd.ts'
 
 //fetch('http://127.0.0.1:5000/kits/bs5/div.html') 
@@ -79,6 +80,7 @@ document.querySelector('#action_undo')!.addEventListener('click', (event) => { o
 // SETUP Preview
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#action_preview')!.addEventListener('click', openPreviewModal);
+    document.querySelector('#action_download')!.addEventListener('click', downloadHanlder);
     document.querySelector('#closeModal')!.addEventListener('click', closePreviewModal);
     document.querySelector('#fullScreenOption')!.addEventListener('click', () => setPreviewMode('fullScreen'));
     document.querySelector('#tabletOption')!.addEventListener('click', () => setPreviewMode('tablet'));
@@ -97,6 +99,39 @@ function misc() {
         draggableElems[i].addEventListener('dragstart', (event) => { onDragStart(event) });
         draggableElems[i].addEventListener('dragend', (event) => { onDragEnd(event) });
     }   
+}
+function downloadHanlder() {
+  let zip:any = new JSZip();
+  let dropzone = document.querySelector('#dropzone') as HTMLElement;
+
+  const htmlContent = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>Selected Element</title>
+      </head>
+      <body>
+        ${dropzone.outerHTML}
+      </body>
+    </html>
+  `;
+
+  // Add the HTML file to the zip
+  zip.file('index.html', htmlContent);
+
+  // Generate the zip file
+  zip.generateAsync({ type: 'blob' })
+    .then(function(content:any) {
+      // Create a download link
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(content);
+      link.download = 'archive.zip';
+
+      // Trigger the download
+      link.click();
+    });
+
+  console.log(dropzone);
 }
 
 function openPreviewModal() {
