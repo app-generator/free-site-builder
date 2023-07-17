@@ -8,31 +8,66 @@ import { onDragStart, onDragEnd, onDragOver, onDrop, onClear, onSave, onRestore,
 
 // Using Promise syntax:
 function downloadComponents() {
-
-    //return fetch('http://localhost:5000/kits/bs5/')
-    return fetch('https://components-server.onrender.com/kits/bs5/')
-      .then(response => response.text())
-      .then( response_raw => {
-
-        //console.log( response_raw );    
-
-        let response_json = JSON.parse( response_raw );
-
-        let component_base64 = response_json['content']['components']['general']['card.html'];
-        let component        = atob( component_base64 );
-
-        //console.log( component );
-
-        let componentsContainer = document.getElementsByClassName('components_contain')[0];
-
-        var div = document.createElement('div');
-        div.innerHTML = component.trim();
-
-        componentsContainer.appendChild(<Node>div.firstChild);
-
-      })
-      .catch(error => console.error(error));
+    let loading = document.querySelector('#overlay') as HTMLElement;
+    
+    let localStorageData = window.localStorage.getItem('components');
+    if (localStorageData) {
+      let localStorageParsedData = JSON.parse(<string>window.localStorage.getItem('components'));
+      return new Promise((resolve) => {
+        // Simulating an asynchronous operation
+        resolve(drawComponents(localStorageParsedData));
+      });
+    } else {
+      loading.style.display = 'flex';
+      
+      //return fetch('http://127.0.0.1:5000/kits/bs5/')                 // local version
+      return fetch('https://components-server.onrender.com/kits/bs5/')  // distant server (default) 
+        .then(response => response.text())
+        .then( response_raw => {
+          loading.style.display = 'none';
+          let response_json = JSON.parse( response_raw );
+          window.localStorage.setItem('components', JSON.stringify(response_json))
+          drawComponents(response_json);
+        })
+        .catch(error => console.error(error));
+    }
 }
+
+function drawComponents(response_json:any) {
+  let components = response_json['content']['components'];
+  let component = '';
+  for (let item in components) {
+    let subComponents = components[item];
+    let gridStr = '';
+    for (let subItem in subComponents) {
+      let component_grid_base64 = subComponents[subItem];
+      gridStr += atob( component_grid_base64 );
+
+    }
+    var gridSize = Object.keys(subComponents).length;
+    component += `
+      <div class="accordion-item">
+      <h2 class="accordion-header" id="headingTwo2-${item}">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+          data-bs-target="#collapseTwo2-${item}" aria-expanded="false" aria-controls="collapseTwo2-${item}">
+          ${item}
+          <span class="forNumbers">${gridSize}</span>
+        </button>
+      </h2>
+      <div id="collapseTwo2-${item}" class="accordion-collapse collapse" aria-labelledby="headingTwo2-${item}"
+        data-bs-parent="#accordionComponents">
+        <div class="accordion-body">
+          ${gridStr}
+        </div>
+      </div>
+    </div>`;
+  }
+  let componentsContainer = document.getElementsByClassName('components_contain')[0];
+  var div = document.createElement('div');
+  div.innerHTML = component.trim();
+  componentsContainer.appendChild(<Node>div);
+}
+
 
 let builderContainer = document.querySelector('#layout')!.innerHTML;
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = builderContainer;

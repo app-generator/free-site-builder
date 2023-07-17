@@ -18,12 +18,10 @@
       <header class="header">
         <div class="container-fluid">
           <div class="innerHeader">
-            <div class="adBox">
-              <input type="text" placeholder="ads" class="adsInput" />
-            </div>
-            <div class="pageName">
-              index.html
-            </div>
+
+            <div class="adBox"></div>
+            <div class="pageName"></div>
+
             <div class="headerActions">
               <button id="action_clear" type="button" class="btn btn-outline-danger"><i class="fa-solid fa-eraser"></i><span> Clear</span></button>
               <button id="action_save" type="button" class="btn btn-primary btnDefault"><i
@@ -37,31 +35,6 @@
           </div>
         </div>
       </header>
-      <!-- Navigation -->
-      <!-- <ul class="d-flex py-2 no-guttters bg-dark px-3 align-items-center list-unstyled justify-content-center"
-        id="builder-navigation">
-
-        <li><button id="action_clear" type="button" class="btn btn-primary me-2">
-            <i class="fa-solid fa-eraser me-2"></i>
-            Clear</button></li>
-
-        <li><button id="action_save" type="button" class="btn btn-success me-2">
-            <i class="fa-solid fa-floppy-disk me-2"></i>
-            Save</button></li>
-
-        <li><button id="action_restore" type="button" class="btn btn-info text-white me-2">
-            <i class="fa-solid fa-trash-can-arrow-up me-2"></i>
-            Restore</button></li>
-
-        <li><button id="action_undo" type="button" class="btn btn-warning text-white me-2">
-            <i class="fa-solid fa-rotate-left"></i>
-            Undo</button></li>
-
-        <li><button id="action_preview" class="btn btn-primary">Preview</button>
-          <i class="fa-solid fa-rotate-left"></i>
-          Undo</button>
-        </li>
-      </ul> -->
       <!-- aside left -->
       <aside class="leftAside">
         <button class="Click menuLeftbtn"><i class="fa-solid fa-chevron-right"></i></button>
@@ -92,128 +65,13 @@
             Grid
           </div> -->
           <div class="tab-pane fade show active" id="components" role="tabpanel" aria-labelledby="components-tab">
-            <div class="accordion accordionCustom" id="accordionExample">
-              <div class="accordion-item">
-                <h2 class="accordion-header" id="headingThree">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-                    Components
-                    <span class="forNumbers">1</span>
-                  </button>
-                </h2>
-                <div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingThree"
-                  data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    <div class="col components_contain" id="builder-components"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="accordion-item">
-                <h2 class="accordion-header" id="headingOne">
-                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                    aria-expanded="false" aria-controls="collapseOne">
-                    Cards <span class="forNumbers">0</span>
-                  </button>
-                </h2>
-                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
-                  data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    No data currently
-                  </div>
-                </div>
-              </div>
-              <div class="accordion-item">
-                <h2 class="accordion-header" id="headingTwo">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    Charts
-                    <span class="forNumbers">0</span>
-                  </button>
-                </h2>
-                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                  data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    No data currently
-                  </div>
-                </div>
-              </div>
-
-              <div class="accordion-item">
-                <h2 class="accordion-header" id="headingFour">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                    Forms
-                    <span class="forNumbers">0</span>
-                  </button>
-                </h2>
-                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
-                  data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    No data currently
-                  </div>
-                </div>
-              </div>
-              <!-- <div class="accordion-item">
-                <h2 class="accordion-header" id="headingFive">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                    Headers
-                    <span class="forNumbers">1</span>
-                  </button>
-                </h2>
-                <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
-                  data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    as
-                  </div>
-                </div>
-              </div>
-              <div class="accordion-item">
-                <h2 class="accordion-header" id="headingSix">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                    Tables
-                    <span class="forNumbers">6</span>
-                  </button>
-                </h2>
-                <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix"
-                  data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    as
-                  </div>
-                </div>
-              </div>
-              <div class="accordion-item">
-                <h2 class="accordion-header" id="headingSeven">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-                    Typography
-                    <span class="forNumbers">8</span>
-                  </button>
-                </h2>
-                <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven"
-                  data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    as
-                  </div>
-                </div>
-              </div>
-              <div class="accordion-item">
-                <h2 class="accordion-header" id="headingEight">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-                    Data-Information <span class="betaText">Beta</span>
-                    <span class="forNumbers">8</span>
-                  </button>
-                </h2>
-                <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight"
-                  data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    as
-                  </div>
-                </div>
-              </div> -->
+            <div id="overlay" class="overlay">
+              <p class="text-white">
+                Loading from the server...
+              </p>
+              <div class="spinner"></div>
             </div>
+            <div class="accordion accordionCustom components_contain" id="accordionComponents"></div>
           </div>
           <div class="tab-pane fade" id="help" role="tabpanel" aria-labelledby="help-tab">
             <p class="helpText">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
@@ -221,11 +79,11 @@
           <!-- <div class="tab-pane fade" id="editor" role="tabpanel" aria-labelledby="editor-tab">Editor</div>
           <div class="tab-pane fade" id="page" role="tabpanel" aria-labelledby="page-tab">Page</div> -->
           <div class="forPdng">
-            <a href="#" class="moreOption">
+            <a target="_blank" href="https://appseed.us/support/" class="moreOption">
               <img src="/img/more.png" alt="" />
               <div>
-                <h6>Need more options?</h6>
-                <p>Let us know what you need.
+                <h6>Need Help?</h6>
+                <p>Get in touch with Support</p>
               </div>
             </a>
           </div>
@@ -341,13 +199,15 @@
           
           <div class="drpznBttm">
             <img src="/img/arrow.png" alt="" />
-            Start creating your template by dragging elements from LEFT
+            <strong>Start by dragging elements from LEFT</strong>
           </div>
           <div class="footer">
-            <p>© 2023,</p>
+            <p> 
+                &copy; <a target="_blank" href="https://appseed.us/">AppSeed</a>
+            </p>
             <div class="footerLinks">
-              <a href="#">Blog</a>
-              <a href="#">Licence</a>
+              <a target="_blank" href="https://github.com/app-generator/rocket-builder">Sources</a>
+              <a target="_blank" href="https://github.com/app-generator/rocket-builder/issues">Contribute</a>
             </div>
           </div>
         </div>
