@@ -11,28 +11,92 @@ function downloadComponents() {
 
     //return fetch('http://localhost:5000/kits/bs5/')
     return fetch('https://components-server.onrender.com/kits/bs5/')
-      .then(response => response.text())
-      .then( response_raw => {
+    .then(response => response.text())
+    .then( response_raw => {
 
-        //console.log( response_raw );    
+      //console.log( response_raw );    
 
-        let response_json = JSON.parse( response_raw );
+      let response_json = JSON.parse( response_raw );
 
-        let component_base64 = response_json['content']['components']['general']['card.html'];
-        let component        = atob( component_base64 );
+      console.log(response_json['content']['components']);
+      let components = response_json['content']['components'];
+      let component = '<div class="accordion subaccordionCustom" id="subaccordionExample">';
 
-        //console.log( component );
+      for (let item in components) {
+        let subComponents = components[item];
+        let gridStr = '';
+        console.log(item);
+        for (let subItem in subComponents) {
+          let component_grid_base64 = subComponents[subItem];
+          gridStr += atob( component_grid_base64 );
 
-        let componentsContainer = document.getElementsByClassName('components_contain')[0];
+        }
 
-        var div = document.createElement('div');
-        div.innerHTML = component.trim();
+        var gridSize = Object.keys(subComponents).length;
+        component += `
+          <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTwo2-`+item+`">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseTwo2-`+item+`" aria-expanded="false" aria-controls="collapseTwo2-`+item+`">
+              `+item+`
+              <span class="forNumbers">`+gridSize+`</span>
+            </button>
+          </h2>
+          <div id="collapseTwo2-`+item+`" class="accordion-collapse collapse" aria-labelledby="headingTwo2-`+item+`"
+            data-bs-parent="#subaccordionExample">
+            <div class="accordion-body">
+              `+gridStr+`
+            </div>
+          </div>
+        </div>`;
+      }
+      component        += '</div>';
+      
+      // console.log( component, "test" );
+      let componentsContainer = document.getElementsByClassName('components_contain')[0];
 
-        componentsContainer.appendChild(<Node>div.firstChild);
+      var div = document.createElement('div');
+      div.innerHTML = component.trim();
 
-      })
-      .catch(error => console.error(error));
+      componentsContainer.appendChild(<Node>div);
+    })
+    .catch(error => console.error(error));
 }
+
+// <div class="accordion subaccordionCustom" id="subaccordionExample">
+  // <div class="accordion-item">
+  //   <h2 class="accordion-header" id="headingTwo2">
+  //     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+  //       data-bs-target="#collapseTwo2" aria-expanded="false" aria-controls="collapseTwo2">
+  //       Charts2
+  //       <span class="forNumbers">0</span>
+  //     </button>
+  //   </h2>
+  //   <div id="collapseTwo2" class="accordion-collapse collapse" aria-labelledby="headingTwo2"
+  //     data-bs-parent="#subaccordionExample">
+  //     <div class="accordion-body">
+  //       No data currently
+  //     </div>
+  //   </div>
+  // </div>
+//   <div class="accordion-item">
+//     <h2 class="accordion-header" id="headingFour2">
+//       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+//         data-bs-target="#collapseFour2" aria-expanded="false" aria-controls="collapseFour2">
+//         Forms2
+//         <span class="forNumbers">0</span>
+//       </button>
+//     </h2>
+//     <div id="collapseFour2" class="accordion-collapse collapse" aria-labelledby="headingFour2"
+//       data-bs-parent="#subaccordionExample">
+//       <div class="accordion-body">
+//         No data currently
+//       </div>
+//     </div>
+//   </div>
+// </div>
+// Load dynamic left sidebar
+
 
 let builderContainer = document.querySelector('#layout')!.innerHTML;
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = builderContainer;
