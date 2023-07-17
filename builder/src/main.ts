@@ -18,14 +18,12 @@ function downloadComponents() {
 
       let response_json = JSON.parse( response_raw );
 
-      console.log(response_json['content']['components']);
       let components = response_json['content']['components'];
       let component = '<div class="accordion subaccordionCustom" id="subaccordionExample">';
 
       for (let item in components) {
         let subComponents = components[item];
         let gridStr = '';
-        console.log(item);
         for (let subItem in subComponents) {
           let component_grid_base64 = subComponents[subItem];
           gridStr += atob( component_grid_base64 );
@@ -62,40 +60,6 @@ function downloadComponents() {
     })
     .catch(error => console.error(error));
 }
-
-// <div class="accordion subaccordionCustom" id="subaccordionExample">
-  // <div class="accordion-item">
-  //   <h2 class="accordion-header" id="headingTwo2">
-  //     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-  //       data-bs-target="#collapseTwo2" aria-expanded="false" aria-controls="collapseTwo2">
-  //       Charts2
-  //       <span class="forNumbers">0</span>
-  //     </button>
-  //   </h2>
-  //   <div id="collapseTwo2" class="accordion-collapse collapse" aria-labelledby="headingTwo2"
-  //     data-bs-parent="#subaccordionExample">
-  //     <div class="accordion-body">
-  //       No data currently
-  //     </div>
-  //   </div>
-  // </div>
-//   <div class="accordion-item">
-//     <h2 class="accordion-header" id="headingFour2">
-//       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-//         data-bs-target="#collapseFour2" aria-expanded="false" aria-controls="collapseFour2">
-//         Forms2
-//         <span class="forNumbers">0</span>
-//       </button>
-//     </h2>
-//     <div id="collapseFour2" class="accordion-collapse collapse" aria-labelledby="headingFour2"
-//       data-bs-parent="#subaccordionExample">
-//       <div class="accordion-body">
-//         No data currently
-//       </div>
-//     </div>
-//   </div>
-// </div>
-// Load dynamic left sidebar
 
 
 let builderContainer = document.querySelector('#layout')!.innerHTML;
