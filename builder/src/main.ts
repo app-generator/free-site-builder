@@ -13,7 +13,7 @@ function downloadComponents() {
     let localStorageData = window.localStorage.getItem('components');
     if (localStorageData) {
       let localStorageParsedData = JSON.parse(<string>window.localStorage.getItem('components'));
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         // Simulating an asynchronous operation
         resolve(drawComponents(localStorageParsedData));
       });
