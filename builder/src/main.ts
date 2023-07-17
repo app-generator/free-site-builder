@@ -1,4 +1,5 @@
 import './style.css'
+import style from './style.css';
 import JSZip from 'jszip';
 import { onDragStart, onDragEnd, onDragOver, onDrop, onClear, onSave, onRestore, setupGlobalEvents} from './dnd.ts'
 
@@ -105,21 +106,25 @@ function misc() {
 function downloadHanlder() {
   let zip:any = new JSZip();
   let dropzone = document.querySelector('#dropzone') as HTMLElement;
-
   const htmlContent = `
     <!DOCTYPE html>
     <html>
       <head>
-        <title>Selected Element</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>HTML</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+        <link href="assets/css/index.css" rel="stylesheet">
       </head>
       <body>
         ${dropzone.outerHTML}
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
       </body>
     </html>
   `;
 
   // Add the HTML file to the zip
   zip.file('index.html', htmlContent);
+  zip.file('assets/css/index.css', style);
 
   // Generate the zip file
   zip.generateAsync({ type: 'blob' })
