@@ -238,17 +238,17 @@ export function onClick(event: any) {
         let propsPanel_content = <HTMLElement>document.querySelector('#builder-props-content');
         let propsPanel_attribute = <HTMLElement>document.querySelector('#builder-props-attribute');
 
-        propsPanel_title.className = "p-2 rounded-1 border mt-2 bg-light text-center";
-        propsPanel_content.className = "p-2 rounded-1 border mt-2 bg-light";
-        propsPanel_attribute.className = "p-2 rounded-1 border mt-2 bg-light";
+        propsPanel_title.className = "p-2 rounded-1 border mb-2 bg-light text-center";
+        propsPanel_content.className = "rounded-1";
+        propsPanel_attribute.className = "rounded-1";
 
         propsPanel_title.innerHTML = 'Component<br />' + event.target.id;
 
-        propsPanel_content.innerHTML = '<input id="props_text" class="form-control text-left" data-target="' + event.target.id + '" value="' + event.target.innerHTML + '" />';
+        propsPanel_content.innerHTML = '<div class="newClass"><input id="props_text" class="form-control text-left" data-target="' + event.target.id + '" value="' + event.target.innerHTML + '" /></div>';
 
         let selectedComponent = event.target;
         if (elem.nodeName === "A") {
-            propsPanel_attribute.innerHTML = '<input id="props_attribute" class="form-control" data-target="' + event.target.id + '" value="' + event.target.href + '" />';
+            propsPanel_attribute.innerHTML = '<div class="newClass"><input id="props_attribute" class="form-control" data-target="' + event.target.id + '" value="' + event.target.href + '" /></div>';
             let propsPanel_attr_input = <HTMLElement>document.querySelector('input#props_attribute');
             propsPanel_attr_input.addEventListener('keyup', (event) => { onKeyUp(event, selectedComponent, 'attr'); });
         }

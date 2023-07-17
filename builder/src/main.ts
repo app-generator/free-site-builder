@@ -90,7 +90,7 @@ function openPreviewModal() {
               .join('\n')}
           </style>
         </head>
-        <body>
+        <body style="padding: 15px;">
           ${dropzone?.innerHTML}
         </body>
         <script>
