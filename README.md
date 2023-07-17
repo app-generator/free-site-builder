@@ -35,7 +35,7 @@
 
 <br />
 
-## `Compile Builder`
+## `Compile the Builder`
 
 > Tested with `Node 16.x, 18.x`.
  
@@ -49,7 +49,7 @@ $ yarn build  # production  (dist FOLDER)
 
 <br />
 
-## Components Server
+## Components `Server` (distant)
 
 > Managed by `Flask` (optional). By default, a **[LIVE Components Server](https://components-server.onrender.com/kits/)** is used.
 
