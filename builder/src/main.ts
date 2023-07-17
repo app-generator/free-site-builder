@@ -33,7 +33,7 @@ function downloadComponents() {
 
 function drawComponents(response_json:any) {
   let components = response_json['content']['components'];
-  let component = '<div class="accordion subaccordionCustom" id="subaccordionExample">';
+  let component = '';
   for (let item in components) {
     let subComponents = components[item];
     let gridStr = '';
@@ -53,14 +53,13 @@ function drawComponents(response_json:any) {
         </button>
       </h2>
       <div id="collapseTwo2-${item}" class="accordion-collapse collapse" aria-labelledby="headingTwo2-${item}"
-        data-bs-parent="#subaccordionExample">
+        data-bs-parent="#accordionComponents">
         <div class="accordion-body">
           ${gridStr}
         </div>
       </div>
     </div>`;
   }
-  component += '</div>';
   let componentsContainer = document.getElementsByClassName('components_contain')[0];
   var div = document.createElement('div');
   div.innerHTML = component.trim();
