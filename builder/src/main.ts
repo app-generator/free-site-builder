@@ -1,5 +1,5 @@
 import './style.css'
-import style from './style.css';
+import style from './style.css?inline';
 import JSZip from 'jszip';
 import { onDragStart, onDragEnd, onDragOver, onDrop, onClear, onSave, onRestore, setupGlobalEvents} from './dnd.ts'
 
