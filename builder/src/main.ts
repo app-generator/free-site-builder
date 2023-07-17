@@ -91,7 +91,7 @@ function openPreviewModal() {
           </style>
         </head>
         <body>
-          ${dropzone.innerHTML}
+          ${dropzone?.innerHTML}
         </body>
         <script>
           // Disable contentEditable for all elements
