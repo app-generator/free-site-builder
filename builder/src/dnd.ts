@@ -75,7 +75,6 @@ export function onDrop(event: any) {
     const id = event.dataTransfer.getData('text');
 
     let editableComponent = <HTMLElement>document.getElementById(id)!.cloneNode(true);
-
     let content = <HTMLElement>document.querySelector('.drop-indicator');
     if ( content ) {
         content.className = "d-none";
