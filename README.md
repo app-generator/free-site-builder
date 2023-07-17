@@ -26,7 +26,7 @@
 | ✅ | **USE Remote Components** | `Yes` |
 | ✅ | **Component Customization** | Texts, Links |
 | ❌ | **Component Customization** | Images |
-| ❌ | **Component Customization** | CSS |
+| ❌ | **Component Styling** | CSS, Classes |
 | ❌ | **PAGE Customization** | CSS |
 | ❌ | **PAGE Customization** | JS |
 | ❌ | **Manage SEO** | Title, Description, Keywords |
