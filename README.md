@@ -105,4 +105,4 @@ For more information regarding licensing, please contact the [AppSeed](http://ap
 <br />
 
 ---
-[Rocket Builder](https://rocket-builder.onrender.com/) `Free DnD Tool` - DnD Builder provided by **[AppSeed](https://appseed.us/)**.
+[Rocket Builder](https://rocket-builder.onrender.com/) `Free DnD Tool` - Provided by **[AppSeed](https://appseed.us/)**.
