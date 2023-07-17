@@ -9,7 +9,7 @@ import { onDragStart, onDragEnd, onDragOver, onDrop, onClear, onSave, onRestore,
 // Using Promise syntax:
 function downloadComponents() {
     let loading = document.querySelector('#overlay') as HTMLElement;
-    //return fetch('http://localhost:5000/kits/bs5/')
+    
     let localStorageData = window.localStorage.getItem('components');
     if (localStorageData) {
       let localStorageParsedData = JSON.parse(<string>window.localStorage.getItem('components'));
@@ -19,7 +19,9 @@ function downloadComponents() {
       });
     } else {
       loading.style.display = 'flex';
-      return fetch('https://components-server.onrender.com/kits/bs5/')
+      
+      //return fetch('http://localhost:5000/kits/bs5/')                 // local version
+      return fetch('https://components-server.onrender.com/kits/bs5/')  // distant server (default) 
         .then(response => response.text())
         .then( response_raw => {
           loading.style.display = 'none';
