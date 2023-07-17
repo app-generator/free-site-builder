@@ -104,7 +104,7 @@ function misc() {
     }   
 }
 function downloadHanlder() {
-  let zip:any = new JSZip();
+  const zip = new JSZip();
   let dropzone = document.querySelector('#dropzone') as HTMLElement;
   const htmlContent = `
     <!DOCTYPE html>
@@ -132,13 +132,11 @@ function downloadHanlder() {
       // Create a download link
       const link = document.createElement('a');
       link.href = URL.createObjectURL(content);
-      link.download = 'archive.zip';
+      link.download = 'builder.zip';
 
       // Trigger the download
       link.click();
     });
-
-  console.log(dropzone);
 }
 
 function openPreviewModal() {
