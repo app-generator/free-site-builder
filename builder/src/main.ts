@@ -12,14 +12,14 @@ import { onDragStart, onDragEnd, onDragOver, onDrop, onClear, onSave, onRestore,
 function downloadComponents() {
     let loading = document.querySelector('#overlay') as HTMLElement;
     
-    let localStorageData = window.localStorage.getItem('components');
-    if (localStorageData) {
-      let localStorageParsedData = JSON.parse(<string>window.localStorage.getItem('components'));
-      return new Promise((resolve) => {
-        // Simulating an asynchronous operation
-        resolve(drawComponents(localStorageParsedData));
-      });
-    } else {
+    //let localStorageData = window.localStorage.getItem('components');
+    //if (localStorageData) {
+    //  let localStorageParsedData = JSON.parse(<string>window.localStorage.getItem('components'));
+    //  return new Promise((resolve) => {
+    //    // Simulating an asynchronous operation
+    //    resolve(drawComponents(localStorageParsedData));
+    //  });
+    //} else {
       loading.style.display = 'flex';
       
       //return fetch('http://127.0.0.1:5000/kits/bs5/')                 // local version
@@ -32,7 +32,7 @@ function downloadComponents() {
           drawComponents(response_json);
         })
         .catch(error => console.error(error));
-    }
+    //}
 }
 
 function drawComponents(response_json:any) {
