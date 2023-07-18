@@ -15,21 +15,22 @@ function validURL(str:string) {
 export function imageExists(image_url: string) {
     if (!validURL(image_url)) return false;
 
-    return new Promise<boolean>((resolve) => {
-        var http = new XMLHttpRequest();
-        http.open('HEAD', image_url, true);
-        http.timeout = 1500; // 1.5 seconds timeout
-        http.onload = function () {
-            resolve(http.status != 404);
-        };
-        http.onerror = function () {
-            // reject(new Error('Network error'));
-            resolve(false)
-        };
-        http.ontimeout = function () {
-            // reject(new Error('Timeout error'));
-            resolve(false)
-        };
-        http.send();
-    });
+    return true;
+    // return new Promise<boolean>((resolve) => {
+    //     var http = new XMLHttpRequest();
+    //     http.open('HEAD', image_url, true);
+    //     http.timeout = 1500; // 1.5 seconds timeout
+    //     http.onload = function () {
+    //         resolve(http.status != 404);
+    //     };
+    //     http.onerror = function () {
+    //         // reject(new Error('Network error'));
+    //         resolve(false)
+    //     };
+    //     http.ontimeout = function () {
+    //         // reject(new Error('Timeout error'));
+    //         resolve(false)
+    //     };
+    //     http.send();
+    // });
 }
