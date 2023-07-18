@@ -79,7 +79,7 @@ export function onDrop(event: any) {
 
     if (content) {
         content.className = "d-none";
-    }      
+    }
 
     console.log(' > CONTAINER: ' + event.target.id);
     console.log(' > Component: ' + editableComponent.dataset.type);
@@ -244,13 +244,15 @@ export function onClick(event: any) {
 
         propsPanel_title.innerHTML = 'Component<br />' + event.target.id;
 
-        propsPanel_content.innerHTML = '<div class="newClass"><input id="props_text" class="form-control text-left" data-target="' + event.target.id + '" value="' + event.target.innerHTML + '" /></div>';
+        if (elem.nodeName !== "IMG")
+            propsPanel_content.innerHTML = '<div class="newClass"><input id="props_text" class="form-control text-left" data-target="' + event.target.id + '" value="' + event.target.innerHTML + '" /></div>';
 
         let selectedComponent = event.target;
-        if (elem.nodeName === "A") {
-            propsPanel_attribute.innerHTML = '<div class="newClass"><input id="props_attribute" class="form-control" data-target="' + event.target.id + '" value="' + event.target.href + '" /></div>';
+        if (elem.nodeName === "A" || elem.nodeName === "IMG") {
+            const attrVal = elem.nodeName === "A" ? event.target.href : event.target.src;
+            propsPanel_attribute.innerHTML = '<div class="newClass"><input id="props_attribute" class="form-control" data-target="' + event.target.id + '" value="' + attrVal + '" /></div>';
             let propsPanel_attr_input = <HTMLElement>document.querySelector('input#props_attribute');
-            propsPanel_attr_input.addEventListener('keyup', (event) => { onKeyUp(event, selectedComponent, 'attr'); });
+            propsPanel_attr_input.addEventListener('keyup', (event) => { onKeyUp(event, selectedComponent, elem.nodeName); });
         }
 
         let propsPanel_input = <HTMLElement>document.querySelector('input#props_text');
@@ -296,18 +298,19 @@ export function remClassProcessor(aClass: string) {
     }
 }
 
-export function onKeyUp(event: any, target: any, flag: any) {
+export function onKeyUp(event: any, target: any, flag: string) {
     // if (event.keyCode !== 13) return;
-
     event;
     const target_id = target.id;
 
     let activeComponent = document.querySelector('#' + target_id);
 
     if (activeComponent) {
-        if (flag === 'attr') {
+        if (flag === 'A') {
             activeComponent.setAttribute('href', event.target.value);
-        } else {
+        } else if (flag === 'IMG') {
+            activeComponent.setAttribute('src', event.target.value);
+        }else {
             activeComponent.innerHTML = event.target.value;
         }
     } else {
@@ -321,7 +324,7 @@ export function onClear(event: any) {
     console.log(' > ACTION: clear');
     let content = <HTMLElement>document.querySelector('#dropzone');
     // clear
-    let info='<div class="drop-indicator d-flex align-items-center justify-content-center"><div class="p-4 shadow bg-white rounded-3 text-center"><span class="icon text-primary h3"><i class="fa-solid fa-circle-plus"></i></span><h6 class="mt-3">Drop Here...</h6></div></div>'
+    let info = '<div class="drop-indicator d-flex align-items-center justify-content-center"><div class="p-4 shadow bg-white rounded-3 text-center"><span class="icon text-primary h3"><i class="fa-solid fa-circle-plus"></i></span><h6 class="mt-3">Drop Here...</h6></div></div>'
     content.innerHTML = info;
     window.localStorage.clear();
     //let builderContainer = document.querySelector('#layout')!.innerHTML;

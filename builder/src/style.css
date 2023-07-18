@@ -244,12 +244,12 @@ button:focus-visible {
   width: 100%;
   z-index: 9;
   background: #f8f9fd;
-  padding: 10px 255px 10px 150px;
+  padding: 10px 255px 10px 255px;
 }
 .innerHeader {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 }
 .adsInput {
   background: transparent;
@@ -405,7 +405,7 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
   padding: 10px 5px;
 }
 .card .card-body .card-title{
-  font-size: 16px;
+  font-size: 14px;
 }
 .card .card-body p, .card .card-body a {
   font-size: 13px;
@@ -461,16 +461,16 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
 .rightAside {
   position: fixed;
   right: -1px;
-  top: -1px;
+  top: 65px;
   border: 1px solid #ecedef;
   background: #fff;
   width: 260px;
-  height: 100vh;
+  height: calc(100vh - 65px);
   z-index: 9;
 }
-.rightAside .forScroll {
+/* .rightAside .forScroll {
   height: calc(100vh - 33px);
-}
+} */
 .mainEditor {
   display: flex;
   flex-direction: column;
@@ -589,7 +589,7 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
 }
 @media screen and (max-width: 1280px) {
   .header {
-    padding: 10px 255px 10px 0px;
+    padding: 10px 255px 10px 255px;
   }
 }
 @media screen and (max-width: 1024px) {
@@ -624,7 +624,7 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
   .menuRightbtn {
     position: absolute;
     left: -27px;
-    top: 65px;
+    top: -1px;
     border: none;
     height: 27px;
     width: 27px;
@@ -781,4 +781,13 @@ body body {
 }
 .formBox .btn-primary {
   font-size: 13px;
+}
+.innPagename {
+  font-size: 17px;
+  font-weight: 600;
+  color: #1e1e1e;
+}
+.cardImg {
+  max-width: 100%;
+  margin-bottom: 10px;
 }
