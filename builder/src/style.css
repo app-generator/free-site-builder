@@ -147,12 +147,12 @@ button:focus-visible {
   border-color: #5e72e3;
 }
 
-/*
+
 .component:hover .cross-icon,
 .component:hover .upButton,
 .component:hover .downButton {
   display: block;
-}*/
+}
 
 .dropzone {
   background-color: #eaeaea;
