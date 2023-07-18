@@ -1,3 +1,5 @@
+import { imageExists } from "./utiles";
+
 export function setupGlobalEvents() {
 
     document.querySelector('#dropzone')?.addEventListener('click', event => {
@@ -309,8 +311,11 @@ export function onKeyUp(event: any, target: any, flag: string) {
         if (flag === 'A') {
             activeComponent.setAttribute('href', event.target.value);
         } else if (flag === 'IMG') {
-            activeComponent.setAttribute('src', event.target.value);
-        }else {
+            if (imageExists(event.target.value))
+                activeComponent.setAttribute('src', event.target.value);
+            else activeComponent.setAttribute('src', '/img/warning.png');
+
+        } else {
             activeComponent.innerHTML = event.target.value;
         }
     } else {
