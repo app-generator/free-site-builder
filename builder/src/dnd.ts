@@ -246,19 +246,28 @@ export function onClick(event: any) {
 
         propsPanel_title.innerHTML = 'Component<br />' + event.target.id;
 
-        if (elem.nodeName !== "IMG")
+        if (elem?.nodeName !== "IMG")
             propsPanel_content.innerHTML = '<div class="newClass"><input id="props_text" class="form-control text-left" data-target="' + event.target.id + '" value="' + event.target.innerHTML + '" /></div>';
 
         let selectedComponent = event.target;
-        if (elem.nodeName === "A" || elem.nodeName === "IMG") {
+        let propsPanel_attr_input, propsPanel_input;
+        if (elem?.nodeName && (elem.nodeName === "A" || elem.nodeName === "IMG")) {
             const attrVal = elem.nodeName === "A" ? event.target.href : event.target.src;
             propsPanel_attribute.innerHTML = '<div class="newClass"><input id="props_attribute" class="form-control" data-target="' + event.target.id + '" value="' + attrVal + '" /></div>';
-            let propsPanel_attr_input = <HTMLElement>document.querySelector('input#props_attribute');
+            propsPanel_attr_input = <HTMLElement>document.querySelector('input#props_attribute');
             propsPanel_attr_input.addEventListener('keyup', (event) => { onKeyUp(event, selectedComponent, elem.nodeName); });
+
+            if(elem.nodeName === "IMG"){
+                propsPanel_input = <HTMLElement>document.querySelector('input#props_text');
+                propsPanel_input?.remove();
+            }
+        } else {
+            propsPanel_attr_input = <HTMLElement>document.querySelector('input#props_attribute');
+            propsPanel_attr_input?.remove();
         }
 
-        let propsPanel_input = <HTMLElement>document.querySelector('input#props_text');
-        propsPanel_input.addEventListener('keyup', (event) => { onKeyUp(event, selectedComponent, 'content'); });
+        propsPanel_input = <HTMLElement>document.querySelector('input#props_text');
+        propsPanel_input?.addEventListener('keyup', (event) => { onKeyUp(event, selectedComponent, 'content'); });
 
     } else {
         console.log(' > Nested COMPONENT, skip PROPS');
@@ -300,7 +309,7 @@ export function remClassProcessor(aClass: string) {
     }
 }
 
-export function onKeyUp(event: any, target: any, flag: string) {
+export async function onKeyUp(event: any, target: any, flag: string) {
     // if (event.keyCode !== 13) return;
     event;
     const target_id = target.id;
@@ -311,7 +320,7 @@ export function onKeyUp(event: any, target: any, flag: string) {
         if (flag === 'A') {
             activeComponent.setAttribute('href', event.target.value);
         } else if (flag === 'IMG') {
-            if (imageExists(event.target.value))
+            if (await imageExists(event.target.value))
                 activeComponent.setAttribute('src', event.target.value);
             else activeComponent.setAttribute('src', '/img/warning.png');
 
