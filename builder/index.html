@@ -13,24 +13,21 @@
 
 <body>
   <div id="app">
-
     <div id="layout" style="display: none;">
       <header class="header">
         <div class="container-fluid">
           <div class="innerHeader">
-
-            <div class="adBox"></div>
-            <div class="pageName"></div>
-
             <div class="headerActions">
-              <button id="action_clear" type="button" class="btn btn-outline-danger"><i class="fa-solid fa-eraser"></i><span> Clear</span></button>
+              <button id="action_clear" type="button" class="btn btn-outline-danger"><i
+                  class="fa-solid fa-eraser"></i><span> Clear</span></button>
               <button id="action_save" type="button" class="btn btn-primary btnDefault"><i
                   class="fa-solid fa-floppy-disk"></i><span> Save</span></button>
               <button id="action_restore" type="button" class="btn btn-secondary btnRestore"><i
                   class="fa-solid fa-trash-can-arrow-up"></i><span> Restore</span></button>
               <button id="action_undo" type="button" class="btn btn-outline-secondary"><i
                   class="fa-solid fa-rotate-left"></i><span> Undo</span></button>
-              <button id="action_preview" class="btn btn-outline-secondary"><i class="fa-regular fa-eye"></i><span> Preview</span></button>
+              <button id="action_preview" class="btn btn-outline-secondary"><i class="fa-regular fa-eye"></i><span>
+                  Preview</span></button>
             </div>
           </div>
         </div>
@@ -39,31 +36,16 @@
       <aside class="leftAside">
         <button class="Click menuLeftbtn"><i class="fa-solid fa-chevron-right"></i></button>
         <ul class="nav nav-tabs defTabs" id="myTab" role="tablist">
-          <!-- <li class="nav-item" role="presentation">
-            <button class="nav-link" id="grid-tab" data-bs-toggle="tab" data-bs-target="#grid" type="button" role="tab"
-              aria-controls="grid" aria-selected="false">Grid</button>
-          </li> -->
           <li class="nav-item" role="presentation">
             <button class="nav-link active" id="components-tab" data-bs-toggle="tab" data-bs-target="#components"
               type="button" role="tab" aria-controls="components" aria-selected="true">Components</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="help-tab" data-bs-toggle="tab" data-bs-target="#help" type="button"
-              role="tab" aria-controls="help" aria-selected="false">Help</button>
+            <button class="nav-link" id="help-tab" data-bs-toggle="tab" data-bs-target="#help" type="button" role="tab"
+              aria-controls="help" aria-selected="false">Help</button>
           </li>
-          <!-- <li class="nav-item" role="presentation">
-            <button class="nav-link" id="editor-tab" data-bs-toggle="tab" data-bs-target="#editor" type="button"
-              role="tab" aria-controls="editor" aria-selected="false">Editor</button>
-          </li> -->
-          <!-- <li class="nav-item" role="presentation">
-            <button class="nav-link" id="page-tab" data-bs-toggle="tab" data-bs-target="#page" type="button" role="tab"
-              aria-controls="page" aria-selected="false">Page</button>
-          </li> -->
         </ul>
         <div class="tab-content forScroll" id="myTabContent">
-          <!-- <div class="tab-pane fade" id="grid" role="tabpanel" aria-labelledby="grid-tab">
-            Grid
-          </div> -->
           <div class="tab-pane fade show active" id="components" role="tabpanel" aria-labelledby="components-tab">
             <div id="overlay" class="overlay">
               <p class="text-white">
@@ -76,8 +58,6 @@
           <div class="tab-pane fade" id="help" role="tabpanel" aria-labelledby="help-tab">
             <p class="helpText">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
           </div>
-          <!-- <div class="tab-pane fade" id="editor" role="tabpanel" aria-labelledby="editor-tab">Editor</div>
-          <div class="tab-pane fade" id="page" role="tabpanel" aria-labelledby="page-tab">Page</div> -->
           <div class="forPdng">
             <a target="_blank" href="https://appseed.us/support/" class="moreOption">
               <img src="/img/more.png" alt="" />
@@ -90,120 +70,20 @@
         </div>
       </aside>
       <!-- end aside left -->
-
-
-      <!-- <div class="container-fluid">
-        <div class="row gx-0" id="builder-container">
-
-        
-          <div class="col px-0 builder-components  overflow-hidden bg-white shadow rounded-2 border col-md-2">
-            <h5 class="py-2 px-3 border-bottom mb-3">
-              <i class="fa-solid fa-grip me-1 "></i>
-              Components
-            </h5>
-            <div id="builder-components">
-              <div class="accordion accordion-flush" id="accordionFlushExample">
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="flush-headingThree">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                      data-bs-target="#flush-collapseThree" aria-expanded="true" aria-controls="flush-collapseThree">
-                      Components
-                    </button>
-                  </h2>
-                  <div id="flush-collapseThree" class="accordion-collapse collapse show"
-                    aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body components_contain"></div>
-                  </div>
-                </div>
-
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="flush-headingOne">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                      data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                      Cards
-                    </button>
-                  </h2>
-                  <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
-                    data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">No data currently</div>
-                  </div>
-                </div>
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="flush-headingTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                      data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                      Charts
-                    </button>
-                  </h2>
-                  <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
-                    data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">No data currently</div>
-                  </div>
-                </div>
-
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="flush-headingTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                      data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
-                      Forms
-                    </button>
-                  </h2>
-                  <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
-                    data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">No data currently</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-         
-          <div class="col-8 px-3 " id="builder-content">
-            <div id="dropzone" class="dropzone h-100">
-
-              <div id="drop-here-indicator" class="drop-indicator d-flex align-items-center justify-content-center">
-                <div class="p-4 shadow bg-white rounded-3 text-center">
-                  <span class="icon text-primary h5">
-                    <i class="fa-solid fa-circle-plus"></i>
-                  </span>
-                  <h6 class="mt-1">Drop Here...</h6>
-                </div>
-              </div>
-
-            </div>
-          </div>
-          
-
-         
-          <div class="col-2 px-3 bg-white rounded-2 overflow-hidden border shadow" id="builder-props">
-            <h5 class="py-2 px-3 border-bottom mb-3">
-              <i class="fa-solid fa-edit me-1 "></i>
-              PROPS
-            </h5>
-            <div id="builder-props-title"></div>
-            <div id="builder-props-content"></div>
-            <div id="builder-props-attribute"></div>
-          </div>
-
-        </div>
-
-      </div> -->
       <div class="rowa" id="builder-container">
         <!-- Current Page -->
         <div class="mainBuilder" id="builder-content">
+          <div class="innPagename">index.html</div>
           <div id="drop-here-indicator"></div>
-          
-          <!-- <div id="dropzone" class="dropzone">dropzone</div> -->
           <div id="dropzone" class="dropzone"></div>
           <!-- PROPS -->
-          
           <div class="drpznBttm">
             <img src="/img/arrow.png" alt="" />
             <strong>Start by dragging elements from LEFT</strong>
           </div>
           <div class="footer">
-            <p> 
-                &copy; <a target="_blank" href="https://appseed.us/">AppSeed</a>
+            <p>
+              &copy; <a target="_blank" href="https://appseed.us/">AppSeed</a>
             </p>
             <div class="footerLinks">
               <a target="_blank" href="https://github.com/app-generator/rocket-builder">Sources</a>
@@ -220,14 +100,6 @@
             <button class="nav-link active" id="props-tabA" data-bs-toggle="tab" data-bs-target="#propsA" type="button"
               role="tab" aria-controls="propsA" aria-selected="true">Props</button>
           </li>
-          <!-- <li class="nav-item" role="presentation">
-            <button class="nav-link" id="components-tabA" data-bs-toggle="tab" data-bs-target="#componentsA"
-              type="button" role="tab" aria-controls="componentsA" aria-selected="false">Components</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="editor-tabA" data-bs-toggle="tab" data-bs-target="#editorA"
-              type="button" role="tab" aria-controls="editorA" aria-selected="false">Editor</button>
-          </li> -->
           <li class="nav-item" role="presentation">
             <button class="nav-link" id="page-tabA" data-bs-toggle="tab" data-bs-target="#pageA" type="button"
               role="tab" aria-controls="pageA" aria-selected="false">Page</button>
@@ -244,54 +116,10 @@
               </div>
             </div>
           </div>
-          <!-- <div class="tab-pane fade" id="componentsA" role="tabpanel" aria-labelledby="components-tabA">Components</div>
-          <div class="tab-pane fade" id="editorA" role="tabpanel" aria-labelledby="editor-tabA">
-            <div class="mainEditor">
-              <div class="divName">Div</div>
-              <div class="classesName">Classes</div>
-              <div class="newClass">
-                <input type="text" placeholder="Add new class" class="form-control" />
-              </div>
-              <ul class="classList">
-                <li>
-                  <img src="/img/classImg.png" alt="" />
-                  position-relative
-                </li>
-                <li>
-                  <img src="/img/classImg.png" alt="" />
-                  min-height-300
-                </li>
-                <li>
-                  <img src="/img/classImg.png" alt="" />
-                  h-100
-                </li>
-                <li>
-                  <img src="/img/classImg.png" alt="" />
-                  d-flex
-                </li>
-                <li>
-                  <img src="/img/classImg.png" alt="" />
-                  flex-collumn
-                </li>
-                <li>
-                  <img src="/img/classImg.png" alt="" />
-                  justify-content-end
-                </li>
-                <li>
-                  <img src="/img/classImg.png" alt="" />
-                  mt-auto
-                </li>
-                <li>
-                  <img src="/img/classImg.png" alt="" />
-                  p-4
-                </li>
-              </ul>
-            </div>
-          </div> -->
+
           <div class="tab-pane fade" id="pageA" role="tabpanel" aria-labelledby="page-tabA">
             <div class="mainEditor">
               <div class="divName">Page</div>
-              
             </div>
           </div>
           <div class="showGlayout">
@@ -307,7 +135,6 @@
         </div>
       </aside>
       <!-- end aside right -->
-
     </div>
   </div>
   </div>
@@ -334,7 +161,6 @@
     crossorigin="anonymous"></script>
   <script type="module" src="/src/main.ts"></script>
   <script>
-
     $(document).ready(function () {
       $(".Click").click(function () {
         $(".leftAside").toggleClass("show");
@@ -342,7 +168,6 @@
       $(".ClickTwo").click(function () {
         $(".rightAside").toggleClass("show");
       });
-
     });
   </script>
 </body>
