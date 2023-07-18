@@ -53,6 +53,51 @@ export function onDragOver(event: any) {
     event.target.classList.add('border-dotted');
     event.preventDefault();
 }
+const onReposition = (component: any) => {
+    console.log("' > onReposition() '")
+    const editableComponent = component;
+
+    const upElement = document.createElement("span");
+    upElement.innerHTML = "<i class='fa-solid fa-caret-up'></i>";
+    upElement.className = "upButton";
+    upElement.onclick = function() {
+        var prevElement = editableComponent.previousElementSibling;
+        if (prevElement) {
+            editableComponent.parentNode?.insertBefore(editableComponent, prevElement);
+        }
+    }
+
+    const downElement = document.createElement("span");
+    downElement.innerHTML = "<i class='fa-solid fa-caret-down'></i>";
+    downElement.className = "downButton";
+    downElement.onclick = function() {
+        var nextElement = editableComponent.nextElementSibling;
+        if (nextElement) {
+            editableComponent.parentNode?.insertBefore(nextElement, editableComponent);
+        }
+    }
+
+    const spanElement = document.createElement("span");
+    spanElement.innerHTML = "<i class='fa-solid fa-xmark'></i>";
+    spanElement.className = "cross-icon";
+    spanElement.onclick = function() {
+        onDelete(editableComponent);
+    };
+
+    const contentElement = document.createElement("span");
+    contentElement.innerHTML = editableComponent.innerHTML.trim();
+    contentElement.style.display = "block";
+    contentElement.id = editableComponent.id;
+    contentElement.onclick = function(event) {
+        onClick( event )
+    };
+
+    editableComponent.innerHTML = "";
+    editableComponent.appendChild(upElement);
+    editableComponent.appendChild(downElement);
+    editableComponent.appendChild(spanElement);
+    editableComponent.appendChild(contentElement);
+}
 
 export function onDragEnd(event: any) {
     console.log(' > onDrag_END() ');
@@ -98,6 +143,11 @@ export function onDrop(event: any) {
     editableComponent.classList.add('component');
     editableComponent.removeAttribute('draggable');
 
+    // Some Stuff 
+    if (event.target.id == "dropzone") {
+        onReposition(editableComponent);
+    }
+
     // Make it CLICK-able
     editableComponent.addEventListener('click', (event) => { onClick(event); });
 
@@ -133,7 +183,7 @@ export function onDelete(element: any) {
         div.appendChild(item);
     });
 
-    window.localStorage.setItem('editME', div.innerHTML)
+    // window.localStorage.setItem('editME', div.innerHTML)
 }
 
 export function getElemName(aElement: HTMLElement) {
@@ -368,12 +418,11 @@ export function onRestore(event: any) {
 
             draggableElement.addEventListener('click', onClick);
 
-            //const upButton = draggableElement.querySelector('.upButton');
-            //const downButton = draggableElement.querySelector('.downButton');
-            //const crossButton = draggableElement.querySelector('.cross-icon');
-            //const parentElement = draggableElement.parentElement;
+            const upButton = draggableElement.querySelector('.upButton');
+            const downButton = draggableElement.querySelector('.downButton');
+            const crossButton = draggableElement.querySelector('.cross-icon');
+            const parentElement = draggableElement.parentElement;
 
-            /*
             if (parentElement) {
                 if (upButton) {
                     upButton.addEventListener('click', function() {
@@ -399,7 +448,6 @@ export function onRestore(event: any) {
                     });
                 }
             }
-            */
         }
     } else {
         console.log(' > NULL ELEMs ');
