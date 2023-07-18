@@ -1,5 +1,5 @@
 export function imageExists(image_url:string){
-    return new Promise<boolean>((resolve, reject) => {
+    return new Promise<boolean>((resolve) => {
         var http = new XMLHttpRequest();
         http.open('HEAD', image_url, true);
         http.timeout = 1000; // 1 seconds timeout
