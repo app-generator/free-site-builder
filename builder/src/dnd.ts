@@ -257,7 +257,7 @@ export function onClick(event: any) {
             propsPanel_attr_input = <HTMLElement>document.querySelector('input#props_attribute');
             propsPanel_attr_input.addEventListener('keyup', (event) => { onKeyUp(event, selectedComponent, elem.nodeName); });
 
-            if(elem.nodeName === "IMG"){
+            if (elem.nodeName === "IMG") {
                 propsPanel_input = <HTMLElement>document.querySelector('input#props_text');
                 propsPanel_input?.remove();
             }
@@ -320,9 +320,15 @@ export async function onKeyUp(event: any, target: any, flag: string) {
         if (flag === 'A') {
             activeComponent.setAttribute('href', event.target.value);
         } else if (flag === 'IMG') {
-            if (await imageExists(event.target.value))
+            if (await imageExists(event.target.value)){
                 activeComponent.setAttribute('src', event.target.value);
-            else activeComponent.setAttribute('src', '/img/warning.png');
+                if(document.getElementsByClassName("img-warning")?.length > 0) document.querySelector(".img-warning")?.remove();
+            } else {
+                if(document.getElementsByClassName("img-warning")?.length === 0){
+                    let imgAttrinput = event.target;
+                    imgAttrinput.insertAdjacentHTML('afterend', '<div class="img-warning"><img src="/img/warning.png" width="35" alt="W" /></div>');
+                }
+            }
 
         } else {
             activeComponent.innerHTML = event.target.value;
