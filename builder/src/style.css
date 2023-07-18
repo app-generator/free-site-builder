@@ -366,11 +366,16 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
 }
 .forPdng {
   padding: 25px 10px 10px 10px;
+  /* position: absolute; */
+  left: 0;
+  bottom: 0px;
+  width: 100%;
 }
 .moreOption {
   display: flex;
   align-items: center;
   border: 1px dashed #efefef;
+  background: #fff;
   border-radius: 4px;
   padding: 6px;
   transition: all 0.2s ease-out;
@@ -723,6 +728,25 @@ body body {
   font-weight: 400;
   color: #1e1e1e;
   margin: 15px 0;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 0 15px;
+}
+.helpText a {
+  margin-bottom: 5px;
+  transition: all 0.2s ease-out;
+}
+.helpText p {
+  font-size: 13px;
+  text-align: left;
+  margin-bottom: 10px;
+  font-weight: 400;
+  color: #646464;
+  line-height: 17px;
+}
+.helpText a:hover {
+  color: #1e1e1e;
 }
 .drop-indicator {display: none !important;}
 
@@ -790,4 +814,96 @@ body body {
 .cardImg {
   max-width: 100%;
   margin-bottom: 10px;
+}
+.cmnBox {
+  text-align: left;
+  width: 100% !important;
+  background-color: transparent !important;
+}
+.cmnTitle {
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+.cmnBox .accordion-body {
+  font-size: 13px;
+}
+.fn-13 {font-size: 13px !important;}
+.alert {padding: 5px !important;}
+.navbar-brand {
+  font-size: 14px;
+}
+.nav-link {
+  font-size: 12px;
+}
+.heroBox {
+  text-align: center;
+}
+.heroBox h4 {
+  font-size: 18px;
+  text-align: center;
+}
+.heroBox p {
+  font-size: 13px;
+  text-align: center;
+}
+.srvcBox h4 {
+  font-size: 18px;
+}
+.srvcBox p {font-size: 13px;}
+.srvcBox .tab-pane {
+  font-size: 13px;
+  padding: 10px;
+}
+/* .portfolioBox .carousel-inner .carousel-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+} */
+.portfolioBox .carousel-inner .carousel-item img {
+  height: 45px !important;
+  width: 45px !important;
+  border-radius: 50% !important;
+  margin: 0 auto;
+}
+.portfolioBox .carousel-inner .carousel-item .carousel-caption {
+  position: initial;
+}
+.portfolioBox .carousel-inner .carousel-item .carousel-caption h5 {
+  font-size: 15px;
+}
+.portfolioBox .carousel-inner .carousel-item .carousel-caption p {font-size: 13px;}
+.cntrctBox {
+  position: relative;
+  background: #000;
+  padding: 10px 10px;
+}
+.cntrctBox video {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0.3;
+  background-size: cover;
+  object-fit: cover;
+}
+.cntrctBoxinn {
+  position: relative;
+  z-index: 1;
+}
+.cntrctBoxinn .form-header {
+  font-size: 15px;
+  color: #fff;
+}
+.cntrctBoxinn input, .cntrctBoxinn textarea {
+  font-size: 13px;
+}
+.cntrctBoxinn .btn {
+  font-size: 13px;
+}
+.footerTwo .text-muted {
+  display: block;
+  text-align: center;
+  font-size: 14px;
 }
