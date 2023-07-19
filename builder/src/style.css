@@ -400,7 +400,7 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
 }
 /*card css*/
 .card {
-  width: 15.4rem !important;
+  width: 15.2rem !important;
 }
 .card .card-header{
   font-size: 13px;
@@ -906,4 +906,18 @@ body body {
   display: block;
   text-align: center;
   font-size: 14px;
+}
+
+/**/
+::-webkit-scrollbar {
+  width: 3px;
+}
+ 
+::-webkit-scrollbar-track {
+  box-shadow: none;
+}
+ 
+::-webkit-scrollbar-thumb {
+  background-color: rgb(210, 210, 210);
+  outline: none;
 }
