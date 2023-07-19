@@ -1,7 +1,6 @@
-import {addItemsCard, updateItemsCard} from "./redux/cardsSlice.ts";
+import { updateItemsCard } from "./redux/cardsSlice.ts";
 import store from "./redux/store.ts";
-import {getParse} from "./util/getParse.ts";
-import {WIDGETITEMS} from "./constants/items.ts";
+import { getParse } from "./util/getParse.ts";
 
 export function setupGlobalEvents() {
   document.querySelector("#dropzone")?.addEventListener("click", (event) => {
@@ -66,12 +65,12 @@ export function onDragEnd(event: any) {
 
 export function onDrop(event: any) {
   console.log(" > on_DROP() ");
-
   const id = event.dataTransfer.getData("text");
 
   let editableComponent = <HTMLElement>(
     document.getElementById(id)!.cloneNode(true)
   );
+
   let content = <HTMLElement>document.querySelector(".drop-indicator");
 
   if (content) {
@@ -83,6 +82,14 @@ export function onDrop(event: any) {
 
   // Customization
   editableComponent.id = uuidv4();
+
+  // Store dispatch
+  store.dispatch(
+    updateItemsCard({
+      id: editableComponent.id,
+      content: editableComponent.outerHTML,
+    })
+  );
 
   if (event.target.id?.includes("grid-")) {
     event.target.innerHTML = "";
@@ -108,7 +115,7 @@ export function onDrop(event: any) {
   //const dropzone = <HTMLElement>document.querySelector('#dropzone');
   //dropzone.appendChild(editableComponent);
   event.target.appendChild(editableComponent);
-  onSave(event, editableComponent);
+  onSave(event);
   // Done with this event
   event.dataTransfer.clearData();
 }
@@ -171,7 +178,7 @@ export function onMouseOver(event: any) {
   console.log(" > on_MouseOver()");
 
   if (!event.target.id) {
-    event.target.setAttribute('data-id', uuidv4());
+    event.target.setAttribute("data-id", uuidv4());
   }
 
   // let elem = <HTMLElement>document.getElementById(event.target.id);
@@ -199,7 +206,6 @@ export function onMouseOver(event: any) {
 
 export function onClick(event: any) {
   console.log(" > on_CLICK() ");
-
   let targetComponent;
 
   if (event.target.classList.contains("component")) {
@@ -229,13 +235,18 @@ export function onClick(event: any) {
   targetComponent.classList.add("border-dotted");
 
   if (!hasSiblings(event.target)) {
-    let elem = <HTMLElement>document.querySelector(   `[data-id='${event.target.getAttribute('data-id')}']`);
+    let elem = <HTMLElement>(
+      document.querySelector(
+        `[data-id='${event.target.getAttribute("data-id")}']`
+      )
+    );
     let propsPanel_title = <HTMLElement>(
       document.querySelector("#builder-props-title")
     );
     let propsPanel_content = <HTMLElement>(
       document.querySelector("#builder-props-content")
     );
+
     let propsPanel_attribute = <HTMLElement>(
       document.querySelector("#builder-props-attribute")
     );
@@ -255,16 +266,16 @@ export function onClick(event: any) {
       '" /></div>';
 
     let selectedComponent = event.target;
-
     if (elem.nodeName === "A") {
       propsPanel_attribute.innerHTML =
-          '<div class="newClass"><input id="props_attribute" class="form-control" data-target="' +
-          event.target.id +
-          '" value="' +
-          event.target.href +
-          '" /></div>';
+        '<div class="newClass"><input id="props_attribute" class="form-control" data-target="' +
+        event.target.id +
+        '" value="' +
+        event.target.href +
+        '" /></div>';
+
       let propsPanel_attr_input = <HTMLElement>(
-          document.querySelector("input#props_attribute")
+        document.querySelector("input#props_attribute")
       );
       propsPanel_attr_input.addEventListener("keyup", (event) => {
         onKeyUp(event, selectedComponent, "attr", currentItemCard);
@@ -313,14 +324,16 @@ export function remClassProcessor(aClass: string) {
   }
 }
 
-export function onKeyUp(event: any, target: any, flag: any, currentItem:any) {
+export function onKeyUp(event: any, target: any, flag: any, currentItem: any) {
   // if (event.keyCode !== 13) return;
   event;
   const target_id = target.id;
 
-  let activeComponent = <HTMLElement>document.querySelector(   `[data-id='${target.getAttribute('data-id')}']`);
+  let activeComponent = <HTMLElement>(
+    document.querySelector(`[data-id='${target.getAttribute("data-id")}']`)
+  );
   if (activeComponent) {
-    setStoreCardItem(target, event.target.value, flag, currentItem)
+    setStoreCardItem(target, event.target.value, flag, currentItem);
     if (flag === "attr") {
       activeComponent.setAttribute("href", event.target.value);
     } else {
@@ -345,49 +358,28 @@ export function onClear(event: any) {
   //document.querySelector<HTMLDivElement>('#app')!.innerHTML = builderContainer;
 }
 
-function itemsLS() {
-  let itemsArr: any = window.localStorage.getItem(WIDGETITEMS);
-  if(itemsArr){
-    return JSON.parse(itemsArr)
-  }
-  return {}
-}
-
-
 function getItemsCardStore() {
   const {
-    cards: { items }
+    cards: { items },
   }: any = store.getState();
 
-  if(!items) return null
+  if (!items) return null;
   return Object.values(items).join("");
 }
-function storeDispatch() {
-  let itemsString: any = window.localStorage.getItem(WIDGETITEMS);
-  const itemsCard = JSON.parse(itemsString);
-  store.dispatch(
-      addItemsCard(itemsCard)
-  );
-}
-export function onSave(event: any, item?:any) {
+
+export function onSave(event: any) {
   event;
   console.log(" > ACTION: save");
   let content = <HTMLElement>document.querySelector("#dropzone");
-
-  const items = Object.assign(itemsLS(), {
-    [item.id]: item.outerHTML,
-  });
-  window.localStorage.setItem(WIDGETITEMS, JSON.stringify(items));
   window.localStorage.setItem("editME", content.innerHTML);
-  storeDispatch()
 }
 
 export function onRestore(event: any) {
   event; // fake the usage
 
   console.log(" > ACTION: restore");
-  storeDispatch()
-  let saved_content = getItemsCardStore()
+
+  let saved_content = getItemsCardStore();
   let content = <HTMLElement>document.querySelector("#dropzone");
 
   // Check that we have data to restore
@@ -452,47 +444,46 @@ function getStoreCardItem(id: string) {
   if (isItem) return null;
   return {
     id,
-    parse: getParse(item[id])
+    parse: getParse(item[id]),
   };
 }
-function setStoreCardItem(target:any, value:any, typeEl: string, stateItem:any) {
-  const targetParentClassName = target.parentElement.className.split(" ")[0]
-  const targetClassName = target.className.split(" ")[0]
+function setStoreCardItem(
+  target: any,
+  value: any,
+  typeEl: string,
+  stateItem: any
+) {
+  const targetParentClassName = target.parentElement.className.split(" ")[0];
+  const targetClassName = target.className.split(" ")[0];
+  if (!stateItem) return null;
+  let cardText = stateItem.parse.querySelector(".card-text");
+  let cardHeader = stateItem.parse.querySelector(".card-header strong");
+  let cardTitle = stateItem.parse.querySelector(".card-title a");
+  let cardBtn = stateItem.parse.querySelector(".btn");
 
-  if(!stateItem) return null
-  let cardText = stateItem.parse.querySelector('.card-text');
-  let cardHeader = stateItem.parse.querySelector('.card-header strong');
-  let cardTitle = stateItem.parse.querySelector('.card-title a');
-  let cardBtn = stateItem.parse.querySelector('.btn');
-
-  if(targetParentClassName === 'card-header'){
-    cardHeader.textContent = value
+  if (targetParentClassName === "card-header") {
+    cardHeader.textContent = value;
   }
-  if(targetClassName === 'card-text'){
-    cardText.textContent = value
+  if (targetClassName === "card-text") {
+    cardText.textContent = value;
   }
-  if(targetClassName === 'btn' && typeEl === 'content'){
-    cardBtn.textContent = value
+  if (targetClassName === "btn" && typeEl === "content") {
+    cardBtn.textContent = value;
   }
-  if(targetClassName === 'btn' && typeEl === 'attr'){
-    cardBtn.setAttribute("href", value)
+  if (targetClassName === "btn" && typeEl === "attr") {
+    cardBtn.setAttribute("href", value);
   }
-  if(targetParentClassName === 'card-title' && typeEl === 'content'){
-    cardTitle.textContent = value
+  if (targetParentClassName === "card-title" && typeEl === "content") {
+    cardTitle.textContent = value;
   }
-  if(targetParentClassName === 'card-title' && typeEl === 'attr'){
-    cardBtn.setAttribute("href", value)
+  if (targetParentClassName === "card-title" && typeEl === "attr") {
+    cardBtn.setAttribute("href", value);
   }
 
   store.dispatch(
-      updateItemsCard({
-        id: stateItem.id,
-        content: stateItem.parse.outerHTML,
-      })
+    updateItemsCard({
+      id: stateItem.id,
+      content: stateItem.parse.outerHTML,
+    })
   );
-
-  const items = Object.assign(itemsLS(), {
-    [stateItem.id]: stateItem.parse.outerHTML,
-  });
-  window.localStorage.setItem(WIDGETITEMS, JSON.stringify(items));
 }

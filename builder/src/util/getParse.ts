@@ -8,12 +8,3 @@ export const getParse = (item: string) => {
     return null;
   }
 };
-export const getParseLS = (item: string) => {
-  try {
-    const items= JSON.parse(item);
-    return Object.values(items).join("");
-  } catch (err) {
-    console.log("Error JSONParse");
-    return null;
-  }
-};
