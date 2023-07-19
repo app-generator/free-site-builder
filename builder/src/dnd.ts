@@ -1,371 +1,417 @@
+import {addItemsCard, updateItemsCard} from "./redux/cardsSlice.ts";
+import store from "./redux/store.ts";
+import {getParse} from "./util/getParse.ts";
+import {WIDGETITEMS} from "./constants/items.ts";
+
 export function setupGlobalEvents() {
+  document.querySelector("#dropzone")?.addEventListener("click", (event) => {
+    event.stopPropagation();
+  });
 
-    document.querySelector('#dropzone')?.addEventListener('click', event => {
-        event.stopPropagation();
-    });
+  // Trigger onMouseOver
+  //document.addEventListener('mouseover', event => {
+  //    onMouseOver(event);
+  //});
 
-    // Trigger onMouseOver
-    //document.addEventListener('mouseover', event => {
-    //    onMouseOver(event);
-    //});
-
-    //document.addEventListener('mouseout', event => {
-    //    event;
-    //    remClassProcessor('border-props');
-    //});         
+  //document.addEventListener('mouseout', event => {
+  //    event;
+  //    remClassProcessor('border-props');
+  //});
 }
 
 export function uuidv4() {
-    return 'uuid' + 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-    });
+  return (
+    "uuid" +
+    "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+      var r = (Math.random() * 16) | 0,
+        v = c == "x" ? r : (r & 0x3) | 0x8;
+      return v.toString(16);
+    })
+  );
 }
 
-
-
 export function onDragStart(event: any) {
-    console.log(' > onDrag_START() ');
+  console.log(" > onDrag_START() ");
 
-    event
-        .dataTransfer
-        .setData('text/plain', event.target.id);
+  event.dataTransfer.setData("text/plain", event.target.id);
 
-    event
-        .currentTarget
-        .style
-        .backgroundColor = 'white';
-
-    onSave(event);
+  event.currentTarget.style.backgroundColor = "white";
 }
 
 export function onDragOver(event: any) {
-    console.log(' > onDrag_OVER() ');
+  console.log(" > onDrag_OVER() ");
 
-    let dropIndicator = <HTMLElement>document.getElementById('drop-here-indicator');
-    dropIndicator.style.display = 'none';
+  let dropIndicator = <HTMLElement>(
+    document.getElementById("drop-here-indicator")
+  );
+  dropIndicator.style.display = "none";
 
-    // Remove all previous    
-    remClassProcessor('border-dotted');
+  // Remove all previous
+  remClassProcessor("border-dotted");
 
-    event.target.classList.add('border-dotted');
-    event.preventDefault();
+  event.target.classList.add("border-dotted");
+  event.preventDefault();
 }
 
 export function onDragEnd(event: any) {
-    console.log(' > onDrag_END() ');
+  console.log(" > onDrag_END() ");
 
-    // Remove all previous    
-    remClassProcessor('border-dotted');
+  // Remove all previous
+  remClassProcessor("border-dotted");
 
-    event
-        .dataTransfer
-        .setData('text/plain', event.target.id);
+  event.dataTransfer.setData("text/plain", event.target.id);
 
-    event
-        .currentTarget
-        .style
-        .backgroundColor = '#ffffff';
+  event.currentTarget.style.backgroundColor = "#ffffff";
 }
 
 export function onDrop(event: any) {
+  console.log(" > on_DROP() ");
 
-    console.log(' > on_DROP() ');
+  const id = event.dataTransfer.getData("text");
 
-    const id = event.dataTransfer.getData('text');
+  let editableComponent = <HTMLElement>(
+    document.getElementById(id)!.cloneNode(true)
+  );
+  let content = <HTMLElement>document.querySelector(".drop-indicator");
 
-    let editableComponent = <HTMLElement>document.getElementById(id)!.cloneNode(true);
-    let content = <HTMLElement>document.querySelector('.drop-indicator');
+  if (content) {
+    content.className = "d-none";
+  }
 
-    if (content) {
-        content.className = "d-none";
-    }      
+  console.log(" > CONTAINER: " + event.target.id);
+  console.log(" > Component: " + editableComponent.dataset.type);
 
-    console.log(' > CONTAINER: ' + event.target.id);
-    console.log(' > Component: ' + editableComponent.dataset.type);
+  // Customization
+  editableComponent.id = uuidv4();
 
-    // Customization
-    editableComponent.id = uuidv4();
+  if (event.target.id?.includes("grid-")) {
+    event.target.innerHTML = "";
+  }
 
-    if (event.target.id?.includes('grid-')) {
-        event.target.innerHTML = '';
-    }
+  //editableComponent.innerHTML += editableComponent.id;
+  editableComponent.classList.remove("draggable");
+  editableComponent.classList.add("component");
+  editableComponent.removeAttribute("draggable");
 
-    //editableComponent.innerHTML += editableComponent.id;
-    editableComponent.classList.remove('draggable');
-    editableComponent.classList.add('component');
-    editableComponent.removeAttribute('draggable');
+  // Make it CLICK-able
+  editableComponent.addEventListener("click", (event) => {
+    onClick(event);
+  });
 
-    // Make it CLICK-able
-    editableComponent.addEventListener('click', (event) => { onClick(event); });
+  // Activate Mouse Over
+  editableComponent.addEventListener("mouseover", (event) => {
+    onMouseOver(event);
+  });
+  //editableComponent.addEventListener('mouseout', (event) => { event; remClassProcessor('border-props'); });
 
-    // Activate Mouse Over
-    editableComponent.addEventListener('mouseover', (event) => { onMouseOver(event); });
-    //editableComponent.addEventListener('mouseout', (event) => { event; remClassProcessor('border-props'); });
-
-    // Inject component in the builder
-    //const dropzone = <HTMLElement>document.querySelector('#dropzone');
-    //dropzone.appendChild(editableComponent);
-    event.target.appendChild(editableComponent);
-
-    // Done with this event
-    event.dataTransfer.clearData();
+  // Inject component in the builder
+  //const dropzone = <HTMLElement>document.querySelector('#dropzone');
+  //dropzone.appendChild(editableComponent);
+  event.target.appendChild(editableComponent);
+  onSave(event, editableComponent);
+  // Done with this event
+  event.dataTransfer.clearData();
 }
 
 export function onDelete(element: any) {
+  console.log(" > on_DELETE() ");
 
-    console.log(' > on_DELETE() ');
+  element.style.display = "none";
+  const localStorageData =
+    window.localStorage.getItem("editME")?.split("dropzone")[1] || "";
 
-    element.style.display = "none";
-    const localStorageData = window.localStorage.getItem('editME')?.split("dropzone")[1] || "";
+  var div = document.createElement("div");
+  div.id = "dropzone";
+  div.innerHTML = localStorageData.trim();
 
-    var div = document.createElement('div');
-    div.id = 'dropzone';
-    div.innerHTML = localStorageData.trim();
+  const children = Array.from(div.children);
+  const updatedData = children.filter((item) => item.id !== element.id);
 
-    const children = Array.from(div.children);
-    const updatedData = children.filter(item => item.id !== element.id);
+  div.innerHTML = "dropzone";
+  updatedData.forEach((item) => {
+    div.appendChild(item);
+  });
 
-    div.innerHTML = 'dropzone';
-    updatedData.forEach(item => {
-        div.appendChild(item);
-    });
-
-    window.localStorage.setItem('editME', div.innerHTML)
+  window.localStorage.setItem("editME", div.innerHTML);
 }
 
 export function getElemName(aElement: HTMLElement) {
+  let aNodeType = aElement.nodeName;
 
-    let aNodeType = aElement.nodeName;
-
-    if ('P' === aNodeType) {
-        return 'Paragraph';
-    } else if ('A' === aNodeType) {
-        return 'Anchor';
-    } else if ('DIV' === aNodeType) {
-        return 'DIV';
-    } else if ('H5' === aNodeType) {
-        return 'H5 Tag';
-    } else {
-        return aNodeType;
-    }
+  if ("P" === aNodeType) {
+    return "Paragraph";
+  } else if ("A" === aNodeType) {
+    return "Anchor";
+  } else if ("DIV" === aNodeType) {
+    return "DIV";
+  } else if ("H5" === aNodeType) {
+    return "H5 Tag";
+  } else {
+    return aNodeType;
+  }
 }
 
 export function getElemProps(aElement: HTMLElement) {
+  let aNodeType = aElement.nodeName;
 
-    let aNodeType = aElement.nodeName;
-
-    if ('P' === aNodeType) {
-        return 'CSS, HtmlEdit';
-    } else if ('A' === aNodeType) {
-        return 'CSS, HREF'; // + aElement.getAttribute('href');
-    } else if ('DIV' === aNodeType) {
-        return 'CSS, HtmlEdit';
-    } else if ('H5' === aNodeType) {
-        return 'CSS, HtmlEdit';
-    } else {
-        return aNodeType.trim();
-    }
+  if ("P" === aNodeType) {
+    return "CSS, HtmlEdit";
+  } else if ("A" === aNodeType) {
+    return "CSS, HREF"; // + aElement.getAttribute('href');
+  } else if ("DIV" === aNodeType) {
+    return "CSS, HtmlEdit";
+  } else if ("H5" === aNodeType) {
+    return "CSS, HtmlEdit";
+  } else {
+    return aNodeType.trim();
+  }
 }
 
 export function onMouseOver(event: any) {
+  console.log(" > on_MouseOver()");
 
-    console.log(' > on_MouseOver()');
+  if (!event.target.id) {
+    event.target.setAttribute('data-id', uuidv4());
+  }
 
-    if (!event.target.id) {
-        event.target.id = uuidv4();
-    }
+  // let elem = <HTMLElement>document.getElementById(event.target.id);
 
-    let elem = <HTMLElement>document.getElementById(event.target.id);
+  // console.log(" > id: " + elem.id);
+  // console.log(" > type: " + elem.nodeName);
 
-    console.log(' > id: ' + elem.id);
-    console.log(' > type: ' + elem.nodeName);
+  // let PROPS_TITLE   = <HTMLElement>document.getElementById('builder-props-title');
+  // let PROPS_CONTENT = <HTMLElement>document.getElementById('builder-props-content');
 
-    // let PROPS_TITLE   = <HTMLElement>document.getElementById('builder-props-title');
-    // let PROPS_CONTENT = <HTMLElement>document.getElementById('builder-props-content');
+  // PROPS_TITLE.innerHTML    = elem.id;
+  // PROPS_CONTENT.innerHTML  = '<br /><hr />';
+  // PROPS_CONTENT.innerHTML += '<strong><center>'+getElemName(elem)+'</center></strong>';
+  // PROPS_CONTENT.innerHTML += '<hr /><br />';
+  // PROPS_CONTENT.innerHTML += '<p>'+getElemProps(elem)+'</p>';
 
-    // PROPS_TITLE.innerHTML    = elem.id;
-    // PROPS_CONTENT.innerHTML  = '<br /><hr />';
-    // PROPS_CONTENT.innerHTML += '<strong><center>'+getElemName(elem)+'</center></strong>';
-    // PROPS_CONTENT.innerHTML += '<hr /><br />';
-    // PROPS_CONTENT.innerHTML += '<p>'+getElemProps(elem)+'</p>';
+  let targetComponent = event.target;
 
-    let targetComponent = event.target;
+  // Remove previous
+  remClassProcessor("border-props");
 
-    // Remove previous 
-    remClassProcessor('border-props');
-
-    // Update CSS
-    targetComponent.classList.add('border-props');
+  // Update CSS
+  targetComponent.classList.add("border-props");
 }
 
 export function onClick(event: any) {
+  console.log(" > on_CLICK() ");
 
-    console.log(' > on_CLICK() ');
+  let targetComponent;
 
-    let targetComponent;
+  if (event.target.classList.contains("component")) {
+    targetComponent = event.target;
+  } else {
+    targetComponent = event.target.closest(".component");
+  }
 
-    if (event.target.classList.contains('component')) {
-        targetComponent = event.target;
-    } else {
-        targetComponent = event.target.closest('.component');
-    }
-
-    if (targetComponent.id && !(targetComponent.id.includes('uuid'))) {
-        console.log(' > GRID Component, skip the edit');
-        event.preventDefault();
-        return;
-    }
-
-    // Save the active Component
-    window.localStorage.setItem("activeComponent", targetComponent.id);
-
-    // In place edit
-    targetComponent.contentEditable = 'true';
-
-    console.log(' > ACTIVE Component: ' + targetComponent.id);
-
-    // Remove previous 
-    remClassProcessor('border-dotted');
-
-    // Update CSS
-    targetComponent.classList.add('border-dotted');
-
-    if (!hasSiblings(event.target)) {
-        let elem = <HTMLElement>document.getElementById(event.target.id);
-
-        let propsPanel_title = <HTMLElement>document.querySelector('#builder-props-title');
-        let propsPanel_content = <HTMLElement>document.querySelector('#builder-props-content');
-        let propsPanel_attribute = <HTMLElement>document.querySelector('#builder-props-attribute');
-
-        propsPanel_title.className = "p-2 rounded-1 border mb-2 bg-light text-center";
-        propsPanel_content.className = "rounded-1";
-        propsPanel_attribute.className = "rounded-1";
-
-        propsPanel_title.innerHTML = 'Component<br />' + event.target.id;
-
-        propsPanel_content.innerHTML = '<div class="newClass"><input id="props_text" class="form-control text-left" data-target="' + event.target.id + '" value="' + event.target.innerHTML + '" /></div>';
-
-        let selectedComponent = event.target;
-        if (elem.nodeName === "A") {
-            propsPanel_attribute.innerHTML = '<div class="newClass"><input id="props_attribute" class="form-control" data-target="' + event.target.id + '" value="' + event.target.href + '" /></div>';
-            let propsPanel_attr_input = <HTMLElement>document.querySelector('input#props_attribute');
-            propsPanel_attr_input.addEventListener('keyup', (event) => { onKeyUp(event, selectedComponent, 'attr'); });
-        }
-
-        let propsPanel_input = <HTMLElement>document.querySelector('input#props_text');
-        propsPanel_input.addEventListener('keyup', (event) => { onKeyUp(event, selectedComponent, 'content'); });
-
-    } else {
-        console.log(' > Nested COMPONENT, skip PROPS');
-    }
-
-    event.stopPropagation();
+  if (targetComponent.id && !targetComponent.id.includes("uuid")) {
+    console.log(" > GRID Component, skip the edit");
     event.preventDefault();
+    return;
+  }
+
+  // Save the active Component
+  window.localStorage.setItem("activeComponent", targetComponent.id);
+
+  // In place edit
+  targetComponent.contentEditable = "false";
+
+  console.log(" > ACTIVE Component: " + targetComponent.id);
+  const currentItemCard = getStoreCardItem(targetComponent.id);
+  // Remove previous
+  remClassProcessor("border-dotted");
+
+  // Update CSS
+  targetComponent.classList.add("border-dotted");
+
+  if (!hasSiblings(event.target)) {
+    let elem = <HTMLElement>document.querySelector(   `[data-id='${event.target.getAttribute('data-id')}']`);
+    let propsPanel_title = <HTMLElement>(
+      document.querySelector("#builder-props-title")
+    );
+    let propsPanel_content = <HTMLElement>(
+      document.querySelector("#builder-props-content")
+    );
+    let propsPanel_attribute = <HTMLElement>(
+      document.querySelector("#builder-props-attribute")
+    );
+
+    propsPanel_title.className =
+      "p-2 rounded-1 border mb-2 bg-light text-center";
+    propsPanel_content.className = "rounded-1";
+    propsPanel_attribute.className = "rounded-1";
+
+    propsPanel_title.innerHTML = "Component<br />" + targetComponent.id;
+
+    propsPanel_content.innerHTML =
+      '<div class="newClass"><input id="props_text" class="form-control text-left" data-target="' +
+      event.target.id +
+      '" value="' +
+      event.target.innerHTML +
+      '" /></div>';
+
+    let selectedComponent = event.target;
+
+    if (elem.nodeName === "A") {
+      propsPanel_attribute.innerHTML =
+          '<div class="newClass"><input id="props_attribute" class="form-control" data-target="' +
+          event.target.id +
+          '" value="' +
+          event.target.href +
+          '" /></div>';
+      let propsPanel_attr_input = <HTMLElement>(
+          document.querySelector("input#props_attribute")
+      );
+      propsPanel_attr_input.addEventListener("keyup", (event) => {
+        onKeyUp(event, selectedComponent, "attr", currentItemCard);
+      });
+    }
+
+    let propsPanel_input = <HTMLElement>(
+      document.querySelector("input#props_text")
+    );
+
+    propsPanel_input.addEventListener("keyup", (event) => {
+      onKeyUp(event, selectedComponent, "content", currentItemCard);
+    });
+  } else {
+    console.log(" > Nested COMPONENT, skip PROPS");
+  }
+
+  event.stopPropagation();
+  event.preventDefault();
 }
 
 export function hasSiblings(aNode: HTMLElement) {
+  if (!aNode) return false;
 
-    if (!aNode)
-        return false;
+  let siblings = [];
+  let sibling = aNode.firstChild;
 
-    let siblings = [];
-    let sibling = aNode.firstChild;
-
-    while (sibling) {
-        if (sibling.nodeType === 1) {
-            siblings.push(sibling);
-        }
-        sibling = sibling.nextSibling;
+  while (sibling) {
+    if (sibling.nodeType === 1) {
+      siblings.push(sibling);
     }
+    sibling = sibling.nextSibling;
+  }
 
-    if (siblings.length > 0)
-        return true;
-    else
-        return false;
+  if (siblings.length > 0) return true;
+  else return false;
 }
 
 export function remClassProcessor(aClass: string) {
+  let elems = document.getElementsByClassName(aClass);
 
-    let elems = document.getElementsByClassName(aClass);
-
-    if (elems) {
-        for (let i = 0; i < elems.length; i++) {
-            elems[i].classList.remove(aClass);
-        }
+  if (elems) {
+    for (let i = 0; i < elems.length; i++) {
+      elems[i].classList.remove(aClass);
     }
+  }
 }
 
-export function onKeyUp(event: any, target: any, flag: any) {
-    // if (event.keyCode !== 13) return;
+export function onKeyUp(event: any, target: any, flag: any, currentItem:any) {
+  // if (event.keyCode !== 13) return;
+  event;
+  const target_id = target.id;
 
-    event;
-    const target_id = target.id;
-
-    let activeComponent = document.querySelector('#' + target_id);
-
-    if (activeComponent) {
-        if (flag === 'attr') {
-            activeComponent.setAttribute('href', event.target.value);
-        } else {
-            activeComponent.innerHTML = event.target.value;
-        }
+  let activeComponent = <HTMLElement>document.querySelector(   `[data-id='${target.getAttribute('data-id')}']`);
+  if (activeComponent) {
+    setStoreCardItem(target, event.target.value, flag, currentItem)
+    if (flag === "attr") {
+      activeComponent.setAttribute("href", event.target.value);
     } else {
-        console.log(' > NULL target:' + target_id);
+      activeComponent.innerHTML = event.target.value;
     }
-    //}    
+  } else {
+    console.log(" > NULL target:" + target_id);
+  }
+  //}
 }
 
 export function onClear(event: any) {
-    event;
-    console.log(' > ACTION: clear');
-    let content = <HTMLElement>document.querySelector('#dropzone');
-    // clear
-    let info='<div class="drop-indicator d-flex align-items-center justify-content-center"><div class="p-4 shadow bg-white rounded-3 text-center"><span class="icon text-primary h3"><i class="fa-solid fa-circle-plus"></i></span><h6 class="mt-3">Drop Here...</h6></div></div>'
-    content.innerHTML = info;
-    window.localStorage.clear();
-    //let builderContainer = document.querySelector('#layout')!.innerHTML;
-    //document.querySelector<HTMLDivElement>('#app')!.innerHTML = builderContainer;    
+  event;
+  console.log(" > ACTION: clear");
+  let content = <HTMLElement>document.querySelector("#dropzone");
+  // clear
+  let info =
+    '<div class="drop-indicator d-flex align-items-center justify-content-center"><div class="p-4 shadow bg-white rounded-3 text-center"><span class="icon text-primary h3"><i class="fa-solid fa-circle-plus"></i></span><h6 class="mt-3">Drop Here...</h6></div></div>';
+  content.innerHTML = info;
+  window.localStorage.clear();
+  //let builderContainer = document.querySelector('#layout')!.innerHTML;
+  //document.querySelector<HTMLDivElement>('#app')!.innerHTML = builderContainer;
 }
 
-export function onSave(event: any) {
-    event;
-    console.log(' > ACTION: save');
-    let content = <HTMLElement>document.querySelector('#dropzone');
-    window.localStorage.setItem("editME", content.innerHTML);
+function itemsLS() {
+  let itemsArr: any = window.localStorage.getItem(WIDGETITEMS);
+  if(itemsArr){
+    return JSON.parse(itemsArr)
+  }
+  return {}
+}
+
+
+function getItemsCardStore() {
+  const {
+    cards: { items }
+  }: any = store.getState();
+
+  if(!items) return null
+  return Object.values(items).join("");
+}
+function storeDispatch() {
+  let itemsString: any = window.localStorage.getItem(WIDGETITEMS);
+  const itemsCard = JSON.parse(itemsString);
+  store.dispatch(
+      addItemsCard(itemsCard)
+  );
+}
+export function onSave(event: any, item?:any) {
+  event;
+  console.log(" > ACTION: save");
+  let content = <HTMLElement>document.querySelector("#dropzone");
+
+  const items = Object.assign(itemsLS(), {
+    [item.id]: item.outerHTML,
+  });
+  window.localStorage.setItem(WIDGETITEMS, JSON.stringify(items));
+  window.localStorage.setItem("editME", content.innerHTML);
+  storeDispatch()
 }
 
 export function onRestore(event: any) {
+  event; // fake the usage
 
-    event; // fake the usage
+  console.log(" > ACTION: restore");
+  storeDispatch()
+  let saved_content = getItemsCardStore()
+  let content = <HTMLElement>document.querySelector("#dropzone");
 
-    console.log(' > ACTION: restore');
-    let content = <HTMLElement>document.querySelector('#dropzone');
+  // Check that we have data to restore
+  if (!saved_content) {
+    return;
+  }
 
-    let saved_content = <string>window.localStorage.getItem("editME");
+  // update
+  content.innerHTML = saved_content;
 
-    // Check that we have data to restore
-    if (!saved_content) {
-        return;
-    }
+  let elems = content.getElementsByClassName("component");
 
-    // update
-    content.innerHTML = saved_content;
+  if (elems) {
+    for (let i = 0; i < elems.length; i++) {
+      const draggableElement = elems[i];
 
-    let elems = content.getElementsByClassName("component");
+      draggableElement.addEventListener("click", onClick);
 
-    if (elems) {
-        for (let i = 0; i < elems.length; i++) {
-            const draggableElement = elems[i];
+      //const upButton = draggableElement.querySelector('.upButton');
+      //const downButton = draggableElement.querySelector('.downButton');
+      //const crossButton = draggableElement.querySelector('.cross-icon');
+      //const parentElement = draggableElement.parentElement;
 
-            draggableElement.addEventListener('click', onClick);
-
-            //const upButton = draggableElement.querySelector('.upButton');
-            //const downButton = draggableElement.querySelector('.downButton');
-            //const crossButton = draggableElement.querySelector('.cross-icon');
-            //const parentElement = draggableElement.parentElement;
-
-            /*
+      /*
             if (parentElement) {
                 if (upButton) {
                     upButton.addEventListener('click', function() {
@@ -392,9 +438,61 @@ export function onRestore(event: any) {
                 }
             }
             */
-        }
-    } else {
-        console.log(' > NULL ELEMs ');
     }
+  } else {
+    console.log(" > NULL ELEMs ");
+  }
 }
 
+function getStoreCardItem(id: string) {
+  const {
+    cards: { items: item },
+  }: any = store.getState();
+  const isItem = Object.keys(item).length === 0;
+  if (isItem) return null;
+  return {
+    id,
+    parse: getParse(item[id])
+  };
+}
+function setStoreCardItem(target:any, value:any, typeEl: string, stateItem:any) {
+  const targetParentClassName = target.parentElement.className.split(" ")[0]
+  const targetClassName = target.className.split(" ")[0]
+
+  if(!stateItem) return null
+  let cardText = stateItem.parse.querySelector('.card-text');
+  let cardHeader = stateItem.parse.querySelector('.card-header strong');
+  let cardTitle = stateItem.parse.querySelector('.card-title a');
+  let cardBtn = stateItem.parse.querySelector('.btn');
+
+  if(targetParentClassName === 'card-header'){
+    cardHeader.textContent = value
+  }
+  if(targetClassName === 'card-text'){
+    cardText.textContent = value
+  }
+  if(targetClassName === 'btn' && typeEl === 'content'){
+    cardBtn.textContent = value
+  }
+  if(targetClassName === 'btn' && typeEl === 'attr'){
+    cardBtn.setAttribute("href", value)
+  }
+  if(targetParentClassName === 'card-title' && typeEl === 'content'){
+    cardTitle.textContent = value
+  }
+  if(targetParentClassName === 'card-title' && typeEl === 'attr'){
+    cardBtn.setAttribute("href", value)
+  }
+
+  store.dispatch(
+      updateItemsCard({
+        id: stateItem.id,
+        content: stateItem.parse.outerHTML,
+      })
+  );
+
+  const items = Object.assign(itemsLS(), {
+    [stateItem.id]: stateItem.parse.outerHTML,
+  });
+  window.localStorage.setItem(WIDGETITEMS, JSON.stringify(items));
+}
