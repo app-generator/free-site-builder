@@ -158,8 +158,8 @@ function openPreviewModal() {
 
         // Process nested components
         let nestedComponents = processedComponent.querySelectorAll('.component');
-        nestedComponents.forEach((nestedComponent: HTMLElement) => {
-            let processedNestedComponent = processComponent(nestedComponent);
+        nestedComponents.forEach((nestedComponent: Element) => {
+            let processedNestedComponent = processComponent(nestedComponent as HTMLElement);
             nestedComponent.replaceWith(processedNestedComponent);
         });
 
