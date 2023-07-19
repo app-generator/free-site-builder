@@ -150,7 +150,28 @@ function openPreviewModal() {
     let previewFrame = document.querySelector('#previewFrame') as HTMLIFrameElement;
     let dropzone = document.querySelector('#dropzone');
   
-    // Load the content of the dropzone into the iframe
+    // Recursive function to process each component
+    // Added processComponent function to handle complex component processing before preview
+    // to allow previews of complex layouts
+    function processComponent(component: HTMLElement) {
+        let processedComponent = component.cloneNode(true) as HTMLElement;
+
+        // Process nested components
+        let nestedComponents = processedComponent.querySelectorAll('.component');
+        nestedComponents.forEach((nestedComponent: HTMLElement) => {
+            let processedNestedComponent = processComponent(nestedComponent);
+            nestedComponent.replaceWith(processedNestedComponent);
+        });
+
+        // Generate preview for this component
+        let previewComponent = processedComponent;
+
+        return previewComponent;
+    }
+
+    let processedContent = processComponent(dropzone as HTMLElement);
+
+    // Load the content of the processed dropzone into the iframe
     let iframeContent = `
       <html>
         <head>
@@ -176,7 +197,7 @@ function openPreviewModal() {
           </style>
         </head>
         <body>
-          ${dropzone?.innerHTML}
+          ${processedContent.outerHTML}
         </body>
       </html>
     `;
@@ -185,10 +206,13 @@ function openPreviewModal() {
     window.localStorage.setItem("previewMode", "active");
 
     previewFrame.srcdoc = iframeContent;
-  
+
     // Show the modal
     previewModal.style.display = "block";
-}
+
+    // Add a class to the body to indicate that the preview is open
+    previewModal.classList.add('preview-open');
+  }
   
   function closePreviewModal() {
     let previewModal = document.querySelector('#previewModal') as HTMLElement;
@@ -198,6 +222,7 @@ function openPreviewModal() {
 
     // Set preview mode to inactive
     window.localStorage.setItem("previewMode", "inactive");
+    previewModal.classList.remove('preview-open');
   }
   
   function setPreviewMode(mode: 'fullScreen' | 'tablet' | 'mobile') {

@@ -671,6 +671,10 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
 }
 
 /* ******************** PREVIEW MODAL ******************** */
+#previewModal.preview-open #previewFrame {
+  /* pointer-events: none; */
+}
+
 .modal {
   display: none;
   position: fixed;
