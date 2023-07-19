@@ -1,3 +1,5 @@
+import { imageExists } from "./utiles";
+
 export function setupGlobalEvents() {
 
     document.querySelector('#dropzone')?.addEventListener('click', event => {
@@ -51,6 +53,74 @@ export function onDragOver(event: any) {
     event.target.classList.add('border-dotted');
     event.preventDefault();
 }
+const onPutDelete = (component: any) => {
+    console.log("' > onReposition() '")
+    const editableComponent = component;
+
+    const spanElement = document.createElement("span");
+    spanElement.innerHTML = "<i class='fa-solid fa-xmark'></i>";
+    spanElement.className = "cross-icon";
+    spanElement.onclick = function() {
+        onDelete(editableComponent);
+    };
+
+    const contentElement = document.createElement("span");
+    contentElement.innerHTML = editableComponent.innerHTML.trim();
+    contentElement.style.display = "block";
+    contentElement.id = editableComponent.id;
+    contentElement.onclick = function(event) {
+        onClick( event )
+    };
+
+    editableComponent.innerHTML = "";
+    editableComponent.appendChild(spanElement);
+    editableComponent.appendChild(contentElement);
+}
+const onReposition = (component: any) => {
+    console.log("' > onReposition() '")
+    const editableComponent = component;
+
+    const upElement = document.createElement("span");
+    upElement.innerHTML = "<i class='fa-solid fa-caret-up'></i>";
+    upElement.className = "upButton";
+    upElement.onclick = function() {
+        var prevElement = editableComponent.previousElementSibling;
+        if (prevElement) {
+            editableComponent.parentNode?.insertBefore(editableComponent, prevElement);
+        }
+    }
+
+    const downElement = document.createElement("span");
+    downElement.innerHTML = "<i class='fa-solid fa-caret-down'></i>";
+    downElement.className = "downButton";
+    downElement.onclick = function() {
+        var nextElement = editableComponent.nextElementSibling;
+        if (nextElement) {
+            editableComponent.parentNode?.insertBefore(nextElement, editableComponent);
+        }
+    }
+
+    const spanElement = document.createElement("span");
+    spanElement.innerHTML = "<i class='fa-solid fa-xmark'></i>";
+    spanElement.className = "cross-icon";
+    spanElement.onclick = function() {
+        onDelete(editableComponent);
+    };
+
+    const contentElement = document.createElement("span");
+    contentElement.innerHTML = editableComponent.innerHTML.trim();
+    contentElement.style.display = "block";
+    contentElement.id = editableComponent.id;
+    contentElement.onclick = function(event) {
+        onClick( event )
+    };
+
+    editableComponent.innerHTML = "";
+    editableComponent.appendChild(upElement);
+    editableComponent.appendChild(downElement);
+    editableComponent.appendChild(spanElement);
+    editableComponent.appendChild(contentElement);
+}
 
 export function onDragEnd(event: any) {
     console.log(' > onDrag_END() ');
@@ -79,7 +149,7 @@ export function onDrop(event: any) {
 
     if (content) {
         content.className = "d-none";
-    }      
+    }
 
     console.log(' > CONTAINER: ' + event.target.id);
     console.log(' > Component: ' + editableComponent.dataset.type);
@@ -95,6 +165,13 @@ export function onDrop(event: any) {
     editableComponent.classList.remove('draggable');
     editableComponent.classList.add('component');
     editableComponent.removeAttribute('draggable');
+    console.log(event.target.id, "))my-target");
+    // Some Stuff 
+    if (event.target.id == "dropzone") {
+        onReposition(editableComponent);    // reorder & delete
+    } else {
+        onPutDelete(editableComponent);     // put only delete
+    }
 
     // Make it CLICK-able
     editableComponent.addEventListener('click', (event) => { onClick(event); });
@@ -131,7 +208,7 @@ export function onDelete(element: any) {
         div.appendChild(item);
     });
 
-    window.localStorage.setItem('editME', div.innerHTML)
+    // window.localStorage.setItem('editME', div.innerHTML)
 }
 
 export function getElemName(aElement: HTMLElement) {
@@ -244,17 +321,28 @@ export function onClick(event: any) {
 
         propsPanel_title.innerHTML = 'Component<br />' + event.target.id;
 
-        propsPanel_content.innerHTML = '<div class="newClass"><input id="props_text" class="form-control text-left" data-target="' + event.target.id + '" value="' + event.target.innerHTML + '" /></div>';
+        if (elem?.nodeName !== "IMG")
+            propsPanel_content.innerHTML = '<div class="newClass"><input id="props_text" class="form-control text-left" data-target="' + event.target.id + '" value="' + event.target.innerHTML + '" /></div>';
 
         let selectedComponent = event.target;
-        if (elem.nodeName === "A") {
-            propsPanel_attribute.innerHTML = '<div class="newClass"><input id="props_attribute" class="form-control" data-target="' + event.target.id + '" value="' + event.target.href + '" /></div>';
-            let propsPanel_attr_input = <HTMLElement>document.querySelector('input#props_attribute');
-            propsPanel_attr_input.addEventListener('keyup', (event) => { onKeyUp(event, selectedComponent, 'attr'); });
+        let propsPanel_attr_input, propsPanel_input;
+        if (elem?.nodeName && (elem.nodeName === "A" || elem.nodeName === "IMG")) {
+            const attrVal = elem.nodeName === "A" ? event.target.href : event.target.src;
+            propsPanel_attribute.innerHTML = '<div class="newClass"><input id="props_attribute" class="form-control" data-target="' + event.target.id + '" value="' + attrVal + '" /></div>';
+            propsPanel_attr_input = <HTMLElement>document.querySelector('input#props_attribute');
+            propsPanel_attr_input.addEventListener('keyup', (event) => { onKeyUp(event, selectedComponent, elem.nodeName); });
+
+            if (elem.nodeName === "IMG") {
+                propsPanel_input = <HTMLElement>document.querySelector('input#props_text');
+                propsPanel_input?.remove();
+            }
+        } else {
+            propsPanel_attr_input = <HTMLElement>document.querySelector('input#props_attribute');
+            propsPanel_attr_input?.remove();
         }
 
-        let propsPanel_input = <HTMLElement>document.querySelector('input#props_text');
-        propsPanel_input.addEventListener('keyup', (event) => { onKeyUp(event, selectedComponent, 'content'); });
+        propsPanel_input = <HTMLElement>document.querySelector('input#props_text');
+        propsPanel_input?.addEventListener('keyup', (event) => { onKeyUp(event, selectedComponent, 'content'); });
 
     } else {
         console.log(' > Nested COMPONENT, skip PROPS');
@@ -296,17 +384,27 @@ export function remClassProcessor(aClass: string) {
     }
 }
 
-export function onKeyUp(event: any, target: any, flag: any) {
+export async function onKeyUp(event: any, target: any, flag: string) {
     // if (event.keyCode !== 13) return;
-
     event;
     const target_id = target.id;
 
     let activeComponent = document.querySelector('#' + target_id);
 
     if (activeComponent) {
-        if (flag === 'attr') {
+        if (flag === 'A') {
             activeComponent.setAttribute('href', event.target.value);
+        } else if (flag === 'IMG') {
+            if (await imageExists(event.target.value)){
+                activeComponent.setAttribute('src', event.target.value);
+                if(document.getElementsByClassName("img-warning")?.length > 0) document.querySelector(".img-warning")?.remove();
+            } else {
+                if(document.getElementsByClassName("img-warning")?.length === 0){
+                    let imgAttrinput = event.target;
+                    imgAttrinput.insertAdjacentHTML('afterend', '<div class="img-warning"><img src="/img/warning.png" width="35" alt="W" /></div>');
+                }
+            }
+
         } else {
             activeComponent.innerHTML = event.target.value;
         }
@@ -321,7 +419,7 @@ export function onClear(event: any) {
     console.log(' > ACTION: clear');
     let content = <HTMLElement>document.querySelector('#dropzone');
     // clear
-    let info='<div class="drop-indicator d-flex align-items-center justify-content-center"><div class="p-4 shadow bg-white rounded-3 text-center"><span class="icon text-primary h3"><i class="fa-solid fa-circle-plus"></i></span><h6 class="mt-3">Drop Here...</h6></div></div>'
+    let info = '<div class="drop-indicator d-flex align-items-center justify-content-center"><div class="p-4 shadow bg-white rounded-3 text-center"><span class="icon text-primary h3"><i class="fa-solid fa-circle-plus"></i></span><h6 class="mt-3">Drop Here...</h6></div></div>'
     content.innerHTML = info;
     window.localStorage.clear();
     //let builderContainer = document.querySelector('#layout')!.innerHTML;
@@ -360,12 +458,11 @@ export function onRestore(event: any) {
 
             draggableElement.addEventListener('click', onClick);
 
-            //const upButton = draggableElement.querySelector('.upButton');
-            //const downButton = draggableElement.querySelector('.downButton');
-            //const crossButton = draggableElement.querySelector('.cross-icon');
-            //const parentElement = draggableElement.parentElement;
+            const upButton = draggableElement.querySelector('.upButton');
+            const downButton = draggableElement.querySelector('.downButton');
+            const crossButton = draggableElement.querySelector('.cross-icon');
+            const parentElement = draggableElement.parentElement;
 
-            /*
             if (parentElement) {
                 if (upButton) {
                     upButton.addEventListener('click', function() {
@@ -391,7 +488,6 @@ export function onRestore(event: any) {
                     });
                 }
             }
-            */
         }
     } else {
         console.log(' > NULL ELEMs ');

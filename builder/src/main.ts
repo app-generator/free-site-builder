@@ -1,4 +1,6 @@
 import './style.css'
+import style from './style.css?inline';
+import JSZip from 'jszip';
 import { onDragStart, onDragEnd, onDragOver, onDrop, onClear, onSave, onRestore, setupGlobalEvents} from './dnd.ts'
 
 //fetch('http://127.0.0.1:5000/kits/bs5/div.html') 
@@ -10,14 +12,14 @@ import { onDragStart, onDragEnd, onDragOver, onDrop, onClear, onSave, onRestore,
 function downloadComponents() {
     let loading = document.querySelector('#overlay') as HTMLElement;
     
-    let localStorageData = window.localStorage.getItem('components');
-    if (localStorageData) {
-      let localStorageParsedData = JSON.parse(<string>window.localStorage.getItem('components'));
-      return new Promise((resolve) => {
-        // Simulating an asynchronous operation
-        resolve(drawComponents(localStorageParsedData));
-      });
-    } else {
+    //let localStorageData = window.localStorage.getItem('components');
+    //if (localStorageData) {
+    //  let localStorageParsedData = JSON.parse(<string>window.localStorage.getItem('components'));
+    //  return new Promise((resolve) => {
+    //    // Simulating an asynchronous operation
+    //    resolve(drawComponents(localStorageParsedData));
+    //  });
+    //} else {
       loading.style.display = 'flex';
       
       //return fetch('http://127.0.0.1:5000/kits/bs5/')                 // local version
@@ -30,7 +32,7 @@ function downloadComponents() {
           drawComponents(response_json);
         })
         .catch(error => console.error(error));
-    }
+    //}
 }
 
 function drawComponents(response_json:any) {
@@ -81,6 +83,7 @@ document.querySelector('#action_undo')!.addEventListener('click', (event) => { o
 // SETUP Preview
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#action_preview')!.addEventListener('click', openPreviewModal);
+    document.querySelector('#action_download')!.addEventListener('click', downloadHanlder);
     document.querySelector('#closeModal')!.addEventListener('click', closePreviewModal);
     document.querySelector('#fullScreenOption')!.addEventListener('click', () => setPreviewMode('fullScreen'));
     document.querySelector('#tabletOption')!.addEventListener('click', () => setPreviewMode('tablet'));
@@ -99,6 +102,47 @@ function misc() {
         draggableElems[i].addEventListener('dragstart', (event) => { onDragStart(event) });
         draggableElems[i].addEventListener('dragend', (event) => { onDragEnd(event) });
     }   
+}
+function downloadHanlder() {
+  const zip = new JSZip();
+  let dropzone = document.querySelector('#dropzone') as HTMLElement;
+  const htmlContent = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>HTML</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+        <link href="assets/css/index.css" rel="stylesheet">
+        <style>
+        .dropzone {
+          border-radius: 0 !important;
+          border: none !important;
+        }
+        </style>
+      </head>
+      <body>
+        ${dropzone.outerHTML}
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+      </body>
+    </html>
+  `;
+
+  // Add the HTML file to the zip
+  zip.file('index.html', htmlContent);
+  zip.file('assets/css/index.css', style);
+
+  // Generate the zip file
+  zip.generateAsync({ type: 'blob' })
+    .then(function(content:any) {
+      // Create a download link
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(content);
+      link.download = 'builder.zip';
+
+      // Trigger the download
+      link.click();
+    });
 }
 
 function openPreviewModal() {
