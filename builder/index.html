@@ -107,7 +107,7 @@
           </li>
           <li class="nav-item" role="presentation">
             <button class="nav-link" id="page-tabA" data-bs-toggle="tab" data-bs-target="#pageA" type="button"
-              role="tab" aria-controls="pageA" aria-selected="false">Page</button>
+              role="tab" aria-controls="pageA" aria-selected="false">Page Globals</button>
           </li>
         </ul>
         <div class="tab-content forScroll" id="myTabContent">
@@ -133,7 +133,18 @@
 
           <div class="tab-pane fade" id="pageA" role="tabpanel" aria-labelledby="page-tabA">
             <div class="mainEditor">
-              <div class="divName">Page</div>
+              <p class="tabPageName">Index.html</p>
+              <div class="divName">SEO</div>
+              <div id="builder-global-set">
+                <div class="newClass"><input class="form-control text-left global-set" id="page_title" placeholder="Page Title" /></div>
+                <div class="newClass"><input class="form-control text-left global-set" id="seo_description" placeholder="SEO description" /></div>
+                <div class="newClass"><input class="form-control text-left global-set" id="seo_keyword" placeholder="SEO Keywords" /></div>
+              </div>
+              <div class="divName">External Assets</div>
+              <div id="builder-global-set">
+                <div class="newClass"><input class="form-control text-left global-set" id="external_js_url" placeholder="EXTERNAL JS URL" /></div>
+                <div class="newClass"><input class="form-control text-left global-set" id="external_css_url" placeholder="EXTERNAL CSS URL" /></div>
+              </div>
             </div>
           </div>
           
