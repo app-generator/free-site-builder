@@ -53,6 +53,29 @@ export function onDragOver(event: any) {
     event.target.classList.add('border-dotted');
     event.preventDefault();
 }
+const onPutDelete = (component: any) => {
+    console.log("' > onReposition() '")
+    const editableComponent = component;
+
+    const spanElement = document.createElement("span");
+    spanElement.innerHTML = "<i class='fa-solid fa-xmark'></i>";
+    spanElement.className = "cross-icon";
+    spanElement.onclick = function() {
+        onDelete(editableComponent);
+    };
+
+    const contentElement = document.createElement("span");
+    contentElement.innerHTML = editableComponent.innerHTML.trim();
+    contentElement.style.display = "block";
+    contentElement.id = editableComponent.id;
+    contentElement.onclick = function(event) {
+        onClick( event )
+    };
+
+    editableComponent.innerHTML = "";
+    editableComponent.appendChild(spanElement);
+    editableComponent.appendChild(contentElement);
+}
 const onReposition = (component: any) => {
     console.log("' > onReposition() '")
     const editableComponent = component;
@@ -142,10 +165,12 @@ export function onDrop(event: any) {
     editableComponent.classList.remove('draggable');
     editableComponent.classList.add('component');
     editableComponent.removeAttribute('draggable');
-
+    console.log(event.target.id, "))my-target");
     // Some Stuff 
     if (event.target.id == "dropzone") {
-        onReposition(editableComponent);
+        onReposition(editableComponent);    // reorder & delete
+    } else {
+        onPutDelete(editableComponent);     // put only delete
     }
 
     // Make it CLICK-able
@@ -296,11 +321,11 @@ export function onClick(event: any) {
 
         propsPanel_title.innerHTML = 'Component<br />' + event.target.id;
 
-        if (elem.nodeName !== "IMG")
+        if (elem?.nodeName !== "IMG")
             propsPanel_content.innerHTML = '<div class="newClass"><input id="props_text" class="form-control text-left" data-target="' + event.target.id + '" value="' + event.target.innerHTML + '" /></div>';
 
         let selectedComponent = event.target;
-        if (elem.nodeName === "A" || elem.nodeName === "IMG") {
+        if (elem?.nodeName === "A" || elem?.nodeName === "IMG") {
             const attrVal = elem.nodeName === "A" ? event.target.href : event.target.src;
             propsPanel_attribute.innerHTML = '<div class="newClass"><input id="props_attribute" class="form-control" data-target="' + event.target.id + '" value="' + attrVal + '" /></div>';
             let propsPanel_attr_input = <HTMLElement>document.querySelector('input#props_attribute');
