@@ -921,3 +921,7 @@ body body {
   background-color: rgb(210, 210, 210);
   outline: none;
 }
+.setClassList {
+  display: flex;
+  flex-direction: column;
+}
