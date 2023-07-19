@@ -325,12 +325,8 @@ export function onClick(event: any) {
             propsPanel_content.innerHTML = '<div class="newClass"><input id="props_text" class="form-control text-left" data-target="' + event.target.id + '" value="' + event.target.innerHTML + '" /></div>';
 
         let selectedComponent = event.target;
-<<<<<<< HEAD
-        if (elem?.nodeName === "A" || elem?.nodeName === "IMG") {
-=======
         let propsPanel_attr_input, propsPanel_input;
         if (elem?.nodeName && (elem.nodeName === "A" || elem.nodeName === "IMG")) {
->>>>>>> 5c95bc7a17888be14bf1fc43a1bd4dab0b8410fe
             const attrVal = elem.nodeName === "A" ? event.target.href : event.target.src;
             propsPanel_attribute.innerHTML = '<div class="newClass"><input id="props_attribute" class="form-control" data-target="' + event.target.id + '" value="' + attrVal + '" /></div>';
             propsPanel_attr_input = <HTMLElement>document.querySelector('input#props_attribute');
