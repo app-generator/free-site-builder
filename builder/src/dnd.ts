@@ -249,14 +249,6 @@ export function onMouseOver(event: any) {
 
     console.log(' > on_MouseOver()');
 
-    // Check if preview modal is displayed
-    let previewModal = document.querySelector('#previewModal') as HTMLElement;
-
-    if (previewModal.style.display === "block") {
-        // If preview modal is displayed, do not add border
-        return;
-    }
-
     if (!event.target.id) {
         event.target.id = uuidv4();
     }

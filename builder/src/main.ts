@@ -194,6 +194,7 @@ function openPreviewModal() {
               align-items: center;
               width: 100%;
             }
+            .border-dotted, .border-props, .cross-icon { border: none !important; }
           </style>
         </head>
         <body>
@@ -201,9 +202,6 @@ function openPreviewModal() {
         </body>
       </html>
     `;
-
-    // Set preview mode to active
-    window.localStorage.setItem("previewMode", "active");
 
     previewFrame.srcdoc = iframeContent;
 
@@ -220,8 +218,6 @@ function openPreviewModal() {
     // Hide the modal
     previewModal.style.display = "none";
 
-    // Set preview mode to inactive
-    window.localStorage.setItem("previewMode", "inactive");
     previewModal.classList.remove('preview-open');
   }
   
