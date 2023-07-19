@@ -1,12 +1,15 @@
 import './style.css'
 import style from './style.css?inline';
 import JSZip from 'jszip';
+
+
 import { onDragStart, onDragEnd, onDragOver, onDrop, onClear, onSave, onRestore, setupGlobalEvents} from './dnd.ts'
 
 //fetch('http://127.0.0.1:5000/kits/bs5/div.html') 
 //.then(response => response.text())               // response.text() has the component that needs to be saved in  
 //.then(text => console.log(text))                 // builder-components
 //.catch(error => console.error(error));
+
 
 // Using Promise syntax:
 function downloadComponents() {
@@ -109,14 +112,9 @@ function downloadHanlder() {
 
   let tabPageName = document.querySelector(".tabPageName")?.innerHTML;
   let globalSetData = JSON.parse(<string>window.localStorage.getItem(`Global-${tabPageName}`));
-  console.log(globalSetData, 'my-target');
-  // let obj: any = {
-  //   page_title: '',
-  //   seo_description: '',
-  //   seo_keyword: '',
-  //   external_js_url: '',
-  //   external_css_url: '',
-  // };
+  let cssCode = window.localStorage.getItem('global-css-code');
+  let jsCode = window.localStorage.getItem('global-js-code');
+
   const htmlContent = `
     <!DOCTYPE html>
     <html>
@@ -134,12 +132,16 @@ function downloadHanlder() {
           border-radius: 0 !important;
           border: none !important;
         }
+        ${cssCode}
         </style>
       </head>
       <body>
         ${dropzone.outerHTML}
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${globalSetData?.external_js_url}" crossorigin="anonymous"></script>
+        <script>
+          ${jsCode}
+        </script>
       </body>
     </html>
   `;
