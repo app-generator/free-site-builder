@@ -665,7 +665,7 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
   }
 }
 
-
+/* ******************** PREVIEW MODAL ******************** */
 .modal {
   display: none;
   position: fixed;
@@ -684,21 +684,22 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
   /* background-color: #fefefe; */
   background-color: #f5f5f5;
   margin: auto;
-  padding: 20px;
   border: 1px solid #888;
   width: 80%;
 }
 
 .close {
-  color: #aaaaaa;
-  float: right;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: #ccc;
   font-size: 28px;
   font-weight: bold;
 }
 
 .close:hover,
 .close:focus {
-  color: #000;
+  color: #aaa;
   text-decoration: none;
   cursor: pointer;
 }
@@ -709,9 +710,30 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
   border: none;
 }
 
-.previewOption {
-  margin-right: 10px;
+#previewOptions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
 }
+
+#previewOptions .btn {
+  background-color: #f5f5f5;
+  color: #000;
+  transition: all 0.3s ease;
+  border: 1px solid #ccc;
+}
+
+#previewOptions .btn:hover {
+  border-color: #aaa;
+}
+
+#previewOptions .btn:focus {
+  outline: none;
+  border-color: #888;
+}
+/* ******************** END PREVIEW MODAL ******************** */
+
 #builder-props-title {
   font-size: 13px;
 }

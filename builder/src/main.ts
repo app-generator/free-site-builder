@@ -123,26 +123,23 @@ function openPreviewModal() {
                 }
               })
               .join('\n')}
+            body {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 100%;
+            }
           </style>
         </head>
-        <body style="padding: 15px;">
+        <body>
           ${dropzone?.innerHTML}
         </body>
-        <script>
-          // Disable contentEditable for all elements
-          const allElements = document.getElementsByTagName('*');
-          for (let i=0; i<allElements.length; i++) {
-            allElements[i].contentEditable = "false";
-          }
-
-          // Ensure all links open in a new tab
-          const allLinks = document.getElementsByTagName('a');
-          for (let i=0; i<allLinks.length; i++) {
-            allLinks[i].target = "_blank";
-          }
-        </script>
       </html>
     `;
+
+    // Set preview mode to active
+    window.localStorage.setItem("previewMode", "active");
+
     previewFrame.srcdoc = iframeContent;
   
     // Show the modal
@@ -154,6 +151,9 @@ function openPreviewModal() {
   
     // Hide the modal
     previewModal.style.display = "none";
+
+    // Set preview mode to inactive
+    window.localStorage.setItem("previewMode", "inactive");
   }
   
   function setPreviewMode(mode: 'fullScreen' | 'tablet' | 'mobile') {
