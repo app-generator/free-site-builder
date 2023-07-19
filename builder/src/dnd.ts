@@ -329,8 +329,8 @@ export function onClick(event: any) {
         if (elem?.nodeName !== "IMG")
             propsPanel_content.innerHTML = '<div class="newClass"><input id="props_text" class="form-control text-left" data-target="' + event.target.id + '" value="' + event.target.innerHTML + '" /></div>';
         
-        propsStyle_content.innerHTML = '<div class="newClass"><input id="styles_text" class="form-control text-left" data-target="' + event.target.id + '" value="' + event.target.style.cssText + '" /></div>';
-        propsClass_content.innerHTML = '<div class="newClass"><input id="classes_text" class="form-control text-left" placeholder="Add new class" data-target="' + event.target.id + '" /></div>';
+        propsStyle_content.innerHTML = '<div class="newClass-2"><input id="styles_text" class="form-control text-left" data-target="' + event.target.id + '" value="' + event.target.style.cssText + '" /></div>';
+        propsClass_content.innerHTML = '<div class="newClass-2"><input id="classes_text" class="form-control text-left" placeholder="Add new class" data-target="' + event.target.id + '" /></div>';
 
         let temporary_id = 'classList-temp';
         let temporary_id_ary = [];
@@ -338,10 +338,10 @@ export function onClick(event: any) {
         let classListsHTML = '<div class="setClassList">';
         for (let i = 0; i < classLists.length; i++) {
             temporary_id_ary.push(temporary_id + '-' + i);
-            classListsHTML += `<a href='#' id="${temporary_id}-${i}" class="setClassItem">${classLists[i]}</a>`;
+            classListsHTML += `<a href='#' id="${temporary_id}-${i}" class="setClassItem">${classLists[i]}</a> &nbsp;&nbsp;&nbsp;`;
         }
         classListsHTML += '</div>';
-        classListsHTML += '<p>(click to remove)</p>';
+        classListsHTML += '<p style="font-size:12px;">(click to remove)</p>';
         propsClassList_content.innerHTML = classListsHTML;
         let selectedComponent = event.target;
         let propsPanel_attr_input, propsPanel_input, stylePanel_input, classPanel_input, setClassItem_button;
