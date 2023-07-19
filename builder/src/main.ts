@@ -106,13 +106,28 @@ function misc() {
 function downloadHanlder() {
   const zip = new JSZip();
   let dropzone = document.querySelector('#dropzone') as HTMLElement;
+
+  let tabPageName = document.querySelector(".tabPageName")?.innerHTML;
+  let globalSetData = JSON.parse(<string>window.localStorage.getItem(`Global-${tabPageName}`));
+  console.log(globalSetData, 'my-target');
+  // let obj: any = {
+  //   page_title: '',
+  //   seo_description: '',
+  //   seo_keyword: '',
+  //   external_js_url: '',
+  //   external_css_url: '',
+  // };
   const htmlContent = `
     <!DOCTYPE html>
     <html>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>HTML</title>
+        <meta charset="UTF-8">
+        <meta name="description" content="${globalSetData?.seo_description}">
+        <meta name="keywords" content="${globalSetData?.seo_keyword}">
+        <title>${globalSetData?.page_title}</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+        <link href="${globalSetData?.external_css_url}" rel="stylesheet" crossorigin="anonymous">
         <link href="assets/css/index.css" rel="stylesheet">
         <style>
         .dropzone {
@@ -124,6 +139,7 @@ function downloadHanlder() {
       <body>
         ${dropzone.outerHTML}
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="${globalSetData?.external_js_url}" crossorigin="anonymous"></script>
       </body>
     </html>
   `;
@@ -248,6 +264,43 @@ for (let i = 0; i < dropZones.length; i++) {
     dropZones[i].addEventListener('dragover', (event) => { onDragOver(event) });
     dropZones[i].addEventListener('dragend', (event) => { onDragEnd(event) });
     dropZones[i].addEventListener('drop', (event) => { onDrop(event) });
+}
+
+let tabPageName = document.querySelector(".tabPageName")?.innerHTML;
+let globalSetData = JSON.parse(<string>window.localStorage.getItem(`Global-${tabPageName}`));
+if (globalSetData) {
+  document.querySelector("#page_title")!.setAttribute('value', globalSetData['page_title']);
+  document.querySelector("#seo_description")!.setAttribute('value', globalSetData['seo_description']);
+  document.querySelector("#seo_keyword")!.setAttribute('value', globalSetData['seo_keyword']);
+  document.querySelector("#external_js_url")!.setAttribute('value', globalSetData['external_js_url']);
+  document.querySelector("#external_css_url")!.setAttribute('value', globalSetData['external_css_url']);
+}
+
+// SETUP PAGE GLOBAL
+let globalSetInputs = document.getElementsByClassName('global-set');
+for (let i = 0; i < globalSetInputs.length; i++) {
+  let globalSet = globalSetInputs[i] as HTMLElement;
+  globalSet?.addEventListener('keyup', (event) => { onKeyUpToGlobalSet(event); });
+}
+
+function onKeyUpToGlobalSet(event: any) {
+  let id = event.target.id;
+  let tabPageName = document.querySelector(".tabPageName")?.innerHTML;
+  let globalSetData = JSON.parse(<string>window.localStorage.getItem(`Global-${tabPageName}`));
+  if (globalSetData) {
+    globalSetData[id] = event.target.value;
+    window.localStorage.setItem(`Global-${tabPageName}`, JSON.stringify(globalSetData));
+  } else {
+    let obj: any = {
+      page_title: '',
+      seo_description: '',
+      seo_keyword: '',
+      external_js_url: '',
+      external_css_url: '',
+    };
+    obj[id] = event.target.value;
+    window.localStorage.setItem(`Global-${tabPageName}`, JSON.stringify(obj));
+  }
 }
 
 onRestore(null);

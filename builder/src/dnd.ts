@@ -165,7 +165,6 @@ export function onDrop(event: any) {
     editableComponent.classList.remove('draggable');
     editableComponent.classList.add('component');
     editableComponent.removeAttribute('draggable');
-    console.log(event.target.id, "))my-target");
     // Some Stuff 
     if (event.target.id == "dropzone") {
         onReposition(editableComponent);    // reorder & delete
@@ -277,7 +276,6 @@ export function onMouseOver(event: any) {
 }
 
 export function onClick(event: any) {
-
     console.log(' > on_CLICK() ');
 
     let targetComponent;
@@ -315,17 +313,38 @@ export function onClick(event: any) {
         let propsPanel_content = <HTMLElement>document.querySelector('#builder-props-content');
         let propsPanel_attribute = <HTMLElement>document.querySelector('#builder-props-attribute');
 
+        let propsStyle_content = <HTMLElement>document.querySelector('#builder-style-content');
+        let propsClass_content = <HTMLElement>document.querySelector('#builder-class-content');
+        let propsClassList_content = <HTMLElement>document.querySelector('#builder-class-list');
+
+
         propsPanel_title.className = "p-2 rounded-1 border mb-2 bg-light text-center";
         propsPanel_content.className = "rounded-1";
         propsPanel_attribute.className = "rounded-1";
+        
+        propsStyle_content.className = "rounded-1";
 
         propsPanel_title.innerHTML = 'Component<br />' + event.target.id;
 
         if (elem?.nodeName !== "IMG")
             propsPanel_content.innerHTML = '<div class="newClass"><input id="props_text" class="form-control text-left" data-target="' + event.target.id + '" value="' + event.target.innerHTML + '" /></div>';
+        
+        propsStyle_content.innerHTML = '<div class="newClass-2"><input id="styles_text" class="form-control text-left" data-target="' + event.target.id + '" value="' + event.target.style.cssText + '" /></div>';
+        propsClass_content.innerHTML = '<div class="newClass-2"><input id="classes_text" class="form-control text-left" placeholder="Add new class" data-target="' + event.target.id + '" /></div>';
 
+        let temporary_id = 'classList-temp';
+        let temporary_id_ary = [];
+        let classLists = event.target.classList;
+        let classListsHTML = '<div class="setClassList">';
+        for (let i = 0; i < classLists.length; i++) {
+            temporary_id_ary.push(temporary_id + '-' + i);
+            classListsHTML += `<a href='#' id="${temporary_id}-${i}" class="setClassItem">${classLists[i]}</a> &nbsp;&nbsp;&nbsp;`;
+        }
+        classListsHTML += '</div>';
+        classListsHTML += '<p style="font-size:12px;">(click to remove)</p>';
+        propsClassList_content.innerHTML = classListsHTML;
         let selectedComponent = event.target;
-        let propsPanel_attr_input, propsPanel_input;
+        let propsPanel_attr_input, propsPanel_input, stylePanel_input, classPanel_input, setClassItem_button;
         if (elem?.nodeName && (elem.nodeName === "A" || elem.nodeName === "IMG")) {
             const attrVal = elem.nodeName === "A" ? event.target.href : event.target.src;
             propsPanel_attribute.innerHTML = '<div class="newClass"><input id="props_attribute" class="form-control" data-target="' + event.target.id + '" value="' + attrVal + '" /></div>';
@@ -343,6 +362,22 @@ export function onClick(event: any) {
 
         propsPanel_input = <HTMLElement>document.querySelector('input#props_text');
         propsPanel_input?.addEventListener('keyup', (event) => { onKeyUp(event, selectedComponent, 'content'); });
+
+        stylePanel_input = <HTMLElement>document.querySelector('input#styles_text');
+        stylePanel_input?.addEventListener('keyup', (event) => { onKeyUp(event, selectedComponent, 'styles'); });
+
+        classPanel_input = <HTMLElement>document.querySelector('input#classes_text');
+        classPanel_input?.addEventListener('keyup', (event) => {
+            if (event.keyCode === 13) {
+                onKeyUp(event, selectedComponent, 'classes');
+            }
+        });
+        for (let j = 0; j < temporary_id_ary.length; j++) {
+            setClassItem_button = <HTMLElement>document.querySelector(`#${temporary_id_ary[j]}`);
+            setClassItem_button?.addEventListener('click', (event) => {
+                onPressClassItem(event, selectedComponent);
+            });
+        }
 
     } else {
         console.log(' > Nested COMPONENT, skip PROPS');
@@ -383,20 +418,23 @@ export function remClassProcessor(aClass: string) {
         }
     }
 }
-
+export function onPressClassItem(event: any, target: any) {
+    let classNameToRemove = event.target.innerText;
+    target.classList.remove(classNameToRemove);
+    target.click();
+}
 export async function onKeyUp(event: any, target: any, flag: string) {
     // if (event.keyCode !== 13) return;
     event;
     const target_id = target.id;
 
-    let activeComponent = document.querySelector('#' + target_id);
-
-    if (activeComponent) {
+    // let activeComponent = document.querySelector(`${target_id}`);
+    if (target) {
         if (flag === 'A') {
-            activeComponent.setAttribute('href', event.target.value);
+            target.setAttribute('href', event.target.value);
         } else if (flag === 'IMG') {
             if (await imageExists(event.target.value)){
-                activeComponent.setAttribute('src', event.target.value);
+                target.setAttribute('src', event.target.value);
                 if(document.getElementsByClassName("img-warning")?.length > 0) document.querySelector(".img-warning")?.remove();
             } else {
                 if(document.getElementsByClassName("img-warning")?.length === 0){
@@ -405,8 +443,13 @@ export async function onKeyUp(event: any, target: any, flag: string) {
                 }
             }
 
+        } else if (flag === 'styles') {
+            target.style.cssText = event.target.value;
+        } else if (flag === 'classes') {
+            target.classList.add(event.target.value);
+            target.click();
         } else {
-            activeComponent.innerHTML = event.target.value;
+            target.innerHTML = event.target.value;
         }
     } else {
         console.log(' > NULL target:' + target_id);

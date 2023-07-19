@@ -488,6 +488,12 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
   color: #454545;
   margin-bottom: 15px;
 }
+.divName-2 {
+  font-size: 14px;
+  font-weight: 500;
+  color: #454545;
+  margin-bottom: 15px;
+}
 .classesName {
   font-size: 13px;
   font-weight: 500;
@@ -500,6 +506,11 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
 }
 .newClass .form-control {
   font-size: 14px;
+  width: 100%;
+  box-shadow: none !important;
+}
+.newClass-2 .form-control {
+  font-size: 12px;
   width: 100%;
   box-shadow: none !important;
 }
@@ -949,4 +960,11 @@ body body {
 ::-webkit-scrollbar-thumb {
   background-color: rgb(210, 210, 210);
   outline: none;
+}
+.setClassList {
+  display: inline-block;
+  margin-top: 10px;
+}
+.setClassList a {
+  font-size: 12px;
 }
