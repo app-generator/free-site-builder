@@ -1,8 +1,8 @@
 import { imageExists } from "./utiles";
 
-export function setupGlobalEvents() {
+export function setupGlobalEvents(param: any) {
 
-    document.querySelector('#dropzone')?.addEventListener('click', event => {
+    document.querySelector('#'+param)?.addEventListener('click', event => {
         event.stopPropagation();
     });
 
@@ -26,7 +26,7 @@ export function uuidv4() {
 
 
 
-export function onDragStart(event: any) {
+export function onDragStart(event: any, param: any) {
     console.log(' > onDrag_START() ');
 
     event
@@ -38,13 +38,13 @@ export function onDragStart(event: any) {
         .style
         .backgroundColor = 'white';
 
-    onSave(event);
+    onSave(event, param);
 }
 
-export function onDragOver(event: any) {
+export function onDragOver(event: any, param2: any) {
     console.log(' > onDrag_OVER() ');
 
-    let dropIndicator = <HTMLElement>document.getElementById('drop-here-indicator');
+    let dropIndicator = <HTMLElement>document.getElementById(param2);
     dropIndicator.style.display = 'none';
 
     // Remove all previous    
@@ -53,7 +53,7 @@ export function onDragOver(event: any) {
     event.target.classList.add('border-dotted');
     event.preventDefault();
 }
-const onPutDelete = (component: any) => {
+const onPutDelete = (component: any, param: any) => {
     console.log("' > onReposition() '")
     const editableComponent = component;
 
@@ -61,7 +61,7 @@ const onPutDelete = (component: any) => {
     spanElement.innerHTML = "<i class='fa-solid fa-xmark'></i>";
     spanElement.className = "cross-icon";
     spanElement.onclick = function() {
-        onDelete(editableComponent);
+        onDelete(editableComponent, param);
     };
 
     const contentElement = document.createElement("span");
@@ -76,7 +76,7 @@ const onPutDelete = (component: any) => {
     editableComponent.appendChild(spanElement);
     editableComponent.appendChild(contentElement);
 }
-const onReposition = (component: any) => {
+const onReposition = (component: any, param: any) => {
     console.log("' > onReposition() '")
     const editableComponent = component;
 
@@ -104,7 +104,7 @@ const onReposition = (component: any) => {
     spanElement.innerHTML = "<i class='fa-solid fa-xmark'></i>";
     spanElement.className = "cross-icon";
     spanElement.onclick = function() {
-        onDelete(editableComponent);
+        onDelete(editableComponent, param);
     };
 
     const contentElement = document.createElement("span");
@@ -138,7 +138,7 @@ export function onDragEnd(event: any) {
         .backgroundColor = '#ffffff';
 }
 
-export function onDrop(event: any) {
+export function onDrop(event: any, param: any) {
 
     console.log(' > on_DROP() ');
 
@@ -166,10 +166,10 @@ export function onDrop(event: any) {
     editableComponent.classList.add('component');
     editableComponent.removeAttribute('draggable');
     // Some Stuff 
-    if (event.target.id == "dropzone") {
-        onReposition(editableComponent);    // reorder & delete
+    if (event.target.id == param) {
+        onReposition(editableComponent, param);    // reorder & delete
     } else {
-        onPutDelete(editableComponent);     // put only delete
+        onPutDelete(editableComponent, param);     // put only delete
     }
 
     // Make it CLICK-able
@@ -188,21 +188,21 @@ export function onDrop(event: any) {
     event.dataTransfer.clearData();
 }
 
-export function onDelete(element: any) {
+export function onDelete(element: any, param: any) {
 
     console.log(' > on_DELETE() ');
 
     element.style.display = "none";
-    const localStorageData = window.localStorage.getItem('editME')?.split("dropzone")[1] || "";
+    const localStorageData = window.localStorage.getItem(`editME-${param}`)?.split(param)[1] || "";
 
     var div = document.createElement('div');
-    div.id = 'dropzone';
+    div.id = param;
     div.innerHTML = localStorageData.trim();
 
     const children = Array.from(div.children);
     const updatedData = children.filter(item => item.id !== element.id);
 
-    div.innerHTML = 'dropzone';
+    div.innerHTML = param;
     updatedData.forEach(item => {
         div.appendChild(item);
     });
@@ -457,10 +457,11 @@ export async function onKeyUp(event: any, target: any, flag: string) {
     //}    
 }
 
-export function onClear(event: any) {
+export function onClear(event: any, param: any) {
+    console.log(param, 'my-target---');
     event;
     console.log(' > ACTION: clear');
-    let content = <HTMLElement>document.querySelector('#dropzone');
+    let content = <HTMLElement>document.querySelector('#'+param);
     // clear
     let info = '<div class="drop-indicator d-flex align-items-center justify-content-center"><div class="p-4 shadow bg-white rounded-3 text-center"><span class="icon text-primary h3"><i class="fa-solid fa-circle-plus"></i></span><h6 class="mt-3">Drop Here...</h6></div></div>'
     content.innerHTML = info;
@@ -469,21 +470,21 @@ export function onClear(event: any) {
     //document.querySelector<HTMLDivElement>('#app')!.innerHTML = builderContainer;    
 }
 
-export function onSave(event: any) {
+export function onSave(event: any, param: any) {
     event;
     console.log(' > ACTION: save');
-    let content = <HTMLElement>document.querySelector('#dropzone');
-    window.localStorage.setItem("editME", content.innerHTML);
+    let content = <HTMLElement>document.querySelector('#'+param);
+    window.localStorage.setItem(`editME-${param}`, content.innerHTML);
 }
 
-export function onRestore(event: any) {
+export function onRestore(event: any, param: any) {
 
     event; // fake the usage
 
-    console.log(' > ACTION: restore');
-    let content = <HTMLElement>document.querySelector('#dropzone');
+    console.log(' > ACTION: restore', param);
+    let content = <HTMLElement>document.querySelector('#'+param);
 
-    let saved_content = <string>window.localStorage.getItem("editME");
+    let saved_content = <string>window.localStorage.getItem(`editME-${param}`);
 
     // Check that we have data to restore
     if (!saved_content) {
@@ -527,7 +528,7 @@ export function onRestore(event: any) {
                 }
                 if (crossButton) {
                     crossButton.addEventListener('click', function() {  
-                        onDelete(draggableElement);
+                        onDelete(draggableElement, param);
                     });
                 }
             }

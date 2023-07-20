@@ -39,7 +39,7 @@
       <!-- aside left -->
       <aside class="leftAside">
         <button class="Click menuLeftbtn"><i class="fa-solid fa-chevron-right"></i></button>
-        <ul class="nav nav-tabs defTabs" id="myTab" role="tablist">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
             <button class="nav-link active" id="components-tab" data-bs-toggle="tab" data-bs-target="#components"
               type="button" role="tab" aria-controls="components" aria-selected="true">Components</button>
@@ -82,7 +82,7 @@
         <!-- Current Page -->
         <div class="mainBuilder" id="builder-content">
           <div class="innPagename">
-            <ul class="nav nav-tabs defTabs" id="myTab" role="tablist">
+            <ul class="nav nav-tabs defTabs pagesTabs" id="myTab" role="tablist">
               <li class="nav-item" role="presentation">
                 <button class="nav-link" id="global-tabA" data-bs-toggle="tab" data-bs-target="#globalA" type="button"
                   role="tab" aria-controls="globalA" aria-selected="true">Globals</button>
@@ -91,19 +91,22 @@
                 <button class="nav-link active" id="index-tabA" data-bs-toggle="tab" data-bs-target="#indexTab" type="button"
                   role="tab" aria-controls="indexTab" aria-selected="false">index.html</button>
               </li>
+              <li class="nav-item d-flex align-items-center add-page-list"><a href="#" id="add-page-button">+</a></li>
             </ul>
           </div>
-          <div class="tab-content forScroll" id="myTabContent">
+          <div class="tab-content forScroll pagesTabContent" id="myTabContent">
             <div class="tab-pane fade show active" id="indexTab" role="tabpanel" aria-labelledby="index-tabA">
               <div id="drop-here-indicator"></div>
               <div id="dropzone" class="dropzone"></div>
             </div>
-            <div class="tab-pane fade d-flex" id="globalA" role="tabpanel" aria-labelledby="global-tabA">
-              <div class="editor-container w-50">
-                <textarea id="css-editor"></textarea>
-              </div>
-              <div class="editor-container w-50">
-                <textarea id="js-editor"></textarea>
+            <div class="tab-pane fade" id="globalA" role="tabpanel" aria-labelledby="global-tabA">
+              <div class="d-flex">
+                <div class="editor-container w-50">
+                  <textarea id="css-editor"></textarea>
+                </div>
+                <div class="editor-container w-50">
+                  <textarea id="js-editor"></textarea>
+                </div>
               </div>
             </div>
           </div>
@@ -126,7 +129,7 @@
       <!-- aside right -->
       <aside class="rightAside">
         <button class="ClickTwo menuRightbtn"><i class="fa-solid fa-chevron-left"></i></button>
-        <ul class="nav nav-tabs defTabs" id="myTab" role="tablist">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
             <button class="nav-link active" id="props-tabA" data-bs-toggle="tab" data-bs-target="#propsA" type="button"
               role="tab" aria-controls="propsA" aria-selected="true">Props</button>
@@ -159,7 +162,7 @@
 
           <div class="tab-pane fade" id="pageA" role="tabpanel" aria-labelledby="page-tabA">
             <div class="mainEditor">
-              <p class="tabPageName">Index.html</p>
+              <p class="tabPageName">index.html</p>
               <div class="divName">SEO</div>
               <div id="builder-global-set">
                 <div class="newClass"><input class="form-control text-left global-set" id="page_title" placeholder="Page Title" /></div>

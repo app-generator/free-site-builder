@@ -78,10 +78,30 @@ let builderContainer = document.querySelector('#layout')!.innerHTML;
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = builderContainer;
 
 // SETUP Navigation
-document.querySelector('#action_clear')!.addEventListener('click', (event) => { onClear(event) });
-document.querySelector('#action_save')!.addEventListener('click', (event) => { onSave(event) });
-document.querySelector('#action_restore')!.addEventListener('click', (event) => { onRestore(event) });
-document.querySelector('#action_undo')!.addEventListener('click', (event) => { onRestore(event) });
+function setNavigation(param: any) {
+  // document.querySelector('#action_clear')!.addEventListener('click', (event) => { onClear(event, param) });
+  document.querySelector('#action_save')!.addEventListener('click', (event) => { onSave(event, param) });
+  // document.querySelector('#action_restore')!.addEventListener('click', (event) => { onRestore(event, param) });
+  // document.querySelector('#action_undo')!.addEventListener('click', (event) => { onRestore(event, param) });
+
+  const actionClearElement = document.querySelector('#action_clear') as HTMLElement;
+  actionClearElement.onclick = (event) => {
+    onClear(event, param)
+  };
+  // const actionSaveElement = document.querySelector('#action_save') as HTMLElement;
+  // actionSaveElement.onclick = (event) => {
+  //   onSave(event, param)
+  // };
+  const actionRestoreElement = document.querySelector('#action_restore') as HTMLElement;
+  actionRestoreElement.onclick = (event) => {
+    onRestore(event, param)
+  };
+  const actionUndoElement = document.querySelector('#action_undo') as HTMLElement;
+  actionUndoElement.onclick = (event) => {
+    onRestore(event, param)
+  };
+}
+setNavigation('dropzone');
 
 // SETUP Preview
 document.addEventListener('DOMContentLoaded', () => {
@@ -94,16 +114,25 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // PULL Components 
-downloadComponents().then(misc)
+downloadComponents().then(()=>{
+  misc('dropzone');
+})
 
 // SETUP Components
-function misc() {
+function misc(param: any) {
 
     let draggableElems = document.querySelectorAll('.draggable');
 
     for (let i = 0; i < draggableElems.length; i++) {
-        draggableElems[i].addEventListener('dragstart', (event) => { onDragStart(event) });
-        draggableElems[i].addEventListener('dragend', (event) => { onDragEnd(event) });
+        let draggableEle = draggableElems[i] as HTMLElement;
+        draggableEle.ondragstart = (event) => {
+          onDragStart(event, param)
+        };
+        draggableEle.ondragend = (event) => {
+          onDragEnd(event)
+        };
+        // draggableElems[i].addEventListener('dragstart', (event) => { onDragStart(event, param) });
+        // draggableElems[i].addEventListener('dragend', (event) => { onDragEnd(event) });
     }   
 }
 function downloadHanlder() {
@@ -167,29 +196,27 @@ function openPreviewModal() {
     let previewModal = document.querySelector('#previewModal') as HTMLElement;
     let previewFrame = document.querySelector('#previewFrame') as HTMLIFrameElement;
     let dropzone = document.querySelector('#dropzone');
-  
     // Recursive function to process each component
     // Added processComponent function to handle complex component processing before preview
     // to allow previews of complex layouts
     function processComponent(component: HTMLElement) {
-        let processedComponent = component.cloneNode(true) as HTMLElement;
+      let processedComponent = component.cloneNode(true) as HTMLElement;
 
-        // Process nested components
-        let nestedComponents = processedComponent.querySelectorAll('.component');
-        nestedComponents.forEach((nestedComponent: Element) => {
-            let processedNestedComponent = processComponent(nestedComponent as HTMLElement);
-            nestedComponent.replaceWith(processedNestedComponent);
-        });
+      // Process nested components
+      let nestedComponents = processedComponent.querySelectorAll('.component');
+      nestedComponents.forEach((nestedComponent: Element) => {
+          let processedNestedComponent = processComponent(nestedComponent as HTMLElement);
+          nestedComponent.replaceWith(processedNestedComponent);
+      });
 
-        // Generate preview for this component
-        let previewComponent = processedComponent;
+      // Generate preview for this component
+      let previewComponent = processedComponent;
 
-        return previewComponent;
-    }
+      return previewComponent;
+  }
 
-    let processedContent = processComponent(dropzone as HTMLElement);
-
-    // Load the content of the processed dropzone into the iframe
+  let processedContent = processComponent(dropzone as HTMLElement);
+    // Load the content of the dropzone into the iframe
     let iframeContent = `
       <html>
         <head>
@@ -206,83 +233,288 @@ function openPreviewModal() {
                 }
               })
               .join('\n')}
-            body {
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              width: 100%;
-            }
-            .border-dotted, .border-props, .cross-icon { border: none !important; }
+              body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+              }
+              .border-dotted, .border-props, .cross-icon { border: none !important; } 
           </style>
         </head>
-        <body>
+        <body style="padding: 15px;">
           ${processedContent.outerHTML}
         </body>
+        <script>
+          // Disable contentEditable for all elements
+          const allElements = document.getElementsByTagName('*');
+          for (let i=0; i<allElements.length; i++) {
+            allElements[i].contentEditable = "false";
+          }
+
+          // Ensure all links open in a new tab
+          const allLinks = document.getElementsByTagName('a');
+          for (let i=0; i<allLinks.length; i++) {
+            allLinks[i].target = "_blank";
+          }
+        </script>
       </html>
     `;
-
     previewFrame.srcdoc = iframeContent;
-
+  
     // Show the modal
     previewModal.style.display = "block";
+    previewModal.classList.add('preview-open');``
+}
+  
+function closePreviewModal() {
+  let previewModal = document.querySelector('#previewModal') as HTMLElement;
 
-    // Add a class to the body to indicate that the preview is open
-    previewModal.classList.add('preview-open');
+  // Hide the modal
+  previewModal.style.display = "none";
+  previewModal.classList.remove('preview-open');
+}
+
+function setPreviewMode(mode: 'fullScreen' | 'tablet' | 'mobile') {
+  let previewFrame = document.querySelector('#previewFrame') as HTMLElement;
+
+  // Set the width of the iframe based on the selected mode
+  switch (mode) {
+    case 'fullScreen':
+      previewFrame.style.width = "100%";
+      break;
+    case 'tablet':
+      previewFrame.style.width = "768px";
+      break;
+    case 'mobile':
+      previewFrame.style.width = "375px";
+      break;
+  }
+}
+
+let pageTabBtn = document.querySelector(`#index-tabA`) as HTMLButtonElement;
+pageTabBtn.onclick = () => {
+  window.localStorage.setItem('activePageTab', 'dropzone');
+  document.querySelector('.tabPageName')!.innerHTML = 'index.html';
+  setGlobalInput();
+  initDropZone('dropzone', `drop-here-indicator`);
+  initGridDropZone(`dropzone-elem`, `drop-here-indicator`);
+  setupGlobalEvents('dropzone');
+  setNavigation('dropzone');
+};
+// Add Page to Tab
+document.querySelector('#add-page-button')!.addEventListener('click', () => { onAddPage() });
+function onAddPage(param = null) {
+  let pageTabs = document.querySelector('.pagesTabs');
+  let pageTabContent = document.querySelector('.pagesTabContent');
+  let liElements:any = pageTabs?.children;
+  for (let i = 0; i < liElements.length; i++) {
+    liElements[i].addEventListener("click", function(event:any) {
+      event.preventDefault(); // Prevent the default action
+    });
+  }
+  let pageTabsLength:any = pageTabs?.children.length;
+  let pageIndex:number = 1;
+  if (pageTabsLength > 3) {
+    pageIndex = pageTabsLength - 2;
+  }
+  let tabName = `New-Page${pageIndex}.html`;
+  if (param) {
+    pageIndex = param[0];
+    tabName = param[1];
+  }
+  let dropZoneID = `dropzone-${pageIndex}`;
+  let newPageTab = `
+    <button class="nav-link" id="page-tab-${pageIndex}" data-bs-toggle="tab" data-bs-target="#page-${pageIndex}" type="button"
+      role="tab" aria-controls="page-${pageIndex}" aria-selected="true">${tabName}</button>
+  `;
+  let newPageContent = `
+    <div id="drop-here-indicator-${pageIndex}"></div>
+    <div id="${dropZoneID}" class="${dropZoneID}"></div>
+  `;
+
+  let tempContainer = document.createElement('li');
+  tempContainer.className = "nav-item";
+  tempContainer.setAttribute('role', 'presentation');
+
+  let tempContentContainer = document.createElement('div');
+  tempContentContainer.className = "tab-pane fade";
+  tempContentContainer.id = `page-${pageIndex}`;
+  tempContentContainer.setAttribute('role', 'tabpanel');
+  tempContentContainer.setAttribute('aria-labelledby', `page-tab-${pageIndex}`);
+
+  tempContainer.innerHTML = newPageTab;
+  tempContentContainer.innerHTML = newPageContent;
+  pageTabContent?.appendChild(tempContentContainer);
+  if (pageTabs && pageTabs.hasChildNodes()) {
+    const referenceElement = pageTabs?.children[pageTabsLength-1];
+    pageTabs?.insertBefore(tempContainer, referenceElement);
   }
   
-  function closePreviewModal() {
-    let previewModal = document.querySelector('#previewModal') as HTMLElement;
-  
-    // Hide the modal
-    previewModal.style.display = "none";
-
-    previewModal.classList.remove('preview-open');
-  }
-  
-  function setPreviewMode(mode: 'fullScreen' | 'tablet' | 'mobile') {
-    let previewFrame = document.querySelector('#previewFrame') as HTMLElement;
-  
-    // Set the width of the iframe based on the selected mode
-    switch (mode) {
-      case 'fullScreen':
-        previewFrame.style.width = "100%";
-        break;
-      case 'tablet':
-        previewFrame.style.width = "768px";
-        break;
-      case 'mobile':
-        previewFrame.style.width = "375px";
-        break;
+  let newStyle = `
+    .${dropZoneID} {
+      background-color: #eaeaea;
+      flex-basis: 100%;
+      flex-grow: 1;
+      margin-bottom: 10px;
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 10px;
+      border: 2px dashed #ccc;
+      min-height: 300px;
     }
-  }
+    
+    .dropzone-elem-${pageIndex} {
+      margin-bottom: 0px;
+      margin-top: 0px;
+      padding: 4px;
+      font-size: 11px;
+    }
+  `;
+  let styleElement = document.createElement("style");
+  styleElement.id = `myStyles-${pageIndex}`;
+  document.head.appendChild(styleElement);
+  styleElement.innerHTML = newStyle;
+
+
+  let pageTabBtn = document.querySelector(`#page-tab-${pageIndex}`) as HTMLButtonElement;
+  pageTabBtn.addEventListener("click", function(event) {
+    let eleSelected = event.target as HTMLElement;
+    window.localStorage.setItem('activePageTab', dropZoneID);
+    document.querySelector('.tabPageName')!.innerHTML = eleSelected.innerHTML;
+    setGlobalInput(eleSelected.innerHTML);
+  });
+  pageTabBtn.onclick = () => {
+    let currentTabs = JSON.parse(<string>window.localStorage.getItem('currentPageTabs'));
+    if (currentTabs) {
+      if (param) {
+        if (currentTabs.indexOf(`${param[0]}_@COL@_${param[1]}`)==-1) {
+          currentTabs[currentTabs.length] = pageIndex+`_@COL@_New-Page${pageIndex}.html`;
+          window.localStorage.setItem('currentPageTabs', JSON.stringify(currentTabs));
+        }
+      } else {
+        if (currentTabs.indexOf(pageIndex+`_@COL@_New-Page${pageIndex}.html`)==-1) {
+          currentTabs[currentTabs.length] = pageIndex+`_@COL@_New-Page${pageIndex}.html`;
+          window.localStorage.setItem('currentPageTabs', JSON.stringify(currentTabs));
+        }
+      }
+    } else {
+      window.localStorage.setItem('currentPageTabs', JSON.stringify([pageIndex+`_@COL@_New-Page${pageIndex}.html`]));
+    }
+
+    initDropZone(dropZoneID, `drop-here-indicator-${pageIndex}`);
+    initGridDropZone(`dropzone-elem-${pageIndex}`, `drop-here-indicator-${pageIndex}`);
+    setupGlobalEvents(dropZoneID);
+    setNavigation(dropZoneID);
+  };
+  
+  pageTabBtn?.click();
+  // pageTabBtn.addEventListener("dblclick", function() {
+  //   pageTabBtn.setAttribute('contenteditable', 'true');
+  // });
+  let originalTabName = "";
+  pageTabBtn.onclick = (event) => {
+    let clickedEle = event.target as HTMLElement;
+    originalTabName = clickedEle?.innerHTML;
+    pageTabBtn.setAttribute('contenteditable', 'true');
+  };
+  let editedTabName = "";
+  pageTabBtn.addEventListener("input", function(event) {
+    let newValue = pageTabBtn.innerHTML; // Get the new value
+    console.log("Value changed: " + newValue, event.target, pageIndex);
+    editedTabName = newValue;
+  });
+  pageTabBtn.addEventListener("blur", function() {
+    pageTabBtn.setAttribute('contenteditable', 'false');
+    if (editedTabName) {
+      let originalGlobalSetting:any = window.localStorage.getItem(`Global-${originalTabName}`);
+      if (originalGlobalSetting) {
+        window.localStorage.setItem(`Global-${editedTabName}`, originalGlobalSetting);
+        window.localStorage.removeItem(`Global-${originalTabName}`);
+      }
+      let originalCurrentPagesTabs:any = JSON.parse(<string>window.localStorage.getItem('currentPageTabs'));
+      let eleOfCurrentTab = originalCurrentPagesTabs[pageIndex-1];
+      let updatedVal = eleOfCurrentTab.replace(originalTabName, editedTabName);
+      originalCurrentPagesTabs[pageIndex-1] = updatedVal;
+      window.localStorage.setItem('currentPageTabs', JSON.stringify(originalCurrentPagesTabs));
+    }
+  });
+}
+
 
 // SETUP Master DROP Zone
-document.querySelector('#dropzone')!.addEventListener('dragover', (event) => { onDragOver(event) });
-document.querySelector('#dropzone')!.addEventListener('drop', (event) => { onDrop(event) });
+function initDropZone(param:any, param2:any) {
+  let dropEle = document.querySelector('#'+param) as HTMLElement;
+  dropEle.ondragover = (event) => {
+    onDragOver(event, param2)
+  };
+  dropEle.ondrop = (event) => {
+    onDrop(event, param)
+  };
+  // document.querySelector('#'+param)!.addEventListener('dragover', (event) => { onDragOver(event, param2) });
+  // document.querySelector('#'+param)!.addEventListener('drop', (event) => { onDrop(event, param) });
+}
+initDropZone('dropzone', 'drop-here-indicator');
 
 // SETUP GRID Drop Zones
-let dropZones = document.getElementsByClassName('dropzone-elem');
-for (let i = 0; i < dropZones.length; i++) {
-    dropZones[i].addEventListener('dragover', (event) => { onDragOver(event) });
-    dropZones[i].addEventListener('dragend', (event) => { onDragEnd(event) });
-    dropZones[i].addEventListener('drop', (event) => { onDrop(event) });
-}
+function initGridDropZone(param:any, param2:any) {
+  let dropZones = document.getElementsByClassName(param);
+  for (let i = 0; i < dropZones.length; i++) {
+    let dropzoneEle = dropZones[i] as HTMLElement;
+    dropzoneEle.ondragover = (event) => {
+      onDragOver(event, param2)
+    };
+    dropzoneEle.ondragend = (event) => {
+      onDragEnd(event)
+    };
+    dropzoneEle.ondrop = (event) => {
+      onDrop(event, param)
+    };
 
-let tabPageName = document.querySelector(".tabPageName")?.innerHTML;
-let globalSetData = JSON.parse(<string>window.localStorage.getItem(`Global-${tabPageName}`));
-if (globalSetData) {
-  document.querySelector("#page_title")!.setAttribute('value', globalSetData['page_title']);
-  document.querySelector("#seo_description")!.setAttribute('value', globalSetData['seo_description']);
-  document.querySelector("#seo_keyword")!.setAttribute('value', globalSetData['seo_keyword']);
-  document.querySelector("#external_js_url")!.setAttribute('value', globalSetData['external_js_url']);
-  document.querySelector("#external_css_url")!.setAttribute('value', globalSetData['external_css_url']);
+    // dropZones[i].addEventListener('dragover', (event) => { onDragOver(event, param2) });
+    // dropZones[i].addEventListener('dragend', (event) => { onDragEnd(event) });
+    // dropZones[i].addEventListener('drop', (event) => { onDrop(event, param) });
+  }
 }
+initGridDropZone('dropzone-elem', 'drop-here-indicator');
+
+// SET GLOBAL INPUT
+function setGlobalInput(param: any = null) {
+  let tabPageName = document.querySelector(".tabPageName")?.innerHTML;
+  let storageName = `Global-${tabPageName}`;
+
+  if (param) {
+    storageName = `Global-${param}`;
+  }
+  let globalSetData = JSON.parse(<string>window.localStorage.getItem(storageName));
+  const page_title = document.getElementById("page_title") as HTMLInputElement;
+  const seo_description = document.getElementById("seo_description") as HTMLInputElement;
+  const seo_keyword = document.getElementById("seo_keyword") as HTMLInputElement;
+  const external_js_url = document.getElementById("external_js_url") as HTMLInputElement;
+  const external_css_url = document.getElementById("external_css_url") as HTMLInputElement;
+  page_title!.value = '';
+  seo_description!.value = '';
+  seo_keyword!.value = '';
+  external_js_url!.value = '';
+  external_css_url!.value = '';
+  if (globalSetData) {
+    page_title!.value = globalSetData['page_title'];
+    seo_description!.value = globalSetData['seo_description'];
+    seo_keyword!.value = globalSetData['seo_keyword'];
+    external_js_url!.value = globalSetData['external_js_url'];
+    external_css_url!.value = globalSetData['external_css_url'];
+  }
+}
+setGlobalInput();
 
 // SETUP PAGE GLOBAL
 let globalSetInputs = document.getElementsByClassName('global-set');
 for (let i = 0; i < globalSetInputs.length; i++) {
   let globalSet = globalSetInputs[i] as HTMLElement;
-  globalSet?.addEventListener('keyup', (event) => { onKeyUpToGlobalSet(event); });
+  globalSet.onkeyup = (event) => {
+    onKeyUpToGlobalSet(event)
+  };
+  // globalSet?.addEventListener('keyup', (event) => { onKeyUpToGlobalSet(event); });
 }
 
 function onKeyUpToGlobalSet(event: any) {
@@ -304,7 +536,15 @@ function onKeyUpToGlobalSet(event: any) {
     window.localStorage.setItem(`Global-${tabPageName}`, JSON.stringify(obj));
   }
 }
+let currentTabs = JSON.parse(<string>window.localStorage.getItem('currentPageTabs'));
+for (let i = 0; i < currentTabs.length; i++) {
+  // +`_@COL@_New-Page${pageIndex}`
+  let tabInfo = currentTabs[i].split('_@COL@_');
+  onAddPage(tabInfo);
+  onRestore(null, 'dropzone-'+tabInfo[0]);
+}
+pageTabBtn.click();
+onRestore(null, 'dropzone');
+//
 
-onRestore(null);
-
-setupGlobalEvents();
+setupGlobalEvents('dropzone');
