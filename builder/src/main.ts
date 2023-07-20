@@ -79,9 +79,8 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = builderContainer;
 
 // SETUP Navigation
 function setNavigation(param: any) {
-  console.log(param, '--my-target');
   // document.querySelector('#action_clear')!.addEventListener('click', (event) => { onClear(event, param) });
-  // document.querySelector('#action_save')!.addEventListener('click', (event) => { onSave(event, param) });
+  document.querySelector('#action_save')!.addEventListener('click', (event) => { onSave(event, param) });
   // document.querySelector('#action_restore')!.addEventListener('click', (event) => { onRestore(event, param) });
   // document.querySelector('#action_undo')!.addEventListener('click', (event) => { onRestore(event, param) });
 
@@ -89,10 +88,10 @@ function setNavigation(param: any) {
   actionClearElement.onclick = (event) => {
     onClear(event, param)
   };
-  const actionSaveElement = document.querySelector('#action_save') as HTMLElement;
-  actionSaveElement.onclick = (event) => {
-    onSave(event, param)
-  };
+  // const actionSaveElement = document.querySelector('#action_save') as HTMLElement;
+  // actionSaveElement.onclick = (event) => {
+  //   onSave(event, param)
+  // };
   const actionRestoreElement = document.querySelector('#action_restore') as HTMLElement;
   actionRestoreElement.onclick = (event) => {
     onRestore(event, param)
@@ -268,6 +267,8 @@ function setPreviewMode(mode: 'fullScreen' | 'tablet' | 'mobile') {
 let pageTabBtn = document.querySelector(`#index-tabA`) as HTMLButtonElement;
 pageTabBtn.onclick = () => {
   window.localStorage.setItem('activePageTab', 'dropzone');
+  document.querySelector('.tabPageName')!.innerHTML = 'index.html';
+  setGlobalInput();
   initDropZone('dropzone', `drop-here-indicator`);
   initGridDropZone(`dropzone-elem`, `drop-here-indicator`);
   setupGlobalEvents('dropzone');
@@ -275,7 +276,7 @@ pageTabBtn.onclick = () => {
 };
 // Add Page to Tab
 document.querySelector('#add-page-button')!.addEventListener('click', () => { onAddPage() });
-function onAddPage() {
+function onAddPage(param = null) {
   let pageTabs = document.querySelector('.pagesTabs');
   let pageTabContent = document.querySelector('.pagesTabContent');
   let liElements:any = pageTabs?.children;
@@ -289,10 +290,15 @@ function onAddPage() {
   if (pageTabsLength > 3) {
     pageIndex = pageTabsLength - 2;
   }
+  let tabName = `New-Page${pageIndex}.html`;
+  if (param) {
+    pageIndex = param[0];
+    tabName = param[1];
+  }
   let dropZoneID = `dropzone-${pageIndex}`;
   let newPageTab = `
     <button class="nav-link" id="page-tab-${pageIndex}" data-bs-toggle="tab" data-bs-target="#page-${pageIndex}" type="button"
-      role="tab" aria-controls="page-${pageIndex}" aria-selected="true">New Page ${pageIndex}</button>
+      role="tab" aria-controls="page-${pageIndex}" aria-selected="true">${tabName}</button>
   `;
   let newPageContent = `
     <div id="drop-here-indicator-${pageIndex}"></div>
@@ -344,24 +350,66 @@ function onAddPage() {
 
 
   let pageTabBtn = document.querySelector(`#page-tab-${pageIndex}`) as HTMLButtonElement;
-  pageTabBtn.onclick = () => {
+  pageTabBtn.addEventListener("click", function(event) {
+    let eleSelected = event.target as HTMLElement;
     window.localStorage.setItem('activePageTab', dropZoneID);
+    document.querySelector('.tabPageName')!.innerHTML = eleSelected.innerHTML;
+    setGlobalInput(eleSelected.innerHTML);
+  });
+  pageTabBtn.onclick = () => {
+    let currentTabs = JSON.parse(<string>window.localStorage.getItem('currentPageTabs'));
+    if (currentTabs) {
+      if (param) {
+        if (currentTabs.indexOf(`${param[0]}_@COL@_${param[1]}`)==-1) {
+          currentTabs[currentTabs.length] = pageIndex+`_@COL@_New-Page${pageIndex}.html`;
+          window.localStorage.setItem('currentPageTabs', JSON.stringify(currentTabs));
+        }
+      } else {
+        if (currentTabs.indexOf(pageIndex+`_@COL@_New-Page${pageIndex}.html`)==-1) {
+          currentTabs[currentTabs.length] = pageIndex+`_@COL@_New-Page${pageIndex}.html`;
+          window.localStorage.setItem('currentPageTabs', JSON.stringify(currentTabs));
+        }
+      }
+    } else {
+      window.localStorage.setItem('currentPageTabs', JSON.stringify([pageIndex+`_@COL@_New-Page${pageIndex}.html`]));
+    }
+
     initDropZone(dropZoneID, `drop-here-indicator-${pageIndex}`);
     initGridDropZone(`dropzone-elem-${pageIndex}`, `drop-here-indicator-${pageIndex}`);
     setupGlobalEvents(dropZoneID);
     setNavigation(dropZoneID);
   };
-  pageTabBtn?.click();
-  pageTabBtn.addEventListener("dblclick", function() {
-    pageTabBtn.setAttribute('contenteditable', 'true');
-  });
-  pageTabBtn.addEventListener("input", function() {
-    var newValue = pageTabBtn.innerHTML; // Get the new value
-    console.log("Value changed: " + newValue);
-  });
   
+  pageTabBtn?.click();
+  // pageTabBtn.addEventListener("dblclick", function() {
+  //   pageTabBtn.setAttribute('contenteditable', 'true');
+  // });
+  let originalTabName = "";
+  pageTabBtn.onclick = (event) => {
+    let clickedEle = event.target as HTMLElement;
+    originalTabName = clickedEle?.innerHTML;
+    pageTabBtn.setAttribute('contenteditable', 'true');
+  };
+  let editedTabName = "";
+  pageTabBtn.addEventListener("input", function(event) {
+    let newValue = pageTabBtn.innerHTML; // Get the new value
+    console.log("Value changed: " + newValue, event.target, pageIndex);
+    editedTabName = newValue;
+  });
   pageTabBtn.addEventListener("blur", function() {
     pageTabBtn.setAttribute('contenteditable', 'false');
+    if (editedTabName) {
+      let originalGlobalSetting:any = window.localStorage.getItem(`Global-${originalTabName}`);
+      if (originalGlobalSetting) {
+        window.localStorage.setItem(`Global-${editedTabName}`, originalGlobalSetting);
+        window.localStorage.removeItem(`Global-${originalTabName}`);
+      }
+      let originalCurrentPagesTabs:any = JSON.parse(<string>window.localStorage.getItem('currentPageTabs'));
+      let eleOfCurrentTab = originalCurrentPagesTabs[pageIndex-1];
+      let updatedVal = eleOfCurrentTab.replace(originalTabName, editedTabName);
+      originalCurrentPagesTabs[pageIndex-1] = updatedVal;
+      window.localStorage.setItem('currentPageTabs', JSON.stringify(originalCurrentPagesTabs));
+    }
   });
 }
 
@@ -402,21 +450,43 @@ function initGridDropZone(param:any, param2:any) {
 }
 initGridDropZone('dropzone-elem', 'drop-here-indicator');
 
-let tabPageName = document.querySelector(".tabPageName")?.innerHTML;
-let globalSetData = JSON.parse(<string>window.localStorage.getItem(`Global-${tabPageName}`));
-if (globalSetData) {
-  document.querySelector("#page_title")!.setAttribute('value', globalSetData['page_title']);
-  document.querySelector("#seo_description")!.setAttribute('value', globalSetData['seo_description']);
-  document.querySelector("#seo_keyword")!.setAttribute('value', globalSetData['seo_keyword']);
-  document.querySelector("#external_js_url")!.setAttribute('value', globalSetData['external_js_url']);
-  document.querySelector("#external_css_url")!.setAttribute('value', globalSetData['external_css_url']);
+// SET GLOBAL INPUT
+function setGlobalInput(param: any = null) {
+  let tabPageName = document.querySelector(".tabPageName")?.innerHTML;
+  let storageName = `Global-${tabPageName}`;
+
+  if (param) {
+    storageName = `Global-${param}`;
+  }
+  let globalSetData = JSON.parse(<string>window.localStorage.getItem(storageName));
+  const page_title = document.getElementById("page_title") as HTMLInputElement;
+  const seo_description = document.getElementById("seo_description") as HTMLInputElement;
+  const seo_keyword = document.getElementById("seo_keyword") as HTMLInputElement;
+  const external_js_url = document.getElementById("external_js_url") as HTMLInputElement;
+  const external_css_url = document.getElementById("external_css_url") as HTMLInputElement;
+  page_title!.value = '';
+  seo_description!.value = '';
+  seo_keyword!.value = '';
+  external_js_url!.value = '';
+  external_css_url!.value = '';
+  if (globalSetData) {
+    page_title!.value = globalSetData['page_title'];
+    seo_description!.value = globalSetData['seo_description'];
+    seo_keyword!.value = globalSetData['seo_keyword'];
+    external_js_url!.value = globalSetData['external_js_url'];
+    external_css_url!.value = globalSetData['external_css_url'];
+  }
 }
+setGlobalInput();
 
 // SETUP PAGE GLOBAL
 let globalSetInputs = document.getElementsByClassName('global-set');
 for (let i = 0; i < globalSetInputs.length; i++) {
   let globalSet = globalSetInputs[i] as HTMLElement;
-  globalSet?.addEventListener('keyup', (event) => { onKeyUpToGlobalSet(event); });
+  globalSet.onkeyup = (event) => {
+    onKeyUpToGlobalSet(event)
+  };
+  // globalSet?.addEventListener('keyup', (event) => { onKeyUpToGlobalSet(event); });
 }
 
 function onKeyUpToGlobalSet(event: any) {
@@ -438,7 +508,15 @@ function onKeyUpToGlobalSet(event: any) {
     window.localStorage.setItem(`Global-${tabPageName}`, JSON.stringify(obj));
   }
 }
-
+let currentTabs = JSON.parse(<string>window.localStorage.getItem('currentPageTabs'));
+for (let i = 0; i < currentTabs.length; i++) {
+  // +`_@COL@_New-Page${pageIndex}`
+  let tabInfo = currentTabs[i].split('_@COL@_');
+  onAddPage(tabInfo);
+  onRestore(null, 'dropzone-'+tabInfo[0]);
+}
+pageTabBtn.click();
 onRestore(null, 'dropzone');
+//
 
 setupGlobalEvents('dropzone');

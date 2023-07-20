@@ -193,7 +193,7 @@ export function onDelete(element: any, param: any) {
     console.log(' > on_DELETE() ');
 
     element.style.display = "none";
-    const localStorageData = window.localStorage.getItem('editME')?.split(param)[1] || "";
+    const localStorageData = window.localStorage.getItem(`editME-${param}`)?.split(param)[1] || "";
 
     var div = document.createElement('div');
     div.id = param;
@@ -474,17 +474,17 @@ export function onSave(event: any, param: any) {
     event;
     console.log(' > ACTION: save');
     let content = <HTMLElement>document.querySelector('#'+param);
-    window.localStorage.setItem("editME", content.innerHTML);
+    window.localStorage.setItem(`editME-${param}`, content.innerHTML);
 }
 
 export function onRestore(event: any, param: any) {
 
     event; // fake the usage
 
-    console.log(' > ACTION: restore');
+    console.log(' > ACTION: restore', param);
     let content = <HTMLElement>document.querySelector('#'+param);
 
-    let saved_content = <string>window.localStorage.getItem("editME");
+    let saved_content = <string>window.localStorage.getItem(`editME-${param}`);
 
     // Check that we have data to restore
     if (!saved_content) {
