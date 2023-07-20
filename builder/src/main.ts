@@ -78,10 +78,31 @@ let builderContainer = document.querySelector('#layout')!.innerHTML;
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = builderContainer;
 
 // SETUP Navigation
-document.querySelector('#action_clear')!.addEventListener('click', (event) => { onClear(event) });
-document.querySelector('#action_save')!.addEventListener('click', (event) => { onSave(event) });
-document.querySelector('#action_restore')!.addEventListener('click', (event) => { onRestore(event) });
-document.querySelector('#action_undo')!.addEventListener('click', (event) => { onRestore(event) });
+function setNavigation(param: any) {
+  console.log(param, '--my-target');
+  // document.querySelector('#action_clear')!.addEventListener('click', (event) => { onClear(event, param) });
+  // document.querySelector('#action_save')!.addEventListener('click', (event) => { onSave(event, param) });
+  // document.querySelector('#action_restore')!.addEventListener('click', (event) => { onRestore(event, param) });
+  // document.querySelector('#action_undo')!.addEventListener('click', (event) => { onRestore(event, param) });
+
+  const actionClearElement = document.querySelector('#action_clear') as HTMLElement;
+  actionClearElement.onclick = (event) => {
+    onClear(event, param)
+  };
+  const actionSaveElement = document.querySelector('#action_save') as HTMLElement;
+  actionSaveElement.onclick = (event) => {
+    onSave(event, param)
+  };
+  const actionRestoreElement = document.querySelector('#action_restore') as HTMLElement;
+  actionRestoreElement.onclick = (event) => {
+    onRestore(event, param)
+  };
+  const actionUndoElement = document.querySelector('#action_undo') as HTMLElement;
+  actionUndoElement.onclick = (event) => {
+    onRestore(event, param)
+  };
+}
+setNavigation('dropzone');
 
 // SETUP Preview
 document.addEventListener('DOMContentLoaded', () => {
@@ -94,16 +115,25 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // PULL Components 
-downloadComponents().then(misc)
+downloadComponents().then(()=>{
+  misc('dropzone');
+})
 
 // SETUP Components
-function misc() {
+function misc(param: any) {
 
     let draggableElems = document.querySelectorAll('.draggable');
 
     for (let i = 0; i < draggableElems.length; i++) {
-        draggableElems[i].addEventListener('dragstart', (event) => { onDragStart(event) });
-        draggableElems[i].addEventListener('dragend', (event) => { onDragEnd(event) });
+        let draggableEle = draggableElems[i] as HTMLElement;
+        draggableEle.ondragstart = (event) => {
+          onDragStart(event, param)
+        };
+        draggableEle.ondragend = (event) => {
+          onDragEnd(event)
+        };
+        // draggableElems[i].addEventListener('dragstart', (event) => { onDragStart(event, param) });
+        // draggableElems[i].addEventListener('dragend', (event) => { onDragEnd(event) });
     }   
 }
 function downloadHanlder() {
@@ -211,41 +241,166 @@ function openPreviewModal() {
     previewModal.style.display = "block";
 }
   
-  function closePreviewModal() {
-    let previewModal = document.querySelector('#previewModal') as HTMLElement;
-  
-    // Hide the modal
-    previewModal.style.display = "none";
+function closePreviewModal() {
+  let previewModal = document.querySelector('#previewModal') as HTMLElement;
+
+  // Hide the modal
+  previewModal.style.display = "none";
+}
+
+function setPreviewMode(mode: 'fullScreen' | 'tablet' | 'mobile') {
+  let previewFrame = document.querySelector('#previewFrame') as HTMLElement;
+
+  // Set the width of the iframe based on the selected mode
+  switch (mode) {
+    case 'fullScreen':
+      previewFrame.style.width = "100%";
+      break;
+    case 'tablet':
+      previewFrame.style.width = "768px";
+      break;
+    case 'mobile':
+      previewFrame.style.width = "375px";
+      break;
+  }
+}
+
+let pageTabBtn = document.querySelector(`#index-tabA`) as HTMLButtonElement;
+pageTabBtn.onclick = () => {
+  window.localStorage.setItem('activePageTab', 'dropzone');
+  initDropZone('dropzone', `drop-here-indicator`);
+  initGridDropZone(`dropzone-elem`, `drop-here-indicator`);
+  setupGlobalEvents('dropzone');
+  setNavigation('dropzone');
+};
+// Add Page to Tab
+document.querySelector('#add-page-button')!.addEventListener('click', () => { onAddPage() });
+function onAddPage() {
+  let pageTabs = document.querySelector('.pagesTabs');
+  let pageTabContent = document.querySelector('.pagesTabContent');
+  let liElements:any = pageTabs?.children;
+  for (let i = 0; i < liElements.length; i++) {
+    liElements[i].addEventListener("click", function(event:any) {
+      event.preventDefault(); // Prevent the default action
+    });
+  }
+  let pageTabsLength:any = pageTabs?.children.length;
+  let pageIndex:number = 1;
+  if (pageTabsLength > 3) {
+    pageIndex = pageTabsLength - 2;
+  }
+  let dropZoneID = `dropzone-${pageIndex}`;
+  let newPageTab = `
+    <button class="nav-link" id="page-tab-${pageIndex}" data-bs-toggle="tab" data-bs-target="#page-${pageIndex}" type="button"
+      role="tab" aria-controls="page-${pageIndex}" aria-selected="true">New Page ${pageIndex}</button>
+  `;
+  let newPageContent = `
+    <div id="drop-here-indicator-${pageIndex}"></div>
+    <div id="${dropZoneID}" class="${dropZoneID}"></div>
+  `;
+
+  let tempContainer = document.createElement('li');
+  tempContainer.className = "nav-item";
+  tempContainer.setAttribute('role', 'presentation');
+
+  let tempContentContainer = document.createElement('div');
+  tempContentContainer.className = "tab-pane fade";
+  tempContentContainer.id = `page-${pageIndex}`;
+  tempContentContainer.setAttribute('role', 'tabpanel');
+  tempContentContainer.setAttribute('aria-labelledby', `page-tab-${pageIndex}`);
+
+  tempContainer.innerHTML = newPageTab;
+  tempContentContainer.innerHTML = newPageContent;
+  pageTabContent?.appendChild(tempContentContainer);
+  if (pageTabs && pageTabs.hasChildNodes()) {
+    const referenceElement = pageTabs?.children[pageTabsLength-1];
+    pageTabs?.insertBefore(tempContainer, referenceElement);
   }
   
-  function setPreviewMode(mode: 'fullScreen' | 'tablet' | 'mobile') {
-    let previewFrame = document.querySelector('#previewFrame') as HTMLElement;
-  
-    // Set the width of the iframe based on the selected mode
-    switch (mode) {
-      case 'fullScreen':
-        previewFrame.style.width = "100%";
-        break;
-      case 'tablet':
-        previewFrame.style.width = "768px";
-        break;
-      case 'mobile':
-        previewFrame.style.width = "375px";
-        break;
+  let newStyle = `
+    .${dropZoneID} {
+      background-color: #eaeaea;
+      flex-basis: 100%;
+      flex-grow: 1;
+      margin-bottom: 10px;
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 10px;
+      border: 2px dashed #ccc;
+      min-height: 300px;
     }
-  }
+    
+    .dropzone-elem-${pageIndex} {
+      margin-bottom: 0px;
+      margin-top: 0px;
+      padding: 4px;
+      font-size: 11px;
+    }
+  `;
+  let styleElement = document.createElement("style");
+  styleElement.id = `myStyles-${pageIndex}`;
+  document.head.appendChild(styleElement);
+  styleElement.innerHTML = newStyle;
+
+
+  let pageTabBtn = document.querySelector(`#page-tab-${pageIndex}`) as HTMLButtonElement;
+  pageTabBtn.onclick = () => {
+    window.localStorage.setItem('activePageTab', dropZoneID);
+    initDropZone(dropZoneID, `drop-here-indicator-${pageIndex}`);
+    initGridDropZone(`dropzone-elem-${pageIndex}`, `drop-here-indicator-${pageIndex}`);
+    setupGlobalEvents(dropZoneID);
+    setNavigation(dropZoneID);
+  };
+  pageTabBtn?.click();
+  pageTabBtn.addEventListener("dblclick", function() {
+    pageTabBtn.setAttribute('contenteditable', 'true');
+  });
+  pageTabBtn.addEventListener("input", function() {
+    var newValue = pageTabBtn.innerHTML; // Get the new value
+    console.log("Value changed: " + newValue);
+  });
+  
+  pageTabBtn.addEventListener("blur", function() {
+    pageTabBtn.setAttribute('contenteditable', 'false');
+  });
+}
+
 
 // SETUP Master DROP Zone
-document.querySelector('#dropzone')!.addEventListener('dragover', (event) => { onDragOver(event) });
-document.querySelector('#dropzone')!.addEventListener('drop', (event) => { onDrop(event) });
+function initDropZone(param:any, param2:any) {
+  let dropEle = document.querySelector('#'+param) as HTMLElement;
+  dropEle.ondragover = (event) => {
+    onDragOver(event, param2)
+  };
+  dropEle.ondrop = (event) => {
+    onDrop(event, param)
+  };
+  // document.querySelector('#'+param)!.addEventListener('dragover', (event) => { onDragOver(event, param2) });
+  // document.querySelector('#'+param)!.addEventListener('drop', (event) => { onDrop(event, param) });
+}
+initDropZone('dropzone', 'drop-here-indicator');
 
 // SETUP GRID Drop Zones
-let dropZones = document.getElementsByClassName('dropzone-elem');
-for (let i = 0; i < dropZones.length; i++) {
-    dropZones[i].addEventListener('dragover', (event) => { onDragOver(event) });
-    dropZones[i].addEventListener('dragend', (event) => { onDragEnd(event) });
-    dropZones[i].addEventListener('drop', (event) => { onDrop(event) });
+function initGridDropZone(param:any, param2:any) {
+  let dropZones = document.getElementsByClassName(param);
+  for (let i = 0; i < dropZones.length; i++) {
+    let dropzoneEle = dropZones[i] as HTMLElement;
+    dropzoneEle.ondragover = (event) => {
+      onDragOver(event, param2)
+    };
+    dropzoneEle.ondragend = (event) => {
+      onDragEnd(event)
+    };
+    dropzoneEle.ondrop = (event) => {
+      onDrop(event, param)
+    };
+
+    // dropZones[i].addEventListener('dragover', (event) => { onDragOver(event, param2) });
+    // dropZones[i].addEventListener('dragend', (event) => { onDragEnd(event) });
+    // dropZones[i].addEventListener('drop', (event) => { onDrop(event, param) });
+  }
 }
+initGridDropZone('dropzone-elem', 'drop-here-indicator');
 
 let tabPageName = document.querySelector(".tabPageName")?.innerHTML;
 let globalSetData = JSON.parse(<string>window.localStorage.getItem(`Global-${tabPageName}`));
@@ -284,6 +439,6 @@ function onKeyUpToGlobalSet(event: any) {
   }
 }
 
-onRestore(null);
+onRestore(null, 'dropzone');
 
-setupGlobalEvents();
+setupGlobalEvents('dropzone');
