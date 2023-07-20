@@ -1,6 +1,6 @@
 # Change Log
 
-## [0.0.15] 2023-07-20
+## [0.0.14] 2023-07-20
 ### Changes
 
 - Added Multi-Page Support 
