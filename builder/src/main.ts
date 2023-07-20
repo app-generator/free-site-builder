@@ -86,7 +86,9 @@ function setNavigation(param: any) {
 
   const actionClearElement = document.querySelector('#action_clear') as HTMLElement;
   actionClearElement.onclick = (event) => {
-    onClear(event, param)
+    if (confirm("Do you want to really clear the data?")) {
+      onClear(event, param)
+    }
   };
   // const actionSaveElement = document.querySelector('#action_save') as HTMLElement;
   // actionSaveElement.onclick = (event) => {
@@ -544,11 +546,13 @@ function onKeyUpToGlobalSet(event: any) {
   }
 }
 let currentTabs = JSON.parse(<string>window.localStorage.getItem('currentPageTabs'));
-for (let i = 0; i < currentTabs.length; i++) {
-  // +`_@COL@_New-Page${pageIndex}`
-  let tabInfo = currentTabs[i].split('_@COL@_');
-  onAddPage(tabInfo);
-  onRestore(null, 'dropzone-'+tabInfo[0]);
+if (currentTabs) {
+  for (let i = 0; i < currentTabs.length; i++) {
+    // +`_@COL@_New-Page${pageIndex}`
+    let tabInfo = currentTabs[i].split('_@COL@_');
+    onAddPage(tabInfo);
+    onRestore(null, 'dropzone-'+tabInfo[0]);
+  }
 }
 pageTabBtn.click();
 onRestore(null, 'dropzone');

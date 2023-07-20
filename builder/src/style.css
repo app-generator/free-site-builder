@@ -417,7 +417,7 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
 }
 .forScroll {
   overflow-y: auto;
-  height: calc(100vh - 100px);
+  /* height: calc(100vh - 100px); */
   position: relative;
 }
 /**/

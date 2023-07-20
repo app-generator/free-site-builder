@@ -461,11 +461,26 @@ export function onClear(event: any, param: any) {
     console.log(param, 'my-target---');
     event;
     console.log(' > ACTION: clear');
-    let content = <HTMLElement>document.querySelector('#'+param);
+
+    window.localStorage.setItem('activePageTab', 'dropzone');
+    let currentTabs = JSON.parse(<string>window.localStorage.getItem('currentPageTabs'));
+    if (currentTabs) {
+        for (let i = 0; i < currentTabs.length; i++) {
+            let eachTabs = currentTabs[i].split('_@COL@_');
+            window.localStorage.removeItem(`Global-${eachTabs[1]}`);
+            window.localStorage.removeItem(`editME-dropzone-${eachTabs[0]}`);
+            window.localStorage.removeItem(`currentPageTabs`);
+            let pageTabs = document.querySelector('.pagesTabs')!.children;
+            pageTabs[eachTabs[0]*1+1-i].remove();
+        }
+        window.location.reload();
+    }
+
+    // let content = <HTMLElement>document.querySelector('#'+param);
     // clear
-    let info = '<div class="drop-indicator d-flex align-items-center justify-content-center"><div class="p-4 shadow bg-white rounded-3 text-center"><span class="icon text-primary h3"><i class="fa-solid fa-circle-plus"></i></span><h6 class="mt-3">Drop Here...</h6></div></div>'
-    content.innerHTML = info;
-    window.localStorage.clear();
+    // let info = '<div class="drop-indicator d-flex align-items-center justify-content-center"><div class="p-4 shadow bg-white rounded-3 text-center"><span class="icon text-primary h3"><i class="fa-solid fa-circle-plus"></i></span><h6 class="mt-3">Drop Here...</h6></div></div>'
+    // content.innerHTML = info;
+    // window.localStorage.clear();
     //let builderContainer = document.querySelector('#layout')!.innerHTML;
     //document.querySelector<HTMLDivElement>('#app')!.innerHTML = builderContainer;    
 }
@@ -485,7 +500,7 @@ export function onRestore(event: any, param: any) {
     let content = <HTMLElement>document.querySelector('#'+param);
 
     let saved_content = <string>window.localStorage.getItem(`editME-${param}`);
-
+    
     // Check that we have data to restore
     if (!saved_content) {
         return;
