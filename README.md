@@ -25,12 +25,12 @@
 | ✅ | **Grid Components** | This allows to inject predefined rows (2,3,4 columns) |
 | ✅ | **USE Remote Components** | `Yes` |
 | ✅ | **Component Customization** | Texts, Links |
-| ❌ | **Component Customization** | Images |
-| ❌ | **Component Styling** | CSS, Classes |
-| ❌ | **PAGE Customization** | CSS |
-| ❌ | **PAGE Customization** | JS |
-| ❌ | **Manage SEO** | Title, Description, Keywords |
-| ❌ | **Handle Multiple Pages** | - |
+| ✅ | **Component Customization** | Images |
+| ✅ | **Component Styling** | CSS, Classes |
+| ✅ | **PAGE Customization** | CSS |
+| ✅ | **PAGE Customization** | JS |
+| ✅ | **Manage SEO** | Title, Description, Keywords |
+| ✅ | **Handle Multiple Pages** | - |
 | ❌ | **Dashboard Layout** | `Multiple Components` Drag & Drop |
 
 <br />
