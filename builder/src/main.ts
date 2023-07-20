@@ -195,7 +195,14 @@ function downloadHanlder() {
 function openPreviewModal() {
     let previewModal = document.querySelector('#previewModal') as HTMLElement;
     let previewFrame = document.querySelector('#previewFrame') as HTMLIFrameElement;
-    let dropzone = document.querySelector('#dropzone');
+
+    let currentActiveTab = window.localStorage.getItem('activePageTab');
+    let dropzoneId: string | null = 'dropzone';
+    if (currentActiveTab !== "") {
+      dropzoneId = currentActiveTab;
+    }
+
+    let dropzone = document.querySelector('#'+dropzoneId);
     // Recursive function to process each component
     // Added processComponent function to handle complex component processing before preview
     // to allow previews of complex layouts
