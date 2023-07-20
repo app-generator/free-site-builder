@@ -167,8 +167,29 @@ function openPreviewModal() {
     let previewModal = document.querySelector('#previewModal') as HTMLElement;
     let previewFrame = document.querySelector('#previewFrame') as HTMLIFrameElement;
     let dropzone = document.querySelector('#dropzone');
+  
+    // Recursive function to process each component
+    // Added processComponent function to handle complex component processing before preview
+    // to allow previews of complex layouts
+    function processComponent(component: HTMLElement) {
+        let processedComponent = component.cloneNode(true) as HTMLElement;
 
-    // Load the content of the dropzone into the iframe
+        // Process nested components
+        let nestedComponents = processedComponent.querySelectorAll('.component');
+        nestedComponents.forEach((nestedComponent: Element) => {
+            let processedNestedComponent = processComponent(nestedComponent as HTMLElement);
+            nestedComponent.replaceWith(processedNestedComponent);
+        });
+
+        // Generate preview for this component
+        let previewComponent = processedComponent;
+
+        return previewComponent;
+    }
+
+    let processedContent = processComponent(dropzone as HTMLElement);
+
+    // Load the content of the processed dropzone into the iframe
     let iframeContent = `
       <html>
         <head>
@@ -185,37 +206,37 @@ function openPreviewModal() {
                 }
               })
               .join('\n')}
+            body {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 100%;
+            }
+            .border-dotted, .border-props, .cross-icon { border: none !important; }
           </style>
         </head>
-        <body style="padding: 15px;">
-          ${dropzone?.innerHTML}
+        <body>
+          ${processedContent.outerHTML}
         </body>
-        <script>
-          // Disable contentEditable for all elements
-          const allElements = document.getElementsByTagName('*');
-          for (let i=0; i<allElements.length; i++) {
-            allElements[i].contentEditable = "false";
-          }
-
-          // Ensure all links open in a new tab
-          const allLinks = document.getElementsByTagName('a');
-          for (let i=0; i<allLinks.length; i++) {
-            allLinks[i].target = "_blank";
-          }
-        </script>
       </html>
     `;
+
     previewFrame.srcdoc = iframeContent;
-  
+
     // Show the modal
     previewModal.style.display = "block";
-}
+
+    // Add a class to the body to indicate that the preview is open
+    previewModal.classList.add('preview-open');
+  }
   
   function closePreviewModal() {
     let previewModal = document.querySelector('#previewModal') as HTMLElement;
   
     // Hide the modal
     previewModal.style.display = "none";
+
+    previewModal.classList.remove('preview-open');
   }
   
   function setPreviewMode(mode: 'fullScreen' | 'tablet' | 'mobile') {
