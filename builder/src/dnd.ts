@@ -1,6 +1,5 @@
 import { updateItemsCard } from "./redux/cardsSlice.ts";
 import store from "./redux/store.ts";
-import { getParse } from "./util/getParse.ts";
 
 export function setupGlobalEvents() {
   document.querySelector("#dropzone")?.addEventListener("click", (event) => {
@@ -102,7 +101,7 @@ export function onDrop(event: any) {
 
   // Make it CLICK-able
   editableComponent.addEventListener("click", (event) => {
-    onClick(event);
+    onClick(event, editableComponent);
   });
 
   // Activate Mouse Over
@@ -204,7 +203,7 @@ export function onMouseOver(event: any) {
   targetComponent.classList.add("border-props");
 }
 
-export function onClick(event: any) {
+export function onClick(event: any, currentComponent?: any) {
   console.log(" > on_CLICK() ");
   let targetComponent;
 
@@ -227,7 +226,7 @@ export function onClick(event: any) {
   targetComponent.contentEditable = "false";
 
   console.log(" > ACTIVE Component: " + targetComponent.id);
-  const currentItemCard = getStoreCardItem(targetComponent.id);
+
   // Remove previous
   remClassProcessor("border-dotted");
 
@@ -278,7 +277,7 @@ export function onClick(event: any) {
         document.querySelector("input#props_attribute")
       );
       propsPanel_attr_input.addEventListener("keyup", (event) => {
-        onKeyUp(event, selectedComponent, "attr", currentItemCard);
+        onKeyUp(event, selectedComponent, "attr", currentComponent);
       });
     }
 
@@ -287,7 +286,7 @@ export function onClick(event: any) {
     );
 
     propsPanel_input.addEventListener("keyup", (event) => {
-      onKeyUp(event, selectedComponent, "content", currentItemCard);
+      onKeyUp(event, selectedComponent, "content", currentComponent);
     });
   } else {
     console.log(" > Nested COMPONENT, skip PROPS");
@@ -324,16 +323,23 @@ export function remClassProcessor(aClass: string) {
   }
 }
 
-export function onKeyUp(event: any, target: any, flag: any, currentItem: any) {
+export function onKeyUp(
+  event: any,
+  target: any,
+  flag: any,
+  currentComponent: any
+) {
   // if (event.keyCode !== 13) return;
   event;
   const target_id = target.id;
+  const targetValue = event.target.value;
 
   let activeComponent = <HTMLElement>(
     document.querySelector(`[data-id='${target.getAttribute("data-id")}']`)
   );
+
   if (activeComponent) {
-    setStoreCardItem(target, event.target.value, flag, currentItem);
+    setStoreCardItem(target, targetValue, flag, currentComponent);
     if (flag === "attr") {
       activeComponent.setAttribute("href", event.target.value);
     } else {
@@ -410,12 +416,12 @@ export function onRestore(event: any) {
                         const currentIndex = Array.from(parentElement.children).indexOf(draggableElement);
                         if (currentIndex > 0) {
                             const previousElement = parentElement.children[currentIndex - 1];
-                            parentElement.insertBefore(draggableElement, previousElement); 
-                        } 
+                            parentElement.insertBefore(draggableElement, previousElement);
+                        }
                     });
                 }
                 if (downButton) {
-                    downButton.addEventListener('click', function() {  
+                    downButton.addEventListener('click', function() {
                         const currentIndex = Array.from(parentElement.children).indexOf(draggableElement);
                         if (currentIndex < parentElement.children.length - 1) {
                             const nextElement = parentElement.children[currentIndex + 1];
@@ -424,7 +430,7 @@ export function onRestore(event: any) {
                     });
                 }
                 if (crossButton) {
-                    crossButton.addEventListener('click', function() {  
+                    crossButton.addEventListener('click', function() {
                         onDelete(draggableElement);
                     });
                 }
@@ -435,55 +441,30 @@ export function onRestore(event: any) {
     console.log(" > NULL ELEMs ");
   }
 }
-
-function getStoreCardItem(id: string) {
-  const {
-    cards: { items: item },
-  }: any = store.getState();
-  const isItem = Object.keys(item).length === 0;
-  if (isItem) return null;
-  return {
-    id,
-    parse: getParse(item[id]),
-  };
-}
 function setStoreCardItem(
   target: any,
   value: any,
   typeEl: string,
-  stateItem: any
+  currentComponent: any
 ) {
-  const targetParentClassName = target.parentElement.className.split(" ")[0];
-  const targetClassName = target.className.split(" ")[0];
-  if (!stateItem) return null;
-  let cardText = stateItem.parse.querySelector(".card-text");
-  let cardHeader = stateItem.parse.querySelector(".card-header strong");
-  let cardTitle = stateItem.parse.querySelector(".card-title a");
-  let cardBtn = stateItem.parse.querySelector(".btn");
+  let activeComponent = <HTMLElement>(
+    currentComponent.querySelector(
+      `[data-id='${target.getAttribute("data-id")}']`
+    )
+  );
+  const id = currentComponent.getAttribute("id");
 
-  if (targetParentClassName === "card-header") {
-    cardHeader.textContent = value;
+  if (typeEl === "content") {
+    activeComponent.textContent = value;
   }
-  if (targetClassName === "card-text") {
-    cardText.textContent = value;
-  }
-  if (targetClassName === "btn" && typeEl === "content") {
-    cardBtn.textContent = value;
-  }
-  if (targetClassName === "btn" && typeEl === "attr") {
-    cardBtn.setAttribute("href", value);
-  }
-  if (targetParentClassName === "card-title" && typeEl === "content") {
-    cardTitle.textContent = value;
-  }
-  if (targetParentClassName === "card-title" && typeEl === "attr") {
-    cardBtn.setAttribute("href", value);
+  if (typeEl === "attr") {
+    activeComponent.setAttribute("href", value);
   }
 
   store.dispatch(
-    updateItemsCard({
-      id: stateItem.id,
-      content: stateItem.parse.outerHTML,
-    })
+      updateItemsCard({
+        id,
+        content: currentComponent.outerHTML,
+      })
   );
 }
