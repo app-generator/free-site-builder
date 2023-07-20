@@ -968,3 +968,15 @@ body body {
 .setClassList a {
   font-size: 12px;
 }
+.editor-container, .CodeMirror {
+  height: 600px;
+}
+.editor-container * {
+  text-align: initial !important;
+}
+.CodeMirror-line, .CodeMirror-cursors  {
+  margin-left: 20px !important; 
+}
+.CodeMirror-selected {
+  margin-left: 20px !important; 
+}
