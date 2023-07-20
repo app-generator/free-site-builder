@@ -1,5 +1,6 @@
 import { updateItemsCard } from "./redux/cardsSlice.ts";
 import store from "./redux/store.ts";
+import debounce from "lodash.debounce";
 
 export function setupGlobalEvents() {
   document.querySelector("#dropzone")?.addEventListener("click", (event) => {
@@ -441,6 +442,11 @@ export function onRestore(event: any) {
     console.log(" > NULL ELEMs ");
   }
 }
+
+const debouncedDispatch = debounce((item: any) => {
+  store.dispatch(updateItemsCard(item));
+}, 800);
+
 function setStoreCardItem(
   target: any,
   value: any,
@@ -461,10 +467,9 @@ function setStoreCardItem(
     activeComponent.setAttribute("href", value);
   }
 
-  store.dispatch(
-      updateItemsCard({
-        id,
-        content: currentComponent.outerHTML,
-      })
-  );
+  const updateItem = {
+    id,
+    content: currentComponent.outerHTML,
+  };
+  debouncedDispatch(updateItem);
 }
