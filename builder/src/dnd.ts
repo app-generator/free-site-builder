@@ -27,7 +27,7 @@ export function uuidv4() {
 
 
 export function onDragStart(event: any, param: any) {
-    console.log(' > onDrag_START() ');
+    console.log(' > onDrag_START() ', event, param);
 
     event
         .dataTransfer
@@ -38,7 +38,7 @@ export function onDragStart(event: any, param: any) {
         .style
         .backgroundColor = 'white';
 
-    onSave(event, param);
+    // onSave(event, param);
 }
 
 export function onDragOver(event: any, param2: any) {
@@ -122,8 +122,8 @@ const onReposition = (component: any, param: any) => {
     editableComponent.appendChild(contentElement);
 }
 
-export function onDragEnd(event: any) {
-    console.log(' > onDrag_END() ');
+export function onDragEnd(event: any, param: any) {
+    console.log(' > onDrag_END() ', param);
 
     // Remove all previous    
     remClassProcessor('border-dotted');
@@ -136,6 +136,8 @@ export function onDragEnd(event: any) {
         .currentTarget
         .style
         .backgroundColor = '#ffffff';
+
+    onSave(event, param);
 }
 
 export function onDrop(event: any, param: any) {
@@ -487,7 +489,7 @@ export function onClear(event: any, param: any) {
 
 export function onSave(event: any, param: any) {
     event;
-    console.log(' > ACTION: save');
+    console.log(' > ACTION: save', param);
     let content = <HTMLElement>document.querySelector('#'+param);
     window.localStorage.setItem(`editME-${param}`, content.innerHTML);
 }
