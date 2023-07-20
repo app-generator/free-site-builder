@@ -22,7 +22,7 @@
         <div class="container-fluid">
           <div class="innerHeader">
             <div class="headerActions">
-              <button id="action_clear" type="button" class="btn btn-outline-danger"><i
+              <button id="action_clear" type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmModal"><i
                   class="fa-solid fa-eraser"></i><span> Clear</span></button>
               <button id="action_save" type="button" class="btn btn-primary btnDefault"><i
                   class="fa-solid fa-floppy-disk"></i><span> Save</span></button>
@@ -77,7 +77,25 @@
         </div>
       </aside>
       <!-- end aside left -->
-      
+      <!-- Confirm modal -->
+      <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="confirmModalLabel">Confirm Alert</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Do you want to really clear the data?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary action_clear_confirm">OK</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Confirm modal -->
       <div class="rowa" id="builder-container">
         <!-- Current Page -->
         <div class="mainBuilder" id="builder-content">

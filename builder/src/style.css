@@ -417,7 +417,7 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
 }
 .forScroll {
   overflow-y: auto;
-  height: calc(100vh - 100px);
+  /* height: calc(100vh - 100px); */
   position: relative;
 }
 /**/
@@ -982,4 +982,7 @@ body body {
 }
 .add-page-list {
   margin-left: 8px;
+}
+.modal {
+  z-index: 99999 !important;
 }

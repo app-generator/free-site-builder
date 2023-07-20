@@ -84,10 +84,13 @@ function setNavigation(param: any) {
   // document.querySelector('#action_restore')!.addEventListener('click', (event) => { onRestore(event, param) });
   // document.querySelector('#action_undo')!.addEventListener('click', (event) => { onRestore(event, param) });
 
-  const actionClearElement = document.querySelector('#action_clear') as HTMLElement;
-  actionClearElement.onclick = (event) => {
+  // const actionClearElement = document.querySelector('#action_clear') as HTMLElement;
+  const action_clear_confirmElement = document.querySelector('.action_clear_confirm') as HTMLElement;
+  
+  action_clear_confirmElement.onclick = (event) => {
     onClear(event, param)
   };
+
   // const actionSaveElement = document.querySelector('#action_save') as HTMLElement;
   // actionSaveElement.onclick = (event) => {
   //   onSave(event, param)
@@ -544,11 +547,13 @@ function onKeyUpToGlobalSet(event: any) {
   }
 }
 let currentTabs = JSON.parse(<string>window.localStorage.getItem('currentPageTabs'));
-for (let i = 0; i < currentTabs.length; i++) {
-  // +`_@COL@_New-Page${pageIndex}`
-  let tabInfo = currentTabs[i].split('_@COL@_');
-  onAddPage(tabInfo);
-  onRestore(null, 'dropzone-'+tabInfo[0]);
+if (currentTabs) {
+  for (let i = 0; i < currentTabs.length; i++) {
+    // +`_@COL@_New-Page${pageIndex}`
+    let tabInfo = currentTabs[i].split('_@COL@_');
+    onAddPage(tabInfo);
+    onRestore(null, 'dropzone-'+tabInfo[0]);
+  }
 }
 pageTabBtn.click();
 onRestore(null, 'dropzone');
