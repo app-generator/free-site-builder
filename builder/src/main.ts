@@ -3,7 +3,7 @@ import style from './style.css?inline';
 import JSZip from 'jszip';
 
 
-import { onDragStart, onDragEnd, onDragOver, onDrop, onClear, onSave, onRestore, setupGlobalEvents} from './dnd.ts'
+import { onDragStart, onDragEnd, onDragOver, onDrop, onClear, onRestore, setupGlobalEvents} from './dnd.ts'
 
 //fetch('http://127.0.0.1:5000/kits/bs5/div.html') 
 //.then(response => response.text())               // response.text() has the component that needs to be saved in  
