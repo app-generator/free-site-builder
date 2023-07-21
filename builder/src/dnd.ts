@@ -475,8 +475,10 @@ export function onClear(event: any, param: any) {
             let pageTabs = document.querySelector('.pagesTabs')!.children;
             pageTabs[eachTabs[0]*1+1-i].remove();
         }
-        window.location.reload();
+        window.localStorage.removeItem('editME-dropzone');
+        window.localStorage.removeItem('Global-index.html');
     }
+    window.location.reload();
 
     // let content = <HTMLElement>document.querySelector('#'+param);
     // clear
