@@ -523,21 +523,33 @@ function onAddPage(param = null) {
     let newValue = pageTabBtn.innerHTML; // Get the new value
     console.log("Value changed: " + newValue, event.target, pageIndex);
     editedTabName = newValue;
-  });
-  pageTabBtn.addEventListener("blur", function() {
-    pageTabBtn.setAttribute('contenteditable', 'false');
-    if (editedTabName) {
-      let originalGlobalSetting:any = window.localStorage.getItem(`Global-${originalTabName}`);
+    let originalGlobalSetting:any = window.localStorage.getItem(`Global-${originalTabName}`);
       if (originalGlobalSetting) {
         window.localStorage.setItem(`Global-${editedTabName}`, originalGlobalSetting);
         window.localStorage.removeItem(`Global-${originalTabName}`);
       }
       let originalCurrentPagesTabs:any = JSON.parse(<string>window.localStorage.getItem('currentPageTabs'));
       let eleOfCurrentTab = originalCurrentPagesTabs[pageIndex-1];
-      let updatedVal = eleOfCurrentTab.replace(originalTabName, editedTabName);
+      let splitedEle = eleOfCurrentTab.split('_@COL@_');
+      let updatedVal = splitedEle[0] + '_@COL@_' + editedTabName;
+      document.querySelector('.tabPageName')!.innerHTML = editedTabName;
       originalCurrentPagesTabs[pageIndex-1] = updatedVal;
       window.localStorage.setItem('currentPageTabs', JSON.stringify(originalCurrentPagesTabs));
-    }
+  });
+  pageTabBtn.addEventListener("blur", function() {
+    pageTabBtn.setAttribute('contenteditable', 'false');
+    // if (editedTabName) {
+    //   let originalGlobalSetting:any = window.localStorage.getItem(`Global-${originalTabName}`);
+    //   if (originalGlobalSetting) {
+    //     window.localStorage.setItem(`Global-${editedTabName}`, originalGlobalSetting);
+    //     window.localStorage.removeItem(`Global-${originalTabName}`);
+    //   }
+    //   let originalCurrentPagesTabs:any = JSON.parse(<string>window.localStorage.getItem('currentPageTabs'));
+    //   let eleOfCurrentTab = originalCurrentPagesTabs[pageIndex-1];
+    //   let updatedVal = eleOfCurrentTab.replace(originalTabName, editedTabName);
+    //   originalCurrentPagesTabs[pageIndex-1] = updatedVal;
+    //   window.localStorage.setItem('currentPageTabs', JSON.stringify(originalCurrentPagesTabs));
+    // }
   });
 }
 
