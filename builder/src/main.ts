@@ -224,16 +224,34 @@ function drawHTMLForDownload(dropzoneId: any, pageName:any, index:any=null) {
 }
 
 function openPreviewModal() {
+    let currentPages = JSON.parse(<string>window.localStorage.getItem('currentPageTabs'));
+    // let currentPageList = `<button type="button" class="tab-list list-group-item list-group-item-action active" id='index' onClick='tabEventHandler(this)'>index.html</button>`;
+    let currentPageList =  `<ul class="nav nav-tabs defTabs pagesTabs justify-content-center" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id='index' onClick='tabEventHandler(this)' data-bs-toggle="tab" type="button"
+            role="tab" aria-selected="false">index.html</button>
+        </li>`;
+    if (currentPages) {
+      for (let i = 0; i < currentPages.length; i++) {
+        let pageTab = currentPages[i].split('_@COL@_');
+        currentPageList += `<li class="nav-item" role="presentation">
+        <button class="nav-link" id='${pageTab[0]}' onClick='tabEventHandler(this)' data-bs-toggle="tab" type="button"
+          role="tab" aria-selected="false">${pageTab[1]}</button>
+      </li>`;
+      }
+    }
+    currentPageList += '</ul>';
+
     let previewModal = document.querySelector('#previewModal') as HTMLElement;
     let previewFrame = document.querySelector('#previewFrame') as HTMLIFrameElement;
 
-    let currentActiveTab = window.localStorage.getItem('activePageTab');
-    let dropzoneId: string | null = 'dropzone';
-    if (currentActiveTab !== "") {
-      dropzoneId = currentActiveTab;
-    }
+    // let currentActiveTab = window.localStorage.getItem('activePageTab');
+    let dropzoneId: string | null = 'pagesTabContent';
+    // if (currentActiveTab !== "") {
+    //   dropzoneId = currentActiveTab;
+    // }
 
-    let dropzone = document.querySelector('#'+dropzoneId);
+    let dropzone = document.querySelector('.'+dropzoneId);
     // Recursive function to process each component
     // Added processComponent function to handle complex component processing before preview
     // to allow previews of complex layouts
@@ -254,6 +272,8 @@ function openPreviewModal() {
   }
 
   let processedContent = processComponent(dropzone as HTMLElement);
+
+  
     // Load the content of the dropzone into the iframe
     let iframeContent = `
       <html>
@@ -274,14 +294,16 @@ function openPreviewModal() {
               body {
                 display: flex;
                 justify-content: center;
-                align-items: center;
                 width: 100%;
               }
               .border-dotted, .border-props, .cross-icon { border: none !important; } 
           </style>
         </head>
         <body style="padding: 15px;">
-          ${processedContent.outerHTML}
+        <div style="width: 100%;">
+            ${currentPageList}
+            ${processedContent.outerHTML}
+          </div>
         </body>
         <script>
           // Disable contentEditable for all elements
@@ -295,6 +317,41 @@ function openPreviewModal() {
           for (let i=0; i<allLinks.length; i++) {
             allLinks[i].target = "_blank";
           }
+          function tabEventHandler(event) {
+            let pagesTabContent = document.querySelector('.pagesTabContent').children;
+            for (let i = 0; i < pagesTabContent.length; i++) {
+              pagesTabContent[i].classList.remove('active');
+              pagesTabContent[i].classList.remove('show');
+            }
+
+            let lists = document.querySelector('.pagesTabs').children;
+            for (let i = 0; i < lists.length; i++) {
+              let leafBtn = lists[i].children;
+              leafBtn[0].classList.remove('active');
+            }
+            event.classList.add('active');
+            let activeID = '#page-'+event.id;
+            if (event.id == 'index') {
+              activeID = '#indexTab';
+            }
+            let activePreviewTab = document.querySelector(activeID);
+            activePreviewTab.classList.add('active');
+            activePreviewTab.classList.add('show');
+            console.log(event.id, 'my-target');
+          };
+          function clearActive() {
+            let pagesTabContent = document.querySelector('.pagesTabContent').children;
+            for (let i = 0; i < pagesTabContent.length; i++) {
+              if (i == 0) {
+                pagesTabContent[i].classList.add('active');
+                pagesTabContent[i].classList.add('show');
+              } else {
+                pagesTabContent[i].classList.remove('active');
+                pagesTabContent[i].classList.remove('show');
+              }
+            }
+          }
+          clearActive();
         </script>
       </html>
     `;
