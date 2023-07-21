@@ -1,6 +1,6 @@
 # [Free Website Builder](https://www.simpllo.com/)
 
-Website builder that uses **Vanilla JS** and a **[Remote Server](https://components-server.onrender.com/kits/)** for components injection - Actively supported by [AppSeed](https://appseed.us/).
+**Free & Open-Source Website Builder** that uses `Vanilla JS` and a `Remote Server` for components injection - Actively supported by [AppSeed](https://appseed.us/).
 
 - 👉 [Simpllo Builder](https://www.simpllo.com/) - `Live DEMO`
 - 👉 [FULL Specs](https://docs.google.com/document/d/1YbmZro0b8ucMGE227xSMzcQGNbWgTaiOKfjgEW9RsWE/edit?usp=sharing), `Google Drive Link`
