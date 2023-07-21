@@ -1,14 +1,12 @@
-# [Rocket Builder](https://rocket-builder.onrender.com/) `Free DnD Tool`
+# [Free Website Builder](https://www.simpllo.com/)
 
-**STATUS**: `Work in Progress` - Website builder that uses **Vanilla JS** and a **[Remote Server](https://components-server.onrender.com/kits/)** for components injection - Actively supported by [AppSeed](https://appseed.us/).
+Website builder that uses **Vanilla JS** and a **[Remote Server](https://components-server.onrender.com/kits/)** for components injection - Actively supported by [AppSeed](https://appseed.us/).
 
-- 👉 [Rocket Builder](https://rocket-builder.onrender.com/) - `Live DEMO`
+- 👉 [Simpllo Builder](https://www.simpllo.com/) - `Live DEMO`
 - 👉 [FULL Specs](https://docs.google.com/document/d/1YbmZro0b8ucMGE227xSMzcQGNbWgTaiOKfjgEW9RsWE/edit?usp=sharing), `Google Drive Link`
 - 🫶 **Contribute** - see the [open issues](https://github.com/app-generator/rocket-builder/issues)  
 
-<br />
-
-![Rocket Builder - Open-Source DnD project crafted by AppSeed.](https://github.com/app-generator/rocket-builder/assets/51070104/5a6ac9fc-4620-4d2e-8750-e09f99be843e)
+![Free Website Builder - Open-Source DnD project crafted by AppSeed.](https://github.com/app-generator/rocket-builder/assets/51070104/5a6ac9fc-4620-4d2e-8750-e09f99be843e)
 
 <br />
 
@@ -30,8 +28,7 @@
 | ✅ | **PAGE Customization** | CSS |
 | ✅ | **PAGE Customization** | JS |
 | ✅ | **Manage SEO** | Title, Description, Keywords |
-| ✅ | **Handle Multiple Pages** | - |
-| ❌ | **Dashboard Layout** | `Multiple Components` Drag & Drop |
+| ✅ | **Handle Multiple Pages** | YES |
 
 <br />
 
@@ -136,4 +133,4 @@ For more information regarding `licensing`, please contact [AppSeed](http://apps
 <br />
 
 ---
-[Rocket Builder](https://rocket-builder.onrender.com/) `Free DnD Tool` - Provided by **[AppSeed](https://appseed.us/)**.
+[Free Website Builder](https://www.simpllo.com/) - Provided by **[AppSeed](https://appseed.us/)**.

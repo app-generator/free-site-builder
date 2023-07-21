@@ -79,8 +79,9 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = builderContainer;
 
 // SETUP Navigation
 function setNavigation(param: any) {
+  
   // document.querySelector('#action_clear')!.addEventListener('click', (event) => { onClear(event, param) });
-  document.querySelector('#action_save')!.addEventListener('click', (event) => { onSave(event, param) });
+  // document.querySelector('#action_save')!.addEventListener('click', (event) => { onSave(event, param) });
   // document.querySelector('#action_restore')!.addEventListener('click', (event) => { onRestore(event, param) });
   // document.querySelector('#action_undo')!.addEventListener('click', (event) => { onRestore(event, param) });
 
@@ -95,14 +96,16 @@ function setNavigation(param: any) {
   // actionSaveElement.onclick = (event) => {
   //   onSave(event, param)
   // };
-  const actionRestoreElement = document.querySelector('#action_restore') as HTMLElement;
-  actionRestoreElement.onclick = (event) => {
-    onRestore(event, param)
-  };
-  const actionUndoElement = document.querySelector('#action_undo') as HTMLElement;
-  actionUndoElement.onclick = (event) => {
-    onRestore(event, param)
-  };
+  
+  //const actionRestoreElement = document.querySelector('#action_restore') as HTMLElement;
+  //actionRestoreElement.onclick = (event) => {
+  //  onRestore(event, param)
+  //};
+  
+  //const actionUndoElement = document.querySelector('#action_undo') as HTMLElement;
+  //actionUndoElement.onclick = (event) => {
+  //  onRestore(event, param)
+  //};
 }
 setNavigation('dropzone');
 

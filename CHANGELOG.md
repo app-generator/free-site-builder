@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.0.0] 2023-07-21
+### Changes
+
+- Deployed LIVE on [Simpllo.com - Free Website Builder](https://www.simpllo.com/)
+- Improved Preview (multi-page)
+- Download option
+
 ## [0.0.14] 2023-07-20
 ### Changes
 
