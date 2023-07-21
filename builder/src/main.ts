@@ -140,10 +140,35 @@ function misc(param: any) {
 }
 function downloadHanlder() {
   const zip = new JSZip();
-  let dropzone = document.querySelector('#dropzone') as HTMLElement;
+  let currentPages = JSON.parse(<string>window.localStorage.getItem('currentPageTabs'));
+  let indexhtmlContent = drawHTMLForDownload('dropzone', 'index.html');
+  // Add the HTML file to the zip
+  zip.file('index.html', indexhtmlContent);
+  zip.file('assets/css/index.css', style);
 
-  let tabPageName = document.querySelector(".tabPageName")?.innerHTML;
-  let globalSetData = JSON.parse(<string>window.localStorage.getItem(`Global-${tabPageName}`));
+  for (let i = 0; i < currentPages.length; i++) {
+    let pageTab = currentPages[i].split('_@COL@_');
+    console.log(pageTab);
+
+    let htmlContent = drawHTMLForDownload('dropzone-'+pageTab[0], pageTab[1], pageTab[0]);
+    // Add the HTML file to the zip
+    zip.file(pageTab[1], htmlContent);
+    // Generate the zip file
+  }
+  zip.generateAsync({ type: 'blob' })
+    .then(function(content:any) {
+      // Create a download link
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(content);
+      link.download = 'builder.zip';
+
+      // Trigger the download
+      link.click();
+    });
+}
+function drawHTMLForDownload(dropzoneId: any, pageName:any, index:any=null) {
+  let dropzone = document.querySelector(`#${dropzoneId}`) as HTMLElement;
+  let globalSetData = JSON.parse(<string>window.localStorage.getItem(`Global-${pageName}`));
   let cssCode = window.localStorage.getItem('global-css-code');
   let jsCode = window.localStorage.getItem('global-js-code');
 
@@ -160,9 +185,27 @@ function downloadHanlder() {
         <link href="${globalSetData?.external_css_url}" rel="stylesheet" crossorigin="anonymous">
         <link href="assets/css/index.css" rel="stylesheet">
         <style>
-        .dropzone {
+        .${dropzoneId} {
           border-radius: 0 !important;
           border: none !important;
+        }
+        .${dropzoneId} {
+          background-color: #eaeaea;
+          flex-basis: 100%;
+          flex-grow: 1;
+          margin-bottom: 10px;
+          margin-top: 10px;
+          padding: 10px;
+          border-radius: 10px;
+          border: 2px dashed #ccc;
+          min-height: 300px;
+        }
+        
+        .dropzone-elem-${index} {
+          margin-bottom: 0px;
+          margin-top: 0px;
+          padding: 4px;
+          font-size: 11px;
         }
         ${cssCode}
         </style>
@@ -177,22 +220,7 @@ function downloadHanlder() {
       </body>
     </html>
   `;
-
-  // Add the HTML file to the zip
-  zip.file('index.html', htmlContent);
-  zip.file('assets/css/index.css', style);
-
-  // Generate the zip file
-  zip.generateAsync({ type: 'blob' })
-    .then(function(content:any) {
-      // Create a download link
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(content);
-      link.download = 'builder.zip';
-
-      // Trigger the download
-      link.click();
-    });
+  return htmlContent;
 }
 
 function openPreviewModal() {
