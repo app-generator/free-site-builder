@@ -225,12 +225,22 @@ function drawHTMLForDownload(dropzoneId: any, pageName:any, index:any=null) {
 
 function openPreviewModal() {
     let currentPages = JSON.parse(<string>window.localStorage.getItem('currentPageTabs'));
-    let currentPageList = `<button type="button" class="tab-list list-group-item list-group-item-action active" id='index' onClick='tabEventHandler(this)'>index.html</button>`;
-    
-    for (let i = 0; i < currentPages.length; i++) {
-      let pageTab = currentPages[i].split('_@COL@_');
-      currentPageList += `<button type="button" class="tab-list list-group-item list-group-item-action" id='${pageTab[0]}' onClick='tabEventHandler(this)'>${pageTab[1]}</button>`;
+    // let currentPageList = `<button type="button" class="tab-list list-group-item list-group-item-action active" id='index' onClick='tabEventHandler(this)'>index.html</button>`;
+    let currentPageList =  `<ul class="nav nav-tabs defTabs pagesTabs justify-content-center" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id='index' onClick='tabEventHandler(this)' data-bs-toggle="tab" type="button"
+            role="tab" aria-selected="false">index.html</button>
+        </li>`;
+    if (currentPages) {
+      for (let i = 0; i < currentPages.length; i++) {
+        let pageTab = currentPages[i].split('_@COL@_');
+        currentPageList += `<li class="nav-item" role="presentation">
+        <button class="nav-link" id='${pageTab[0]}' onClick='tabEventHandler(this)' data-bs-toggle="tab" type="button"
+          role="tab" aria-selected="false">${pageTab[1]}</button>
+      </li>`;
+      }
     }
+    currentPageList += '</ul>';
 
     let previewModal = document.querySelector('#previewModal') as HTMLElement;
     let previewFrame = document.querySelector('#previewFrame') as HTMLIFrameElement;
@@ -290,10 +300,8 @@ function openPreviewModal() {
           </style>
         </head>
         <body style="padding: 15px;">
-          <div class="list-group" style="width: 15%; margin-top: 10px;">
+        <div style="width: 100%;">
             ${currentPageList}
-          </div>
-          <div style="width: 80%;">
             ${processedContent.outerHTML}
           </div>
         </body>
@@ -316,9 +324,10 @@ function openPreviewModal() {
               pagesTabContent[i].classList.remove('show');
             }
 
-            let lists = document.querySelector('.list-group').children;
+            let lists = document.querySelector('.pagesTabs').children;
             for (let i = 0; i < lists.length; i++) {
-              lists[i].classList.remove('active');
+              let leafBtn = lists[i].children;
+              leafBtn[0].classList.remove('active');
             }
             event.classList.add('active');
             let activeID = '#page-'+event.id;
