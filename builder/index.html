@@ -34,6 +34,7 @@
                   class="fa-solid fa-eraser"></i><span> Clear</span></button>
               <button id="action_preview" class="btn btn-outline-primary"><i class="fa-regular fa-eye"></i><span> Preview</span></button>
               <button id="action_download" class="btn btn-outline-secondary"><i class="fa fa-download"></i><span> Download</span></button>
+              <button id="action_deploy" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#deployModal"><i class="fa fa-rocket"></i><span> Deploy</span></button>
             </div>
           </div>
         </div>
@@ -208,6 +209,7 @@
     </div>
   </div>
   </div>
+
   <!-- Preview Modal -->
   <div id="previewModal" class="modal">
     <div class="modal-content">
@@ -228,6 +230,37 @@
       <iframe id="previewFrame"></iframe>
     </div>
   </div>
+
+  <!-- Deploy Modal -->
+  <div id="deployModal" class="modal fade" tabindex="-1" aria-labelledby="deployModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmModalLabel">Deploy to Netlify</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>To create a Netlify account and get a personal access token, follow these steps:</p>
+          <ol>
+            <li>Go to <a href="https://app.netlify.com/signup">https://app.netlify.com/signup</a> and create a new account.</li>
+            <li>After logging in, go to User Settings > Applications > Personal Access Tokens.</li>
+            <li>Click "New access token", give it a description, and click "Generate token".</li>
+            <li>Copy the generated token and paste it into the input field below.</li>
+          </ol>
+          <form id="deploy-form">
+            <label for="site-name">Website Name:</label><br>
+            <input type="text" id="site-name" name="site-name" required><br>
+            <label for="netlify-token">Netlify Personal Access Token:</label><br>
+            <input type="text" id="netlify-token" name="netlify-token" required><br>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" form="deploy-form" class="btn btn-primary">Deploy</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script class="global-custom-js"></script>
   <script>
     // JavaScript

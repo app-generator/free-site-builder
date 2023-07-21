@@ -1,6 +1,8 @@
 import './style.css'
 import style from './style.css?inline';
 import JSZip from 'jszip';
+import axios from 'axios';
+import FormData from 'form-data';
 
 
 import { onDragStart, onDragEnd, onDragOver, onDrop, onClear, onRestore, setupGlobalEvents} from './dnd.ts'
@@ -112,8 +114,10 @@ setNavigation('dropzone');
 // SETUP Preview
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#action_preview')!.addEventListener('click', openPreviewModal);
-    document.querySelector('#action_download')!.addEventListener('click', downloadHanlder);
+    document.querySelector('#action_download')!.addEventListener('click', downloadHandler);
+    document.querySelector('#action_deploy')!.addEventListener('click', openDeployModal);
     document.querySelector('#closeModal')!.addEventListener('click', closePreviewModal);
+    document.getElementById('deployModal')!.addEventListener('submit', submitDeployRequest);
     document.querySelector('#fullScreenOption')!.addEventListener('click', () => setPreviewMode('fullScreen'));
     document.querySelector('#tabletOption')!.addEventListener('click', () => setPreviewMode('tablet'));
     document.querySelector('#mobileOption')!.addEventListener('click', () => setPreviewMode('mobile'));
@@ -141,7 +145,7 @@ function misc(param: any) {
         // draggableElems[i].addEventListener('dragend', (event) => { onDragEnd(event) });
     }   
 }
-function downloadHanlder() {
+function downloadHandler() {
   const zip = new JSZip();
   let currentPages = JSON.parse(<string>window.localStorage.getItem('currentPageTabs'));
   let indexhtmlContent = drawHTMLForDownload('dropzone', 'index.html');
@@ -169,6 +173,58 @@ function downloadHanlder() {
       link.click();
     });
 }
+
+function openDeployModal() {
+  (document.getElementById('deployModal') as HTMLElement).style.display = 'block';
+}
+
+function submitDeployRequest(event: any) {
+  event.preventDefault();
+  const siteName = (document.getElementById('site-name') as HTMLInputElement).value;
+  const netlifyToken = (document.getElementById('netlify-token') as HTMLInputElement).value;
+  deployToNetlify(siteName, netlifyToken);
+}
+
+function deployToNetlify(siteName: string, netlifyToken: string): void {
+  const zip = new JSZip();
+
+  // Retrieve the current pages from local storage
+  let currentPages = JSON.parse(<string>window.localStorage.getItem('currentPageTabs'));
+
+  // For each page, generate the HTML content and add it to the zip file
+  let indexhtmlContent = drawHTMLForDownload('dropzone', 'index.html');
+  zip.file('index.html', indexhtmlContent);
+  zip.file('assets/css/index.css', style);
+  for (let i = 0; i < currentPages.length; i++) {
+    let pageTab = currentPages[i].split('_@COL@_');
+    let htmlContent = drawHTMLForDownload('dropzone-'+pageTab[0], pageTab[1], pageTab[0]);
+    zip.file(pageTab[1], htmlContent);
+  }
+
+  // Generate the zip file as a Blob
+  zip.generateAsync({ type: 'blob' })
+    .then((blob: Blob) => {
+      const data = new FormData();
+
+      // Append the zip file to the form data
+      data.append('file', blob, `${siteName}.zip`);
+
+      // Send a POST request to the Netlify API
+      axios.post(`https://api.netlify.com/api/v1/sites/${siteName}.netlify.app/deploys`, data, {
+        headers: {
+          'Authorization': `Bearer ${netlifyToken}`,
+          ...data.getHeaders(),
+        },
+      })
+      .then((response) => {
+        console.log('Deployed successfully:', response.data);
+      })
+      .catch((error) => {
+        console.error('Failed to deploy:', error);
+      });
+    });
+}
+
 function drawHTMLForDownload(dropzoneId: any, pageName:any, index:any=null) {
   let dropzone = document.querySelector(`#${dropzoneId}`) as HTMLElement;
   let globalSetData = JSON.parse(<string>window.localStorage.getItem(`Global-${pageName}`));
