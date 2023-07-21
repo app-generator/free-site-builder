@@ -123,7 +123,7 @@ downloadComponents().then(()=>{
 
 // SETUP Components
 function misc(param: any) {
-
+    console.log(param, 'misc');
     let draggableElems = document.querySelectorAll('.draggable');
 
     for (let i = 0; i < draggableElems.length; i++) {
@@ -132,7 +132,7 @@ function misc(param: any) {
           onDragStart(event, param)
         };
         draggableEle.ondragend = (event) => {
-          onDragEnd(event)
+          onDragEnd(event, param)
         };
         // draggableElems[i].addEventListener('dragstart', (event) => { onDragStart(event, param) });
         // draggableElems[i].addEventListener('dragend', (event) => { onDragEnd(event) });
@@ -308,7 +308,7 @@ pageTabBtn.onclick = () => {
   document.querySelector('.tabPageName')!.innerHTML = 'index.html';
   setGlobalInput();
   initDropZone('dropzone', `drop-here-indicator`);
-  initGridDropZone(`dropzone-elem`, `drop-here-indicator`);
+  initGridDropZone(`dropzone`, `drop-here-indicator`);
   setupGlobalEvents('dropzone');
   setNavigation('dropzone');
 };
@@ -360,7 +360,6 @@ function onAddPage(param = null) {
     const referenceElement = pageTabs?.children[pageTabsLength-1];
     pageTabs?.insertBefore(tempContainer, referenceElement);
   }
-  
   let newStyle = `
     .${dropZoneID} {
       background-color: #eaeaea;
@@ -395,6 +394,9 @@ function onAddPage(param = null) {
     setGlobalInput(eleSelected.innerHTML);
   });
   pageTabBtn.onclick = () => {
+    setTimeout(function(){
+      misc(dropZoneID);
+    }, 2000);
     let currentTabs = JSON.parse(<string>window.localStorage.getItem('currentPageTabs'));
     if (currentTabs) {
       if (param) {
@@ -475,7 +477,7 @@ function initGridDropZone(param:any, param2:any) {
       onDragOver(event, param2)
     };
     dropzoneEle.ondragend = (event) => {
-      onDragEnd(event)
+      onDragEnd(event, param)
     };
     dropzoneEle.ondrop = (event) => {
       onDrop(event, param)
@@ -486,7 +488,7 @@ function initGridDropZone(param:any, param2:any) {
     // dropZones[i].addEventListener('drop', (event) => { onDrop(event, param) });
   }
 }
-initGridDropZone('dropzone-elem', 'drop-here-indicator');
+initGridDropZone('dropzone', 'drop-here-indicator');
 
 // SET GLOBAL INPUT
 function setGlobalInput(param: any = null) {
