@@ -3,7 +3,7 @@
 ## [1.0.0] 2023-07-21
 ### Changes
 
-- Deployed LIVE on [Simpllo.com - Free Website Builder](https://www.simpllo.com/)
+- Deployed LIVE on [Simpllo - Free Website Builder](https://www.simpllo.com/)
 - Improved Preview (multi-page)
 - Download option
 
