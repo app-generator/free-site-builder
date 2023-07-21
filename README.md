@@ -1,16 +1,15 @@
 # [Free Website Builder](https://www.simpllo.com/)
 
-**Free & Open-Source Website Builder** that uses `Vanilla JS` and a `Remote Server` for components injection - Actively supported by [AppSeed](https://appseed.us/).
+**Free & Open-Source Website Builder** that uses `Vanilla JS` and a `Remote Server` for components injection - Actively supported by [AppSeed](https://appseed.us/) 
 
 - 👉 [Simpllo Builder](https://www.simpllo.com/) - `Live DEMO`
-- 👉 [FULL Specs](https://docs.google.com/document/d/1YbmZro0b8ucMGE227xSMzcQGNbWgTaiOKfjgEW9RsWE/edit?usp=sharing), `Google Drive Link`
-- 🫶 **Contribute** - see the [open issues](https://github.com/app-generator/rocket-builder/issues)  
+- 🫶 `Support this service` - **[$9 - One-Time-Payment](https://appseed.gumroad.com/l/free-site-builder)** (managed by GUMROAD)
 
-![Free Website Builder - Open-Source DnD project crafted by AppSeed.](https://github.com/app-generator/rocket-builder/assets/51070104/5a6ac9fc-4620-4d2e-8750-e09f99be843e)
+![Free & Open-Source Website Builder - Actively Supported by AppSeed.](https://github.com/app-generator/rocket-builder/assets/51070104/76c3e00b-6112-4641-8b24-2c43e68a438a)
 
 <br />
 
-## Roadmap & `Features` 
+## Roadmap & [SPECS](https://docs.google.com/document/d/1YbmZro0b8ucMGE227xSMzcQGNbWgTaiOKfjgEW9RsWE/edit?usp=sharing) 
 
 | Status | Item | info | 
 | --- | --- | --- |
