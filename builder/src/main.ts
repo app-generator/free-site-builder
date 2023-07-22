@@ -389,7 +389,8 @@ function openPreviewModal() {
                 justify-content: center;
                 width: 100%;
               }
-              .border-dotted, .border-props, .cross-icon { border: none !important; } 
+              .border-dotted, .border-props, .cross-icon { border: none !important; }
+              .upButton, .downButton, .cross-icon { display: none !important; }
           </style>
         </head>
         <body style="padding: 15px;">
@@ -398,6 +399,7 @@ function openPreviewModal() {
             ${processedContent.outerHTML}
           </div>
         </body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script>
           // Disable contentEditable for all elements
           const allElements = document.getElementsByTagName('*');
