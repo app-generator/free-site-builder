@@ -986,3 +986,5 @@ body body {
 .modal {
   z-index: 99999 !important;
 }
+
+.bs-popover-auto { z-index: 99999; font-size: 11px; }
