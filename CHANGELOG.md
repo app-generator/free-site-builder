@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.0.1] 2023-07-22
+### Changes
+
+- Added Netlify Deploy
+- Codebase Improvements 
+
 ## [1.0.0] 2023-07-21
 ### Changes
 
