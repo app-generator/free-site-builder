@@ -182,6 +182,9 @@ function captureDeployRequest(event: any) {
 
   const siteName = (document.getElementById('site-name') as HTMLInputElement).value;
   const netlifyToken = (document.getElementById('netlify-token') as HTMLInputElement).value;
+
+  let errorMessage = document.querySelector(`#errorMessage`) as HTMLElement;
+  errorMessage.style.visibility = 'hidden';
   
   // Validation
   if (!siteName || !netlifyToken) {
@@ -195,6 +198,7 @@ function captureDeployRequest(event: any) {
 function deployToNetlify(siteName: string, netlifyToken: string): void {
   const zip = new JSZip();
 
+  // TODO :: Move the code relating zip generation in a helper function
   // Retrieve the current pages from local storage
   let currentPages = JSON.parse(<string>window.localStorage.getItem('currentPageTabs'));
 
@@ -216,7 +220,6 @@ function deployToNetlify(siteName: string, netlifyToken: string): void {
     .then((blob: Blob) => {
       // Convert Blob to File
       const file = new File([blob], `${siteName}.zip`, { type: 'application/zip' });
-      const url = process.env.NODE_ENV === 'production' ? process.env.PRODUCTION_URL : process.env.LOCAL_URL;
 
       const formData = new FormData();
 
@@ -232,11 +235,21 @@ function deployToNetlify(siteName: string, netlifyToken: string): void {
       .then(data => {
         if (data.message === 'Deploy OK') {
           console.log('Deployed successfully');
+
           let demo_URL = document.querySelector(`#deploy_url`) as HTMLElement;
           demo_URL.style.display = 'block';
           demo_URL.setAttribute('href', data.url);
         } else {
-          console.error('Failed to deploy:', data.message); 
+          console.error('Failed to deploy:', data.message);
+
+          let errorMessage = document.querySelector(`#errorMessage`) as HTMLElement;
+          errorMessage.innerHTML = data.message;
+          errorMessage.style.visibility = 'visible';
+
+          if (data.response.errors.subdomain.includes('must be unique')) {
+            console.error('Failed to deploy: Website name is already taken.');
+            errorMessage.innerHTML = 'Website name is already taken.';
+          }
         }
       })
       .catch(error => {
@@ -375,7 +388,8 @@ function openPreviewModal() {
                 justify-content: center;
                 width: 100%;
               }
-              .border-dotted, .border-props, .cross-icon { border: none !important; } 
+              .border-dotted, .border-props, .cross-icon { border: none !important; }
+              .upButton, .downButton, .cross-icon { display: none !important; }
           </style>
         </head>
         <body style="padding: 15px;">
@@ -384,6 +398,7 @@ function openPreviewModal() {
             ${processedContent.outerHTML}
           </div>
         </body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script>
           // Disable contentEditable for all elements
           const allElements = document.getElementsByTagName('*');

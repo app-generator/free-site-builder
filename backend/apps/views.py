@@ -54,21 +54,22 @@ def kit_file(template, file):
 def deploy_to_netlify():
     site_name = request.form.get('site_name')
     netlify_token = request.form.get('netlify_token')
-    file = request.files.get('file')
-
-    logging.info(f'Site name: {site_name}')
-    logging.info(f'Netlify token: {netlify_token}')
-    logging.info(f'File: {file}')
 
     url = "https://api.netlify.com/api/v1/sites"
     headers = {
-        'Authorization': f"Bearer {netlify_token}",
-        'Content-Type': 'application/zip',
+        'Authorization': f"Bearer {netlify_token}"
     }
 
-    response = requests.post(url, data=file.read(), headers=headers)
+    site_creation_response = requests.post(url, data={'name': site_name}, headers=headers)
 
-    if response.status_code == 201: # created
-        return jsonify({'message': 'Deploy OK' , 'url': response.json()['url'],'response': response.json()}), 200
+    if site_creation_response.status_code == 201:
+        file = request.files.get('file')
+        headers['Content-Type'] = 'application/zip'
+        deployment_response = requests.post(url, data=file.read(), headers=headers)
+
+        if deployment_response.status_code == 201: # created
+            return jsonify({'message': 'Deploy OK' , 'url': deployment_response.json()['url'],'response': deployment_response.json()}), 200
+        else:
+            return jsonify({'message': 'Failed to deploy: ' + str(deployment_response.status_code), 'response': deployment_response.json()}), 400
     else:
-        return jsonify({'message': 'Failed to deploy: ' + str(response.status_code), 'response': response.json()}), 400
+        return jsonify({'message': 'Failed to create site: ' + str(site_creation_response.status_code), 'response': site_creation_response.json()}), 422
