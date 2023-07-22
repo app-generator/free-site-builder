@@ -25,8 +25,8 @@ function downloadComponents() {
     //} else {
       loading.style.display = 'flex';
       
-      //return fetch('http://127.0.0.1:5000/kits/bs5/')                 // local version
-      return fetch('https://components-server.onrender.com/kits/bs5/')  // distant server (default) 
+      return fetch('http://127.0.0.1:5000/kits/bs5/')                 // local version
+      // return fetch('https://components-server.onrender.com/kits/bs5/')  // distant server (default) 
         .then(response => response.text())
         .then( response_raw => {
           loading.style.display = 'none';
@@ -181,6 +181,9 @@ function captureDeployRequest(event: any) {
 
   const siteName = (document.getElementById('site-name') as HTMLInputElement).value;
   const netlifyToken = (document.getElementById('netlify-token') as HTMLInputElement).value;
+
+  let errorMessage = document.querySelector(`#errorMessage`) as HTMLElement;
+  errorMessage.style.visibility = 'hidden';
   
   // Validation
   if (!siteName || !netlifyToken) {
@@ -194,6 +197,7 @@ function captureDeployRequest(event: any) {
 function deployToNetlify(siteName: string, netlifyToken: string): void {
   const zip = new JSZip();
 
+  // TODO :: Move the code relating zip generation in a helper function
   // Retrieve the current pages from local storage
   let currentPages = JSON.parse(<string>window.localStorage.getItem('currentPageTabs'));
 
@@ -215,8 +219,8 @@ function deployToNetlify(siteName: string, netlifyToken: string): void {
     .then((blob: Blob) => {
       // Convert Blob to File
       const file = new File([blob], `${siteName}.zip`, { type: 'application/zip' });
-      //const url = 'http://127.0.0.1:5000/deploy';
-      const url = 'https://components-server.onrender.com/deploy';
+      const url = 'http://127.0.0.1:5000/deploy';
+      // const url = 'https://components-server.onrender.com/deploy';
 
       const formData = new FormData();
 
@@ -232,11 +236,21 @@ function deployToNetlify(siteName: string, netlifyToken: string): void {
       .then(data => {
         if (data.message === 'Deploy OK') {
           console.log('Deployed successfully');
+
           let demo_URL = document.querySelector(`#deploy_url`) as HTMLElement;
           demo_URL.style.display = 'block';
           demo_URL.setAttribute('href', data.url);
         } else {
-          console.error('Failed to deploy:', data.message); 
+          console.error('Failed to deploy:', data.message);
+
+          let errorMessage = document.querySelector(`#errorMessage`) as HTMLElement;
+          errorMessage.innerHTML = data.message;
+          errorMessage.style.visibility = 'visible';
+
+          if (data.response.errors.subdomain.includes('must be unique')) {
+            console.error('Failed to deploy: Website name is already taken.');
+            errorMessage.innerHTML = 'Website name is already taken.';
+          }
         }
       })
       .catch(error => {

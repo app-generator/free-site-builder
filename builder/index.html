@@ -242,13 +242,14 @@
         <div class="modal-body">
           <form id="deployForm">
             <label for="site-name">Website Name:</label><br>
-            <input type="text" id="site-name" name="site-name" required style="margin-bottom: 20px;"><br>
+            <input type="text" id="site-name" name="site-name" style="margin-bottom: 10px;" required><br>
             <label for="netlify-token" data-bs-toggle="popover" data-bs-html="true" data-bs-content="<p>To create a Netlify account and get a personal access token, follow these steps:</p><ol><li>Go to <a href='https://app.netlify.com/signup'><strong>https://app.netlify.com/signup</strong></a> and create a new account.</li><li>After logging in, go to <mark>User Settings > Applications > Personal Access Tokens</mark>.</li><li>Click <strong>'New access token'</strong>, give it a description, and click <strong>'Generate token'</strong>.</li><li><strong>Copy the generated token</strong> and paste it into the input field below.</li></ol>">
               Netlify Personal Access Token:
               <i class="fas fa-question-circle"></i>
             </label><br>
-            <input type="text" id="netlify-token" name="netlify-token" required style="margin-bottom: 20px;"><br>
-          </form>          
+            <input type="text" id="netlify-token" name="netlify-token" required style="margin-bottom: 10px;" value="gFCGYwreg9kp8DZJ-SPyq8QkFCJgW_Fw61aD1EJKyiY"><br>
+            <span id="errorMessage" style="visibility: hidden; color: var(--bs-code-color); font-size: 11px;"></span>
+          </form>        
         </div>
 
         <a target="_blank" href="#" style="display: none;" id="deploy_url" class="text-center">LIVE Demo</a>
