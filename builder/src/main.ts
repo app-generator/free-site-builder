@@ -230,10 +230,10 @@ function deployToNetlify(siteName: string, netlifyToken: string): void {
       })
       .then(response => response.json())
       .then(data => {
-        if (data.message === 'Deployed successfully') {
+        if (data.message === 'Deploy OK') {
           console.log('Deployed successfully');
         } else {
-          console.error('Failed to deploy:', data.message);
+          console.error('Failed to deploy:', data.message); 
         }
       })
       .catch(error => {
