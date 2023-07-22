@@ -232,6 +232,9 @@ function deployToNetlify(siteName: string, netlifyToken: string): void {
       .then(data => {
         if (data.message === 'Deploy OK') {
           console.log('Deployed successfully');
+          let demo_URL = document.querySelector(`#deploy_url`) as HTMLElement;
+          demo_URL.style.display = 'block';
+          demo_URL.setAttribute('href', data.url);
         } else {
           console.error('Failed to deploy:', data.message); 
         }

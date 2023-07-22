@@ -247,6 +247,7 @@
             <li>Click "New access token", give it a description, and click "Generate token".</li>
             <li>Copy the generated token and paste it into the input field below.</li>
           </ol>
+
           <form id="deployForm">
             <label for="site-name">Website Name:</label><br>
             <input type="text" id="site-name" name="site-name" required><br>
@@ -254,6 +255,9 @@
             <input type="text" id="netlify-token" name="netlify-token" required><br>
           </form>
         </div>
+
+        <a target="_blank" href="#" style="display: none;" id="deploy_url" class="text-center">LIVE Demo</a>
+
         <div class="modal-footer">
           <button type="submit" form="deployForm" class="btn btn-primary">Deploy</button>
         </div>

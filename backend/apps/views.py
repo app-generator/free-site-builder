@@ -67,7 +67,8 @@ def deploy_to_netlify():
     }
 
     response = requests.post(url, data=file.read(), headers=headers)
+
     if response.status_code == 201: # created
-        return jsonify({'message': 'Deploy OK' , 'response': response.json()}), 200
+        return jsonify({'message': 'Deploy OK' , 'url': response.json()['url'],'response': response.json()}), 200
     else:
         return jsonify({'message': 'Failed to deploy: ' + str(response.status_code), 'response': response.json()}), 400
