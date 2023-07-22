@@ -34,6 +34,7 @@
                   class="fa-solid fa-eraser"></i><span> Clear</span></button>
               <button id="action_preview" class="btn btn-outline-primary"><i class="fa-regular fa-eye"></i><span> Preview</span></button>
               <button id="action_download" class="btn btn-outline-secondary"><i class="fa fa-download"></i><span> Download</span></button>
+              <button id="action_deploy" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#deployModal"><i class="fa fa-rocket"></i><span> Deploy</span></button>
             </div>
           </div>
         </div>
@@ -208,6 +209,7 @@
     </div>
   </div>
   </div>
+
   <!-- Preview Modal -->
   <div id="previewModal" class="modal">
     <div class="modal-content">
@@ -228,6 +230,36 @@
       <iframe id="previewFrame"></iframe>
     </div>
   </div>
+
+  <!-- Deploy Modal -->
+  <div id="deployModal" class="modal fade" tabindex="-1" aria-labelledby="deployModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmModalLabel">Deploy to Netlify</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="deployForm">
+            <label for="site-name">Website Name:</label><br>
+            <input type="text" id="site-name" name="site-name" required style="margin-bottom: 20px;"><br>
+            <label for="netlify-token" data-bs-toggle="popover" data-bs-html="true" data-bs-content="<p>To create a Netlify account and get a personal access token, follow these steps:</p><ol><li>Go to <a href='https://app.netlify.com/signup'><strong>https://app.netlify.com/signup</strong></a> and create a new account.</li><li>After logging in, go to <mark>User Settings > Applications > Personal Access Tokens</mark>.</li><li>Click <strong>'New access token'</strong>, give it a description, and click <strong>'Generate token'</strong>.</li><li><strong>Copy the generated token</strong> and paste it into the input field below.</li></ol>">
+              Netlify Personal Access Token:
+              <i class="fas fa-question-circle"></i>
+            </label><br>
+            <input type="text" id="netlify-token" name="netlify-token" required style="margin-bottom: 20px;"><br>
+          </form>          
+        </div>
+
+        <a target="_blank" href="#" style="display: none;" id="deploy_url" class="text-center">LIVE Demo</a>
+
+        <div class="modal-footer">
+          <button type="submit" form="deployForm" class="btn btn-primary">Deploy</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script class="global-custom-js"></script>
   <script>
     // JavaScript
@@ -292,6 +324,8 @@
       $(".ClickTwo").click(function () {
         $(".rightAside").toggleClass("show");
       });
+
+      $('[data-bs-toggle="popover"]').popover();
     });
   </script>
 </body>
