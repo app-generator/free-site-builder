@@ -25,8 +25,8 @@ function downloadComponents() {
     //} else {
       loading.style.display = 'flex';
       
-      return fetch('http://127.0.0.1:5000/kits/bs5/')                 // local version
-      // return fetch('https://components-server.onrender.com/kits/bs5/')  // distant server (default) 
+      // return fetch('http://127.0.0.1:5000/kits/bs5/')                 // local version
+      return fetch('https://components-server.onrender.com/kits/bs5/')  // distant server (default) 
         .then(response => response.text())
         .then( response_raw => {
           loading.style.display = 'none';
@@ -219,8 +219,8 @@ function deployToNetlify(siteName: string, netlifyToken: string): void {
     .then((blob: Blob) => {
       // Convert Blob to File
       const file = new File([blob], `${siteName}.zip`, { type: 'application/zip' });
-      const url = 'http://127.0.0.1:5000/deploy';
-      // const url = 'https://components-server.onrender.com/deploy';
+      // const url = 'http://127.0.0.1:5000/deploy';
+      const url = 'https://components-server.onrender.com/deploy';
 
       const formData = new FormData();
 
