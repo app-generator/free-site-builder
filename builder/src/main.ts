@@ -1,8 +1,6 @@
 import './style.css'
 import style from './style.css?inline';
 import JSZip from 'jszip';
-import axios from 'axios';
-import FormData from 'form-data';
 
 
 import { onDragStart, onDragEnd, onDragOver, onDrop, onClear, onRestore, setupGlobalEvents} from './dnd.ts'
@@ -27,8 +25,8 @@ function downloadComponents() {
     //} else {
       loading.style.display = 'flex';
       
-      //return fetch('http://127.0.0.1:5000/kits/bs5/')                 // local version
-      return fetch('https://components-server.onrender.com/kits/bs5/')  // distant server (default) 
+      return fetch('http://127.0.0.1:5000/kits/bs5/')                 // local version
+      // return fetch('https://components-server.onrender.com/kits/bs5/')  // distant server (default) 
         .then(response => response.text())
         .then( response_raw => {
           loading.style.display = 'none';
@@ -117,10 +115,10 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#action_download')!.addEventListener('click', downloadHandler);
     document.querySelector('#action_deploy')!.addEventListener('click', openDeployModal);
     document.querySelector('#closeModal')!.addEventListener('click', closePreviewModal);
-    document.getElementById('deployModal')!.addEventListener('submit', submitDeployRequest);
     document.querySelector('#fullScreenOption')!.addEventListener('click', () => setPreviewMode('fullScreen'));
     document.querySelector('#tabletOption')!.addEventListener('click', () => setPreviewMode('tablet'));
     document.querySelector('#mobileOption')!.addEventListener('click', () => setPreviewMode('mobile'));
+    document.getElementById('deployForm')!.addEventListener('submit', captureDeployRequest);
 });
 
 // PULL Components 
@@ -178,10 +176,18 @@ function openDeployModal() {
   (document.getElementById('deployModal') as HTMLElement).style.display = 'block';
 }
 
-function submitDeployRequest(event: any) {
+function captureDeployRequest(event: any) {
   event.preventDefault();
+
   const siteName = (document.getElementById('site-name') as HTMLInputElement).value;
   const netlifyToken = (document.getElementById('netlify-token') as HTMLInputElement).value;
+  
+  // Validation
+  if (!siteName || !netlifyToken) {
+    alert('Please fill in both fields.');
+    return;
+  }
+
   deployToNetlify(siteName, netlifyToken);
 }
 
@@ -204,23 +210,31 @@ function deployToNetlify(siteName: string, netlifyToken: string): void {
   // Generate the zip file as a Blob
   zip.generateAsync({ type: 'blob' })
     .then((blob: Blob) => {
-      const data = new FormData();
+      // Convert Blob to File
+      const file = new File([blob], `${siteName}.zip`, { type: 'application/zip' });
+      const url = 'http://127.0.0.1:5000/deploy';
+      // const url = 'https://components-server.onrender.com/deploy';
 
-      // Append the zip file to the form data
-      data.append('file', blob, `${siteName}.zip`);
+      const formData = new FormData();
 
-      // Send a POST request to the Netlify API
-      axios.post(`https://api.netlify.com/api/v1/sites/${siteName}.netlify.app/deploys`, data, {
-        headers: {
-          'Authorization': `Bearer ${netlifyToken}`,
-          ...data.getHeaders(),
-        },
+      formData.append('file', file);
+      formData.append('site_name', siteName);
+      formData.append('netlify_token', netlifyToken);
+
+      fetch(url, {
+        method: 'POST',
+        body: formData,
       })
-      .then((response) => {
-        console.log('Deployed successfully:', response.data);
+      .then(response => response.json())
+      .then(data => {
+        if (data.message === 'Deployed successfully') {
+          console.log('Deployed successfully');
+        } else {
+          console.error('Failed to deploy:', data.message);
+        }
       })
-      .catch((error) => {
-        console.error('Failed to deploy:', error);
+      .catch(error => {
+        console.error('Error:', error);
       });
     });
 }
