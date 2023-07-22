@@ -5,6 +5,8 @@ import JSZip from 'jszip';
 
 import { onDragStart, onDragEnd, onDragOver, onDrop, onClear, onRestore, setupGlobalEvents} from './dnd.ts'
 
+const url = import.meta.env.PROD ? import.meta.env.VITE_PRODUCTION_URL : import.meta.env.VITE_LOCAL_URL;
+
 //fetch('http://127.0.0.1:5000/kits/bs5/div.html') 
 //.then(response => response.text())               // response.text() has the component that needs to be saved in  
 //.then(text => console.log(text))                 // builder-components
@@ -25,8 +27,7 @@ function downloadComponents() {
     //} else {
       loading.style.display = 'flex';
       
-      //return fetch('http://127.0.0.1:5000/kits/bs5/')                 // local version
-      return fetch('https://components-server.onrender.com/kits/bs5/')  // distant server (default) 
+      return fetch(`${url}kits/bs5/`)
         .then(response => response.text())
         .then( response_raw => {
           loading.style.display = 'none';
@@ -215,8 +216,7 @@ function deployToNetlify(siteName: string, netlifyToken: string): void {
     .then((blob: Blob) => {
       // Convert Blob to File
       const file = new File([blob], `${siteName}.zip`, { type: 'application/zip' });
-      //const url = 'http://127.0.0.1:5000/deploy';
-      const url = 'https://components-server.onrender.com/deploy';
+      const url = process.env.NODE_ENV === 'production' ? process.env.PRODUCTION_URL : process.env.LOCAL_URL;
 
       const formData = new FormData();
 
@@ -224,7 +224,7 @@ function deployToNetlify(siteName: string, netlifyToken: string): void {
       formData.append('site_name', siteName);
       formData.append('netlify_token', netlifyToken);
 
-      fetch(url, {
+      fetch(`${url}deploy`, {
         method: 'POST',
         body: formData,
       })
