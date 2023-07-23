@@ -5,13 +5,8 @@ import JSZip from 'jszip';
 
 import { onDragStart, onDragEnd, onDragOver, onDrop, onClear, onRestore, setupGlobalEvents} from './dnd.ts'
 
-const url = import.meta.env.PROD ? import.meta.env.VITE_PRODUCTION_URL : import.meta.env.VITE_LOCAL_URL;
-
-//fetch('http://127.0.0.1:5000/kits/bs5/div.html') 
-//.then(response => response.text())               // response.text() has the component that needs to be saved in  
-//.then(text => console.log(text))                 // builder-components
-//.catch(error => console.error(error));
-
+const BACKEND_URL = 'https://components-server.onrender.com/';
+const url = import.meta.env.VITE_BACKEND_URL ? import.meta.env.VITE_BACKEND_URL : BACKEND_URL;
 
 // Using Promise syntax:
 function downloadComponents() {
