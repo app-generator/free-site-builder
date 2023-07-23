@@ -1,5 +1,10 @@
 # Change Log
 
+## [1.0.2] 2023-07-23
+### Changes
+
+- UI Improvements
+
 ## [1.0.1] 2023-07-22
 ### Changes
 
