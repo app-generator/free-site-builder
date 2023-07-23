@@ -29,12 +29,13 @@ export function uuidv4() {
 export function onDragStart(event: any, param: any) {
     console.log(' > onDrag_START() ', event, param);
 
-    event
-        .dataTransfer
-        .setData('text/plain', event.target.id);
+    const draggableElement = event.currentTarget;
 
     event
-        .currentTarget
+        .dataTransfer
+        .setData('text/plain', draggableElement.id);
+
+    draggableElement
         .style
         .backgroundColor = 'white';
 
@@ -146,7 +147,14 @@ export function onDrop(event: any, param: any) {
 
     const id = event.dataTransfer.getData('text');
 
-    let editableComponent = <HTMLElement>document.getElementById(id)!.cloneNode(true);
+    let element = <HTMLElement>document.getElementById(id);
+
+    if (!element) {
+        console.log(' > NULL element: ' + id);
+        return;
+    }
+
+    let editableComponent = element.cloneNode(true) as HTMLElement;
     let content = <HTMLElement>document.querySelector('.drop-indicator');
 
     if (content) {
