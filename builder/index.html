@@ -42,7 +42,7 @@
       <!-- aside left -->
       <aside class="leftAside">
         <button class="Click menuLeftbtn"><i class="fa-solid fa-chevron-right"></i></button>
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <ul class="nav nav-tabs defTabs" id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
             <button class="nav-link active" id="components-tab" data-bs-toggle="tab" data-bs-target="#components"
               type="button" role="tab" aria-controls="components" aria-selected="true">Components</button>
@@ -155,7 +155,7 @@
       <!-- aside right -->
       <aside class="rightAside">
         <button class="ClickTwo menuRightbtn"><i class="fa-solid fa-chevron-left"></i></button>
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <ul class="nav nav-tabs defTabs" id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
             <button class="nav-link active" id="props-tabA" data-bs-toggle="tab" data-bs-target="#propsA" type="button"
               role="tab" aria-controls="propsA" aria-selected="true">Props</button>
@@ -232,7 +232,7 @@
   </div>
 
   <!-- Deploy Modal -->
-  <div id="deployModal" class="modal fade" tabindex="-1" aria-labelledby="deployModalLabel" aria-hidden="true">
+  <div id="deployModal" class="modal fade defModal" tabindex="-1" aria-labelledby="deployModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -241,13 +241,13 @@
         </div>
         <div class="modal-body">
           <form id="deployForm">
-            <label for="site-name">Website Name:</label><br>
-            <input type="text" id="site-name" name="site-name" style="margin-bottom: 10px;" required><br>
+            <label for="site-name">Website Name:</label>
+            <input type="text" id="site-name" name="site-name" class="form-control" style="margin-bottom: 10px;" required>
             <label for="netlify-token" data-bs-toggle="popover" data-bs-html="true" data-bs-content="<p>To create a Netlify account and get a personal access token, follow these steps:</p><ol><li>Go to <a href='https://app.netlify.com/signup'><strong>https://app.netlify.com/signup</strong></a> and create a new account.</li><li>After logging in, go to <mark>User Settings > Applications > Personal Access Tokens</mark>.</li><li>Click <strong>'New access token'</strong>, give it a description, and click <strong>'Generate token'</strong>.</li><li><strong>Copy the generated token</strong> and paste it into the input field below.</li></ol>">
               Netlify Personal Access Token:
               <i class="fas fa-question-circle"></i>
-            </label><br>
-            <input type="text" id="netlify-token" name="netlify-token" required style="margin-bottom: 10px;"><br>
+            </label>
+            <input type="text" id="netlify-token" name="netlify-token" class="form-control" required style="margin-bottom: 10px;">
             <span id="errorMessage" style="visibility: hidden; color: var(--bs-code-color); font-size: 11px;"></span>
           </form>        
         </div>

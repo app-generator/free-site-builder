@@ -124,6 +124,8 @@ button:focus-visible {
   position: absolute;
   top: 0;
   right: 5px;
+  z-index: 9;
+  width: 6px !important;
 }
 
 .upButton {
@@ -133,6 +135,7 @@ button:focus-visible {
   font-size: 20px;
   cursor: pointer;
   display: none;
+  z-index: 9;
 }
 .downButton {
   position: absolute;
@@ -141,6 +144,7 @@ button:focus-visible {
   font-size: 20px;
   cursor: pointer;
   display: none;
+  z-index: 9;
 }
 
 .draggable:hover {
@@ -303,6 +307,7 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
 }
 .defTabs {
   margin-top: -1px;
+  margin-bottom: 5px;
 }
 .defTabs li button{
   border-radius: 0 !important;
@@ -314,18 +319,32 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
 .defTabs li button:hover, .defTabs li button.active {
   color: #5d73e3;
 }
-.rightAside .defTabs li:first-child button {
+.defTabs li:first-child button {
   border-left: none !important;
 }
+.defTabs.pagesTabs li:first-child button {
+  border-left: 1px solid transparent !important;
+}
+.defTabs.pagesTabs li:first-child button:hover, .defTabs.pagesTabs li button.active {
+  border-left: 1px solid #dee2e6 !important;
+}
+.pagesTabs {
+  margin-bottom: 0 !important;
+  padding-left: 1px;
+}
 .accordionCustom .accordion-button {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   color: #7c7979;
   padding-left: 32px;
   box-shadow: none !important;
   border-radius: 0 !important;
 }
-.accordionCustom .accordion-item {border-radius: 0 !important;}
+.accordionCustom .accordion-item {
+  border-radius: 0 !important;
+  border-left: none;
+  border-right: none;
+}
 .accordionCustom .accordion-button::after {
   position: absolute;
   left: 10px;
@@ -400,20 +419,20 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
 }
 /*card css*/
 .card {
-  width: 15.2rem !important;
+  width: 100% !important;
 }
 .card .card-header{
-  font-size: 13px;
+  font-size: 12px;
   padding: 0 0 5px 0;
 }
 .card .card-body{
   padding: 10px 5px;
 }
 .card .card-body .card-title{
-  font-size: 14px;
+  font-size: 13px;
 }
 .card .card-body p, .card .card-body a {
-  font-size: 13px;
+  font-size: 12px;
 }
 .forScroll {
   overflow-y: auto;
@@ -483,16 +502,17 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
   padding: 15px;
 }
 .divName {
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 500;
   color: #454545;
   margin-bottom: 15px;
 }
 .divName-2 {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   color: #454545;
-  margin-bottom: 15px;
+  margin-bottom: 6px;
+  margin-top: 15px;
 }
 .classesName {
   font-size: 13px;
@@ -505,7 +525,7 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
   width: 100%;
 }
 .newClass .form-control {
-  font-size: 14px;
+  font-size: 12px;
   width: 100%;
   box-shadow: none !important;
 }
@@ -516,6 +536,9 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
 }
 .newClass .form-control:focus {
   border-color: #5d73e3 !important;
+}
+#builder-props, #builder-style, #builder-class {
+  width: 100%;
 }
 .classList {
   margin: 0;
@@ -758,7 +781,7 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
 /* ******************** END PREVIEW MODAL ******************** */
 
 #builder-props-title {
-  font-size: 13px;
+  font-size: 12px;
 }
 body body {
   padding: 15px !important;
@@ -826,25 +849,29 @@ body body {
   display: flex;
   align-items: flex-start;
   flex-direction: column;
+  width: 100% !important;
   /* background-color: #f5f5f5 !important; */
+}
+.formBox span {
+  width: 100%;
 }
 .form-body {
   width: 100%;
 }
 .formBox .form-header{
-  font-size: 13px;
+  font-size: 12px;
 }
 .formBox .form-group {
   margin-bottom: 8px !important;
   width: 100%;
 }
 .formBox .form-group input {
-  font-size: 13px;
+  font-size: 12px;
   width: 100%;
   box-shadow: none !important;
 }
 .formBox .btn-primary {
-  font-size: 13px;
+  font-size: 12px;
 }
 .innPagename {
   font-size: 17px;
@@ -861,16 +888,16 @@ body body {
   background-color: transparent !important;
 }
 .cmnTitle {
-  font-size: 13px;
+  font-size: 12px;
   margin-bottom: 5px;
 }
 .cmnBox .accordion-body {
-  font-size: 13px;
+  font-size: 12px;
 }
-.fn-13 {font-size: 13px !important;}
+.fn-13 {font-size: 12px !important;}
 .alert {padding: 5px !important;}
 .navbar-brand {
-  font-size: 14px;
+  font-size: 12px;
 }
 .nav-link {
   font-size: 12px;
@@ -910,9 +937,9 @@ body body {
   position: initial;
 }
 .portfolioBox .carousel-inner .carousel-item .carousel-caption h5 {
-  font-size: 15px;
+  font-size: 13px;
 }
-.portfolioBox .carousel-inner .carousel-item .carousel-caption p {font-size: 13px;}
+.portfolioBox .carousel-inner .carousel-item .carousel-caption p {font-size: 12px;}
 .cntrctBox {
   position: relative;
   background: #000;
@@ -933,19 +960,19 @@ body body {
   z-index: 1;
 }
 .cntrctBoxinn .form-header {
-  font-size: 15px;
+  font-size: 14px;
   color: #fff;
 }
 .cntrctBoxinn input, .cntrctBoxinn textarea {
-  font-size: 13px;
+  font-size: 12px;
 }
 .cntrctBoxinn .btn {
-  font-size: 13px;
+  font-size: 12px;
 }
 .footerTwo .text-muted {
   display: block;
   text-align: center;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 /**/
@@ -988,3 +1015,30 @@ body body {
 }
 
 .bs-popover-auto { z-index: 99999; font-size: 11px; }
+.btn.btn-primary {font-size: 12px;font-weight: 500;}
+.alert {margin-bottom: 0;}
+.defModal .modal-header {
+  padding: 8px 16px;
+  background-color: #ececec;
+}
+.defModal .modal-header .btn-close {
+  font-size: 11px;
+  box-shadow: none !important;
+}
+.defModal .modal-header .modal-title{
+  font-size: 14px;
+  font-weight: 600;
+}
+.defModal .modal-body label {
+  font-size: 12px;
+  color: #494949;
+}
+.defModal .modal-body input {
+  font-size: 12px;
+  width: 100%;
+  box-shadow: none !important;
+}
+.defModal .modal-footer {
+  padding: 8px 16px;
+  justify-content: center;
+}
