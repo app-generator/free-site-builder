@@ -474,7 +474,6 @@ export function onClear(event: any, param: any) {
 
     window.localStorage.setItem('activePageTab', 'dropzone');
     let currentTabs = JSON.parse(<string>window.localStorage.getItem('currentPageTabs'));
-    console.log(currentTabs, 'currentTabs')
     if (currentTabs) {
         for (let i = 0; i < currentTabs.length; i++) {
             let eachTabs = currentTabs[i].split('_@COL@_');
