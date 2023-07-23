@@ -466,6 +466,7 @@ export function onClear(event: any, param: any) {
 
     window.localStorage.setItem('activePageTab', 'dropzone');
     let currentTabs = JSON.parse(<string>window.localStorage.getItem('currentPageTabs'));
+    console.log(currentTabs, 'currentTabs')
     if (currentTabs) {
         for (let i = 0; i < currentTabs.length; i++) {
             let eachTabs = currentTabs[i].split('_@COL@_');
@@ -475,9 +476,11 @@ export function onClear(event: any, param: any) {
             let pageTabs = document.querySelector('.pagesTabs')!.children;
             pageTabs[eachTabs[0]*1+1-i].remove();
         }
-        window.localStorage.removeItem('editME-dropzone');
-        window.localStorage.removeItem('Global-index.html');
     }
+
+    window.localStorage.removeItem('editME-dropzone');
+    window.localStorage.removeItem('Global-index.html');
+
     window.location.reload();
 
     // let content = <HTMLElement>document.querySelector('#'+param);
