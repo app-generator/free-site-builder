@@ -311,7 +311,7 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
 }
 .defTabs li button{
   border-radius: 0 !important;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   padding: 7px 7px;
   color: #9097ae;
