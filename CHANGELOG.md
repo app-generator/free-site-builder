@@ -1,5 +1,10 @@
 # Change Log
 
+## [1.0.3] 2023-07-24
+### Changes
+
+- Added [Community Link](https://discord.gg/AWh6TFcEwU) (Discord) 
+
 ## [1.0.2] 2023-07-23
 ### Changes
 
