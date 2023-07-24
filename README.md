@@ -8,7 +8,7 @@
 
 <br />
 
-![Free & Open-Source Website Builder - Actively Supported by AppSeed.](https://github.com/app-generator/rocket-builder/assets/51070104/76c3e00b-6112-4641-8b24-2c43e68a438a)
+![Free & Open-Source Website Builder - Actively Supported by AppSeed.](https://github.com/app-generator/rocket-builder/assets/51070104/9544f9a4-ed93-498a-a746-f6c8663be896) 
 
 <br />
 
