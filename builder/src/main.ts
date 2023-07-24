@@ -12,26 +12,17 @@ const url = import.meta.env.VITE_BACKEND_URL ? import.meta.env.VITE_BACKEND_URL 
 function downloadComponents() {
     let loading = document.querySelector('#overlay') as HTMLElement;
     
-    //let localStorageData = window.localStorage.getItem('components');
-    //if (localStorageData) {
-    //  let localStorageParsedData = JSON.parse(<string>window.localStorage.getItem('components'));
-    //  return new Promise((resolve) => {
-    //    // Simulating an asynchronous operation
-    //    resolve(drawComponents(localStorageParsedData));
-    //  });
-    //} else {
-      loading.style.display = 'flex';
+    loading.style.display = 'flex';
       
-      return fetch(`${url}kits/bs5/`)
-        .then(response => response.text())
-        .then( response_raw => {
-          loading.style.display = 'none';
-          let response_json = JSON.parse( response_raw );
-          window.localStorage.setItem('components', JSON.stringify(response_json))
-          drawComponents(response_json);
-        })
-        .catch(error => console.error(error));
-    //}
+    return fetch(`${url}kits/bs5/`)
+      .then(response => response.text())
+      .then( response_raw => {
+        loading.style.display = 'none';
+        let response_json = JSON.parse( response_raw );
+        window.localStorage.setItem('components', JSON.stringify(response_json))
+        drawComponents(response_json);
+      })
+      .catch(error => console.error(error));
 }
 
 function drawComponents(response_json:any) {
@@ -75,33 +66,10 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = builderContainer;
 
 // SETUP Navigation
 function setNavigation(param: any) {
-  
-  // document.querySelector('#action_clear')!.addEventListener('click', (event) => { onClear(event, param) });
-  // document.querySelector('#action_save')!.addEventListener('click', (event) => { onSave(event, param) });
-  // document.querySelector('#action_restore')!.addEventListener('click', (event) => { onRestore(event, param) });
-  // document.querySelector('#action_undo')!.addEventListener('click', (event) => { onRestore(event, param) });
-
-  // const actionClearElement = document.querySelector('#action_clear') as HTMLElement;
   const action_clear_confirmElement = document.querySelector('.action_clear_confirm') as HTMLElement;
-  
   action_clear_confirmElement.onclick = (event) => {
     onClear(event, param)
   };
-
-  // const actionSaveElement = document.querySelector('#action_save') as HTMLElement;
-  // actionSaveElement.onclick = (event) => {
-  //   onSave(event, param)
-  // };
-  
-  //const actionRestoreElement = document.querySelector('#action_restore') as HTMLElement;
-  //actionRestoreElement.onclick = (event) => {
-  //  onRestore(event, param)
-  //};
-  
-  //const actionUndoElement = document.querySelector('#action_undo') as HTMLElement;
-  //actionUndoElement.onclick = (event) => {
-  //  onRestore(event, param)
-  //};
 }
 setNavigation('dropzone');
 
@@ -135,8 +103,6 @@ function misc(param: any) {
         draggableEle.ondragend = (event) => {
           onDragEnd(event, param)
         };
-        // draggableElems[i].addEventListener('dragstart', (event) => { onDragStart(event, param) });
-        // draggableElems[i].addEventListener('dragend', (event) => { onDragEnd(event) });
     }   
 }
 function downloadHandler() {
@@ -312,7 +278,6 @@ function drawHTMLForDownload(dropzoneId: any, pageName:any, index:any=null) {
 
 function openPreviewModal() {
     let currentPages = JSON.parse(<string>window.localStorage.getItem('currentPageTabs'));
-    // let currentPageList = `<button type="button" class="tab-list list-group-item list-group-item-action active" id='index' onClick='tabEventHandler(this)'>index.html</button>`;
     let currentPageList =  `<ul class="nav nav-tabs defTabs pagesTabs justify-content-center" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
           <button class="nav-link active" id='index' onClick='tabEventHandler(this)' data-bs-toggle="tab" type="button"
@@ -328,16 +293,9 @@ function openPreviewModal() {
       }
     }
     currentPageList += '</ul>';
-
     let previewModal = document.querySelector('#previewModal') as HTMLElement;
     let previewFrame = document.querySelector('#previewFrame') as HTMLIFrameElement;
-
-    // let currentActiveTab = window.localStorage.getItem('activePageTab');
     let dropzoneId: string | null = 'pagesTabContent';
-    // if (currentActiveTab !== "") {
-    //   dropzoneId = currentActiveTab;
-    // }
-
     let dropzone = document.querySelector('.'+dropzoneId);
     // Recursive function to process each component
     // Added processComponent function to handle complex component processing before preview
@@ -359,8 +317,6 @@ function openPreviewModal() {
   }
 
   let processedContent = processComponent(dropzone as HTMLElement);
-
-  
     // Load the content of the dropzone into the iframe
     let iframeContent = `
       <html>
@@ -595,9 +551,6 @@ function onAddPage(param = null) {
   };
   
   pageTabBtn?.click();
-  // pageTabBtn.addEventListener("dblclick", function() {
-  //   pageTabBtn.setAttribute('contenteditable', 'true');
-  // });
   let originalTabName = "";
   pageTabBtn.onclick = (event) => {
     let clickedEle = event.target as HTMLElement;
@@ -624,18 +577,6 @@ function onAddPage(param = null) {
   });
   pageTabBtn.addEventListener("blur", function() {
     pageTabBtn.setAttribute('contenteditable', 'false');
-    // if (editedTabName) {
-    //   let originalGlobalSetting:any = window.localStorage.getItem(`Global-${originalTabName}`);
-    //   if (originalGlobalSetting) {
-    //     window.localStorage.setItem(`Global-${editedTabName}`, originalGlobalSetting);
-    //     window.localStorage.removeItem(`Global-${originalTabName}`);
-    //   }
-    //   let originalCurrentPagesTabs:any = JSON.parse(<string>window.localStorage.getItem('currentPageTabs'));
-    //   let eleOfCurrentTab = originalCurrentPagesTabs[pageIndex-1];
-    //   let updatedVal = eleOfCurrentTab.replace(originalTabName, editedTabName);
-    //   originalCurrentPagesTabs[pageIndex-1] = updatedVal;
-    //   window.localStorage.setItem('currentPageTabs', JSON.stringify(originalCurrentPagesTabs));
-    // }
   });
 }
 
@@ -649,8 +590,6 @@ function initDropZone(param:any, param2:any) {
   dropEle.ondrop = (event) => {
     onDrop(event, param)
   };
-  // document.querySelector('#'+param)!.addEventListener('dragover', (event) => { onDragOver(event, param2) });
-  // document.querySelector('#'+param)!.addEventListener('drop', (event) => { onDrop(event, param) });
 }
 initDropZone('dropzone', 'drop-here-indicator');
 
@@ -668,10 +607,6 @@ function initGridDropZone(param:any, param2:any) {
     dropzoneEle.ondrop = (event) => {
       onDrop(event, param)
     };
-
-    // dropZones[i].addEventListener('dragover', (event) => { onDragOver(event, param2) });
-    // dropZones[i].addEventListener('dragend', (event) => { onDragEnd(event) });
-    // dropZones[i].addEventListener('drop', (event) => { onDrop(event, param) });
   }
 }
 initGridDropZone('dropzone', 'drop-here-indicator');
@@ -712,7 +647,6 @@ for (let i = 0; i < globalSetInputs.length; i++) {
   globalSet.onkeyup = (event) => {
     onKeyUpToGlobalSet(event)
   };
-  // globalSet?.addEventListener('keyup', (event) => { onKeyUpToGlobalSet(event); });
 }
 
 function onKeyUpToGlobalSet(event: any) {
@@ -737,7 +671,6 @@ function onKeyUpToGlobalSet(event: any) {
 let currentTabs = JSON.parse(<string>window.localStorage.getItem('currentPageTabs'));
 if (currentTabs) {
   for (let i = 0; i < currentTabs.length; i++) {
-    // +`_@COL@_New-Page${pageIndex}`
     let tabInfo = currentTabs[i].split('_@COL@_');
     onAddPage(tabInfo);
     onRestore(null, 'dropzone-'+tabInfo[0]);
