@@ -1,20 +1,9 @@
 import { imageExists } from "./utiles";
 
 export function setupGlobalEvents(param: any) {
-
     document.querySelector('#'+param)?.addEventListener('click', event => {
         event.stopPropagation();
     });
-
-    // Trigger onMouseOver
-    //document.addEventListener('mouseover', event => {
-    //    onMouseOver(event);
-    //});
-
-    //document.addEventListener('mouseout', event => {
-    //    event;
-    //    remClassProcessor('border-props');
-    //});         
 }
 
 export function uuidv4() {
@@ -23,8 +12,6 @@ export function uuidv4() {
         return v.toString(16);
     });
 }
-
-
 
 export function onDragStart(event: any, param: any) {
     console.log(' > onDrag_START() ', event, param);
@@ -38,8 +25,6 @@ export function onDragStart(event: any, param: any) {
     draggableElement
         .style
         .backgroundColor = 'white';
-
-    // onSave(event, param);
 }
 
 export function onDragOver(event: any, param2: any) {
@@ -171,7 +156,6 @@ export function onDrop(event: any, param: any) {
         event.target.innerHTML = '';
     }
 
-    //editableComponent.innerHTML += editableComponent.id;
     editableComponent.classList.remove('draggable');
     editableComponent.classList.add('component');
     editableComponent.removeAttribute('draggable');
@@ -187,7 +171,6 @@ export function onDrop(event: any, param: any) {
 
     // Activate Mouse Over
     editableComponent.addEventListener('mouseover', (event) => { onMouseOver(event); });
-    //editableComponent.addEventListener('mouseout', (event) => { event; remClassProcessor('border-props'); });
 
     // Inject component in the builder
     //const dropzone = <HTMLElement>document.querySelector('#dropzone');
@@ -216,8 +199,6 @@ export function onDelete(element: any, param: any) {
     updatedData.forEach(item => {
         div.appendChild(item);
     });
-
-    // window.localStorage.setItem('editME', div.innerHTML)
 }
 
 export function getElemName(aElement: HTMLElement) {
@@ -266,15 +247,6 @@ export function onMouseOver(event: any) {
 
     console.log(' > id: ' + elem.id);
     console.log(' > type: ' + elem.nodeName);
-
-    // let PROPS_TITLE   = <HTMLElement>document.getElementById('builder-props-title');
-    // let PROPS_CONTENT = <HTMLElement>document.getElementById('builder-props-content');
-
-    // PROPS_TITLE.innerHTML    = elem.id;
-    // PROPS_CONTENT.innerHTML  = '<br /><hr />';
-    // PROPS_CONTENT.innerHTML += '<strong><center>'+getElemName(elem)+'</center></strong>';
-    // PROPS_CONTENT.innerHTML += '<hr /><br />';
-    // PROPS_CONTENT.innerHTML += '<p>'+getElemProps(elem)+'</p>';
 
     let targetComponent = event.target;
 
@@ -489,14 +461,6 @@ export function onClear(event: any, param: any) {
     window.localStorage.removeItem('Global-index.html');
 
     window.location.reload();
-
-    // let content = <HTMLElement>document.querySelector('#'+param);
-    // clear
-    // let info = '<div class="drop-indicator d-flex align-items-center justify-content-center"><div class="p-4 shadow bg-white rounded-3 text-center"><span class="icon text-primary h3"><i class="fa-solid fa-circle-plus"></i></span><h6 class="mt-3">Drop Here...</h6></div></div>'
-    // content.innerHTML = info;
-    // window.localStorage.clear();
-    //let builderContainer = document.querySelector('#layout')!.innerHTML;
-    //document.querySelector<HTMLDivElement>('#app')!.innerHTML = builderContainer;    
 }
 
 export function onSave(event: any, param: any) {
