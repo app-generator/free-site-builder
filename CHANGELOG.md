@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.0.5] 2023-07-25
+### Changes
+
+- Update Links:
+  - [Free Page Builder DOCS](https://www.docs.simpllo.com/free-site-builder/intro)  
+  - [Free Page Builder BLOG](https://www.docs.simpllo.com/blog)  
+
 ## [1.0.4] 2023-07-25
 ### Changes
 
