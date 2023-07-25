@@ -1,10 +1,10 @@
-# [Free Website Builder](https://www.simpllo.com/)
+# [Free Site Builder](https://www.simpllo.com/) `Simpllo`
 
 **Free & [Open-Source Site Builder](https://www.simpllo.com/)** that uses `Vanilla JS` and a `Remote Server` for components injection - Actively supported by `AppSeed`.
 
-- 👉 [Simpllo Builder](https://www.simpllo.com/) - `Live DEMO`
+- 👉 [Free Site Builder](https://www.simpllo.com/) - `Live DEMO`
+- 👉 [Free Site Builder](https://www.docs.simpllo.com/) - `Documentation`
 - 🚀 [Join the Community](https://discord.gg/AWh6TFcEwU) - `Discord`
-- 🫶 `Become a Sponsor` - **[PAY $9](https://appseed.gumroad.com/l/free-site-builder)** (`One-Time-Payment` via GUMROAD)
 
 <br />
 

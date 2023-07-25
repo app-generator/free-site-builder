@@ -1,5 +1,10 @@
 # Change Log
 
+## [1.0.4] 2023-07-25
+### Changes
+
+- Added [DOCS Link](https://www.docs.simpllo.com/intro) and [Blog](https://www.docs.simpllo.com/blog)
+
 ## [1.0.3] 2023-07-24
 ### Changes
 
