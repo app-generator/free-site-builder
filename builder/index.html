@@ -124,12 +124,16 @@
               <li class="nav-item d-flex align-items-center add-page-list"><a href="#" id="add-page-button">+</a></li>
             </ul>
           </div>
-          <div class="tab-content forScroll pagesTabContent" id="myTabContent">
-            <div class="tab-pane fade show active" id="indexTab" role="tabpanel" aria-labelledby="index-tabA">
+          <div class="tab-content forScroll pagesTabContent row page-container" id="myTabContent">
+            <div class="drop-nav col col-md-3">
               <div id="drop-here-indicator"></div>
               <div id="dropzone" class="dropzone"></div>
             </div>
-            <div class="tab-pane fade" id="globalA" role="tabpanel" aria-labelledby="global-tabA">
+            <div class="drop-container col col-md-9 tab-pane fade show active" id="indexTab" role="tabpanel" aria-labelledby="index-tabA">
+                <div id="drop-here-indicator"></div>
+                <div id="dropzone" class="dropzone"></div>
+            </div>
+            <div class="drop-container col col-md-12 tab-pane fade" id="globalA" role="tabpanel" aria-labelledby="global-tabA">
               <div class="d-flex">
                 <div class="editor-container w-50">
                   <textarea id="css-editor"></textarea>

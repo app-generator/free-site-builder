@@ -1042,3 +1042,9 @@ body body {
   padding: 8px 16px;
   justify-content: center;
 }
+.page-container {
+  margin-right: 0px !important;
+}
+.page-container .col {
+  padding-right: 1px !important;
+}

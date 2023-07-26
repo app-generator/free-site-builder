@@ -142,19 +142,20 @@ function misc(param: any) {
 function downloadHandler() {
   const zip = new JSZip();
   let currentPages = JSON.parse(<string>window.localStorage.getItem('currentPageTabs'));
-  let indexhtmlContent = drawHTMLForDownload('dropzone', 'index.html');
+  let indexhtmlContent = drawHTMLForDownload('pagesTabContent', 'index.html');
   // Add the HTML file to the zip
   zip.file('index.html', indexhtmlContent);
   zip.file('assets/css/index.css', style);
-
-  for (let i = 0; i < currentPages.length; i++) {
-    let pageTab = currentPages[i].split('_@COL@_');
-    console.log(pageTab);
-
-    let htmlContent = drawHTMLForDownload('dropzone-'+pageTab[0], pageTab[1], pageTab[0]);
-    // Add the HTML file to the zip
-    zip.file(pageTab[1], htmlContent);
-    // Generate the zip file
+  if (currentPages.length > 0) {
+    for (let i = 0; i < currentPages.length; i++) {
+      let pageTab = currentPages[i].split('_@COL@_');
+      console.log(pageTab);
+  
+      let htmlContent = drawHTMLForDownload('dropzone-'+pageTab[0], pageTab[1], pageTab[0]);
+      // Add the HTML file to the zip
+      zip.file(pageTab[1], htmlContent);
+      // Generate the zip file
+    }
   }
   zip.generateAsync({ type: 'blob' })
     .then(function(content:any) {
@@ -198,7 +199,7 @@ function deployToNetlify(siteName: string, netlifyToken: string): void {
   let currentPages = JSON.parse(<string>window.localStorage.getItem('currentPageTabs'));
 
   // For each page, generate the HTML content and add it to the zip file
-  let indexhtmlContent = drawHTMLForDownload('dropzone', 'index.html');
+  let indexhtmlContent = drawHTMLForDownload('pagesTabContent', 'index.html');
   zip.file('index.html', indexhtmlContent);
   zip.file('assets/css/index.css', style);
 
@@ -255,6 +256,8 @@ function deployToNetlify(siteName: string, netlifyToken: string): void {
 
 function drawHTMLForDownload(dropzoneId: any, pageName:any, index:any=null) {
   let dropzone = document.querySelector(`#${dropzoneId}`) as HTMLElement;
+  if (dropzoneId == "pagesTabContent") 
+    dropzone = document.querySelector(`.${dropzoneId}`) as HTMLElement;
   let globalSetData = JSON.parse(<string>window.localStorage.getItem(`Global-${pageName}`));
   let cssCode = window.localStorage.getItem('global-css-code');
   let jsCode = window.localStorage.getItem('global-js-code');
@@ -272,7 +275,7 @@ function drawHTMLForDownload(dropzoneId: any, pageName:any, index:any=null) {
         <link href="${globalSetData?.external_css_url}" rel="stylesheet" crossorigin="anonymous">
         <link href="assets/css/index.css" rel="stylesheet">
         <style>
-        .${dropzoneId} {
+        .${dropzoneId}, .dropzone {
           border-radius: 0 !important;
           border: none !important;
         }
@@ -428,6 +431,7 @@ function openPreviewModal() {
             activePreviewTab.classList.add('show');
             console.log(event.id, 'my-target');
           };
+
           function clearActive() {
             let pagesTabContent = document.querySelector('.pagesTabContent').children;
             for (let i = 0; i < pagesTabContent.length; i++) {
@@ -441,6 +445,9 @@ function openPreviewModal() {
             }
           }
           clearActive();
+          let defaultActivePreviewTab = document.querySelector('#indexTab');
+          defaultActivePreviewTab.classList.add('active');
+          defaultActivePreviewTab.classList.add('show');
         </script>
       </html>
     `;
@@ -477,7 +484,11 @@ function setPreviewMode(mode: 'fullScreen' | 'tablet' | 'mobile') {
 }
 
 let pageTabBtn = document.querySelector(`#index-tabA`) as HTMLButtonElement;
+let globalPageTabBtn = document.querySelector(`#global-tabA`) as HTMLButtonElement;
+
 pageTabBtn.onclick = () => {
+  let navEle = document.querySelector('.drop-nav') as HTMLElement;
+  navEle.style.display = "block";
   window.localStorage.setItem('activePageTab', 'dropzone');
   document.querySelector('.tabPageName')!.innerHTML = 'index.html';
   setGlobalInput();
@@ -486,11 +497,16 @@ pageTabBtn.onclick = () => {
   setupGlobalEvents('dropzone');
   setNavigation('dropzone');
 };
+globalPageTabBtn.onclick = () => {
+  let navEle = document.querySelector('.drop-nav') as HTMLElement;
+  navEle.style.display = "none";
+};
 // Add Page to Tab
 document.querySelector('#add-page-button')!.addEventListener('click', () => { onAddPage() });
 function onAddPage(param = null) {
   let pageTabs = document.querySelector('.pagesTabs');
   let pageTabContent = document.querySelector('.pagesTabContent');
+  
   let liElements:any = pageTabs?.children;
   for (let i = 0; i < liElements.length; i++) {
     liElements[i].addEventListener("click", function(event:any) {
@@ -522,7 +538,7 @@ function onAddPage(param = null) {
   tempContainer.setAttribute('role', 'presentation');
 
   let tempContentContainer = document.createElement('div');
-  tempContentContainer.className = "tab-pane fade";
+  tempContentContainer.className = "drop-container col col-md-9 tab-pane fade";
   tempContentContainer.id = `page-${pageIndex}`;
   tempContentContainer.setAttribute('role', 'tabpanel');
   tempContentContainer.setAttribute('aria-labelledby', `page-tab-${pageIndex}`);
@@ -600,6 +616,8 @@ function onAddPage(param = null) {
   // });
   let originalTabName = "";
   pageTabBtn.onclick = (event) => {
+    let navEle = document.querySelector('.drop-nav') as HTMLElement;
+    navEle.style.display = "block";
     let clickedEle = event.target as HTMLElement;
     originalTabName = clickedEle?.innerHTML;
     pageTabBtn.setAttribute('contenteditable', 'true');

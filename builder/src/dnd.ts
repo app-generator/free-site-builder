@@ -138,6 +138,8 @@ export function onDragEnd(event: any, param: any) {
         .style
         .backgroundColor = '#ffffff';
 
+
+    console.log(param);
     onSave(event, param);
 }
 
@@ -216,8 +218,9 @@ export function onDelete(element: any, param: any) {
     updatedData.forEach(item => {
         div.appendChild(item);
     });
-
-    // window.localStorage.setItem('editME', div.innerHTML)
+    let content = <HTMLElement>document.querySelector('#'+param);
+    let rootEle = content.parentElement?.parentElement as HTMLElement;
+    window.localStorage.setItem(`editME-${param}`, rootEle.innerHTML);
 }
 
 export function getElemName(aElement: HTMLElement) {
@@ -503,7 +506,8 @@ export function onSave(event: any, param: any) {
     event;
     console.log(' > ACTION: save', param);
     let content = <HTMLElement>document.querySelector('#'+param);
-    window.localStorage.setItem(`editME-${param}`, content.innerHTML);
+    let rootEle = content.parentElement?.parentElement as HTMLElement;
+    window.localStorage.setItem(`editME-${param}`, rootEle.innerHTML);
 }
 
 export function onRestore(event: any, param: any) {
@@ -512,7 +516,7 @@ export function onRestore(event: any, param: any) {
 
     console.log(' > ACTION: restore', param);
     let content = <HTMLElement>document.querySelector('#'+param);
-
+    let rootEle = content.parentElement?.parentElement as HTMLElement;
     let saved_content = <string>window.localStorage.getItem(`editME-${param}`);
     
     // Check that we have data to restore
@@ -521,9 +525,9 @@ export function onRestore(event: any, param: any) {
     }
 
     // update
-    content.innerHTML = saved_content;
+    rootEle.innerHTML = saved_content;
 
-    let elems = content.getElementsByClassName("component");
+    let elems = rootEle.getElementsByClassName("component");
 
     if (elems) {
         for (let i = 0; i < elems.length; i++) {
