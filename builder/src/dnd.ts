@@ -68,6 +68,7 @@ const onPutDelete = (component: any, param: any) => {
     const contentElement = document.createElement("span");
     contentElement.innerHTML = editableComponent.innerHTML.trim();
     contentElement.style.display = "block";
+    contentElement.style.border = "1px solid transparent";
     contentElement.id = editableComponent.id;
     contentElement.onclick = function(event) {
         onClick( event )
@@ -111,6 +112,7 @@ const onReposition = (component: any, param: any) => {
     const contentElement = document.createElement("span");
     contentElement.innerHTML = editableComponent.innerHTML.trim();
     contentElement.style.display = "block";
+    contentElement.style.border = "1px solid transparent";
     contentElement.id = editableComponent.id;
     contentElement.onclick = function(event) {
         onClick( event )
