@@ -166,6 +166,17 @@ button:focus-visible {
   margin-top: 10px;
   padding: 10px;
 }
+.dropzone-nav {
+  background-color: #eaeaea;
+  flex-basis: 100%;
+  flex-grow: 1;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px dashed #ccc;
+  min-height: 300px;
+}
 
 .dropzone-elem {
   margin-bottom: 0px;

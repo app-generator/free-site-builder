@@ -120,6 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // PULL Components 
 downloadComponents().then(()=>{
   misc('dropzone');
+  misc('dropzone-nav');
 })
 
 // SETUP Components
@@ -493,9 +494,12 @@ pageTabBtn.onclick = () => {
   document.querySelector('.tabPageName')!.innerHTML = 'index.html';
   setGlobalInput();
   initDropZone('dropzone', `drop-here-indicator`);
+  initDropZone('dropzone-nav', `drop-here-indicator-nav`);
   initGridDropZone(`dropzone`, `drop-here-indicator`);
+  initGridDropZone(`dropzone-nav`, `drop-here-indicator-nav`);
   setupGlobalEvents('dropzone');
-  setNavigation('dropzone');
+  setupGlobalEvents('dropzone-nav');
+  setNavigation('dropzone-nav');
 };
 globalPageTabBtn.onclick = () => {
   let navEle = document.querySelector('.drop-nav') as HTMLElement;
@@ -671,6 +675,7 @@ function initDropZone(param:any, param2:any) {
   // document.querySelector('#'+param)!.addEventListener('drop', (event) => { onDrop(event, param) });
 }
 initDropZone('dropzone', 'drop-here-indicator');
+initDropZone('dropzone-nav', 'drop-here-indicator-nav');
 
 // SETUP GRID Drop Zones
 function initGridDropZone(param:any, param2:any) {
@@ -693,6 +698,7 @@ function initGridDropZone(param:any, param2:any) {
   }
 }
 initGridDropZone('dropzone', 'drop-here-indicator');
+initGridDropZone('dropzone-nav', 'drop-here-indicator-nav');
 
 // SET GLOBAL INPUT
 function setGlobalInput(param: any = null) {
@@ -763,6 +769,7 @@ if (currentTabs) {
 }
 pageTabBtn.click();
 onRestore(null, 'dropzone');
+onRestore(null, 'dropzone-nav');
 //
 
 setupGlobalEvents('dropzone');
