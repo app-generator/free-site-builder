@@ -2,6 +2,8 @@
   "name": "vite-project",
   "private": true,
   "version": "0.0.0",
+  "description": "",
+  "main": "index.ts",
   "type": "module",
   "scripts": {
     "dev": "vite",
