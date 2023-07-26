@@ -276,7 +276,7 @@ function drawHTMLForDownload(dropzoneId: any, pageName:any, index:any=null) {
         <link href="${globalSetData?.external_css_url}" rel="stylesheet" crossorigin="anonymous">
         <link href="assets/css/index.css" rel="stylesheet">
         <style>
-        .${dropzoneId}, .dropzone {
+        .${dropzoneId}, .dropzone, .dropzone-nav {
           border-radius: 0 !important;
           border: none !important;
         }
