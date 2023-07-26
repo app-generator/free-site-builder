@@ -8,7 +8,7 @@
 
 <br />
 
-![Free & Open-Source Website Builder - Actively Supported by AppSeed.](https://github.com/app-generator/rocket-builder/assets/51070104/9544f9a4-ed93-498a-a746-f6c8663be896) 
+![Free & Open-Source Website Builder - Actively Supported by AppSeed.](https://github.com/app-generator/free-site-builder/assets/51070104/9544f9a4-ed93-498a-a746-f6c8663be896) 
 
 <br />
 
@@ -39,8 +39,8 @@
 > Tested with `Node 16.x, 18.x`.
  
 ```bash
-$ git clone https://github.com/app-generator/rocket-builder.git
-$ cd rocket-builder/builder
+$ git clone https://github.com/app-generator/free-site-builder.git
+$ cd free-site-builder/builder
 $ yarn
 $ yarn dev    # development (LIVE Reload)
 $ yarn build  # production  (dist FOLDER)
@@ -53,7 +53,7 @@ $ yarn build  # production  (dist FOLDER)
 > Managed by `Flask` (optional). By default, a **[LIVE Components Server](https://components-server.onrender.com/kits/)** is used.
 
 ```bash
-$ cd rocket-builder/backend
+$ cd free-site-builder/backend
 $
 $ virtualenv env
 $ # Or
