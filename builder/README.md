@@ -1,13 +1,13 @@
 # Installation
 
-1. Add the `test-simplo` package
+1. Add the `package name` package
 
 ```bash
 # yarn
-yarn add test-simplo
+yarn add package name
 
 # npm
-npm install ... --save
+npm install package name --save
 ```
 
 2. Use the package
