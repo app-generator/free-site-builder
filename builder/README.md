@@ -13,7 +13,7 @@ npm install package name --save
 2. Use the package
 
 ```js
-import {DNDBuilder} from "...";
+import {DNDBuilder} from "package name";
 
 new DNDBuilder({
     dropContainer: 'dropzone',
