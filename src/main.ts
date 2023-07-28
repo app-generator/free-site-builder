@@ -1,5 +1,5 @@
-import './style.css'
-import style from './style.css?inline';
+import './style-pixel.css'
+import style from './style-pixel.css?inline';
 import JSZip from "jszip";
 
 import {
@@ -29,7 +29,7 @@ export function downloadComponents() {
   //} else {
   loading.style.display = "flex";
 
-  return fetch(`${url}kits/bs5/`)
+  return fetch(`${url}kits/pixel/`)
     .then((response) => response.text())
     .then((response_raw) => {
       loading.style.display = "none";
