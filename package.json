@@ -1,6 +1,6 @@
 {
   "name": "free-site-builder",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Open-Source Site Builder - Simpllo.com",
   "license": "SEE LICENSE IN LICENSE.md",
   "main": "dist/index.js",
@@ -13,7 +13,7 @@
     "drag-and-drop",
     "dnd-tool",
     "ui-builder"
-  ],  
+  ],
   "scripts": {
     "dev": "vite",
     "start": "vite",
