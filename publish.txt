@@ -16,4 +16,5 @@ https://cdn.jsdelivr.net/gh/app-generator/free-site-builder@ !!!VERSION_HERE!!! 
 Sample:
 
 https://cdn.jsdelivr.net/gh/app-generator/free-site-builder/  <-- Check allversions
-https://cdn.jsdelivr.net/gh/app-generator/free-site-builder@0.0.6/dist/index.min.js
+https://cdn.jsdelivr.net/gh/app-generator/free-site-builder@latest/dist/index.min.js
+https://cdn.jsdelivr.net/gh/app-generator/free-site-builder@1.0.9/dist/index.min.js
