@@ -1,7 +1,7 @@
 {
   "name": "free-site-builder",
   "private": true,
-  "version": "0.0.1",
+  "version": "1.0.5",
   "description": "Open-Source Site Builder - Simpllo.com",
   "main": "dist/index.js",
   "type": "module",
