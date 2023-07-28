@@ -1,6 +1,5 @@
 {
   "name": "free-site-builder",
-  "private": true,
   "version": "1.0.6",
   "description": "Open-Source Site Builder - Simpllo.com",
   "main": "dist/index.js",
