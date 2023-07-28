@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.0.7] 2023-07-25
+### Changes
+
+- Use Compressed Version in production
+- Update DOCS (readme)
+
 ## [1.0.6] 2023-07-25
 ### Changes
 

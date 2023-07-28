@@ -1,6 +1,6 @@
 npm adduser             --> only once
 
-yarn build               --> Build production version  
+yarn build              --> Build production version  
 git commit              --> all local changes 
 npm version 0.0.19      --> tag changes 
 git push origin --tags  --> push tag 

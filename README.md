@@ -40,10 +40,8 @@
  
 ```bash
 $ git clone https://github.com/app-generator/free-site-builder.git
-$ cd free-site-builder/builder
 $ yarn
-$ yarn dev    # development (LIVE Reload)
-$ yarn build  # production  (dist FOLDER)
+$ yarn dev # development (LIVE Reload)
 ```
 
 <br />
