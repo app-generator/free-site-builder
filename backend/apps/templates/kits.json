@@ -3,12 +3,12 @@
         "bs5": {
             "meta": "info.json",
             "description":"BS5 BASIC",
-            "demo":"https://django-pixel-lite.appseed-srv1.com/"
+            "demo":"https://getbootstrap.com/docs/5.3/components/alerts/"
         },        
-        "pixel-lite": {
+        "pixel": {
             "meta": "info.json",
             "description":"BS5 Kit from Themesberg",
-            "demo":"https://django-pixel-lite.appseed-srv1.com/"
+            "demo":"https://demo.themesberg.com/pixel-bootstrap-5-ui-kit/"
         },
         "material-kit": {
             "meta": "info.json",
