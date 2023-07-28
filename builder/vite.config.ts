@@ -2,8 +2,8 @@ import { defineConfig } from 'vite';
  export default defineConfig({
   build: {
     lib: {
-      entry: 'src/main.ts',
-      name: 'my-library',
+      entry: 'index.ts',
+      name: 'rocker-bulder',
       fileName: 'index',
     },
     rollupOptions: {

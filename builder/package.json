@@ -1,9 +1,9 @@
 {
-  "name": "vite-project",
+  "name": "rocket-builder",
   "private": true,
   "version": "0.0.0",
   "description": "",
-  "main": "index.ts",
+  "main": "dist/index.js",
   "type": "module",
   "scripts": {
     "dev": "vite",
