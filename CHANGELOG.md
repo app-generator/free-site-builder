@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.0.6] 2023-07-25
+### Changes
+
+- UPD Codebase 
+- Added NPM & CDN support
+
 ## [1.0.5] 2023-07-25
 ### Changes
 
