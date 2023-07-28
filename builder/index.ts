@@ -1,3 +1,16 @@
+/*!
+=========================================================
+* Rocket Builder - v0.0.2
+=========================================================
+*
+* Product: https://www.simpllo.com
+* Sources: https://github.com/app-generator/free-site-builder
+* Copyright AppSeed (https://appseed.us)
+* License EULA: https://github.com/app-generator/free-site-builder/blob/main/LICENSE.md
+*
+=========================================================
+*/
+
 import { onRestore, setupGlobalEvents } from "./src/dnd";
 import {
   captureDeployRequest,
