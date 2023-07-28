@@ -6,8 +6,6 @@
 - 👉 [Free Site Builder](https://www.docs.simpllo.com/) - `Documentation`
 - 🚀 [Join the Community](https://discord.gg/AWh6TFcEwU) - `Discord`
 
-<br />
-
 ![Free & Open-Source Website Builder - Actively Supported by AppSeed.](https://github.com/app-generator/free-site-builder/assets/51070104/9544f9a4-ed93-498a-a746-f6c8663be896) 
 
 <br />
@@ -126,9 +124,9 @@ In order to have the latest version, please open an incognito window or clean ma
 
 <br />
 
-## [License EULA ](./LICENSE.md)
+## [License EULA ](https://github.com/app-generator/free-site-builder/blob/main/LICENSE.md)
 
-For more information regarding `licensing`, please contact [AppSeed](http://appseed.us/), < *support@appseed.us* >.
+For more information, contact [AppSeed](http://appseed.us/), `support@appseed.us`.
 
 <br />
 
