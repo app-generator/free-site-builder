@@ -126,7 +126,7 @@ In order to have the latest version, please open an incognito window or clean ma
 
 ## [License EULA ](https://github.com/app-generator/free-site-builder/blob/main/LICENSE.md)
 
-For more information, contact [AppSeed](http://appseed.us/), `support@appseed.us`.
+For more information, contact [AppSeed](http://appseed.us/) `support@appseed.us`.
 
 <br />
 
