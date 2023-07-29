@@ -1,5 +1,13 @@
 # Change Log
 
+## [1.0.10] 2023-07-29
+### Changes
+
+- Backend CleanUP
+- Builder 
+  - CORE CleanUP
+  - ENV, Read UI Kit (if provided) 
+  
 ## [1.0.9] 2023-07-28
 ### Changes
 
