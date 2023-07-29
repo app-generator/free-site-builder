@@ -1,0 +1,22 @@
+{
+    "name": "Pixel",
+    "version": "v4.1.0",
+    "type": "kit",
+    "description": "Pixel BS5 (Free)",
+    "demo": "https://demo.themesberg.com/pixel-bootstrap-5-ui-kit/",
+    "content": {
+        "layouts": {
+            "base.html": "BASE64"
+        },
+        "components": {
+            "Grid": { 
+                "grid-2rows.html": "PGRpdiBpZD0iZHJhZ2dhYmxlLWdyaWQtMSIgY2xhc3M9ImNvbnRhaW5lciBkcmFnZ2FibGUiIGRyYWdnYWJsZT0idHJ1ZSIgZGF0YS10eXBlPSJncmlkLTJjb2wiIGRhdGEtaW5mbz0iR1JJRCAtIDIgUk9XUyBDb21wb25lbnQiPgogICAgPGRpdiBjbGFzcz0icm93Ij4KICAgICAgICA8ZGl2IGlkPSJncmlkLTJjb2wtMSIgY2xhc3M9ImNvbC1zbSI+NTAlPC9kaXY+CiAgICAgICAgPGRpdiBpZD0iZ3JpZC0yY29sLTIiIGNsYXNzPSJjb2wtc20iPjUwJTwvZGl2PgogICAgPC9kaXY+CjwvZGl2Pgo=",
+                "grid-3rows.html": "PGRpdiBpZD0iZHJhZ2dhYmxlLWdyaWQtMiIgY2xhc3M9ImNvbnRhaW5lciBkcmFnZ2FibGUiIGRyYWdnYWJsZT0idHJ1ZSIgZGF0YS10eXBlPSJncmlkLTNjb2wiIGRhdGEtaW5mbz0iR1JJRCAtIDMgUk9XUyBDb21wb25lbnQiPgogICAgPGRpdiBjbGFzcz0icm93Ij4KICAgICAgICA8ZGl2IGlkPSJncmlkLTNjb2wtMSIgY2xhc3M9ImNvbC1zbSI+MzMlPC9kaXY+CiAgICAgICAgPGRpdiBpZD0iZ3JpZC0zY29sLTIiIGNsYXNzPSJjb2wtc20iPjMzJTwvZGl2PgogICAgICAgIDxkaXYgaWQ9ImdyaWQtM2NvbC0zIiBjbGFzcz0iY29sLXNtIj4zMyU8L2Rpdj4KICAgIDwvZGl2Pgo8L2Rpdj4K",
+                "grid-4rows.html": "PGRpdiBpZD0iZHJhZ2dhYmxlLWdyaWQtMyIgY2xhc3M9ImNvbnRhaW5lciBkcmFnZ2FibGUiIGRyYWdnYWJsZT0idHJ1ZSIgZGF0YS10eXBlPSJncmlkLTRjb2wiIGRhdGEtaW5mbz0iR1JJRCAtIDQgUk9XUyBDb21wb25lbnQiPgogICAgPGRpdiBjbGFzcz0icm93Ij4KICAgICAgICA8ZGl2IGlkPSJncmlkLTRjb2wtMSIgY2xhc3M9ImNvbC1zbSI+MjUlPC9kaXY+CiAgICAgICAgPGRpdiBpZD0iZ3JpZC00Y29sLTIiIGNsYXNzPSJjb2wtc20iPjI1JTwvZGl2PgogICAgICAgIDxkaXYgaWQ9ImdyaWQtNGNvbC0zIiBjbGFzcz0iY29sLXNtIj4yNSU8L2Rpdj4KICAgICAgICA8ZGl2IGlkPSJncmlkLTRjb2wtNCIgY2xhc3M9ImNvbC1zbSI+MjUlPC9kaXY+CiAgICA8L2Rpdj4KPC9kaXY+Cg=="
+            },
+            "Common": {
+                "button.html": "PGRpdiBpZD0iZHJhZ2dhYmxlLWRpdi01IiBjbGFzcz0iY21uQm94IGRyYWdnYWJsZSIgc3R5bGU9IndpZHRoOiAxNXJlbTsiIGRyYWdnYWJsZT0idHJ1ZSIgZGF0YS10eXBlPSJidXR0b24iIGRhdGEtaW5mbz0iQnV0dG9uIENvbXBvbmVudCI+CiAgICAgICAgPGJ1dHRvbiBjbGFzcz0iYnRuIG1iLTIgbXItMiBidG4tcHJpbWFyeSIgdHlwZT0iYnV0dG9uIj5QcmltYXJ5PC9idXR0b24+CjwvZGl2Pg=="
+            }
+        }
+    }
+}
