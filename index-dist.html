@@ -352,15 +352,14 @@
     crossorigin="anonymous"></script>
 
   <!-- Builder CORE JS (Vanilla) -->
-  <script type="module" crossorigin src="./dist/index.js"></script>
-
-  <script>
-
+  <script type="module" crossorigin src="./dist/index.js">
     var builder = new DNDBuilder({
         dropContainer: 'dropzone',
         dropIndicator: 'drop-here-indicator'
     });
+  </script>
 
+  <script>
     $(document).ready(function () {
       $(".Click").click(function () {
         $(".leftAside").toggleClass("show");
