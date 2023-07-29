@@ -29,6 +29,7 @@ This document explains the usage of this **open-source** product developed by **
 | **End Products** | --- |
 | Personal Use (hobby projects) | **YES** |
 | eLearning Activities | **YES** |
+| Embed Builder in Websites | **Allowed with approval**  |
 | End-Product usage for [NGOs](https://en.wikipedia.org/wiki/Non-governmental_organization) | **YES** |
 | --- | --- |
 | **Support** | --- |
@@ -45,7 +46,7 @@ This document explains the usage of this **open-source** product developed by **
 
 <br />
 
-### Lifetime License
+### Commercial License
 
 > Contact the [AppSeed](http://appseed.us/) Service < *support@appseed.us* >
 
@@ -53,10 +54,10 @@ The license covers:
 
 - `Usage in commercial` projects
 - `Usage in eLearning` activities
-- `Unlimited projects` (hobby, commercial)
+- `Unlimited projects` (commercial included)
 - `Premium` [Support](https://appseed.us/support/) via Email / `Discord`
 
-> `IMPORTANT`: The **End-product that use the tool should NOT compete with AppSeed**.
+> `IMPORTANT`: The **End-product that use the tool should NOT compete with Simpllo/AppSeed**.
 
 <br />
 

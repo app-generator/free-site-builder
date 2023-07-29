@@ -1,0 +1,377 @@
+<!--
+
+=========================================================
+* Rocket Builder
+=========================================================
+
+* Product: https://www.simpllo.com
+* Sources: https://github.com/app-generator/free-site-builder
+* Copyright AppSeed (https://appseed.us)
+* License EULA: https://github.com/app-generator/free-site-builder/blob/main/LICENSE.md
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. Contact us if you want to remove it.
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    Free Site Builder - Open-Source Project | Simpllo.com
+  </title>
+
+  <meta name="description" content="Open-Source and FREE Page and Website builder - Build you projects in No-Time for free.">
+  <meta name="keywords"    content="free builder, page builder, open-source page builder, free website builder">
+
+  <link rel="canonical" href="https://www.simpllo.com/" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css" integrity="sha512-uf06llspW44/LZpHzHT6qBOIVODjWtv4MxCricRxkzvopAlSWnTf6hpZTFxuuZcuNE9CBQhqE0Seu1CoRk84nQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js" integrity="sha512-8RnEqURPUc5aqFEN04aQEiPlSAdE0jlFS/9iGgUyNtwFnSKCXhmB6ZTNl7LnDtDWKabJIASzXrzD0K+LYexU9g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/javascript/javascript.min.js" integrity="sha512-I6CdJdruzGtvDyvdO4YsiAq+pkWf2efgd1ZUSK2FnM/u2VuRASPC7GowWQrWyjxCZn6CT89s3ddGI+be0Ak9Fg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/css/css.min.js" integrity="sha512-rQImvJlBa8MV1Tl1SXR5zD2bWfmgCEIzTieFegGg89AAt7j/NBEe50M5CqYQJnRwtkjKMmuYgHBqtD1Ubbk5ww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://kit.fontawesome.com/ea9bd22eef.js" crossorigin="anonymous"></script>
+
+  <!-- Builder CORE Style -->
+  <link href="./dist/style.css" rel="stylesheet" crossorigin="anonymous">
+
+  <style id="global-custom-style"></style>
+</head>
+
+<body>
+  <div id="app">
+    <div id="layout" style="display: none;">
+      <header class="header">
+        <div class="container-fluid">
+          <div class="innerHeader">
+            <div class="headerActions">
+              <button id="action_clear" type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmModal"><i
+                  class="fa-solid fa-eraser"></i><span> Clear</span></button>
+              <button id="action_preview" class="btn btn-outline-primary"><i class="fa-regular fa-eye"></i><span> Preview</span></button>
+              <button id="action_download" class="btn btn-outline-secondary"><i class="fa fa-download"></i><span> Download</span></button>
+              <button id="action_deploy" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#deployModal"><i class="fa fa-rocket"></i><span> Deploy</span></button>
+            </div>
+          </div>
+        </div>
+      </header>
+      <!-- aside left -->
+      <aside class="leftAside">
+        <button class="Click menuLeftbtn"><i class="fa-solid fa-chevron-right"></i></button>
+        <ul class="nav nav-tabs defTabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="components-tab" data-bs-toggle="tab" data-bs-target="#components"
+              type="button" role="tab" aria-controls="components" aria-selected="true">Components</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="help-tab" data-bs-toggle="tab" data-bs-target="#help" type="button" role="tab"
+              aria-controls="help" aria-selected="false">&nbsp;&nbsp;&nbsp;Help&nbsp;&nbsp;&nbsp;</button>
+          </li>
+        </ul>
+        <div class="tab-content forScroll" id="myTabContent">
+          <div class="tab-pane fade show active" id="components" role="tabpanel" aria-labelledby="components-tab">
+            <div id="overlay" class="overlay">
+              <p class="text-white">
+                Loading from the server...
+              </p>
+              <div class="spinner"></div>
+            </div>
+            <div class="accordion accordionCustom components_contain" id="accordionComponents"></div>
+          </div>
+          <div class="tab-pane fade" id="help" role="tabpanel" aria-labelledby="help-tab">
+            <div class="helpText">
+              <p>
+                Learn how to use the product or join the community (Discord)
+              </p>
+              <a href="https://www.docs.simpllo.com/free-site-builder/intro" target="_blank">
+                👉 Documentation </a>              
+              <a href="https://discord.gg/AWh6TFcEwU" target="_blank">
+                👥 Community </a>
+              <a href="https://www.docs.simpllo.com/blog" target="_blank">
+                🕮 Blog </a>                          
+              <a href="https://youtu.be/mxQWwhEF21s" target="_blank">
+                👉 Intro (video) </a>
+            </div>
+          </div>
+          <div class="forPdng">
+            <a target="_blank" href="https://appseed.gumroad.com/l/free-site-builder" class="moreOption">
+              <img src="/img/more.png" alt="" />
+              <div>
+                <h6>Support this service</h6>
+                <p>Pay $9 (one-time payment)</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </aside>
+      <!-- end aside left -->
+      <!-- Confirm modal -->
+      <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="confirmModalLabel">Confirm Alert</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Do you want to really clear the data?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary action_clear_confirm">OK</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Confirm modal -->
+      <div class="rowa" id="builder-container">
+        <!-- Current Page -->
+        <div class="mainBuilder" id="builder-content">
+          <div class="innPagename">
+            <ul class="nav nav-tabs defTabs pagesTabs" id="myTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="global-tabA" data-bs-toggle="tab" data-bs-target="#globalA" type="button"
+                  role="tab" aria-controls="globalA" aria-selected="true">Globals (JS, CSS)</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="index-tabA" data-bs-toggle="tab" data-bs-target="#indexTab" type="button"
+                  role="tab" aria-controls="indexTab" aria-selected="false">index.html</button>
+              </li>
+              <li class="nav-item d-flex align-items-center add-page-list"><a href="#" id="add-page-button">+</a></li>
+            </ul>
+          </div>
+          <div class="tab-content forScroll pagesTabContent" id="myTabContent">
+            <div class="tab-pane fade show active" id="indexTab" role="tabpanel" aria-labelledby="index-tabA">
+              <div id="drop-here-indicator"></div>
+              <div id="dropzone" class="dropzone"></div>
+            </div>
+            <div class="tab-pane fade" id="globalA" role="tabpanel" aria-labelledby="global-tabA">
+              <div class="d-flex">
+                <div class="editor-container w-50">
+                  <textarea id="css-editor"></textarea>
+                </div>
+                <div class="editor-container w-50">
+                  <textarea id="js-editor"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- PROPS -->
+          <div class="drpznBttm">
+            <img src="/img/arrow.png" alt="" />
+            <strong>Start by dragging elements from LEFT</strong>
+          </div>
+
+          <!-- DO NOT REMOVE THIS -->
+          <!-- https://github.com/app-generator/free-site-builder/blob/main/LICENSE.md  -->
+          <div class="footer">
+
+            <p id="copyright">
+              &copy; <a target="_blank" href="https://www.simpllo.com/">Simpllo</a>, 
+              coded by <u><a class="text-muted" target="_blank" href="https://appseed.us/">AppSeed</a></u>.
+            </p>
+            <div class="footerLinks">
+              <a target="_blank" href="https://github.com/app-generator/free-site-builder">Sources</a>
+              <a target="_blank" class='text-primary' href="https://www.docs.simpllo.com/free-site-builder/intro">DOCS</a>
+              <a target="_blank" href="https://discord.gg/AWh6TFcEwU">Community</a>
+            </div>
+
+          </div>
+          <!-- DO NOT REMOVE THIS -->
+
+        </div>
+      </div>
+      <!-- aside right -->
+      <aside class="rightAside">
+        <button class="ClickTwo menuRightbtn"><i class="fa-solid fa-chevron-left"></i></button>
+        <ul class="nav nav-tabs defTabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="props-tabA" data-bs-toggle="tab" data-bs-target="#propsA" type="button"
+              role="tab" aria-controls="propsA" aria-selected="true">Props</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="page-tabA" data-bs-toggle="tab" data-bs-target="#pageA" type="button"
+              role="tab" aria-controls="pageA" aria-selected="false">Page Globals</button>
+          </li>
+        </ul>
+        <div class="tab-content forScroll" id="myTabContent">
+          <div class="tab-pane fade show active" id="propsA" role="tabpanel" aria-labelledby="props-tabA">
+            <div class="mainEditor">
+              <div class="divName">Props</div>
+              <div id="builder-props">
+                <div id="builder-props-title"></div>
+                <div id="builder-props-content"></div>
+                <div id="builder-props-attribute"></div>
+              </div>
+              <div class="divName-2">Style</div>
+              <div id="builder-style">
+                <div id="builder-style-content"></div>
+              </div>
+              <div class="divName-2">CSS Classes</div>
+              <div id="builder-class">
+                <div id="builder-class-content"></div>
+                <div id="builder-class-list"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane fade" id="pageA" role="tabpanel" aria-labelledby="page-tabA">
+            <div class="mainEditor">
+              <p class="tabPageName">index.html</p>
+              <div class="divName">SEO</div>
+              <div id="builder-global-set">
+                <div class="newClass"><input class="form-control text-left global-set" id="page_title" placeholder="Page Title" /></div>
+                <div class="newClass"><input class="form-control text-left global-set" id="seo_description" placeholder="SEO description" /></div>
+                <div class="newClass"><input class="form-control text-left global-set" id="seo_keyword" placeholder="SEO Keywords" /></div>
+              </div>
+              <div class="divName">External Assets</div>
+              <div id="builder-global-set">
+                <div class="newClass"><input class="form-control text-left global-set" id="external_js_url" placeholder="EXTERNAL JS URL" /></div>
+                <div class="newClass"><input class="form-control text-left global-set" id="external_css_url" placeholder="EXTERNAL CSS URL" /></div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </aside>
+      <!-- end aside right -->
+    </div>
+  </div>
+  </div>
+
+  <!-- Preview Modal -->
+  <div id="previewModal" class="modal">
+    <div class="modal-content">
+      <div id="previewOptions">
+        <div>
+          <button id="fullScreenOption" class="btn btn-default" title="Toggle full screen">
+            <i class="fas fa-desktop"></i>
+          </button>
+          <button id="tabletOption" class="btn btn-default" title="Toggle tablet view">
+            <i class="fas fa-tablet-alt"></i>
+          </button>
+          <button id="mobileOption" class="btn btn-default" title="Toggle mobile view">
+            <i class="fas fa-mobile-alt"></i>
+          </button>
+        </div>
+        <span id="closeModal" class="close">&times;</span>
+      </div>
+      <iframe id="previewFrame"></iframe>
+    </div>
+  </div>
+
+  <!-- Deploy Modal -->
+  <div id="deployModal" class="modal fade defModal" tabindex="-1" aria-labelledby="deployModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmModalLabel">Deploy to Netlify</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="deployForm">
+            <label for="site-name">Website Name:</label>
+            <input type="text" id="site-name" name="site-name" class="form-control" style="margin-bottom: 10px;" required>
+            <label for="netlify-token" data-bs-toggle="popover" data-bs-html="true" data-bs-content="<p>To create a Netlify account and get a personal access token, follow these steps:</p><ol><li>Go to <a href='https://app.netlify.com/signup'><strong>https://app.netlify.com/signup</strong></a> and create a new account.</li><li>After logging in, go to <mark>User Settings > Applications > Personal Access Tokens</mark>.</li><li>Click <strong>'New access token'</strong>, give it a description, and click <strong>'Generate token'</strong>.</li><li><strong>Copy the generated token</strong> and paste it into the input field below.</li></ol>">
+              Netlify Personal Access Token:
+              <i class="fas fa-question-circle"></i>
+            </label>
+            <input type="text" id="netlify-token" name="netlify-token" class="form-control" required style="margin-bottom: 10px;">
+            <span id="errorMessage" style="visibility: hidden; color: var(--bs-code-color); font-size: 11px;"></span>
+          </form>        
+        </div>
+
+        <a target="_blank" href="#" style="display: none;" id="deploy_url" class="text-center">LIVE Demo</a>
+
+        <div class="modal-footer">
+          <button type="submit" form="deployForm" class="btn btn-primary">Deploy</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script class="global-custom-js"></script>
+  <script>
+    // JavaScript
+    document.addEventListener("DOMContentLoaded", function () {
+        // Initialize the CodeMirror editor
+        let cssEditor = CodeMirror.fromTextArea(document.getElementById("css-editor"), {
+            lineNumbers: true, // Enable line numbers
+            theme: "default", // Set your desired theme
+            mode: 'css', // Set the editor mode to CSS
+        });
+        let cssCode = window.localStorage.getItem('global-css-code');
+        let defaultCSSCode = "/* Enter your CSS code here. */ \n";
+        if (cssCode)
+          defaultCSSCode = cssCode;
+
+        cssEditor.setValue(defaultCSSCode);
+        document.getElementById('global-custom-style').innerHTML = defaultCSSCode;
+
+
+        let jsEditor = CodeMirror.fromTextArea(document.getElementById("js-editor"), {
+            lineNumbers: true, // Enable line numbers
+            theme: "default", // Set your desired theme
+            mode: {name: 'javascript', json: true}, // Set the editor mode to CSS
+        });
+
+        let jsCode = window.localStorage.getItem('global-js-code');
+
+        var scripts = document.getElementsByClassName('global-js-code');
+        scripts.innerHTML = jsCode;
+        var dynamicScript = scripts.innerHTML;
+        eval(dynamicScript);
+
+        let defaultJsCode = "// Enter your JavaScript code here. \n";
+        if (jsCode)
+          defaultJsCode = jsCode;
+        jsEditor.setValue(defaultJsCode);
+        document.getElementsByClassName('global-custom-js').innerHTML = defaultJsCode;
+
+        cssEditor.on("change", function (instance) {
+          let code = instance.getValue(); // Get the updated code value
+          window.localStorage.setItem('global-css-code', code)
+          document.getElementById('global-custom-style').innerHTML = code;
+        });
+        jsEditor.on("change", function (instance) {
+          let code = instance.getValue(); // Get the updated code value
+          window.localStorage.setItem('global-js-code', code);
+          scripts.innerHTML = code;
+          eval(code);
+        });
+    });
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    crossorigin="anonymous"></script>
+
+  <!-- Builder CORE JS (Vanilla) -->
+  <script type="module" crossorigin src="./dist/index.js"></script>
+
+  <script>
+
+    var builder = new DNDBuilder({
+        dropContainer: 'dropzone',
+        dropIndicator: 'drop-here-indicator'
+    });
+
+    $(document).ready(function () {
+      $(".Click").click(function () {
+        $(".leftAside").toggleClass("show");
+      });
+      $(".ClickTwo").click(function () {
+        $(".rightAside").toggleClass("show");
+      });
+
+      $('[data-bs-toggle="popover"]').popover();
+    });
+  </script>
+</body>
+
+</html>

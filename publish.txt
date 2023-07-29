@@ -1,0 +1,20 @@
+npm adduser             --> only once
+
+yarn build              --> Build production version  
+git commit              --> all local changes 
+npm version 1.0.10      --> tag changes 
+git push origin --tags  --> push tag 
+
+CREATE delivery         --> https://github.com/app-generator/free-site-builder
+
+npm publish             --> Publish on NPM 
+
+Check Delivery
+
+https://cdn.jsdelivr.net/gh/app-generator/free-site-builder@ !!!VERSION_HERE!!! /dist/index.min.js
+
+Sample:
+
+https://cdn.jsdelivr.net/gh/app-generator/free-site-builder/  <-- Check allversions
+https://cdn.jsdelivr.net/gh/app-generator/free-site-builder@latest/dist/index.min.js
+https://cdn.jsdelivr.net/gh/app-generator/free-site-builder@1.0.9/dist/index.min.js
