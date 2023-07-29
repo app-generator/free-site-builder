@@ -12,8 +12,8 @@ import {
   setupGlobalEvents,
 } from "./dnd.ts";
 
-const BACKEND_URL = "https://components-server.onrender.com/";
-const url = BACKEND_URL;
+const BACKEND_URL = 'https://components-server.onrender.com/';
+const url = import.meta.env.VITE_BACKEND_URL ? import.meta.env.VITE_BACKEND_URL : BACKEND_URL;
 
 // Using Promise syntax:
 export function downloadComponents() {
