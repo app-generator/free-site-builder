@@ -1,5 +1,18 @@
-import './style.css'
-import style from './style.css?inline';
+/*!
+=========================================================
+* Rocket Builder
+=========================================================
+*
+* Product: https://www.simpllo.com
+* Sources: https://github.com/app-generator/free-site-builder
+* Copyright AppSeed (https://appseed.us)
+* License EULA: https://github.com/app-generator/free-site-builder/blob/main/LICENSE.md
+*
+=========================================================
+*/
+
+import "./style.css";
+import style from "./style.css?inline";
 import JSZip from "jszip";
 
 import {
@@ -13,23 +26,22 @@ import {
 } from "./dnd.ts";
 
 const BACKEND_URL = "https://components-server.onrender.com/";
-const url = BACKEND_URL;
+const url = import.meta.env.VITE_BACKEND_URL
+  ? import.meta.env.VITE_BACKEND_URL
+  : BACKEND_URL;
+
+const UI_KIT = "bs5";
+const ui_kit = import.meta.env.VITE_UI_KIT
+  ? import.meta.env.VITE_UI_KIT
+  : UI_KIT;
 
 // Using Promise syntax:
 export function downloadComponents() {
-  let loading = document.createElement('div');
+  let loading = document.createElement("div");
 
-  //let localStorageData = window.localStorage.getItem('components');
-  //if (localStorageData) {
-  //  let localStorageParsedData = JSON.parse(<string>window.localStorage.getItem('components'));
-  //  return new Promise((resolve) => {
-  //    // Simulating an asynchronous operation
-  //    resolve(drawComponents(localStorageParsedData));
-  //  });
-  //} else {
   loading.style.display = "flex";
 
-  return fetch(`${url}kits/bs5/`)
+  return fetch(`${url}kits/${ui_kit}/`)
     .then((response) => response.text())
     .then((response_raw) => {
       loading.style.display = "none";
@@ -38,7 +50,6 @@ export function downloadComponents() {
       drawComponents(response_json);
     })
     .catch((error) => console.error(error));
-  //}
 }
 
 function drawComponents(response_json: any) {
@@ -73,7 +84,7 @@ function drawComponents(response_json: any) {
     document.getElementsByClassName("components_contain")[0];
   var div = document.createElement("div");
   div.innerHTML = component.trim();
-  if(componentsContainer){
+  if (componentsContainer) {
     componentsContainer.appendChild(<Node>div);
   }
 }
@@ -83,41 +94,22 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = builderContainer;
 
 // SETUP Navigation
 export function setNavigation(param: any) {
-  // document.querySelector('#action_clear')!.addEventListener('click', (event) => { onClear(event, param) });
-  // document.querySelector('#action_save')!.addEventListener('click', (event) => { onSave(event, param) });
-  // document.querySelector('#action_restore')!.addEventListener('click', (event) => { onRestore(event, param) });
-  // document.querySelector('#action_undo')!.addEventListener('click', (event) => { onRestore(event, param) });
-
   // const actionClearElement = document.querySelector('#action_clear') as HTMLElement;
   const action_clear_confirmElement = document.querySelector(
     ".action_clear_confirm"
   ) as HTMLElement;
 
-  if(action_clear_confirmElement){
+  if (action_clear_confirmElement) {
     action_clear_confirmElement.onclick = (event) => {
       onClear(event, param);
     };
   }
-
-  // const actionSaveElement = document.querySelector('#action_save') as HTMLElement;
-  // actionSaveElement.onclick = (event) => {
-  //   onSave(event, param)
-  // };
-
-  //const actionRestoreElement = document.querySelector('#action_restore') as HTMLElement;
-  //actionRestoreElement.onclick = (event) => {
-  //  onRestore(event, param)
-  //};
-
-  //const actionUndoElement = document.querySelector('#action_undo') as HTMLElement;
-  //actionUndoElement.onclick = (event) => {
-  //  onRestore(event, param)
-  //};
 }
 
 // SETUP Components
 export function misc(param: any) {
-  console.log(param, "misc");
+  //console.log(param, "misc");
+
   let draggableElems = document.querySelectorAll(".draggable");
 
   for (let i = 0; i < draggableElems.length; i++) {
@@ -128,10 +120,9 @@ export function misc(param: any) {
     draggableEle.ondragend = (event) => {
       onDragEnd(event, param);
     };
-    // draggableElems[i].addEventListener('dragstart', (event) => { onDragStart(event, param) });
-    // draggableElems[i].addEventListener('dragend', (event) => { onDragEnd(event) });
   }
 }
+
 export function downloadHandler() {
   const zip = new JSZip();
   let currentPages = JSON.parse(
@@ -500,7 +491,7 @@ export function setPreviewMode(mode: "fullScreen" | "tablet" | "mobile") {
 }
 
 let pageTabBtn = document.querySelector(`#index-tabA`);
-function addIndexTab(){
+function addIndexTab() {
   window.localStorage.setItem("activePageTab", "dropzone");
   document.querySelector(".tabPageName")!.innerHTML = "index.html";
   setGlobalInput();
@@ -508,14 +499,15 @@ function addIndexTab(){
   initGridDropZone(`dropzone`, `drop-here-indicator`);
   setupGlobalEvents("dropzone");
   setNavigation("dropzone");
-};
-if(pageTabBtn){
-  pageTabBtn.addEventListener('click', () => { addIndexTab() })
+}
+if (pageTabBtn) {
+  pageTabBtn.addEventListener("click", () => {
+    addIndexTab();
+  });
 }
 // Add Page to Tab
 
-
-const addBtn = document.querySelector('#add-page-button');
+const addBtn = document.querySelector("#add-page-button");
 function onAddPage(param = null) {
   let pageTabs = document.querySelector(".pagesTabs");
   let pageTabContent = document.querySelector(".pagesTabContent");
@@ -588,7 +580,7 @@ function onAddPage(param = null) {
   styleElement.innerHTML = newStyle;
 
   let pageTabBtn = document.querySelector(
-      `#page-tab-${pageIndex}`
+    `#page-tab-${pageIndex}`
   ) as HTMLButtonElement;
   pageTabBtn.addEventListener("click", function (event) {
     let eleSelected = event.target as HTMLElement;
@@ -601,42 +593,42 @@ function onAddPage(param = null) {
       misc(dropZoneID);
     }, 2000);
     let currentTabs = JSON.parse(
-        <string>window.localStorage.getItem("currentPageTabs")
+      <string>window.localStorage.getItem("currentPageTabs")
     );
     if (currentTabs) {
       if (param) {
         if (currentTabs.indexOf(`${param[0]}_@COL@_${param[1]}`) == -1) {
           currentTabs[currentTabs.length] =
-              pageIndex + `_@COL@_New-Page${pageIndex}.html`;
+            pageIndex + `_@COL@_New-Page${pageIndex}.html`;
           window.localStorage.setItem(
-              "currentPageTabs",
-              JSON.stringify(currentTabs)
+            "currentPageTabs",
+            JSON.stringify(currentTabs)
           );
         }
       } else {
         if (
-            currentTabs.indexOf(pageIndex + `_@COL@_New-Page${pageIndex}.html`) ==
-            -1
+          currentTabs.indexOf(pageIndex + `_@COL@_New-Page${pageIndex}.html`) ==
+          -1
         ) {
           currentTabs[currentTabs.length] =
-              pageIndex + `_@COL@_New-Page${pageIndex}.html`;
+            pageIndex + `_@COL@_New-Page${pageIndex}.html`;
           window.localStorage.setItem(
-              "currentPageTabs",
-              JSON.stringify(currentTabs)
+            "currentPageTabs",
+            JSON.stringify(currentTabs)
           );
         }
       }
     } else {
       window.localStorage.setItem(
-          "currentPageTabs",
-          JSON.stringify([pageIndex + `_@COL@_New-Page${pageIndex}.html`])
+        "currentPageTabs",
+        JSON.stringify([pageIndex + `_@COL@_New-Page${pageIndex}.html`])
       );
     }
 
     initDropZone(dropZoneID, `drop-here-indicator-${pageIndex}`);
     initGridDropZone(
-        `dropzone-elem-${pageIndex}`,
-        `drop-here-indicator-${pageIndex}`
+      `dropzone-elem-${pageIndex}`,
+      `drop-here-indicator-${pageIndex}`
     );
     setupGlobalEvents(dropZoneID);
     setNavigation(dropZoneID);
@@ -658,17 +650,17 @@ function onAddPage(param = null) {
     console.log("Value changed: " + newValue, event.target, pageIndex);
     editedTabName = newValue;
     let originalGlobalSetting: any = window.localStorage.getItem(
-        `Global-${originalTabName}`
+      `Global-${originalTabName}`
     );
     if (originalGlobalSetting) {
       window.localStorage.setItem(
-          `Global-${editedTabName}`,
-          originalGlobalSetting
+        `Global-${editedTabName}`,
+        originalGlobalSetting
       );
       window.localStorage.removeItem(`Global-${originalTabName}`);
     }
     let originalCurrentPagesTabs: any = JSON.parse(
-        <string>window.localStorage.getItem("currentPageTabs")
+      <string>window.localStorage.getItem("currentPageTabs")
     );
     let eleOfCurrentTab = originalCurrentPagesTabs[pageIndex - 1];
     let splitedEle = eleOfCurrentTab.split("_@COL@_");
@@ -676,8 +668,8 @@ function onAddPage(param = null) {
     document.querySelector(".tabPageName")!.innerHTML = editedTabName;
     originalCurrentPagesTabs[pageIndex - 1] = updatedVal;
     window.localStorage.setItem(
-        "currentPageTabs",
-        JSON.stringify(originalCurrentPagesTabs)
+      "currentPageTabs",
+      JSON.stringify(originalCurrentPagesTabs)
     );
   });
   pageTabBtn.addEventListener("blur", function () {
@@ -696,8 +688,10 @@ function onAddPage(param = null) {
     // }
   });
 }
-if(addBtn){
-  addBtn.addEventListener('click', () => { onAddPage() })
+if (addBtn) {
+  addBtn.addEventListener("click", () => {
+    onAddPage();
+  });
 }
 
 // SETUP Master DROP Zone
@@ -817,4 +811,3 @@ if (currentTabs) {
     onRestore(null, "dropzone-" + tabInfo[0]);
   }
 }
-

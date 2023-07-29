@@ -1,20 +1,23 @@
+/*!
+=========================================================
+* Rocket Builder
+=========================================================
+*
+* Product: https://www.simpllo.com
+* Sources: https://github.com/app-generator/free-site-builder
+* Copyright AppSeed (https://appseed.us)
+* License EULA: https://github.com/app-generator/free-site-builder/blob/main/LICENSE.md
+*
+=========================================================
+*/
+
 import { imageExists } from "./utiles";
 
 export function setupGlobalEvents(param: any) {
 
     document.querySelector('#'+param)?.addEventListener('click', event => {
         event.stopPropagation();
-    });
-
-    // Trigger onMouseOver
-    //document.addEventListener('mouseover', event => {
-    //    onMouseOver(event);
-    //});
-
-    //document.addEventListener('mouseout', event => {
-    //    event;
-    //    remClassProcessor('border-props');
-    //});         
+    });        
 }
 
 export function uuidv4() {
@@ -22,11 +25,10 @@ export function uuidv4() {
         var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
         return v.toString(16);
     });
-}
-
-
+} 
 
 export function onDragStart(event: any, param: any) {
+
     console.log(' > onDrag_START() ', event, param);
 
     const draggableElement = event.currentTarget;
@@ -43,6 +45,7 @@ export function onDragStart(event: any, param: any) {
 }
 
 export function onDragOver(event: any, param2: any) {
+
     console.log(' > onDrag_OVER() ');
 
     let dropIndicator = <HTMLElement>document.getElementById(param2);
@@ -54,8 +57,11 @@ export function onDragOver(event: any, param2: any) {
     event.target.classList.add('border-dotted');
     event.preventDefault();
 }
+
 const onPutDelete = (component: any, param: any) => {
-    console.log("' > onReposition() '")
+
+    console.log("' > onPutDelete() '");
+
     const editableComponent = component;
 
     const spanElement = document.createElement("span");
@@ -77,8 +83,11 @@ const onPutDelete = (component: any, param: any) => {
     editableComponent.appendChild(spanElement);
     editableComponent.appendChild(contentElement);
 }
+
 const onReposition = (component: any, param: any) => {
-    console.log("' > onReposition() '")
+
+    console.log("' > onReposition() '");
+
     const editableComponent = component;
 
     const upElement = document.createElement("span");
@@ -124,6 +133,7 @@ const onReposition = (component: any, param: any) => {
 }
 
 export function onDragEnd(event: any, param: any) {
+
     console.log(' > onDrag_END() ', param);
 
     // Remove all previous    
@@ -267,15 +277,6 @@ export function onMouseOver(event: any) {
     console.log(' > id: ' + elem.id);
     console.log(' > type: ' + elem.nodeName);
 
-    // let PROPS_TITLE   = <HTMLElement>document.getElementById('builder-props-title');
-    // let PROPS_CONTENT = <HTMLElement>document.getElementById('builder-props-content');
-
-    // PROPS_TITLE.innerHTML    = elem.id;
-    // PROPS_CONTENT.innerHTML  = '<br /><hr />';
-    // PROPS_CONTENT.innerHTML += '<strong><center>'+getElemName(elem)+'</center></strong>';
-    // PROPS_CONTENT.innerHTML += '<hr /><br />';
-    // PROPS_CONTENT.innerHTML += '<p>'+getElemProps(elem)+'</p>';
-
     let targetComponent = event.target;
 
     // Remove previous 
@@ -286,6 +287,7 @@ export function onMouseOver(event: any) {
 }
 
 export function onClick(event: any) {
+
     console.log(' > on_CLICK() ');
 
     let targetComponent;
@@ -428,17 +430,17 @@ export function remClassProcessor(aClass: string) {
         }
     }
 }
+
 export function onPressClassItem(event: any, target: any) {
     let classNameToRemove = event.target.innerText;
     target.classList.remove(classNameToRemove);
     target.click();
 }
+
 export async function onKeyUp(event: any, target: any, flag: string) {
-    // if (event.keyCode !== 13) return;
-    event;
+
     const target_id = target.id;
 
-    // let activeComponent = document.querySelector(`${target_id}`);
     if (target) {
         if (flag === 'A') {
             target.setAttribute('href', event.target.value);
@@ -463,13 +465,14 @@ export async function onKeyUp(event: any, target: any, flag: string) {
         }
     } else {
         console.log(' > NULL target:' + target_id);
-    }
-    //}    
+    }  
 }
 
 export function onClear(event: any, param: any) {
-    console.log(param, 'my-target---');
-    event;
+
+    // fake the usage    
+    event; param;
+
     console.log(' > ACTION: clear');
 
     window.localStorage.setItem('activePageTab', 'dropzone');
@@ -488,15 +491,7 @@ export function onClear(event: any, param: any) {
     window.localStorage.removeItem('editME-dropzone');
     window.localStorage.removeItem('Global-index.html');
 
-    window.location.reload();
-
-    // let content = <HTMLElement>document.querySelector('#'+param);
-    // clear
-    // let info = '<div class="drop-indicator d-flex align-items-center justify-content-center"><div class="p-4 shadow bg-white rounded-3 text-center"><span class="icon text-primary h3"><i class="fa-solid fa-circle-plus"></i></span><h6 class="mt-3">Drop Here...</h6></div></div>'
-    // content.innerHTML = info;
-    // window.localStorage.clear();
-    //let builderContainer = document.querySelector('#layout')!.innerHTML;
-    //document.querySelector<HTMLDivElement>('#app')!.innerHTML = builderContainer;    
+    window.location.reload(); 
 }
 
 export function onSave(event: any, param: any) {
@@ -511,6 +506,7 @@ export function onRestore(event: any, param: any) {
     event; // fake the usage
 
     console.log(' > ACTION: restore', param);
+
     let content = <HTMLElement>document.querySelector('#'+param);
 
     let saved_content = <string>window.localStorage.getItem(`editME-${param}`);
@@ -566,4 +562,3 @@ export function onRestore(event: any, param: any) {
         console.log(' > NULL ELEMs ');
     }
 }
-
