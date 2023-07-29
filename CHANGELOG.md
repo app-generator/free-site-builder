@@ -1,5 +1,29 @@
 # Change Log
 
+## [1.0.9] 2023-07-28
+### Changes
+
+- Update `package.json`
+  - Added License 
+  - Added Keywords
+
+## [1.0.8] 2023-07-28
+### Changes
+
+- Update DOCS (readme)
+
+## [1.0.7] 2023-07-25
+### Changes
+
+- Use Compressed Version in production
+- Update DOCS (readme)
+
+## [1.0.6] 2023-07-25
+### Changes
+
+- UPD Codebase 
+- Added NPM & CDN support
+
 ## [1.0.5] 2023-07-25
 ### Changes
 
