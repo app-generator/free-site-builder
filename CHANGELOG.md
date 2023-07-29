@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.0.12] 2023-07-29
+### Changes
+
+- Update Licensing 
+- Stamp files LICENSE input
+- CleanUP Assets
+
 ## [1.0.11] 2023-07-29
 ### Changes
 
