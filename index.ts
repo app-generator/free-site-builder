@@ -42,18 +42,19 @@ type TOptions = {
   dropIndicator: string;
 };
 
-export class DNDBuilder {
-  $actionPreview: HTMLButtonElement | null = null;
-  $actionDownload: HTMLButtonElement | null = null;
-  $actionDeploy: HTMLButtonElement | null = null;
-  $closeModal: HTMLDivElement | null = null;
-  $fullScreenOption: HTMLButtonElement | null = null;
-  $tabletOption: HTMLButtonElement | null = null;
-  $mobileOption: HTMLButtonElement | null = null;
-  $deployForm: HTMLFormElement | null = null;
-  $dropContainer: string;
-  $dropIndicator: string;
-  constructor(options: TOptions, selectors?: TSelectors) {
+const DNDBuilder = {
+  $actionPreview: null as HTMLButtonElement | null,
+  $actionDownload: null as HTMLButtonElement | null,
+  $actionDeploy: null as HTMLButtonElement | null,
+  $closeModal: null as HTMLDivElement | null,
+  $fullScreenOption: null as HTMLButtonElement | null,
+  $tabletOption: null as HTMLButtonElement | null,
+  $mobileOption: null as HTMLButtonElement | null,
+  $deployForm: null as HTMLFormElement | null,
+  $dropContainer: '',
+  $dropIndicator: '',
+
+  setup: function(options: TOptions, selectors?: TSelectors) {
     const {
       actionPreview,
       actionDownload,
@@ -63,7 +64,7 @@ export class DNDBuilder {
       tabletOption,
       fullScreenOption,
       closeModal,
-    } = selectors;
+    } = selectors || {};
     const { dropContainer, dropIndicator } = options;
     if (actionPreview) {
       this.$actionPreview = document.querySelector(actionPreview);
@@ -92,11 +93,6 @@ export class DNDBuilder {
     this.$dropContainer = dropContainer;
     this.$dropIndicator = dropIndicator;
 
-    this.setup();
-    this.render();
-  }
-
-  setup() {
     document.addEventListener("DOMContentLoaded", () => {
       if (this.$actionPreview) {
         this.$actionPreview.addEventListener("click", openPreviewModal);
@@ -129,8 +125,9 @@ export class DNDBuilder {
         this.$actionPreview.addEventListener("submit", captureDeployRequest);
       }
     });
-  }
-  render() {
+  },
+
+  render: function() {
     setNavigation(this.$dropContainer);
     initDropZone(this.$dropContainer, this.$dropIndicator);
     initGridDropZone(this.$dropContainer, this.$dropIndicator);
@@ -140,10 +137,10 @@ export class DNDBuilder {
     });
     onRestore(null, this.$dropContainer);
     setupGlobalEvents(this.$dropContainer);
-  }
-}
+  },
+};
 
-new DNDBuilder(
+DNDBuilder.setup(
   {
     dropContainer: "dropzone",
     dropIndicator: "drop-here-indicator",
@@ -159,3 +156,5 @@ new DNDBuilder(
     deployForm: "#deployForm",
   }
 );
+
+DNDBuilder.render();
