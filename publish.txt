@@ -1,8 +1,9 @@
 npm adduser             --> only once
 
+UPD version             --> src/index.js
 yarn build              --> Build production version  
 git commit              --> all local changes 
-npm version 1.0.10      --> tag changes 
+npm version 1.0.14      --> tag changes 
 git push origin --tags  --> push tag 
 
 CREATE delivery         --> https://github.com/app-generator/free-site-builder
