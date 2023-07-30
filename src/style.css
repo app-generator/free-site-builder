@@ -198,6 +198,7 @@ button:focus-visible {
   margin-top: 10px;
   padding: 10px;
   position: relative;
+  border: 1px solid transparent !important;
 }
 
 .ql-toolbar.ql-snow .ql-formats {
@@ -250,12 +251,11 @@ button:focus-visible {
 
 .border-dotted {
   border-style: dotted !important;
-  margin: 2px;
+  /* margin: 2px; */
 }
 
 .border-props {
   border: 1px solid #5e72e3 !important;
-  margin: 2px;
 }
 /*header css*/
 .header {
