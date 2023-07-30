@@ -1,5 +1,5 @@
-import './style-pixel.css'
 import style from './style-pixel.css?inline';
+import './style-pixel.css'
 import JSZip from "jszip";
 
 import {

@@ -106,13 +106,12 @@ button:focus-visible {
 }
 
 .draggable {
-  /* background-color: #4AAE9B; */
   background-color: #fbfbfb;
-  font-weight: normal;
   margin-bottom: 5px;
   margin-top: 5px;
   padding: 10px;
-  /* border: 1px dashed transparent; */
+  position: relative;
+  font-weight: 400;
   border: 1px solid #ccc;
   position: relative;
 }
@@ -277,6 +276,7 @@ button:focus-visible {
   font-weight: 600;
   margin-left: 10px;
   padding: 5px 10px;
+  box-shadow: none !important;
 }
 button.btnDefault {
   background: #21262a;
@@ -313,11 +313,16 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
   border-radius: 0 !important;
   font-size: 12px;
   font-weight: 500;
-  padding: 7px 7px;
-  color: #9097ae;
+  padding: 7px 7px !important;
+  color: #9097ae !important;
+  border: 1px solid transparent !important;
+  background: transparent !important;
 }
-.defTabs li button:hover, .defTabs li button.active {
-  color: #5d73e3;
+.defTabs li button.active {
+  color: #000 !important;
+  border-left: 1px solid #E5E7EB !important;
+  border-right: 1px solid #E5E7EB !important;
+  border-bottom: 1px solid #fff !important;
 }
 .defTabs li:first-child button {
   border-left: none !important;
@@ -328,6 +333,13 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
 .defTabs.pagesTabs li:first-child button:hover, .defTabs.pagesTabs li button.active {
   border-left: 1px solid #dee2e6 !important;
 }
+.defTabs.pagesTabs li button.active {
+  border-top: 1px solid #dee2e6 !important;
+}
+.defTabs.pagesTabs li button:hover{
+  border-right: 1px solid #dee2e6 !important;
+  border-top: 1px solid #dee2e6 !important;
+}
 .pagesTabs {
   margin-bottom: 0 !important;
   padding-left: 1px;
@@ -336,6 +348,7 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
   font-size: 12px;
   font-weight: 500;
   color: #7c7979;
+  padding: 15px;
   padding-left: 32px;
   box-shadow: none !important;
   border-radius: 0 !important;
@@ -348,7 +361,7 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
 .accordionCustom .accordion-button::after {
   position: absolute;
   left: 10px;
-  top: 16px;
+  top: 13px;
   height: 15px;
   width: 15px;
   background-size: 15px;
@@ -469,7 +482,7 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
   margin: 0;
   font-size: 13px;
   color: #6a6a6a;
-  font-weight: 500;
+  font-weight: 700;
 }
 .footerLinks {
   display: flex;
@@ -481,6 +494,7 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
   font-weight: 500;
   margin-left: 30px;
 }
+.footerLinks a.text-primary { color: #646cff !important;}
 /*right aside css*/
 .rightAside {
   position: fixed;
@@ -501,11 +515,13 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
   align-items: flex-start;
   padding: 15px;
 }
+.tabPageName {margin-bottom: 0;}
 .divName {
   font-size: 12px;
   font-weight: 500;
   color: #454545;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 .divName-2 {
   font-size: 12px;
@@ -528,11 +544,15 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
   font-size: 12px;
   width: 100%;
   box-shadow: none !important;
+  padding: 6px 12px;
+  background: #fff;
 }
 .newClass-2 .form-control {
   font-size: 12px;
   width: 100%;
   box-shadow: none !important;
+  padding: 6px 12px;
+  background: #fff;
 }
 .newClass .form-control:focus {
   border-color: #5d73e3 !important;
@@ -782,6 +802,7 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
 
 #builder-props-title {
   font-size: 12px;
+  background: #f8f9fa;
 }
 body body {
   padding: 15px !important;
@@ -1015,7 +1036,7 @@ body body {
 }
 
 .bs-popover-auto { z-index: 99999; font-size: 11px; }
-.btn.btn-primary {font-size: 12px;font-weight: 500;}
+.btn.btn-primary {font-size: 12px;font-weight: 500; padding: 7px 12px;}
 .alert {margin-bottom: 0;}
 .defModal .modal-header {
   padding: 8px 16px;
@@ -1042,3 +1063,14 @@ body body {
   padding: 8px 16px;
   justify-content: center;
 }
+.container.component {
+  max-width: 100% !important;
+  background: #fff;
+}
+.btn {box-shadow: none !important;}
+.action_clear_cancle {
+  padding: 7px 12px !important;
+  font-size: 12px;
+  font-weight: 500;
+}
+p, ol li, ul li {font-weight: 600;}
