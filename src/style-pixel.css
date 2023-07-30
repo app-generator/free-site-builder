@@ -439,13 +439,13 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
   padding: 0 0 5px 0;
 }
 .card .card-body{
-  padding: 10px 5px;
+  padding: 5px;
 }
 .card .card-body .card-title{
   font-size: 13px;
 }
 .card .card-body p, .card .card-body a {
-  font-size: 12px;
+  font-size: 12px !important;
 }
 .forScroll {
   overflow-y: auto;
@@ -873,7 +873,7 @@ body body {
   width: 100% !important;
   /* background-color: #f5f5f5 !important; */
 }
-.formBox span {
+.formBox span:nth-child(3) + span {
   width: 100%;
 }
 .form-body {
@@ -882,14 +882,22 @@ body body {
 .formBox .form-header{
   font-size: 12px;
 }
-.formBox .form-group {
+.formBox .mb-3 {
   margin-bottom: 8px !important;
   width: 100%;
 }
-.formBox .form-group input {
+.formBox .mb-3 label {
+  font-size: 12px;
+  width: 100%;
+  display: block;
+  text-align: left;
+  font-weight: 400;
+}
+.formBox input, .formBox textarea {
   font-size: 12px;
   width: 100%;
   box-shadow: none !important;
+  padding: 6px 10px;
 }
 .formBox .btn-primary {
   font-size: 12px;
@@ -1074,3 +1082,24 @@ body body {
   font-weight: 500;
 }
 p, ol li, ul li {font-weight: 600;}
+.dropdown-toggle {
+  padding: 7px 12px;
+}
+.progress-info .progress-label span,
+.progress-info .progress-percentage span {font-size: 12px !important;}
+.navbar.navbar-expand-lg {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: #f8f9fa;
+}
+.navbar .container {
+  padding: 0 12px;
+}
+.navbar .container .nav-link {
+  padding-right: 0.4rem;
+  padding-left: 0.4rem;
+}
+.carousel-control-prev-icon::before,
+.carousel-control-next-icon:before {
+  font-size: 1.5rem !important;
+}
