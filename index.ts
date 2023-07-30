@@ -58,7 +58,7 @@ const DEFAULT_SELECTORS: TSelectors = {
   deployForm: "#deployForm",
 };
 
-const DNDBuilder = {
+export const DNDBuilder = {
   $actionPreview: null as HTMLButtonElement | null,
   $actionDownload: null as HTMLButtonElement | null,
   $actionDeploy: null as HTMLButtonElement | null,
