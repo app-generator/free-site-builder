@@ -354,23 +354,9 @@
 
   <!-- Builder CORE JS (Vanilla) -->
   <script type="module" crossorigin src="https://cdn.jsdelivr.net/gh/app-generator/free-site-builder@latest/dist/index.js">
-    DNDBuilder.setup(
-      {
-        dropContainer: "dropzone",
-        dropIndicator: "drop-here-indicator",
-      },
-      {
-        actionPreview: "#action_preview",
-        actionDownload: "#action_download",
-        actionDeploy: "#action_deploy",
-        closeModal: "#closeModal",
-        fullScreenOption: "#fullScreenOption",
-        tabletOption: "#tabletOption",
-        mobileOption: "#mobileOption",
-        deployForm: "#deployForm",
-      }
-    );
+    import { DNDBuilder } from "./index";
 
+    DNDBuilder.setup();
     DNDBuilder.render();
   </script>
 

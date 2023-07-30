@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.0.13] 2023-07-30
+### Changes
+
+- Update LIB Interface
+- Move Init outside package
+
 ## [1.0.12] 2023-07-29
 ### Changes
 

@@ -1,6 +1,3 @@
-var ee = Object.defineProperty;
-var re = (z, I, i) => I in z ? ee(z, I, { enumerable: !0, configurable: !0, writable: !0, value: i }) : z[I] = i;
-var ft = (z, I, i) => (re(z, typeof I != "symbol" ? I + "" : I, i), i);
 /*!
 =========================================================
 * Rocket Builder
@@ -13,12 +10,12 @@ var ft = (z, I, i) => (re(z, typeof I != "symbol" ? I + "" : I, i), i);
 *
 =========================================================
 */
-function ne(z) {
-  var I = new RegExp("^(https?:\\/\\/)?((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|((\\d{1,3}\\.){3}\\d{1,3}))(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*(\\?[;&a-z\\d%_.~+=-]*)?(\\#[-a-z\\d_]*)?$", "i");
-  return !!I.test(z);
+function te(z) {
+  var A = new RegExp("^(https?:\\/\\/)?((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|((\\d{1,3}\\.){3}\\d{1,3}))(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*(\\?[;&a-z\\d%_.~+=-]*)?(\\#[-a-z\\d_]*)?$", "i");
+  return !!A.test(z);
 }
-function ie(z) {
-  return !!ne(z);
+function ee(z) {
+  return !!te(z);
 }
 /*!
 =========================================================
@@ -32,39 +29,39 @@ function ie(z) {
 *
 =========================================================
 */
-function At(z) {
-  var I;
-  (I = document.querySelector("#" + z)) == null || I.addEventListener("click", (i) => {
+function It(z) {
+  var A;
+  (A = document.querySelector("#" + z)) == null || A.addEventListener("click", (i) => {
     i.stopPropagation();
   });
 }
-function Ut() {
+function jt() {
   return "uuid" + "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(z) {
-    var I = Math.random() * 16 | 0, i = z == "x" ? I : I & 3 | 8;
+    var A = Math.random() * 16 | 0, i = z == "x" ? A : A & 3 | 8;
     return i.toString(16);
   });
 }
-function oe(z, I) {
-  console.log(" > onDrag_START() ", z, I);
+function re(z, A) {
+  console.log(" > onDrag_START() ", z, A);
   const i = z.currentTarget;
   z.dataTransfer.setData("text/plain", i.id), i.style.backgroundColor = "white";
 }
-function $t(z, I) {
+function Ut(z, A) {
   console.log(" > onDrag_OVER() ");
-  let i = document.getElementById(I);
-  i.style.display = "none", zt("border-dotted"), z.target.classList.add("border-dotted"), z.preventDefault();
+  let i = document.getElementById(A);
+  i.style.display = "none", Ct("border-dotted"), z.target.classList.add("border-dotted"), z.preventDefault();
 }
-const ae = (z, I) => {
+const ne = (z, A) => {
   console.log("' > onPutDelete() '");
   const i = z, k = document.createElement("span");
   k.innerHTML = "<i class='fa-solid fa-xmark'></i>", k.className = "cross-icon", k.onclick = function() {
-    Ot(i, I);
+    At(i, A);
   };
   const u = document.createElement("span");
-  u.innerHTML = i.innerHTML.trim(), u.style.display = "block", u.id = i.id, u.onclick = function(n) {
-    Ct(n);
+  u.innerHTML = i.innerHTML.trim(), u.style.display = "block", u.style.border = "1px solid transparent", u.id = i.id, u.onclick = function(n) {
+    St(n);
   }, i.innerHTML = "", i.appendChild(k), i.appendChild(u);
-}, se = (z, I) => {
+}, ie = (z, A) => {
   console.log("' > onReposition() '");
   const i = z, k = document.createElement("span");
   k.innerHTML = "<i class='fa-solid fa-caret-up'></i>", k.className = "upButton", k.onclick = function() {
@@ -80,17 +77,17 @@ const ae = (z, I) => {
   };
   const n = document.createElement("span");
   n.innerHTML = "<i class='fa-solid fa-xmark'></i>", n.className = "cross-icon", n.onclick = function() {
-    Ot(i, I);
+    At(i, A);
   };
   const a = document.createElement("span");
-  a.innerHTML = i.innerHTML.trim(), a.style.display = "block", a.id = i.id, a.onclick = function(r) {
-    Ct(r);
+  a.innerHTML = i.innerHTML.trim(), a.style.display = "block", a.style.border = "1px solid transparent", a.id = i.id, a.onclick = function(r) {
+    St(r);
   }, i.innerHTML = "", i.appendChild(k), i.appendChild(u), i.appendChild(n), i.appendChild(a);
 };
-function Ht(z, I) {
-  console.log(" > onDrag_END() ", I), zt("border-dotted"), z.dataTransfer.setData("text/plain", z.target.id), z.currentTarget.style.backgroundColor = "#ffffff", fe(z, I);
+function $t(z, A) {
+  console.log(" > onDrag_END() ", A), Ct("border-dotted"), z.dataTransfer.setData("text/plain", z.target.id), z.currentTarget.style.backgroundColor = "#ffffff", de(z, A);
 }
-function Zt(z, I) {
+function Ht(z, A) {
   var a;
   console.log(" > on_DROP() ");
   const i = z.dataTransfer.getData("text");
@@ -100,38 +97,38 @@ function Zt(z, I) {
     return;
   }
   let u = k.cloneNode(!0), n = document.querySelector(".drop-indicator");
-  n && (n.className = "d-none"), console.log(" > CONTAINER: " + z.target.id), console.log(" > Component: " + u.dataset.type), u.id = Ut(), (a = z.target.id) != null && a.includes("grid-") && (z.target.innerHTML = ""), u.classList.remove("draggable"), u.classList.add("component"), u.removeAttribute("draggable"), z.target.id == I ? se(u, I) : ae(u, I), u.addEventListener("click", (r) => {
-    Ct(r);
+  n && (n.className = "d-none"), console.log(" > CONTAINER: " + z.target.id), console.log(" > Component: " + u.dataset.type), u.id = jt(), (a = z.target.id) != null && a.includes("grid-") && (z.target.innerHTML = ""), u.classList.remove("draggable"), u.classList.add("component"), u.removeAttribute("draggable"), z.target.id == A ? ie(u, A) : ne(u, A), u.addEventListener("click", (r) => {
+    St(r);
   }), u.addEventListener("mouseover", (r) => {
-    le(r);
+    oe(r);
   }), z.target.appendChild(u), z.dataTransfer.clearData();
 }
-function Ot(z, I) {
+function At(z, A) {
   var a;
   console.log(" > on_DELETE() "), z.style.display = "none";
-  const i = ((a = window.localStorage.getItem(`editME-${I}`)) == null ? void 0 : a.split(I)[1]) || "";
+  const i = ((a = window.localStorage.getItem(`editME-${A}`)) == null ? void 0 : a.split(A)[1]) || "";
   var k = document.createElement("div");
-  k.id = I, k.innerHTML = i.trim();
+  k.id = A, k.innerHTML = i.trim();
   const n = Array.from(k.children).filter((r) => r.id !== z.id);
-  k.innerHTML = I, n.forEach((r) => {
+  k.innerHTML = A, n.forEach((r) => {
     k.appendChild(r);
   });
 }
-function le(z) {
-  console.log(" > on_MouseOver()"), z.target.id || (z.target.id = Ut());
-  let I = document.getElementById(z.target.id);
-  console.log(" > id: " + I.id), console.log(" > type: " + I.nodeName);
+function oe(z) {
+  console.log(" > on_MouseOver()"), z.target.id || (z.target.id = jt());
+  let A = document.getElementById(z.target.id);
+  console.log(" > id: " + A.id), console.log(" > type: " + A.nodeName);
   let i = z.target;
-  zt("border-props"), i.classList.add("border-props");
+  Ct("border-props"), i.classList.add("border-props");
 }
-function Ct(z) {
+function St(z) {
   console.log(" > on_CLICK() ");
-  let I;
-  if (z.target.classList.contains("component") ? I = z.target : I = z.target.closest(".component"), I.id && !I.id.includes("uuid")) {
+  let A;
+  if (z.target.classList.contains("component") ? A = z.target : A = z.target.closest(".component"), A.id && !A.id.includes("uuid")) {
     console.log(" > GRID Component, skip the edit"), z.preventDefault();
     return;
   }
-  if (window.localStorage.setItem("activeComponent", I.id), I.contentEditable = "true", console.log(" > ACTIVE Component: " + I.id), zt("border-dotted"), I.classList.add("border-dotted"), de(z.target))
+  if (window.localStorage.setItem("activeComponent", A.id), A.contentEditable = "true", console.log(" > ACTIVE Component: " + A.id), Ct("border-dotted"), A.classList.add("border-dotted"), ae(z.target))
     console.log(" > Nested COMPONENT, skip PROPS");
   else {
     let i = document.getElementById(z.target.id), k = document.querySelector("#builder-props-title"), u = document.querySelector("#builder-props-content"), n = document.querySelector("#builder-props-attribute"), a = document.querySelector("#builder-style-content"), r = document.querySelector("#builder-class-content"), d = document.querySelector("#builder-class-list");
@@ -144,48 +141,48 @@ function Ct(z) {
     if (i != null && i.nodeName && (i.nodeName === "A" || i.nodeName === "IMG")) {
       const w = i.nodeName === "A" ? z.target.href : z.target.src;
       n.innerHTML = '<div class="newClass"><input id="props_attribute" class="form-control" data-target="' + z.target.id + '" value="' + w + '" /></div>', h = document.querySelector("input#props_attribute"), h.addEventListener("keyup", (S) => {
-        vt(S, s, i.nodeName);
+        wt(S, s, i.nodeName);
       }), i.nodeName === "IMG" && (o = document.querySelector("input#props_text"), o == null || o.remove());
     } else
       h = document.querySelector("input#props_attribute"), h == null || h.remove();
     o = document.querySelector("input#props_text"), o == null || o.addEventListener("keyup", (w) => {
-      vt(w, s, "content");
+      wt(w, s, "content");
     }), f = document.querySelector("input#styles_text"), f == null || f.addEventListener("keyup", (w) => {
-      vt(w, s, "styles");
+      wt(w, s, "styles");
     }), l = document.querySelector("input#classes_text"), l == null || l.addEventListener("keyup", (w) => {
-      w.keyCode === 13 && vt(w, s, "classes");
+      w.keyCode === 13 && wt(w, s, "classes");
     });
     for (let w = 0; w < _.length; w++)
       m = document.querySelector(`#${_[w]}`), m == null || m.addEventListener("click", (S) => {
-        ce(S, s);
+        se(S, s);
       });
   }
   z.stopPropagation(), z.preventDefault();
 }
-function de(z) {
+function ae(z) {
   if (!z)
     return !1;
-  let I = [], i = z.firstChild;
+  let A = [], i = z.firstChild;
   for (; i; )
-    i.nodeType === 1 && I.push(i), i = i.nextSibling;
-  return I.length > 0;
+    i.nodeType === 1 && A.push(i), i = i.nextSibling;
+  return A.length > 0;
 }
-function zt(z) {
-  let I = document.getElementsByClassName(z);
-  if (I)
-    for (let i = 0; i < I.length; i++)
-      I[i].classList.remove(z);
+function Ct(z) {
+  let A = document.getElementsByClassName(z);
+  if (A)
+    for (let i = 0; i < A.length; i++)
+      A[i].classList.remove(z);
 }
-function ce(z, I) {
+function se(z, A) {
   let i = z.target.innerText;
-  I.classList.remove(i), I.click();
+  A.classList.remove(i), A.click();
 }
-async function vt(z, I, i) {
+async function wt(z, A, i) {
   var u, n, a;
-  const k = I.id;
-  I ? i === "A" ? I.setAttribute("href", z.target.value) : i === "IMG" ? await ie(z.target.value) ? (I.setAttribute("src", z.target.value), ((u = document.getElementsByClassName("img-warning")) == null ? void 0 : u.length) > 0 && ((n = document.querySelector(".img-warning")) == null || n.remove())) : ((a = document.getElementsByClassName("img-warning")) == null ? void 0 : a.length) === 0 && z.target.insertAdjacentHTML("afterend", '<div class="img-warning"><img src="/img/warning.png" width="35" alt="W" /></div>') : i === "styles" ? I.style.cssText = z.target.value : i === "classes" ? (I.classList.add(z.target.value), I.click()) : I.innerHTML = z.target.value : console.log(" > NULL target:" + k);
+  const k = A.id;
+  A ? i === "A" ? A.setAttribute("href", z.target.value) : i === "IMG" ? await ee(z.target.value) ? (A.setAttribute("src", z.target.value), ((u = document.getElementsByClassName("img-warning")) == null ? void 0 : u.length) > 0 && ((n = document.querySelector(".img-warning")) == null || n.remove())) : ((a = document.getElementsByClassName("img-warning")) == null ? void 0 : a.length) === 0 && z.target.insertAdjacentHTML("afterend", '<div class="img-warning"><img src="/img/warning.png" width="35" alt="W" /></div>') : i === "styles" ? A.style.cssText = z.target.value : i === "classes" ? (A.classList.add(z.target.value), A.click()) : A.innerHTML = z.target.value : console.log(" > NULL target:" + k);
 }
-function ue(z, I) {
+function le(z, A) {
   console.log(" > ACTION: clear"), window.localStorage.setItem("activePageTab", "dropzone");
   let i = JSON.parse(window.localStorage.getItem("currentPageTabs"));
   if (i)
@@ -195,14 +192,14 @@ function ue(z, I) {
     }
   window.localStorage.removeItem("editME-dropzone"), window.localStorage.removeItem("Global-index.html"), window.location.reload();
 }
-function fe(z, I) {
-  console.log(" > ACTION: save", I);
-  let i = document.querySelector("#" + I);
-  window.localStorage.setItem(`editME-${I}`, i.innerHTML);
+function de(z, A) {
+  console.log(" > ACTION: save", A);
+  let i = document.querySelector("#" + A);
+  window.localStorage.setItem(`editME-${A}`, i.innerHTML);
 }
-function Wt(z, I) {
-  console.log(" > ACTION: restore", I);
-  let i = document.querySelector("#" + I), k = window.localStorage.getItem(`editME-${I}`);
+function Zt(z, A) {
+  console.log(" > ACTION: restore", A);
+  let i = document.querySelector("#" + A), k = window.localStorage.getItem(`editME-${A}`);
   if (!k)
     return;
   i.innerHTML = k;
@@ -210,7 +207,7 @@ function Wt(z, I) {
   if (u)
     for (let n = 0; n < u.length; n++) {
       const a = u[n];
-      a.addEventListener("click", Ct);
+      a.addEventListener("click", St);
       const r = a.querySelector(".upButton"), d = a.querySelector(".downButton"), g = a.querySelector(".cross-icon"), _ = a.parentElement;
       _ && (r && r.addEventListener("click", function() {
         const b = Array.from(_.children).indexOf(a);
@@ -225,22 +222,22 @@ function Wt(z, I) {
           _.insertBefore(y, a);
         }
       }), g && g.addEventListener("click", function() {
-        Ot(a, I);
+        At(a, A);
       }));
     }
   else
     console.log(" > NULL ELEMs ");
 }
-const qt = `@import"https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap";:root{font-family:Poppins,sans-serif;line-height:1.5;font-weight:400;color-scheme:light dark;color:#ffffffde;background-color:#242424;font-synthesis:none;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-text-size-adjust:100%}a{font-weight:500;color:#646cff;text-decoration:inherit}a:hover{color:#535bf2}body{margin:0;display:flex;font-family:Poppins,sans-serif;padding-top:64px;text-align:left}input{text-align:left!important}h1{font-size:3.2em;line-height:1.1}#app{width:100%;margin:0 auto;text-align:center}.logo{height:6em;padding:1.5em;will-change:filter;transition:filter .3s}.logo:hover{filter:drop-shadow(0 0 2em #646cffaa)}.logo.vanilla:hover{filter:drop-shadow(0 0 2em #3178c6aa)}.card{padding:2em}.read-the-docs{color:#888}button{cursor:pointer;transition:border-color .25s}button:hover{border-color:#646cff}button:focus,button:focus-visible{outline:4px auto -webkit-focus-ring-color}@media (prefers-color-scheme: light){:root{color:#213547;background-color:#fff}a:hover{color:#747bff}button{background-color:#f9f9f9}}.example-parent{border:2px solid #DFA612;color:#000;display:flex;font-family:sans-serif;font-weight:700}.example-origin{flex-basis:100%;flex-grow:1;padding:10px}.draggable{background-color:#fbfbfb;font-weight:400;margin-bottom:5px;margin-top:5px;padding:10px;border:1px solid #ccc;position:relative}.cross-icon{color:red;cursor:pointer;display:none;position:absolute;top:0;right:5px;z-index:9;width:6px!important}.upButton{position:absolute;left:5px;top:0;font-size:20px;cursor:pointer;display:none;z-index:9}.downButton{position:absolute;left:5px;bottom:0;font-size:20px;cursor:pointer;display:none;z-index:9}.draggable:hover{border-color:#5e72e3}.component:hover .cross-icon,.component:hover .upButton,.component:hover .downButton{display:block}.dropzone{background-color:#eaeaea;flex-basis:100%;flex-grow:1;margin-bottom:10px;margin-top:10px;padding:10px}.dropzone-elem{margin-bottom:0;margin-top:0;padding:4px;font-size:11px}.innCol{background-color:#5d73e338}.component{margin-bottom:10px;margin-top:10px;padding:10px;position:relative}.ql-toolbar.ql-snow .ql-formats{margin-right:0!important}#builder-navigation{border:1px solid red;margin:1px}#builder-log{border:1px solid green;margin:1px}#builder-container{margin:1px;padding-left:263px;padding-right:257px;height:calc(100vh - 67px);overflow-y:auto}.mainBuilder{border:1px solid #ecedef;padding:10px 25px;min-height:100%;position:relative}.addPage{display:flex;align-items:center;justify-content:center;margin-bottom:15px}.addPage button{color:#cacfdb;font-size:24px;border:none!important;padding:0}.addPage button:hover{color:#5d73e3}#builder-components{margin:1px}.border-dotted{border-style:dotted!important;margin:2px}.border-props{border:1px solid #5e72e3!important;margin:2px}.header{position:fixed;left:0;top:0;width:100%;z-index:9;background:#f8f9fd;padding:10px 255px}.innerHeader{display:flex;align-items:center;justify-content:center}.adsInput{background:transparent;border:none;border-bottom:1px solid #eff1f4;outline:none!important;font-size:14px;color:#000}.pageName{font-size:14px;color:#000;font-weight:500}.headerActions{display:flex;align-items:center}.headerActions .btn{font-size:13px;font-weight:600;margin-left:10px;padding:5px 10px}button.btnDefault{background:#21262a;border-color:#21262a}button.btnDefault:hover,button.btnDefault:focus{background:#454d54!important;border-color:#454d54!important}button.btnRestore,.btn-primary{background:#5d73e3;border-color:#5d73e3}button.btnRestore:hover,button.btnRestore:focus,.btn-primary:hover,.btn-primary:focus{background:#4458bf!important;border-color:#4458bf!important}.leftAside{position:fixed;left:5px;top:65px;border:1px solid #ecedef;background:#fff;width:260px;height:calc(100vh - 65px);z-index:9}.defTabs{margin-top:-1px;margin-bottom:5px}.defTabs li button{border-radius:0!important;font-size:12px;font-weight:500;padding:7px;color:#9097ae}.defTabs li button:hover,.defTabs li button.active{color:#5d73e3}.defTabs li:first-child button{border-left:none!important}.defTabs.pagesTabs li:first-child button{border-left:1px solid transparent!important}.defTabs.pagesTabs li:first-child button:hover,.defTabs.pagesTabs li button.active{border-left:1px solid #dee2e6!important}.pagesTabs{margin-bottom:0!important;padding-left:1px}.accordionCustom .accordion-button{font-size:12px;font-weight:500;color:#7c7979;padding-left:32px;box-shadow:none!important;border-radius:0!important}.accordionCustom .accordion-item{border-radius:0!important;border-left:none;border-right:none}.accordionCustom .accordion-button:after{position:absolute;left:10px;top:16px;height:15px;width:15px;background-size:15px}.accordionCustom .accordion-button[aria-expanded=true]{background:#5d73e31c!important}.forNumbers{position:absolute;right:10px;top:14px;font-size:10px;font-weight:500;color:#7c7979;border:1px solid #bababa;height:20px;width:20px;border-radius:50%;display:flex;align-items:center;justify-content:center}.betaText{display:inline-block;font-size:10px;background:#000;color:#fff;padding:3px;border-radius:4px;margin-left:5px}.accordionCustom .accordion-body{padding:5px}.forPdng{padding:25px 10px 10px;left:0;bottom:0;width:100%}.moreOption{display:flex;align-items:center;border:1px dashed #efefef;background:#fff;border-radius:4px;padding:6px;transition:all .2s ease-out}.moreOption:hover{border:1px dashed #5d73e3}.moreOption img{margin-right:10px}.moreOption h6{font-size:11px;text-align:left;margin:0 0 2px;color:#828282}.moreOption p{font-size:11px;text-align:left;margin:0;color:#5d73e3}.card{width:100%!important}.card .card-header{font-size:12px;padding:0 0 5px}.card .card-body{padding:10px 5px}.card .card-body .card-title{font-size:13px}.card .card-body p,.card .card-body a{font-size:12px}.forScroll{overflow-y:auto;position:relative}.dropzone{border-radius:10px;border:2px dashed #ccc;min-height:300px}.drpznBttm{font-size:13px;color:#6a6a6a;font-weight:400;margin-top:50px}.drpznBttm img{margin-right:1px;transform:rotate(180deg)}.footer{position:absolute;left:0;bottom:5px;width:100%;display:flex;align-items:center;justify-content:space-between;padding:0 20px}.footer p{margin:0;font-size:13px;color:#6a6a6a;font-weight:500}.footerLinks{display:flex;align-items:center}.footerLinks a{font-size:13px;color:#6a6a6a;font-weight:500;margin-left:30px}.rightAside{position:fixed;right:-1px;top:65px;border:1px solid #ecedef;background:#fff;width:260px;height:calc(100vh - 65px);z-index:9}.mainEditor{display:flex;flex-direction:column;align-items:flex-start;padding:15px}.divName{font-size:12px;font-weight:500;color:#454545;margin-bottom:15px}.divName-2{font-size:12px;font-weight:500;color:#454545;margin-bottom:6px;margin-top:15px}.classesName{font-size:13px;font-weight:500;color:#777;margin-bottom:5px}.newClass{margin-bottom:7px;width:100%}.newClass .form-control,.newClass-2 .form-control{font-size:12px;width:100%;box-shadow:none!important}.newClass .form-control:focus{border-color:#5d73e3!important}#builder-props,#builder-style,#builder-class{width:100%}.classList{margin:0;padding:0;width:100%;text-align:left}.classList li{display:inline-flex;list-style:none;margin-right:1px;margin-bottom:5px;align-items:center;background:#202428;border-radius:4px;font-size:11px;color:#fff;padding:5px 7px}.classList li img{margin-right:5px}.showGlayout{display:flex;align-items:center;justify-content:space-between;width:100%;position:absolute;left:0;bottom:10px;background:#f8f9fe;padding:10px 8px;border-top:1px solid #f1f0f4;border-bottom:1px solid #f1f0f4}.showGlayout p{font-size:12px;font-weight:500;color:#777;margin-bottom:8px}.cstmSwitch{position:relative}.cstmSwitch input{display:none}.cstmSwitch label{position:relative;display:block;height:22px;width:45px;border:1px solid #5e72e3;border-radius:35px;cursor:pointer}.cstmSwitch label:before{content:"";position:absolute;left:1px;top:1px;height:18px;width:18px;background:#5e72e3;border-radius:50%;transition:all .2s ease-out}.cstmSwitch input:checked+label:before{left:24px}.showGlayout .btn-outline-secondary{border:1px solid #323439;color:#000;padding:1px 8px;font-size:15px}.showGlayout .btn-outline-secondary:hover,.showGlayout .btn-outline-secondary:focus{background:#5e72e3;color:#fff}@media screen and (min-width: 1025px){.menuLeftbtn,.menuRightbtn{display:none}}@media screen and (max-width: 1280px){.header{padding:10px 255px}}@media screen and (max-width: 1024px){.header{padding:10px 0}#builder-container{padding-left:10px;padding-right:10px}.menuLeftbtn{position:absolute;right:-27px;top:-1px;border:none;height:27px;width:27px;border-radius:0 5px 5px 0;background:#5e72e3;color:#fff}.leftAside{left:-261px;transition:all .2s ease-out}.leftAside.show{left:0}.leftAside.show .menuLeftbtn i{transform:rotate(180deg)}.menuRightbtn{position:absolute;left:-27px;top:-1px;border:none;height:27px;width:27px;border-radius:5px 0 0 5px;background:#5e72e3;color:#fff}.rightAside{right:-261px;transition:all .2s ease-out}.rightAside.show{right:0}.rightAside.show .menuRightbtn i{transform:rotate(180deg)}}@media screen and (max-width: 767px){.headerActions .btn span{display:none}}@media screen and (max-width: 600px){.adBox{display:none}.mainBuilder{padding:10px 8px}.footer{padding:0 10px}}@media screen and (max-width: 400px){.headerActions .btn{font-size:11px;margin-left:8px;padding:5px 10px}}.modal{display:none;position:fixed;z-index:99;padding-top:100px;left:0;top:0;width:100%;height:100%;overflow:auto;background-color:#000;background-color:#0006}.modal-content{background-color:#f5f5f5;margin:auto;border:1px solid #888;width:80%}.close{position:absolute;top:10px;right:15px;color:#ccc;font-size:28px;font-weight:700}.close:hover,.close:focus{color:#aaa;text-decoration:none;cursor:pointer}#previewFrame{width:100%;height:80vh;border:none;display:block;margin-left:auto;margin-right:auto}#previewOptions{display:flex;justify-content:center;align-items:center;padding:10px}#previewOptions .btn{background-color:#f5f5f5;color:#000;transition:all .3s ease;border:1px solid #ccc}#previewOptions .btn:hover{border-color:#aaa}#previewOptions .btn:focus{outline:none;border-color:#888}#builder-props-title{font-size:12px}body body{padding:15px!important}.helpText{font-size:13px;font-weight:400;color:#1e1e1e;margin:15px 0;display:flex;align-items:flex-start;flex-direction:column;padding:0 15px}.helpText a{margin-bottom:5px;transition:all .2s ease-out}.helpText p{font-size:13px;text-align:left;margin-bottom:10px;font-weight:400;color:#646464;line-height:17px}.helpText a:hover{color:#1e1e1e}.drop-indicator{display:none!important}.overlay{position:absolute;top:0;left:0;width:100%;height:100%;background-color:#00000080;z-index:99;display:none;justify-content:center;align-items:center;flex-direction:column}.spinner{width:50px;height:50px;border:4px solid #fff;border-top:4px solid #007bff;border-radius:50%;animation:spin 1s infinite linear}@keyframes spin{0%{transform:rotate(0)}to{transform:rotate(360deg)}}.formBox{display:flex;align-items:flex-start;flex-direction:column;width:100%!important}.formBox span,.form-body{width:100%}.formBox .form-header{font-size:12px}.formBox .form-group{margin-bottom:8px!important;width:100%}.formBox .form-group input{font-size:12px;width:100%;box-shadow:none!important}.formBox .btn-primary{font-size:12px}.innPagename{font-size:17px;font-weight:600;color:#1e1e1e}.cardImg{max-width:100%;margin-bottom:10px}.cmnBox{text-align:left;width:100%!important;background-color:transparent!important}.cmnTitle{font-size:12px;margin-bottom:5px}.cmnBox .accordion-body{font-size:12px}.fn-13{font-size:12px!important}.alert{padding:5px!important}.navbar-brand,.nav-link{font-size:12px}.heroBox{text-align:center}.heroBox h4{font-size:18px;text-align:center}.heroBox p{font-size:13px;text-align:center}.srvcBox h4{font-size:18px}.srvcBox p{font-size:13px}.srvcBox .tab-pane{font-size:13px;padding:10px}.portfolioBox .carousel-inner .carousel-item img{height:45px!important;width:45px!important;border-radius:50%!important;margin:0 auto}.portfolioBox .carousel-inner .carousel-item .carousel-caption{position:initial}.portfolioBox .carousel-inner .carousel-item .carousel-caption h5{font-size:13px}.portfolioBox .carousel-inner .carousel-item .carousel-caption p{font-size:12px}.cntrctBox{position:relative;background:#000;padding:10px}.cntrctBox video{position:absolute;left:0;top:0;height:100%;width:100%;opacity:.3;background-size:cover;object-fit:cover}.cntrctBoxinn{position:relative;z-index:1}.cntrctBoxinn .form-header{font-size:14px;color:#fff}.cntrctBoxinn input,.cntrctBoxinn textarea,.cntrctBoxinn .btn{font-size:12px}.footerTwo .text-muted{display:block;text-align:center;font-size:12px}::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{box-shadow:none}::-webkit-scrollbar-thumb{background-color:#d2d2d2;outline:none}.setClassList{display:inline-block;margin-top:10px}.setClassList a{font-size:12px}.editor-container,.CodeMirror{height:600px}.editor-container *{text-align:initial!important}.CodeMirror-line,.CodeMirror-cursors,.CodeMirror-selected{margin-left:20px!important}.add-page-list{margin-left:8px}.modal{z-index:99999!important}.bs-popover-auto{z-index:99999;font-size:11px}.btn.btn-primary{font-size:12px;font-weight:500}.alert{margin-bottom:0}.defModal .modal-header{padding:8px 16px;background-color:#ececec}.defModal .modal-header .btn-close{font-size:11px;box-shadow:none!important}.defModal .modal-header .modal-title{font-size:14px;font-weight:600}.defModal .modal-body label{font-size:12px;color:#494949}.defModal .modal-body input{font-size:12px;width:100%;box-shadow:none!important}.defModal .modal-footer{padding:8px 16px;justify-content:center}
+const Wt = `@import"https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap";:root{font-family:Poppins,sans-serif;line-height:1.5;font-weight:400;color-scheme:light dark;color:#ffffffde;background-color:#242424;font-synthesis:none;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-text-size-adjust:100%}a{font-weight:500;color:#646cff;text-decoration:inherit}a:hover{color:#535bf2}body{margin:0;display:flex;font-family:Poppins,sans-serif;padding-top:64px;text-align:left}input{text-align:left!important}h1{font-size:3.2em;line-height:1.1}#app{width:100%;margin:0 auto;text-align:center}.logo{height:6em;padding:1.5em;will-change:filter;transition:filter .3s}.logo:hover{filter:drop-shadow(0 0 2em #646cffaa)}.logo.vanilla:hover{filter:drop-shadow(0 0 2em #3178c6aa)}.card{padding:2em}.read-the-docs{color:#888}button{cursor:pointer;transition:border-color .25s}button:hover{border-color:#646cff}button:focus,button:focus-visible{outline:4px auto -webkit-focus-ring-color}@media (prefers-color-scheme: light){:root{color:#213547;background-color:#fff}a:hover{color:#747bff}button{background-color:#f9f9f9}}.example-parent{border:2px solid #DFA612;color:#000;display:flex;font-family:sans-serif;font-weight:700}.example-origin{flex-basis:100%;flex-grow:1;padding:10px}.draggable{background-color:#fbfbfb;font-weight:400;margin-bottom:5px;margin-top:5px;padding:10px;border:1px solid #ccc;position:relative}.cross-icon{color:red;cursor:pointer;display:none;position:absolute;top:0;right:5px;z-index:9;width:6px!important}.upButton{position:absolute;left:5px;top:0;font-size:20px;cursor:pointer;display:none;z-index:9}.downButton{position:absolute;left:5px;bottom:0;font-size:20px;cursor:pointer;display:none;z-index:9}.draggable:hover{border-color:#5e72e3}.component:hover .cross-icon,.component:hover .upButton,.component:hover .downButton{display:block}.dropzone{background-color:#eaeaea;flex-basis:100%;flex-grow:1;margin-bottom:10px;margin-top:10px;padding:10px}.dropzone-elem{margin-bottom:0;margin-top:0;padding:4px;font-size:11px}.innCol{background-color:#5d73e338}.component{margin-bottom:10px;margin-top:10px;padding:10px;position:relative;border:1px solid transparent!important}.ql-toolbar.ql-snow .ql-formats{margin-right:0!important}#builder-navigation{border:1px solid red;margin:1px}#builder-log{border:1px solid green;margin:1px}#builder-container{margin:1px;padding-left:263px;padding-right:257px;height:calc(100vh - 67px);overflow-y:auto}.mainBuilder{border:1px solid #ecedef;padding:10px 25px;min-height:100%;position:relative}.addPage{display:flex;align-items:center;justify-content:center;margin-bottom:15px}.addPage button{color:#cacfdb;font-size:24px;border:none!important;padding:0}.addPage button:hover{color:#5d73e3}#builder-components{margin:1px}.border-dotted{border-style:dotted!important}.border-props{border:1px solid #5e72e3!important}.header{position:fixed;left:0;top:0;width:100%;z-index:9;background:#f8f9fd;padding:10px 255px}.innerHeader{display:flex;align-items:center;justify-content:center}.adsInput{background:transparent;border:none;border-bottom:1px solid #eff1f4;outline:none!important;font-size:14px;color:#000}.pageName{font-size:14px;color:#000;font-weight:500}.headerActions{display:flex;align-items:center}.headerActions .btn{font-size:13px;font-weight:600;margin-left:10px;padding:5px 10px}button.btnDefault{background:#21262a;border-color:#21262a}button.btnDefault:hover,button.btnDefault:focus{background:#454d54!important;border-color:#454d54!important}button.btnRestore,.btn-primary{background:#5d73e3;border-color:#5d73e3}button.btnRestore:hover,button.btnRestore:focus,.btn-primary:hover,.btn-primary:focus{background:#4458bf!important;border-color:#4458bf!important}.leftAside{position:fixed;left:5px;top:65px;border:1px solid #ecedef;background:#fff;width:260px;height:calc(100vh - 65px);z-index:9}.defTabs{margin-top:-1px;margin-bottom:5px}.defTabs li button{border-radius:0!important;font-size:12px;font-weight:500;padding:7px;color:#9097ae}.defTabs li button:hover,.defTabs li button.active{color:#5d73e3}.defTabs li:first-child button{border-left:none!important}.defTabs.pagesTabs li:first-child button{border-left:1px solid transparent!important}.defTabs.pagesTabs li:first-child button:hover,.defTabs.pagesTabs li button.active{border-left:1px solid #dee2e6!important}.pagesTabs{margin-bottom:0!important;padding-left:1px}.accordionCustom .accordion-button{font-size:12px;font-weight:500;color:#7c7979;padding-left:32px;box-shadow:none!important;border-radius:0!important}.accordionCustom .accordion-item{border-radius:0!important;border-left:none;border-right:none}.accordionCustom .accordion-button:after{position:absolute;left:10px;top:16px;height:15px;width:15px;background-size:15px}.accordionCustom .accordion-button[aria-expanded=true]{background:#5d73e31c!important}.forNumbers{position:absolute;right:10px;top:14px;font-size:10px;font-weight:500;color:#7c7979;border:1px solid #bababa;height:20px;width:20px;border-radius:50%;display:flex;align-items:center;justify-content:center}.betaText{display:inline-block;font-size:10px;background:#000;color:#fff;padding:3px;border-radius:4px;margin-left:5px}.accordionCustom .accordion-body{padding:5px}.forPdng{padding:25px 10px 10px;left:0;bottom:0;width:100%}.moreOption{display:flex;align-items:center;border:1px dashed #efefef;background:#fff;border-radius:4px;padding:6px;transition:all .2s ease-out}.moreOption:hover{border:1px dashed #5d73e3}.moreOption img{margin-right:10px}.moreOption h6{font-size:11px;text-align:left;margin:0 0 2px;color:#828282}.moreOption p{font-size:11px;text-align:left;margin:0;color:#5d73e3}.card{width:100%!important}.card .card-header{font-size:12px;padding:0 0 5px}.card .card-body{padding:10px 5px}.card .card-body .card-title{font-size:13px}.card .card-body p,.card .card-body a{font-size:12px}.forScroll{overflow-y:auto;position:relative}.dropzone{border-radius:10px;border:2px dashed #ccc;min-height:300px}.drpznBttm{font-size:13px;color:#6a6a6a;font-weight:400;margin-top:50px}.drpznBttm img{margin-right:1px;transform:rotate(180deg)}.footer{position:absolute;left:0;bottom:5px;width:100%;display:flex;align-items:center;justify-content:space-between;padding:0 20px}.footer p{margin:0;font-size:13px;color:#6a6a6a;font-weight:500}.footerLinks{display:flex;align-items:center}.footerLinks a{font-size:13px;color:#6a6a6a;font-weight:500;margin-left:30px}.rightAside{position:fixed;right:-1px;top:65px;border:1px solid #ecedef;background:#fff;width:260px;height:calc(100vh - 65px);z-index:9}.mainEditor{display:flex;flex-direction:column;align-items:flex-start;padding:15px}.divName{font-size:12px;font-weight:500;color:#454545;margin-bottom:15px}.divName-2{font-size:12px;font-weight:500;color:#454545;margin-bottom:6px;margin-top:15px}.classesName{font-size:13px;font-weight:500;color:#777;margin-bottom:5px}.newClass{margin-bottom:7px;width:100%}.newClass .form-control,.newClass-2 .form-control{font-size:12px;width:100%;box-shadow:none!important}.newClass .form-control:focus{border-color:#5d73e3!important}#builder-props,#builder-style,#builder-class{width:100%}.classList{margin:0;padding:0;width:100%;text-align:left}.classList li{display:inline-flex;list-style:none;margin-right:1px;margin-bottom:5px;align-items:center;background:#202428;border-radius:4px;font-size:11px;color:#fff;padding:5px 7px}.classList li img{margin-right:5px}.showGlayout{display:flex;align-items:center;justify-content:space-between;width:100%;position:absolute;left:0;bottom:10px;background:#f8f9fe;padding:10px 8px;border-top:1px solid #f1f0f4;border-bottom:1px solid #f1f0f4}.showGlayout p{font-size:12px;font-weight:500;color:#777;margin-bottom:8px}.cstmSwitch{position:relative}.cstmSwitch input{display:none}.cstmSwitch label{position:relative;display:block;height:22px;width:45px;border:1px solid #5e72e3;border-radius:35px;cursor:pointer}.cstmSwitch label:before{content:"";position:absolute;left:1px;top:1px;height:18px;width:18px;background:#5e72e3;border-radius:50%;transition:all .2s ease-out}.cstmSwitch input:checked+label:before{left:24px}.showGlayout .btn-outline-secondary{border:1px solid #323439;color:#000;padding:1px 8px;font-size:15px}.showGlayout .btn-outline-secondary:hover,.showGlayout .btn-outline-secondary:focus{background:#5e72e3;color:#fff}@media screen and (min-width: 1025px){.menuLeftbtn,.menuRightbtn{display:none}}@media screen and (max-width: 1280px){.header{padding:10px 255px}}@media screen and (max-width: 1024px){.header{padding:10px 0}#builder-container{padding-left:10px;padding-right:10px}.menuLeftbtn{position:absolute;right:-27px;top:-1px;border:none;height:27px;width:27px;border-radius:0 5px 5px 0;background:#5e72e3;color:#fff}.leftAside{left:-261px;transition:all .2s ease-out}.leftAside.show{left:0}.leftAside.show .menuLeftbtn i{transform:rotate(180deg)}.menuRightbtn{position:absolute;left:-27px;top:-1px;border:none;height:27px;width:27px;border-radius:5px 0 0 5px;background:#5e72e3;color:#fff}.rightAside{right:-261px;transition:all .2s ease-out}.rightAside.show{right:0}.rightAside.show .menuRightbtn i{transform:rotate(180deg)}}@media screen and (max-width: 767px){.headerActions .btn span{display:none}}@media screen and (max-width: 600px){.adBox{display:none}.mainBuilder{padding:10px 8px}.footer{padding:0 10px}}@media screen and (max-width: 400px){.headerActions .btn{font-size:11px;margin-left:8px;padding:5px 10px}}.modal{display:none;position:fixed;z-index:99;padding-top:100px;left:0;top:0;width:100%;height:100%;overflow:auto;background-color:#000;background-color:#0006}.modal-content{background-color:#f5f5f5;margin:auto;border:1px solid #888;width:80%}.close{position:absolute;top:10px;right:15px;color:#ccc;font-size:28px;font-weight:700}.close:hover,.close:focus{color:#aaa;text-decoration:none;cursor:pointer}#previewFrame{width:100%;height:80vh;border:none;display:block;margin-left:auto;margin-right:auto}#previewOptions{display:flex;justify-content:center;align-items:center;padding:10px}#previewOptions .btn{background-color:#f5f5f5;color:#000;transition:all .3s ease;border:1px solid #ccc}#previewOptions .btn:hover{border-color:#aaa}#previewOptions .btn:focus{outline:none;border-color:#888}#builder-props-title{font-size:12px}body body{padding:15px!important}.helpText{font-size:13px;font-weight:400;color:#1e1e1e;margin:15px 0;display:flex;align-items:flex-start;flex-direction:column;padding:0 15px}.helpText a{margin-bottom:5px;transition:all .2s ease-out}.helpText p{font-size:13px;text-align:left;margin-bottom:10px;font-weight:400;color:#646464;line-height:17px}.helpText a:hover{color:#1e1e1e}.drop-indicator{display:none!important}.overlay{position:absolute;top:0;left:0;width:100%;height:100%;background-color:#00000080;z-index:99;display:none;justify-content:center;align-items:center;flex-direction:column}.spinner{width:50px;height:50px;border:4px solid #fff;border-top:4px solid #007bff;border-radius:50%;animation:spin 1s infinite linear}@keyframes spin{0%{transform:rotate(0)}to{transform:rotate(360deg)}}.formBox{display:flex;align-items:flex-start;flex-direction:column;width:100%!important}.formBox span,.form-body{width:100%}.formBox .form-header{font-size:12px}.formBox .form-group{margin-bottom:8px!important;width:100%}.formBox .form-group input{font-size:12px;width:100%;box-shadow:none!important}.formBox .btn-primary{font-size:12px}.innPagename{font-size:17px;font-weight:600;color:#1e1e1e}.cardImg{max-width:100%;margin-bottom:10px}.cmnBox{text-align:left;width:100%!important;background-color:transparent!important}.cmnTitle{font-size:12px;margin-bottom:5px}.cmnBox .accordion-body{font-size:12px}.fn-13{font-size:12px!important}.alert{padding:5px!important}.navbar-brand,.nav-link{font-size:12px}.heroBox{text-align:center}.heroBox h4{font-size:18px;text-align:center}.heroBox p{font-size:13px;text-align:center}.srvcBox h4{font-size:18px}.srvcBox p{font-size:13px}.srvcBox .tab-pane{font-size:13px;padding:10px}.portfolioBox .carousel-inner .carousel-item img{height:45px!important;width:45px!important;border-radius:50%!important;margin:0 auto}.portfolioBox .carousel-inner .carousel-item .carousel-caption{position:initial}.portfolioBox .carousel-inner .carousel-item .carousel-caption h5{font-size:13px}.portfolioBox .carousel-inner .carousel-item .carousel-caption p{font-size:12px}.cntrctBox{position:relative;background:#000;padding:10px}.cntrctBox video{position:absolute;left:0;top:0;height:100%;width:100%;opacity:.3;background-size:cover;object-fit:cover}.cntrctBoxinn{position:relative;z-index:1}.cntrctBoxinn .form-header{font-size:14px;color:#fff}.cntrctBoxinn input,.cntrctBoxinn textarea,.cntrctBoxinn .btn{font-size:12px}.footerTwo .text-muted{display:block;text-align:center;font-size:12px}::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{box-shadow:none}::-webkit-scrollbar-thumb{background-color:#d2d2d2;outline:none}.setClassList{display:inline-block;margin-top:10px}.setClassList a{font-size:12px}.editor-container,.CodeMirror{height:600px}.editor-container *{text-align:initial!important}.CodeMirror-line,.CodeMirror-cursors,.CodeMirror-selected{margin-left:20px!important}.add-page-list{margin-left:8px}.modal{z-index:99999!important}.bs-popover-auto{z-index:99999;font-size:11px}.btn.btn-primary{font-size:12px;font-weight:500}.alert{margin-bottom:0}.defModal .modal-header{padding:8px 16px;background-color:#ececec}.defModal .modal-header .btn-close{font-size:11px;box-shadow:none!important}.defModal .modal-header .modal-title{font-size:14px;font-weight:600}.defModal .modal-body label{font-size:12px;color:#494949}.defModal .modal-body input{font-size:12px;width:100%;box-shadow:none!important}.defModal .modal-footer{padding:8px 16px;justify-content:center}
 `;
-var xt = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : typeof global < "u" ? global : typeof self < "u" ? self : {};
-function he(z) {
+var vt = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : typeof global < "u" ? global : typeof self < "u" ? self : {};
+function ce(z) {
   return z && z.__esModule && Object.prototype.hasOwnProperty.call(z, "default") ? z.default : z;
 }
-function kt(z) {
+function xt(z) {
   throw new Error('Could not dynamically require "' + z + '". Please configure the dynamicRequireTargets or/and ignoreDynamicRequires option of @rollup/plugin-commonjs appropriately for this require call to work.');
 }
-var Gt = { exports: {} };
+var qt = { exports: {} };
 /*!
 
 JSZip v3.10.1 - A JavaScript class for generating and reading zip files
@@ -252,7 +249,7 @@ Dual licenced under the MIT license or GPLv3. See https://raw.github.com/Stuk/js
 JSZip uses the library pako released under the MIT license :
 https://github.com/nodeca/pako/blob/main/LICENSE
 */
-(function(z, I) {
+(function(z, A) {
   (function(i) {
     z.exports = i();
   })(function() {
@@ -260,7 +257,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       function a(g, _) {
         if (!u[g]) {
           if (!k[g]) {
-            var b = typeof kt == "function" && kt;
+            var b = typeof xt == "function" && xt;
             if (!_ && b)
               return b(g, !0);
             if (r)
@@ -276,7 +273,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
         }
         return u[g].exports;
       }
-      for (var r = typeof kt == "function" && kt, d = 0; d < n.length; d++)
+      for (var r = typeof xt == "function" && xt, d = 0; d < n.length; d++)
         a(n[d]);
       return a;
     }({ 1: [function(i, k, u) {
@@ -381,8 +378,8 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       function a(s, h, o, f, l, m) {
         var w, S, C = s.file, P = s.compression, L = m !== g.utf8encode, U = r.transformTo("string", m(C.name)), B = r.transformTo("string", g.utf8encode(C.name)), W = C.comment, Y = r.transformTo("string", m(W)), v = r.transformTo("string", g.utf8encode(W)), N = B.length !== C.name.length, e = v.length !== W.length, R = "", Q = "", j = "", tt = C.dir, $ = C.date, X = { crc32: 0, compressedSize: 0, uncompressedSize: 0 };
         h && !o || (X.crc32 = s.crc32, X.compressedSize = s.compressedSize, X.uncompressedSize = s.uncompressedSize);
-        var A = 0;
-        h && (A |= 8), L || !N && !e || (A |= 2048);
+        var I = 0;
+        h && (I |= 8), L || !N && !e || (I |= 2048);
         var T = 0, V = 0;
         tt && (T |= 16), l === "UNIX" ? (V = 798, T |= function(q, ot) {
           var dt = q;
@@ -392,7 +389,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
         }(C.dosPermissions)), w = $.getUTCHours(), w <<= 6, w |= $.getUTCMinutes(), w <<= 5, w |= $.getUTCSeconds() / 2, S = $.getUTCFullYear() - 1980, S <<= 4, S |= $.getUTCMonth() + 1, S <<= 5, S |= $.getUTCDate(), N && (Q = n(1, 1) + n(_(U), 4) + B, R += "up" + n(Q.length, 2) + Q), e && (j = n(1, 1) + n(_(Y), 4) + v, R += "uc" + n(j.length, 2) + j);
         var G = "";
         return G += `
-\0`, G += n(A, 2), G += P.magic, G += n(w, 2), G += n(S, 2), G += n(X.crc32, 4), G += n(X.compressedSize, 4), G += n(X.uncompressedSize, 4), G += n(U.length, 2), G += n(R.length, 2), { fileRecord: b.LOCAL_FILE_HEADER + G + U + R, dirRecord: b.CENTRAL_FILE_HEADER + n(V, 2) + G + n(Y.length, 2) + "\0\0\0\0" + n(T, 4) + n(f, 4) + U + R + Y };
+\0`, G += n(I, 2), G += P.magic, G += n(w, 2), G += n(S, 2), G += n(X.crc32, 4), G += n(X.compressedSize, 4), G += n(X.uncompressedSize, 4), G += n(U.length, 2), G += n(R.length, 2), { fileRecord: b.LOCAL_FILE_HEADER + G + U + R, dirRecord: b.CENTRAL_FILE_HEADER + n(V, 2) + G + n(Y.length, 2) + "\0\0\0\0" + n(T, 4) + n(f, 4) + U + R + Y };
       }
       var r = i("../utils"), d = i("../stream/GenericWorker"), g = i("../utf8"), _ = i("../crc32"), b = i("../signature");
       function y(s, h, o, f) {
@@ -1412,7 +1409,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
         k.exports = function(o) {
           s.push(o) !== 1 || r || a();
         };
-      }).call(this, typeof xt < "u" ? xt : typeof self < "u" ? self : typeof window < "u" ? window : {});
+      }).call(this, typeof vt < "u" ? vt : typeof self < "u" ? self : typeof window < "u" ? window : {});
     }, {}], 37: [function(i, k, u) {
       var n = i("immediate");
       function a() {
@@ -1765,12 +1762,12 @@ https://github.com/nodeca/pako/blob/main/LICENSE
         for (var D = t.length; 0 <= --D; )
           t[D] = 0;
       }
-      function A(t) {
+      function I(t) {
         var D = t.state, O = D.pending;
         O > t.avail_out && (O = t.avail_out), O !== 0 && (a.arraySet(t.output, D.pending_buf, D.pending_out, O, t.next_out), t.next_out += O, D.pending_out += O, t.total_out += O, t.avail_out -= O, D.pending -= O, D.pending === 0 && (D.pending_out = 0));
       }
       function T(t, D) {
-        r._tr_flush_block(t, 0 <= t.block_start ? t.block_start : -1, t.strstart - t.block_start, D), t.block_start = t.strstart, A(t.strm);
+        r._tr_flush_block(t, 0 <= t.block_start ? t.block_start : -1, t.strstart - t.block_start, D), t.block_start = t.strstart, I(t.strm);
       }
       function V(t, D) {
         t.pending_buf[t.pending++] = D;
@@ -1866,7 +1863,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
         var D;
         return t && t.state ? (t.total_in = t.total_out = 0, t.data_type = l, (D = t.state).pending = 0, D.pending_out = 0, D.wrap < 0 && (D.wrap = -D.wrap), D.status = D.wrap ? v : N, t.adler = D.wrap === 2 ? 0 : 1, D.last_flush = b, r._tr_init(D), s) : tt(t, h);
       }
-      function ht(t) {
+      function ft(t) {
         var D = at(t);
         return D === s && function(O) {
           O.window_size = 2 * O.w_size, X(O.head), O.max_lazy_match = n[O.level].max_lazy, O.good_match = n[O.level].good_length, O.nice_match = n[O.level].nice_length, O.max_chain_length = n[O.level].max_chain, O.strstart = 0, O.block_start = 0, O.lookahead = 0, O.insert = 0, O.match_length = O.prev_length = B - 1, O.match_available = 0, O.ins_h = 0;
@@ -1880,7 +1877,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
           return tt(t, h);
         p === 8 && (p = 9);
         var M = new lt();
-        return (t.state = M).strm = t, M.wrap = F, M.gzhead = null, M.w_bits = p, M.w_size = 1 << M.w_bits, M.w_mask = M.w_size - 1, M.hash_bits = c + 7, M.hash_size = 1 << M.hash_bits, M.hash_mask = M.hash_size - 1, M.hash_shift = ~~((M.hash_bits + B - 1) / B), M.window = new a.Buf8(2 * M.w_size), M.head = new a.Buf16(M.hash_size), M.prev = new a.Buf16(M.w_size), M.lit_bufsize = 1 << c + 6, M.pending_buf_size = 4 * M.lit_bufsize, M.pending_buf = new a.Buf8(M.pending_buf_size), M.d_buf = 1 * M.lit_bufsize, M.l_buf = 3 * M.lit_bufsize, M.level = D, M.strategy = x, M.method = O, ht(t);
+        return (t.state = M).strm = t, M.wrap = F, M.gzhead = null, M.w_bits = p, M.w_size = 1 << M.w_bits, M.w_mask = M.w_size - 1, M.hash_bits = c + 7, M.hash_size = 1 << M.hash_bits, M.hash_mask = M.hash_size - 1, M.hash_shift = ~~((M.hash_bits + B - 1) / B), M.window = new a.Buf8(2 * M.w_size), M.head = new a.Buf16(M.hash_size), M.prev = new a.Buf16(M.w_size), M.lit_bufsize = 1 << c + 6, M.pending_buf_size = 4 * M.lit_bufsize, M.pending_buf = new a.Buf8(M.pending_buf_size), M.d_buf = 1 * M.lit_bufsize, M.l_buf = 3 * M.lit_bufsize, M.level = D, M.strategy = x, M.method = O, ft(t);
       }
       n = [new nt(0, 0, 0, 0, function(t, D) {
         var O = 65535;
@@ -1899,7 +1896,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
         return t.insert = 0, D === y ? (T(t, !0), t.strm.avail_out === 0 ? Q : j) : (t.strstart > t.block_start && (T(t, !1), t.strm.avail_out), e);
       }), new nt(4, 4, 8, 4, dt), new nt(4, 5, 16, 8, dt), new nt(4, 6, 32, 32, dt), new nt(4, 4, 16, 16, et), new nt(8, 16, 32, 32, et), new nt(8, 16, 128, 128, et), new nt(8, 32, 128, 256, et), new nt(32, 128, 258, 1024, et), new nt(32, 258, 258, 4096, et)], u.deflateInit = function(t, D) {
         return ut(t, D, m, 15, 8, 0);
-      }, u.deflateInit2 = ut, u.deflateReset = ht, u.deflateResetKeep = at, u.deflateSetHeader = function(t, D) {
+      }, u.deflateInit2 = ut, u.deflateReset = ft, u.deflateResetKeep = at, u.deflateSetHeader = function(t, D) {
         return t && t.state ? t.state.wrap !== 2 ? h : (t.state.gzhead = D, s) : h;
       }, u.deflate = function(t, D) {
         var O, p, c, x;
@@ -1916,7 +1913,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
           }
         if (p.status === 69)
           if (p.gzhead.extra) {
-            for (c = p.pending; p.gzindex < (65535 & p.gzhead.extra.length) && (p.pending !== p.pending_buf_size || (p.gzhead.hcrc && p.pending > c && (t.adler = g(t.adler, p.pending_buf, p.pending - c, c)), A(t), c = p.pending, p.pending !== p.pending_buf_size)); )
+            for (c = p.pending; p.gzindex < (65535 & p.gzhead.extra.length) && (p.pending !== p.pending_buf_size || (p.gzhead.hcrc && p.pending > c && (t.adler = g(t.adler, p.pending_buf, p.pending - c, c)), I(t), c = p.pending, p.pending !== p.pending_buf_size)); )
               V(p, 255 & p.gzhead.extra[p.gzindex]), p.gzindex++;
             p.gzhead.hcrc && p.pending > c && (t.adler = g(t.adler, p.pending_buf, p.pending - c, c)), p.gzindex === p.gzhead.extra.length && (p.gzindex = 0, p.status = 73);
           } else
@@ -1925,7 +1922,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
           if (p.gzhead.name) {
             c = p.pending;
             do {
-              if (p.pending === p.pending_buf_size && (p.gzhead.hcrc && p.pending > c && (t.adler = g(t.adler, p.pending_buf, p.pending - c, c)), A(t), c = p.pending, p.pending === p.pending_buf_size)) {
+              if (p.pending === p.pending_buf_size && (p.gzhead.hcrc && p.pending > c && (t.adler = g(t.adler, p.pending_buf, p.pending - c, c)), I(t), c = p.pending, p.pending === p.pending_buf_size)) {
                 x = 1;
                 break;
               }
@@ -1938,7 +1935,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
           if (p.gzhead.comment) {
             c = p.pending;
             do {
-              if (p.pending === p.pending_buf_size && (p.gzhead.hcrc && p.pending > c && (t.adler = g(t.adler, p.pending_buf, p.pending - c, c)), A(t), c = p.pending, p.pending === p.pending_buf_size)) {
+              if (p.pending === p.pending_buf_size && (p.gzhead.hcrc && p.pending > c && (t.adler = g(t.adler, p.pending_buf, p.pending - c, c)), I(t), c = p.pending, p.pending === p.pending_buf_size)) {
                 x = 1;
                 break;
               }
@@ -1947,8 +1944,8 @@ https://github.com/nodeca/pako/blob/main/LICENSE
             p.gzhead.hcrc && p.pending > c && (t.adler = g(t.adler, p.pending_buf, p.pending - c, c)), x === 0 && (p.status = 103);
           } else
             p.status = 103;
-        if (p.status === 103 && (p.gzhead.hcrc ? (p.pending + 2 > p.pending_buf_size && A(t), p.pending + 2 <= p.pending_buf_size && (V(p, 255 & t.adler), V(p, t.adler >> 8 & 255), t.adler = 0, p.status = N)) : p.status = N), p.pending !== 0) {
-          if (A(t), t.avail_out === 0)
+        if (p.status === 103 && (p.gzhead.hcrc ? (p.pending + 2 > p.pending_buf_size && I(t), p.pending + 2 <= p.pending_buf_size && (V(p, 255 & t.adler), V(p, t.adler >> 8 & 255), t.adler = 0, p.status = N)) : p.status = N), p.pending !== 0) {
+          if (I(t), t.avail_out === 0)
             return p.last_flush = -1, s;
         } else if (t.avail_in === 0 && $(D) <= $(O) && D !== y)
           return tt(t, -5);
@@ -1988,10 +1985,10 @@ https://github.com/nodeca/pako/blob/main/LICENSE
           }(p, D) : n[p.level].func(p, D);
           if (M !== Q && M !== j || (p.status = 666), M === e || M === Q)
             return t.avail_out === 0 && (p.last_flush = -1), s;
-          if (M === R && (D === 1 ? r._tr_align(p) : D !== 5 && (r._tr_stored_block(p, 0, 0, !1), D === 3 && (X(p.head), p.lookahead === 0 && (p.strstart = 0, p.block_start = 0, p.insert = 0))), A(t), t.avail_out === 0))
+          if (M === R && (D === 1 ? r._tr_align(p) : D !== 5 && (r._tr_stored_block(p, 0, 0, !1), D === 3 && (X(p.head), p.lookahead === 0 && (p.strstart = 0, p.block_start = 0, p.insert = 0))), I(t), t.avail_out === 0))
             return p.last_flush = -1, s;
         }
-        return D !== y ? s : p.wrap <= 0 ? 1 : (p.wrap === 2 ? (V(p, 255 & t.adler), V(p, t.adler >> 8 & 255), V(p, t.adler >> 16 & 255), V(p, t.adler >> 24 & 255), V(p, 255 & t.total_in), V(p, t.total_in >> 8 & 255), V(p, t.total_in >> 16 & 255), V(p, t.total_in >> 24 & 255)) : (G(p, t.adler >>> 16), G(p, 65535 & t.adler)), A(t), 0 < p.wrap && (p.wrap = -p.wrap), p.pending !== 0 ? s : 1);
+        return D !== y ? s : p.wrap <= 0 ? 1 : (p.wrap === 2 ? (V(p, 255 & t.adler), V(p, t.adler >> 8 & 255), V(p, t.adler >> 16 & 255), V(p, t.adler >> 24 & 255), V(p, 255 & t.total_in), V(p, t.total_in >> 8 & 255), V(p, t.total_in >> 16 & 255), V(p, t.total_in >> 24 & 255)) : (G(p, t.adler >>> 16), G(p, 65535 & t.adler)), I(t), 0 < p.wrap && (p.wrap = -p.wrap), p.pending !== 0 ? s : 1);
       }, u.deflateEnd = function(t) {
         var D;
         return t && t.state ? (D = t.state.status) !== v && D !== 69 && D !== 73 && D !== 91 && D !== 103 && D !== N && D !== 666 ? tt(t, h) : (t.state = null, D === N ? tt(t, -3) : s) : h;
@@ -2140,10 +2137,10 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       u.inflateReset = S, u.inflateReset2 = C, u.inflateResetKeep = w, u.inflateInit = function(v) {
         return P(v, 15);
       }, u.inflateInit2 = P, u.inflate = function(v, N) {
-        var e, R, Q, j, tt, $, X, A, T, V, G, q, ot, dt, et, nt, lt, at, ht, ut, t, D, O, p, c = 0, x = new n.Buf8(4), F = [16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15];
+        var e, R, Q, j, tt, $, X, I, T, V, G, q, ot, dt, et, nt, lt, at, ft, ut, t, D, O, p, c = 0, x = new n.Buf8(4), F = [16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15];
         if (!v || !v.state || !v.output || !v.input && v.avail_in !== 0)
           return s;
-        (e = v.state).mode === 12 && (e.mode = 13), tt = v.next_out, Q = v.output, X = v.avail_out, j = v.next_in, R = v.input, $ = v.avail_in, A = e.hold, T = e.bits, V = $, G = X, D = y;
+        (e = v.state).mode === 12 && (e.mode = 13), tt = v.next_out, Q = v.output, X = v.avail_out, j = v.next_in, R = v.input, $ = v.avail_in, I = e.hold, T = e.bits, V = $, G = X, D = y;
         t:
           for (; ; )
             switch (e.mode) {
@@ -2155,35 +2152,35 @@ https://github.com/nodeca/pako/blob/main/LICENSE
                 for (; T < 16; ) {
                   if ($ === 0)
                     break t;
-                  $--, A += R[j++] << T, T += 8;
+                  $--, I += R[j++] << T, T += 8;
                 }
-                if (2 & e.wrap && A === 35615) {
-                  x[e.check = 0] = 255 & A, x[1] = A >>> 8 & 255, e.check = r(e.check, x, 2, 0), T = A = 0, e.mode = 2;
+                if (2 & e.wrap && I === 35615) {
+                  x[e.check = 0] = 255 & I, x[1] = I >>> 8 & 255, e.check = r(e.check, x, 2, 0), T = I = 0, e.mode = 2;
                   break;
                 }
-                if (e.flags = 0, e.head && (e.head.done = !1), !(1 & e.wrap) || (((255 & A) << 8) + (A >> 8)) % 31) {
+                if (e.flags = 0, e.head && (e.head.done = !1), !(1 & e.wrap) || (((255 & I) << 8) + (I >> 8)) % 31) {
                   v.msg = "incorrect header check", e.mode = 30;
                   break;
                 }
-                if ((15 & A) != 8) {
+                if ((15 & I) != 8) {
                   v.msg = "unknown compression method", e.mode = 30;
                   break;
                 }
-                if (T -= 4, t = 8 + (15 & (A >>>= 4)), e.wbits === 0)
+                if (T -= 4, t = 8 + (15 & (I >>>= 4)), e.wbits === 0)
                   e.wbits = t;
                 else if (t > e.wbits) {
                   v.msg = "invalid window size", e.mode = 30;
                   break;
                 }
-                e.dmax = 1 << t, v.adler = e.check = 1, e.mode = 512 & A ? 10 : 12, T = A = 0;
+                e.dmax = 1 << t, v.adler = e.check = 1, e.mode = 512 & I ? 10 : 12, T = I = 0;
                 break;
               case 2:
                 for (; T < 16; ) {
                   if ($ === 0)
                     break t;
-                  $--, A += R[j++] << T, T += 8;
+                  $--, I += R[j++] << T, T += 8;
                 }
-                if (e.flags = A, (255 & e.flags) != 8) {
+                if (e.flags = I, (255 & e.flags) != 8) {
                   v.msg = "unknown compression method", e.mode = 30;
                   break;
                 }
@@ -2191,29 +2188,29 @@ https://github.com/nodeca/pako/blob/main/LICENSE
                   v.msg = "unknown header flags set", e.mode = 30;
                   break;
                 }
-                e.head && (e.head.text = A >> 8 & 1), 512 & e.flags && (x[0] = 255 & A, x[1] = A >>> 8 & 255, e.check = r(e.check, x, 2, 0)), T = A = 0, e.mode = 3;
+                e.head && (e.head.text = I >> 8 & 1), 512 & e.flags && (x[0] = 255 & I, x[1] = I >>> 8 & 255, e.check = r(e.check, x, 2, 0)), T = I = 0, e.mode = 3;
               case 3:
                 for (; T < 32; ) {
                   if ($ === 0)
                     break t;
-                  $--, A += R[j++] << T, T += 8;
+                  $--, I += R[j++] << T, T += 8;
                 }
-                e.head && (e.head.time = A), 512 & e.flags && (x[0] = 255 & A, x[1] = A >>> 8 & 255, x[2] = A >>> 16 & 255, x[3] = A >>> 24 & 255, e.check = r(e.check, x, 4, 0)), T = A = 0, e.mode = 4;
+                e.head && (e.head.time = I), 512 & e.flags && (x[0] = 255 & I, x[1] = I >>> 8 & 255, x[2] = I >>> 16 & 255, x[3] = I >>> 24 & 255, e.check = r(e.check, x, 4, 0)), T = I = 0, e.mode = 4;
               case 4:
                 for (; T < 16; ) {
                   if ($ === 0)
                     break t;
-                  $--, A += R[j++] << T, T += 8;
+                  $--, I += R[j++] << T, T += 8;
                 }
-                e.head && (e.head.xflags = 255 & A, e.head.os = A >> 8), 512 & e.flags && (x[0] = 255 & A, x[1] = A >>> 8 & 255, e.check = r(e.check, x, 2, 0)), T = A = 0, e.mode = 5;
+                e.head && (e.head.xflags = 255 & I, e.head.os = I >> 8), 512 & e.flags && (x[0] = 255 & I, x[1] = I >>> 8 & 255, e.check = r(e.check, x, 2, 0)), T = I = 0, e.mode = 5;
               case 5:
                 if (1024 & e.flags) {
                   for (; T < 16; ) {
                     if ($ === 0)
                       break t;
-                    $--, A += R[j++] << T, T += 8;
+                    $--, I += R[j++] << T, T += 8;
                   }
-                  e.length = A, e.head && (e.head.extra_len = A), 512 & e.flags && (x[0] = 255 & A, x[1] = A >>> 8 & 255, e.check = r(e.check, x, 2, 0)), T = A = 0;
+                  e.length = I, e.head && (e.head.extra_len = I), 512 & e.flags && (x[0] = 255 & I, x[1] = I >>> 8 & 255, e.check = r(e.check, x, 2, 0)), T = I = 0;
                 } else
                   e.head && (e.head.extra = null);
                 e.mode = 6;
@@ -2248,13 +2245,13 @@ https://github.com/nodeca/pako/blob/main/LICENSE
                   for (; T < 16; ) {
                     if ($ === 0)
                       break t;
-                    $--, A += R[j++] << T, T += 8;
+                    $--, I += R[j++] << T, T += 8;
                   }
-                  if (A !== (65535 & e.check)) {
+                  if (I !== (65535 & e.check)) {
                     v.msg = "header crc mismatch", e.mode = 30;
                     break;
                   }
-                  T = A = 0;
+                  T = I = 0;
                 }
                 e.head && (e.head.hcrc = e.flags >> 9 & 1, e.head.done = !0), v.adler = e.check = 0, e.mode = 12;
                 break;
@@ -2262,34 +2259,34 @@ https://github.com/nodeca/pako/blob/main/LICENSE
                 for (; T < 32; ) {
                   if ($ === 0)
                     break t;
-                  $--, A += R[j++] << T, T += 8;
+                  $--, I += R[j++] << T, T += 8;
                 }
-                v.adler = e.check = l(A), T = A = 0, e.mode = 11;
+                v.adler = e.check = l(I), T = I = 0, e.mode = 11;
               case 11:
                 if (e.havedict === 0)
-                  return v.next_out = tt, v.avail_out = X, v.next_in = j, v.avail_in = $, e.hold = A, e.bits = T, 2;
+                  return v.next_out = tt, v.avail_out = X, v.next_in = j, v.avail_in = $, e.hold = I, e.bits = T, 2;
                 v.adler = e.check = 1, e.mode = 12;
               case 12:
                 if (N === 5 || N === 6)
                   break t;
               case 13:
                 if (e.last) {
-                  A >>>= 7 & T, T -= 7 & T, e.mode = 27;
+                  I >>>= 7 & T, T -= 7 & T, e.mode = 27;
                   break;
                 }
                 for (; T < 3; ) {
                   if ($ === 0)
                     break t;
-                  $--, A += R[j++] << T, T += 8;
+                  $--, I += R[j++] << T, T += 8;
                 }
-                switch (e.last = 1 & A, T -= 1, 3 & (A >>>= 1)) {
+                switch (e.last = 1 & I, T -= 1, 3 & (I >>>= 1)) {
                   case 0:
                     e.mode = 14;
                     break;
                   case 1:
                     if (W(e), e.mode = 20, N !== 6)
                       break;
-                    A >>>= 2, T -= 2;
+                    I >>>= 2, T -= 2;
                     break t;
                   case 2:
                     e.mode = 17;
@@ -2297,19 +2294,19 @@ https://github.com/nodeca/pako/blob/main/LICENSE
                   case 3:
                     v.msg = "invalid block type", e.mode = 30;
                 }
-                A >>>= 2, T -= 2;
+                I >>>= 2, T -= 2;
                 break;
               case 14:
-                for (A >>>= 7 & T, T -= 7 & T; T < 32; ) {
+                for (I >>>= 7 & T, T -= 7 & T; T < 32; ) {
                   if ($ === 0)
                     break t;
-                  $--, A += R[j++] << T, T += 8;
+                  $--, I += R[j++] << T, T += 8;
                 }
-                if ((65535 & A) != (A >>> 16 ^ 65535)) {
+                if ((65535 & I) != (I >>> 16 ^ 65535)) {
                   v.msg = "invalid stored block lengths", e.mode = 30;
                   break;
                 }
-                if (e.length = 65535 & A, T = A = 0, e.mode = 15, N === 6)
+                if (e.length = 65535 & I, T = I = 0, e.mode = 15, N === 6)
                   break t;
               case 15:
                 e.mode = 16;
@@ -2326,9 +2323,9 @@ https://github.com/nodeca/pako/blob/main/LICENSE
                 for (; T < 14; ) {
                   if ($ === 0)
                     break t;
-                  $--, A += R[j++] << T, T += 8;
+                  $--, I += R[j++] << T, T += 8;
                 }
-                if (e.nlen = 257 + (31 & A), A >>>= 5, T -= 5, e.ndist = 1 + (31 & A), A >>>= 5, T -= 5, e.ncode = 4 + (15 & A), A >>>= 4, T -= 4, 286 < e.nlen || 30 < e.ndist) {
+                if (e.nlen = 257 + (31 & I), I >>>= 5, T -= 5, e.ndist = 1 + (31 & I), I >>>= 5, T -= 5, e.ncode = 4 + (15 & I), I >>>= 4, T -= 4, 286 < e.nlen || 30 < e.ndist) {
                   v.msg = "too many length or distance symbols", e.mode = 30;
                   break;
                 }
@@ -2338,9 +2335,9 @@ https://github.com/nodeca/pako/blob/main/LICENSE
                   for (; T < 3; ) {
                     if ($ === 0)
                       break t;
-                    $--, A += R[j++] << T, T += 8;
+                    $--, I += R[j++] << T, T += 8;
                   }
-                  e.lens[F[e.have++]] = 7 & A, A >>>= 3, T -= 3;
+                  e.lens[F[e.have++]] = 7 & I, I >>>= 3, T -= 3;
                 }
                 for (; e.have < 19; )
                   e.lens[F[e.have++]] = 0;
@@ -2351,39 +2348,39 @@ https://github.com/nodeca/pako/blob/main/LICENSE
                 e.have = 0, e.mode = 19;
               case 19:
                 for (; e.have < e.nlen + e.ndist; ) {
-                  for (; nt = (c = e.lencode[A & (1 << e.lenbits) - 1]) >>> 16 & 255, lt = 65535 & c, !((et = c >>> 24) <= T); ) {
+                  for (; nt = (c = e.lencode[I & (1 << e.lenbits) - 1]) >>> 16 & 255, lt = 65535 & c, !((et = c >>> 24) <= T); ) {
                     if ($ === 0)
                       break t;
-                    $--, A += R[j++] << T, T += 8;
+                    $--, I += R[j++] << T, T += 8;
                   }
                   if (lt < 16)
-                    A >>>= et, T -= et, e.lens[e.have++] = lt;
+                    I >>>= et, T -= et, e.lens[e.have++] = lt;
                   else {
                     if (lt === 16) {
                       for (p = et + 2; T < p; ) {
                         if ($ === 0)
                           break t;
-                        $--, A += R[j++] << T, T += 8;
+                        $--, I += R[j++] << T, T += 8;
                       }
-                      if (A >>>= et, T -= et, e.have === 0) {
+                      if (I >>>= et, T -= et, e.have === 0) {
                         v.msg = "invalid bit length repeat", e.mode = 30;
                         break;
                       }
-                      t = e.lens[e.have - 1], q = 3 + (3 & A), A >>>= 2, T -= 2;
+                      t = e.lens[e.have - 1], q = 3 + (3 & I), I >>>= 2, T -= 2;
                     } else if (lt === 17) {
                       for (p = et + 3; T < p; ) {
                         if ($ === 0)
                           break t;
-                        $--, A += R[j++] << T, T += 8;
+                        $--, I += R[j++] << T, T += 8;
                       }
-                      T -= et, t = 0, q = 3 + (7 & (A >>>= et)), A >>>= 3, T -= 3;
+                      T -= et, t = 0, q = 3 + (7 & (I >>>= et)), I >>>= 3, T -= 3;
                     } else {
                       for (p = et + 7; T < p; ) {
                         if ($ === 0)
                           break t;
-                        $--, A += R[j++] << T, T += 8;
+                        $--, I += R[j++] << T, T += 8;
                       }
-                      T -= et, t = 0, q = 11 + (127 & (A >>>= et)), A >>>= 7, T -= 7;
+                      T -= et, t = 0, q = 11 + (127 & (I >>>= et)), I >>>= 7, T -= 7;
                     }
                     if (e.have + q > e.nlen + e.ndist) {
                       v.msg = "invalid bit length repeat", e.mode = 30;
@@ -2413,23 +2410,23 @@ https://github.com/nodeca/pako/blob/main/LICENSE
                 e.mode = 21;
               case 21:
                 if (6 <= $ && 258 <= X) {
-                  v.next_out = tt, v.avail_out = X, v.next_in = j, v.avail_in = $, e.hold = A, e.bits = T, d(v, G), tt = v.next_out, Q = v.output, X = v.avail_out, j = v.next_in, R = v.input, $ = v.avail_in, A = e.hold, T = e.bits, e.mode === 12 && (e.back = -1);
+                  v.next_out = tt, v.avail_out = X, v.next_in = j, v.avail_in = $, e.hold = I, e.bits = T, d(v, G), tt = v.next_out, Q = v.output, X = v.avail_out, j = v.next_in, R = v.input, $ = v.avail_in, I = e.hold, T = e.bits, e.mode === 12 && (e.back = -1);
                   break;
                 }
-                for (e.back = 0; nt = (c = e.lencode[A & (1 << e.lenbits) - 1]) >>> 16 & 255, lt = 65535 & c, !((et = c >>> 24) <= T); ) {
+                for (e.back = 0; nt = (c = e.lencode[I & (1 << e.lenbits) - 1]) >>> 16 & 255, lt = 65535 & c, !((et = c >>> 24) <= T); ) {
                   if ($ === 0)
                     break t;
-                  $--, A += R[j++] << T, T += 8;
+                  $--, I += R[j++] << T, T += 8;
                 }
                 if (nt && !(240 & nt)) {
-                  for (at = et, ht = nt, ut = lt; nt = (c = e.lencode[ut + ((A & (1 << at + ht) - 1) >> at)]) >>> 16 & 255, lt = 65535 & c, !(at + (et = c >>> 24) <= T); ) {
+                  for (at = et, ft = nt, ut = lt; nt = (c = e.lencode[ut + ((I & (1 << at + ft) - 1) >> at)]) >>> 16 & 255, lt = 65535 & c, !(at + (et = c >>> 24) <= T); ) {
                     if ($ === 0)
                       break t;
-                    $--, A += R[j++] << T, T += 8;
+                    $--, I += R[j++] << T, T += 8;
                   }
-                  A >>>= at, T -= at, e.back += at;
+                  I >>>= at, T -= at, e.back += at;
                 }
-                if (A >>>= et, T -= et, e.back += et, e.length = lt, nt === 0) {
+                if (I >>>= et, T -= et, e.back += et, e.length = lt, nt === 0) {
                   e.mode = 26;
                   break;
                 }
@@ -2447,26 +2444,26 @@ https://github.com/nodeca/pako/blob/main/LICENSE
                   for (p = e.extra; T < p; ) {
                     if ($ === 0)
                       break t;
-                    $--, A += R[j++] << T, T += 8;
+                    $--, I += R[j++] << T, T += 8;
                   }
-                  e.length += A & (1 << e.extra) - 1, A >>>= e.extra, T -= e.extra, e.back += e.extra;
+                  e.length += I & (1 << e.extra) - 1, I >>>= e.extra, T -= e.extra, e.back += e.extra;
                 }
                 e.was = e.length, e.mode = 23;
               case 23:
-                for (; nt = (c = e.distcode[A & (1 << e.distbits) - 1]) >>> 16 & 255, lt = 65535 & c, !((et = c >>> 24) <= T); ) {
+                for (; nt = (c = e.distcode[I & (1 << e.distbits) - 1]) >>> 16 & 255, lt = 65535 & c, !((et = c >>> 24) <= T); ) {
                   if ($ === 0)
                     break t;
-                  $--, A += R[j++] << T, T += 8;
+                  $--, I += R[j++] << T, T += 8;
                 }
                 if (!(240 & nt)) {
-                  for (at = et, ht = nt, ut = lt; nt = (c = e.distcode[ut + ((A & (1 << at + ht) - 1) >> at)]) >>> 16 & 255, lt = 65535 & c, !(at + (et = c >>> 24) <= T); ) {
+                  for (at = et, ft = nt, ut = lt; nt = (c = e.distcode[ut + ((I & (1 << at + ft) - 1) >> at)]) >>> 16 & 255, lt = 65535 & c, !(at + (et = c >>> 24) <= T); ) {
                     if ($ === 0)
                       break t;
-                    $--, A += R[j++] << T, T += 8;
+                    $--, I += R[j++] << T, T += 8;
                   }
-                  A >>>= at, T -= at, e.back += at;
+                  I >>>= at, T -= at, e.back += at;
                 }
-                if (A >>>= et, T -= et, e.back += et, 64 & nt) {
+                if (I >>>= et, T -= et, e.back += et, 64 & nt) {
                   v.msg = "invalid distance code", e.mode = 30;
                   break;
                 }
@@ -2476,9 +2473,9 @@ https://github.com/nodeca/pako/blob/main/LICENSE
                   for (p = e.extra; T < p; ) {
                     if ($ === 0)
                       break t;
-                    $--, A += R[j++] << T, T += 8;
+                    $--, I += R[j++] << T, T += 8;
                   }
-                  e.offset += A & (1 << e.extra) - 1, A >>>= e.extra, T -= e.extra, e.back += e.extra;
+                  e.offset += I & (1 << e.extra) - 1, I >>>= e.extra, T -= e.extra, e.back += e.extra;
                 }
                 if (e.offset > e.dmax) {
                   v.msg = "invalid distance too far back", e.mode = 30;
@@ -2510,13 +2507,13 @@ https://github.com/nodeca/pako/blob/main/LICENSE
                   for (; T < 32; ) {
                     if ($ === 0)
                       break t;
-                    $--, A |= R[j++] << T, T += 8;
+                    $--, I |= R[j++] << T, T += 8;
                   }
-                  if (G -= X, v.total_out += G, e.total += G, G && (v.adler = e.check = e.flags ? r(e.check, Q, G, tt - G) : a(e.check, Q, G, tt - G)), G = X, (e.flags ? A : l(A)) !== e.check) {
+                  if (G -= X, v.total_out += G, e.total += G, G && (v.adler = e.check = e.flags ? r(e.check, Q, G, tt - G) : a(e.check, Q, G, tt - G)), G = X, (e.flags ? I : l(I)) !== e.check) {
                     v.msg = "incorrect data check", e.mode = 30;
                     break;
                   }
-                  T = A = 0;
+                  T = I = 0;
                 }
                 e.mode = 28;
               case 28:
@@ -2524,13 +2521,13 @@ https://github.com/nodeca/pako/blob/main/LICENSE
                   for (; T < 32; ) {
                     if ($ === 0)
                       break t;
-                    $--, A += R[j++] << T, T += 8;
+                    $--, I += R[j++] << T, T += 8;
                   }
-                  if (A !== (4294967295 & e.total)) {
+                  if (I !== (4294967295 & e.total)) {
                     v.msg = "incorrect length check", e.mode = 30;
                     break;
                   }
-                  T = A = 0;
+                  T = I = 0;
                 }
                 e.mode = 29;
               case 29:
@@ -2545,7 +2542,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
               default:
                 return s;
             }
-        return v.next_out = tt, v.avail_out = X, v.next_in = j, v.avail_in = $, e.hold = A, e.bits = T, (e.wsize || G !== v.avail_out && e.mode < 30 && (e.mode < 27 || N !== 4)) && Y(v, v.output, v.next_out, G - v.avail_out) ? (e.mode = 31, -4) : (V -= v.avail_in, G -= v.avail_out, v.total_in += V, v.total_out += G, e.total += G, e.wrap && G && (v.adler = e.check = e.flags ? r(e.check, Q, G, v.next_out - G) : a(e.check, Q, G, v.next_out - G)), v.data_type = e.bits + (e.last ? 64 : 0) + (e.mode === 12 ? 128 : 0) + (e.mode === 20 || e.mode === 15 ? 256 : 0), (V == 0 && G === 0 || N === 4) && D === y && (D = -5), D);
+        return v.next_out = tt, v.avail_out = X, v.next_in = j, v.avail_in = $, e.hold = I, e.bits = T, (e.wsize || G !== v.avail_out && e.mode < 30 && (e.mode < 27 || N !== 4)) && Y(v, v.output, v.next_out, G - v.avail_out) ? (e.mode = 31, -4) : (V -= v.avail_in, G -= v.avail_out, v.total_in += V, v.total_out += G, e.total += G, e.wrap && G && (v.adler = e.check = e.flags ? r(e.check, Q, G, v.next_out - G) : a(e.check, Q, G, v.next_out - G)), v.data_type = e.bits + (e.last ? 64 : 0) + (e.mode === 12 ? 128 : 0) + (e.mode === 20 || e.mode === 15 ? 256 : 0), (V == 0 && G === 0 || N === 4) && D === y && (D = -5), D);
       }, u.inflateEnd = function(v) {
         if (!v || !v.state)
           return s;
@@ -2561,7 +2558,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     }, { "../utils/common": 41, "./adler32": 43, "./crc32": 45, "./inffast": 48, "./inftrees": 50 }], 50: [function(i, k, u) {
       var n = i("../utils/common"), a = [3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 15, 17, 19, 23, 27, 31, 35, 43, 51, 59, 67, 83, 99, 115, 131, 163, 195, 227, 258, 0, 0], r = [16, 16, 16, 16, 16, 16, 16, 16, 17, 17, 17, 17, 18, 18, 18, 18, 19, 19, 19, 19, 20, 20, 20, 20, 21, 21, 21, 21, 16, 72, 78], d = [1, 2, 3, 4, 5, 7, 9, 13, 17, 25, 33, 49, 65, 97, 129, 193, 257, 385, 513, 769, 1025, 1537, 2049, 3073, 4097, 6145, 8193, 12289, 16385, 24577, 0, 0], g = [16, 16, 16, 16, 17, 17, 18, 18, 19, 19, 20, 20, 21, 21, 22, 22, 23, 23, 24, 24, 25, 25, 26, 26, 27, 27, 28, 28, 29, 29, 64, 64];
       k.exports = function(_, b, y, s, h, o, f, l) {
-        var m, w, S, C, P, L, U, B, W, Y = l.bits, v = 0, N = 0, e = 0, R = 0, Q = 0, j = 0, tt = 0, $ = 0, X = 0, A = 0, T = null, V = 0, G = new n.Buf16(16), q = new n.Buf16(16), ot = null, dt = 0;
+        var m, w, S, C, P, L, U, B, W, Y = l.bits, v = 0, N = 0, e = 0, R = 0, Q = 0, j = 0, tt = 0, $ = 0, X = 0, I = 0, T = null, V = 0, G = new n.Buf16(16), q = new n.Buf16(16), ot = null, dt = 0;
         for (v = 0; v <= 15; v++)
           G[v] = 0;
         for (N = 0; N < s; N++)
@@ -2581,27 +2578,27 @@ https://github.com/nodeca/pako/blob/main/LICENSE
           q[v + 1] = q[v] + G[v];
         for (N = 0; N < s; N++)
           b[y + N] !== 0 && (f[q[b[y + N]]++] = N);
-        if (L = _ === 0 ? (T = ot = f, 19) : _ === 1 ? (T = a, V -= 257, ot = r, dt -= 257, 256) : (T = d, ot = g, -1), v = e, P = o, tt = N = A = 0, S = -1, C = (X = 1 << (j = Q)) - 1, _ === 1 && 852 < X || _ === 2 && 592 < X)
+        if (L = _ === 0 ? (T = ot = f, 19) : _ === 1 ? (T = a, V -= 257, ot = r, dt -= 257, 256) : (T = d, ot = g, -1), v = e, P = o, tt = N = I = 0, S = -1, C = (X = 1 << (j = Q)) - 1, _ === 1 && 852 < X || _ === 2 && 592 < X)
           return 1;
         for (; ; ) {
-          for (U = v - tt, W = f[N] < L ? (B = 0, f[N]) : f[N] > L ? (B = ot[dt + f[N]], T[V + f[N]]) : (B = 96, 0), m = 1 << v - tt, e = w = 1 << j; h[P + (A >> tt) + (w -= m)] = U << 24 | B << 16 | W | 0, w !== 0; )
+          for (U = v - tt, W = f[N] < L ? (B = 0, f[N]) : f[N] > L ? (B = ot[dt + f[N]], T[V + f[N]]) : (B = 96, 0), m = 1 << v - tt, e = w = 1 << j; h[P + (I >> tt) + (w -= m)] = U << 24 | B << 16 | W | 0, w !== 0; )
             ;
-          for (m = 1 << v - 1; A & m; )
+          for (m = 1 << v - 1; I & m; )
             m >>= 1;
-          if (m !== 0 ? (A &= m - 1, A += m) : A = 0, N++, --G[v] == 0) {
+          if (m !== 0 ? (I &= m - 1, I += m) : I = 0, N++, --G[v] == 0) {
             if (v === R)
               break;
             v = b[y + f[N]];
           }
-          if (Q < v && (A & C) !== S) {
+          if (Q < v && (I & C) !== S) {
             for (tt === 0 && (tt = Q), P += e, $ = 1 << (j = v - tt); j + tt < R && !(($ -= G[j + tt]) <= 0); )
               j++, $ <<= 1;
             if (X += 1 << j, _ === 1 && 852 < X || _ === 2 && 592 < X)
               return 1;
-            h[S = A & C] = Q << 24 | j << 16 | P - o | 0;
+            h[S = I & C] = Q << 24 | j << 16 | P - o | 0;
           }
         }
-        return A !== 0 && (h[P + A] = v - tt << 24 | 64 << 16 | 0), l.bits = Q, 0;
+        return I !== 0 && (h[P + I] = v - tt << 24 | 64 << 16 | 0), l.bits = Q, 0;
       };
     }, { "../utils/common": 41 }], 51: [function(i, k, u) {
       k.exports = { 2: "need dictionary", 1: "stream end", 0: "", "-1": "file error", "-2": "stream error", "-3": "data error", "-4": "insufficient memory", "-5": "buffer error", "-6": "incompatible version" };
@@ -2625,7 +2622,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       function X(c, x, F, M, E) {
         this.static_tree = c, this.extra_bits = x, this.extra_base = F, this.elems = M, this.max_length = E, this.has_stree = c && c.length;
       }
-      function A(c, x) {
+      function I(c, x) {
         this.dyn_tree = c, this.max_code = 0, this.stat_desc = x;
       }
       function T(c) {
@@ -2676,7 +2673,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
           c.heap[F] = c.heap[E], F = E, E <<= 1;
         c.heap[F] = M;
       }
-      function ht(c, x, F) {
+      function ft(c, x, F) {
         var M, E, H, K, Z = 0;
         if (c.last_lit !== 0)
           for (; M = c.pending_buf[c.d_buf + 2 * Z] << 8 | c.pending_buf[c.d_buf + 2 * Z + 1], E = c.pending_buf[c.l_buf + Z], Z++, M === 0 ? q(c, E, x) : (q(c, (H = e[E]) + b + 1, x), (K = L[H]) !== 0 && G(c, E -= R[H], K), q(c, H = T(--M), F), (K = U[H]) !== 0 && G(c, M -= $[H], K)), Z < c.last_lit; )
@@ -2694,20 +2691,20 @@ https://github.com/nodeca/pako/blob/main/LICENSE
         for (E = J; F = c.heap[1], c.heap[1] = c.heap[c.heap_len--], at(c, H, 1), M = c.heap[1], c.heap[--c.heap_max] = F, c.heap[--c.heap_max] = M, H[2 * E] = H[2 * F] + H[2 * M], c.depth[E] = (c.depth[F] >= c.depth[M] ? c.depth[F] : c.depth[M]) + 1, H[2 * F + 1] = H[2 * M + 1] = E, c.heap[1] = E++, at(c, H, 1), 2 <= c.heap_len; )
           ;
         c.heap[--c.heap_max] = c.heap[1], function(rt, ct) {
-          var gt, pt, bt, st, yt, Et, mt = ct.dyn_tree, Rt = ct.max_code, Xt = ct.stat_desc.static_tree, Qt = ct.stat_desc.has_stree, te = ct.stat_desc.extra_bits, Pt = ct.stat_desc.extra_base, _t = ct.stat_desc.max_length, wt = 0;
+          var mt, ht, gt, st, _t, zt, pt = ct.dyn_tree, Dt = ct.max_code, Yt = ct.stat_desc.static_tree, Xt = ct.stat_desc.has_stree, Qt = ct.stat_desc.extra_bits, Rt = ct.stat_desc.extra_base, bt = ct.stat_desc.max_length, yt = 0;
           for (st = 0; st <= f; st++)
             rt.bl_count[st] = 0;
-          for (mt[2 * rt.heap[rt.heap_max] + 1] = 0, gt = rt.heap_max + 1; gt < o; gt++)
-            _t < (st = mt[2 * mt[2 * (pt = rt.heap[gt]) + 1] + 1] + 1) && (st = _t, wt++), mt[2 * pt + 1] = st, Rt < pt || (rt.bl_count[st]++, yt = 0, Pt <= pt && (yt = te[pt - Pt]), Et = mt[2 * pt], rt.opt_len += Et * (st + yt), Qt && (rt.static_len += Et * (Xt[2 * pt + 1] + yt)));
-          if (wt !== 0) {
+          for (pt[2 * rt.heap[rt.heap_max] + 1] = 0, mt = rt.heap_max + 1; mt < o; mt++)
+            bt < (st = pt[2 * pt[2 * (ht = rt.heap[mt]) + 1] + 1] + 1) && (st = bt, yt++), pt[2 * ht + 1] = st, Dt < ht || (rt.bl_count[st]++, _t = 0, Rt <= ht && (_t = Qt[ht - Rt]), zt = pt[2 * ht], rt.opt_len += zt * (st + _t), Xt && (rt.static_len += zt * (Yt[2 * ht + 1] + _t)));
+          if (yt !== 0) {
             do {
-              for (st = _t - 1; rt.bl_count[st] === 0; )
+              for (st = bt - 1; rt.bl_count[st] === 0; )
                 st--;
-              rt.bl_count[st]--, rt.bl_count[st + 1] += 2, rt.bl_count[_t]--, wt -= 2;
-            } while (0 < wt);
-            for (st = _t; st !== 0; st--)
-              for (pt = rt.bl_count[st]; pt !== 0; )
-                Rt < (bt = rt.heap[--gt]) || (mt[2 * bt + 1] !== st && (rt.opt_len += (st - mt[2 * bt + 1]) * mt[2 * bt], mt[2 * bt + 1] = st), pt--);
+              rt.bl_count[st]--, rt.bl_count[st + 1] += 2, rt.bl_count[bt]--, yt -= 2;
+            } while (0 < yt);
+            for (st = bt; st !== 0; st--)
+              for (ht = rt.bl_count[st]; ht !== 0; )
+                Dt < (gt = rt.heap[--mt]) || (pt[2 * gt + 1] !== st && (rt.opt_len += (st - pt[2 * gt + 1]) * pt[2 * gt], pt[2 * gt + 1] = st), ht--);
           }
         }(c, x), dt(H, it, c.bl_count);
       }
@@ -2760,7 +2757,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
           for (dt(Y, y + 1, K), x = 0; x < s; x++)
             v[2 * x + 1] = 5, v[2 * x] = ot(x, 5);
           Q = new X(Y, L, b + 1, y, f), j = new X(v, U, 0, s, f), tt = new X(new Array(0), B, 0, h, m);
-        }(), O = !0), c.l_desc = new A(c.dyn_ltree, Q), c.d_desc = new A(c.dyn_dtree, j), c.bl_desc = new A(c.bl_tree, tt), c.bi_buf = 0, c.bi_valid = 0, et(c);
+        }(), O = !0), c.l_desc = new I(c.dyn_ltree, Q), c.d_desc = new I(c.dyn_dtree, j), c.bl_desc = new I(c.bl_tree, tt), c.bi_buf = 0, c.bi_valid = 0, et(c);
       }, u._tr_stored_block = p, u._tr_flush_block = function(c, x, F, M) {
         var E, H, K = 0;
         0 < c.level ? (c.strm.data_type === 2 && (c.strm.data_type = function(Z) {
@@ -2779,12 +2776,12 @@ https://github.com/nodeca/pako/blob/main/LICENSE
           for (t(Z, Z.dyn_ltree, Z.l_desc.max_code), t(Z, Z.dyn_dtree, Z.d_desc.max_code), ut(Z, Z.bl_desc), J = h - 1; 3 <= J && Z.bl_tree[2 * W[J] + 1] === 0; J--)
             ;
           return Z.opt_len += 3 * (J + 1) + 5 + 5 + 4, J;
-        }(c), E = c.opt_len + 3 + 7 >>> 3, (H = c.static_len + 3 + 7 >>> 3) <= E && (E = H)) : E = H = F + 5, F + 4 <= E && x !== -1 ? p(c, x, F, M) : c.strategy === 4 || H === E ? (G(c, 2 + (M ? 1 : 0), 3), ht(c, Y, v)) : (G(c, 4 + (M ? 1 : 0), 3), function(Z, J, it, rt) {
+        }(c), E = c.opt_len + 3 + 7 >>> 3, (H = c.static_len + 3 + 7 >>> 3) <= E && (E = H)) : E = H = F + 5, F + 4 <= E && x !== -1 ? p(c, x, F, M) : c.strategy === 4 || H === E ? (G(c, 2 + (M ? 1 : 0), 3), ft(c, Y, v)) : (G(c, 4 + (M ? 1 : 0), 3), function(Z, J, it, rt) {
           var ct;
           for (G(Z, J - 257, 5), G(Z, it - 1, 5), G(Z, rt - 4, 4), ct = 0; ct < rt; ct++)
             G(Z, Z.bl_tree[2 * W[ct] + 1], 3);
           D(Z, Z.dyn_ltree, J - 1), D(Z, Z.dyn_dtree, it - 1);
-        }(c, c.l_desc.max_code + 1, c.d_desc.max_code + 1, K + 1), ht(c, c.dyn_ltree, c.dyn_dtree)), et(c), M && nt(c);
+        }(c, c.l_desc.max_code + 1, c.d_desc.max_code + 1, K + 1), ft(c, c.dyn_ltree, c.dyn_dtree)), et(c), M && nt(c);
       }, u._tr_tally = function(c, x, F) {
         return c.pending_buf[c.d_buf + 2 * c.last_lit] = x >>> 8 & 255, c.pending_buf[c.d_buf + 2 * c.last_lit + 1] = 255 & x, c.pending_buf[c.l_buf + c.last_lit] = 255 & F, c.last_lit++, x === 0 ? c.dyn_ltree[2 * F]++ : (c.matches++, x--, c.dyn_ltree[2 * (e[F] + b + 1)]++, c.dyn_dtree[2 * T(x)]++), c.last_lit === c.lit_bufsize - 1;
       }, u._tr_align = function(c) {
@@ -2873,12 +2870,12 @@ https://github.com/nodeca/pako/blob/main/LICENSE
             S.source === a && typeof S.data == "string" && S.data.indexOf(b) === 0 && m(+S.data.slice(b.length));
           }
         })(typeof self > "u" ? n === void 0 ? this : n : self);
-      }).call(this, typeof xt < "u" ? xt : typeof self < "u" ? self : typeof window < "u" ? window : {});
+      }).call(this, typeof vt < "u" ? vt : typeof self < "u" ? self : typeof window < "u" ? window : {});
     }, {}] }, {}, [10])(10);
   });
-})(Gt);
-var pe = Gt.exports;
-const Kt = /* @__PURE__ */ he(pe);
+})(qt);
+var ue = qt.exports;
+const Gt = /* @__PURE__ */ ce(ue);
 /*!
 =========================================================
 * Rocket Builder
@@ -2891,19 +2888,19 @@ const Kt = /* @__PURE__ */ he(pe);
 *
 =========================================================
 */
-const Jt = "https://components-server.onrender.com/", me = "bs5", ge = {}.VITE_UI_KIT ? {}.VITE_UI_KIT : me;
-function be() {
+const Kt = "https://components-server.onrender.com/", fe = "bs5", he = {}.VITE_UI_KIT ? {}.VITE_UI_KIT : fe;
+function pe() {
   let z = document.createElement("div");
-  return z.style.display = "flex", fetch(`${Jt}kits/${ge}/`).then((I) => I.text()).then((I) => {
+  return z.style.display = "flex", fetch(`${Kt}kits/${he}/`).then((A) => A.text()).then((A) => {
     z.style.display = "none";
-    let i = JSON.parse(I);
-    window.localStorage.setItem("components", JSON.stringify(i)), _e(i);
-  }).catch((I) => console.error(I));
+    let i = JSON.parse(A);
+    window.localStorage.setItem("components", JSON.stringify(i)), me(i);
+  }).catch((A) => console.error(A));
 }
-function _e(z) {
-  let I = z.content.components, i = "";
-  for (let a in I) {
-    let r = I[a], d = "";
+function me(z) {
+  let A = z.content.components, i = "";
+  for (let a in A) {
+    let r = A[a], d = "";
     for (let g in r) {
       let _ = r[g];
       d += atob(_);
@@ -2930,37 +2927,37 @@ function _e(z) {
   var n = document.createElement("div");
   n.innerHTML = i.trim(), u && u.appendChild(n);
 }
-let ye = document.querySelector("#layout").innerHTML;
-document.querySelector("#app").innerHTML = ye;
-function Bt(z) {
-  const I = document.querySelector(
+let ge = document.querySelector("#layout").innerHTML;
+document.querySelector("#app").innerHTML = ge;
+function Ot(z) {
+  const A = document.querySelector(
     ".action_clear_confirm"
   );
-  I && (I.onclick = (i) => {
-    ue();
+  A && (A.onclick = (i) => {
+    le();
   });
 }
-function Vt(z) {
-  let I = document.querySelectorAll(".draggable");
-  for (let i = 0; i < I.length; i++) {
-    let k = I[i];
+function Jt(z) {
+  let A = document.querySelectorAll(".draggable");
+  for (let i = 0; i < A.length; i++) {
+    let k = A[i];
     k.ondragstart = (u) => {
-      oe(u, z);
+      re(u, z);
     }, k.ondragend = (u) => {
-      Ht(u, z);
+      $t(u, z);
     };
   }
 }
-function we() {
-  const z = new Kt();
-  let I = JSON.parse(
+function be() {
+  const z = new Gt();
+  let A = JSON.parse(
     window.localStorage.getItem("currentPageTabs")
-  ), i = St("dropzone", "index.html");
-  z.file("index.html", i), z.file("assets/css/index.css", qt);
-  for (let k = 0; k < I.length; k++) {
-    let u = I[k].split("_@COL@_");
+  ), i = kt("dropzone", "index.html");
+  z.file("index.html", i), z.file("assets/css/index.css", Wt);
+  for (let k = 0; k < A.length; k++) {
+    let u = A[k].split("_@COL@_");
     console.log(u);
-    let n = St(
+    let n = kt(
       "dropzone-" + u[0],
       u[1],
       u[0]
@@ -2972,27 +2969,27 @@ function we() {
     u.href = URL.createObjectURL(k), u.download = "builder.zip", u.click();
   });
 }
-function ve() {
+function _e() {
   document.getElementById("deployModal").style.display = "block";
 }
-function xe(z) {
+function ye(z) {
   z.preventDefault();
-  const I = document.getElementById("site-name").value, i = document.getElementById("netlify-token").value;
+  const A = document.getElementById("site-name").value, i = document.getElementById("netlify-token").value;
   let k = document.querySelector("#errorMessage");
-  if (k.style.visibility = "hidden", !I || !i) {
+  if (k.style.visibility = "hidden", !A || !i) {
     alert("Please fill in both fields.");
     return;
   }
-  ke(I, i);
+  we(A, i);
 }
-function ke(z, I) {
-  const i = new Kt();
+function we(z, A) {
+  const i = new Gt();
   let k = JSON.parse(
     window.localStorage.getItem("currentPageTabs")
-  ), u = St("dropzone", "index.html");
-  if (i.file("index.html", u), i.file("assets/css/index.css", qt), k)
+  ), u = kt("dropzone", "index.html");
+  if (i.file("index.html", u), i.file("assets/css/index.css", Wt), k)
     for (let n = 0; n < k.length; n++) {
-      let a = k[n].split("_@COL@_"), r = St(
+      let a = k[n].split("_@COL@_"), r = kt(
         "dropzone-" + a[0],
         a[1],
         a[0]
@@ -3003,7 +3000,7 @@ function ke(z, I) {
     const a = new File([n], `${z}.zip`, {
       type: "application/zip"
     }), r = new FormData();
-    r.append("file", a), r.append("site_name", z), r.append("netlify_token", I), fetch(`${Jt}deploy`, {
+    r.append("file", a), r.append("site_name", z), r.append("netlify_token", A), fetch(`${Kt}deploy`, {
       method: "POST",
       body: r
     }).then((d) => d.json()).then((d) => {
@@ -3023,9 +3020,9 @@ function ke(z, I) {
     });
   });
 }
-function St(z, I, i = null) {
+function kt(z, A, i = null) {
   let k = document.querySelector(`#${z}`), u = JSON.parse(
-    window.localStorage.getItem(`Global-${I}`)
+    window.localStorage.getItem(`Global-${A}`)
   ), n = window.localStorage.getItem("global-css-code"), a = window.localStorage.getItem("global-js-code");
   return `
     <!DOCTYPE html>
@@ -3076,10 +3073,10 @@ function St(z, I, i = null) {
     </html>
   `;
 }
-function Se() {
+function ve() {
   let z = JSON.parse(
     window.localStorage.getItem("currentPageTabs")
-  ), I = `<ul class="nav nav-tabs defTabs pagesTabs justify-content-center" id="myTab" role="tablist">
+  ), A = `<ul class="nav nav-tabs defTabs pagesTabs justify-content-center" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
           <button class="nav-link active" id='index' onClick='tabEventHandler(this)' data-bs-toggle="tab" type="button"
             role="tab" aria-selected="false">index.html</button>
@@ -3087,12 +3084,12 @@ function Se() {
   if (z)
     for (let g = 0; g < z.length; g++) {
       let _ = z[g].split("_@COL@_");
-      I += `<li class="nav-item" role="presentation">
+      A += `<li class="nav-item" role="presentation">
         <button class="nav-link" id='${_[0]}' onClick='tabEventHandler(this)' data-bs-toggle="tab" type="button"
           role="tab" aria-selected="false">${_[1]}</button>
       </li>`;
     }
-  I += "</ul>";
+  A += "</ul>";
   let i = document.querySelector("#previewModal"), k = document.querySelector(
     "#previewFrame"
   ), u = "pagesTabContent", n = document.querySelector("." + u);
@@ -3129,7 +3126,7 @@ function Se() {
         </head>
         <body style="padding: 15px;">
         <div style="width: 100%;">
-            ${I}
+            ${A}
             ${r.outerHTML}
           </div>
         </body>
@@ -3186,39 +3183,39 @@ function Se() {
     `;
   k.srcdoc = d, i.style.display = "block", i.classList.add("preview-open");
 }
-function Ce() {
+function xe() {
   let z = document.querySelector("#previewModal");
   z.style.display = "none", z.classList.remove("preview-open");
 }
-function Tt(z) {
-  let I = document.querySelector("#previewFrame");
+function Et(z) {
+  let A = document.querySelector("#previewFrame");
   switch (z) {
     case "fullScreen":
-      I.style.width = "100%";
+      A.style.width = "100%";
       break;
     case "tablet":
-      I.style.width = "768px";
+      A.style.width = "768px";
       break;
     case "mobile":
-      I.style.width = "375px";
+      A.style.width = "375px";
       break;
   }
 }
-let Ft = document.querySelector("#index-tabA");
-function ze() {
-  window.localStorage.setItem("activePageTab", "dropzone"), document.querySelector(".tabPageName").innerHTML = "index.html", Dt(), Lt("dropzone", "drop-here-indicator"), Nt("dropzone", "drop-here-indicator"), At("dropzone"), Bt();
+let Pt = document.querySelector("#index-tabA");
+function ke() {
+  window.localStorage.setItem("activePageTab", "dropzone"), document.querySelector(".tabPageName").innerHTML = "index.html", Nt(), Bt("dropzone", "drop-here-indicator"), Lt("dropzone", "drop-here-indicator"), It("dropzone"), Ot();
 }
-Ft && Ft.addEventListener("click", () => {
-  ze();
+Pt && Pt.addEventListener("click", () => {
+  ke();
 });
-const Mt = document.querySelector("#add-page-button");
-function Yt(z = null) {
-  let I = document.querySelector(".pagesTabs"), i = document.querySelector(".pagesTabContent"), k = I == null ? void 0 : I.children;
+const Ft = document.querySelector("#add-page-button");
+function Vt(z = null) {
+  let A = document.querySelector(".pagesTabs"), i = document.querySelector(".pagesTabContent"), k = A == null ? void 0 : A.children;
   for (let l = 0; l < k.length; l++)
     k[l].addEventListener("click", function(m) {
       m.preventDefault();
     });
-  let u = I == null ? void 0 : I.children.length, n = 1;
+  let u = A == null ? void 0 : A.children.length, n = 1;
   u > 3 && (n = u - 2);
   let a = `New-Page${n}.html`;
   z && (n = z[0], a = z[1]);
@@ -3231,9 +3228,9 @@ function Yt(z = null) {
   `, _ = document.createElement("li");
   _.className = "nav-item", _.setAttribute("role", "presentation");
   let b = document.createElement("div");
-  if (b.className = "tab-pane fade", b.id = `page-${n}`, b.setAttribute("role", "tabpanel"), b.setAttribute("aria-labelledby", `page-tab-${n}`), _.innerHTML = d, b.innerHTML = g, i == null || i.appendChild(b), I && I.hasChildNodes()) {
-    const l = I == null ? void 0 : I.children[u - 1];
-    I == null || I.insertBefore(_, l);
+  if (b.className = "tab-pane fade", b.id = `page-${n}`, b.setAttribute("role", "tabpanel"), b.setAttribute("aria-labelledby", `page-tab-${n}`), _.innerHTML = d, b.innerHTML = g, i == null || i.appendChild(b), A && A.hasChildNodes()) {
+    const l = A == null ? void 0 : A.children[u - 1];
+    A == null || A.insertBefore(_, l);
   }
   let y = `
     .${r} {
@@ -3261,10 +3258,10 @@ function Yt(z = null) {
   );
   h.addEventListener("click", function(l) {
     let m = l.target;
-    window.localStorage.setItem("activePageTab", r), document.querySelector(".tabPageName").innerHTML = m.innerHTML, Dt(m.innerHTML);
+    window.localStorage.setItem("activePageTab", r), document.querySelector(".tabPageName").innerHTML = m.innerHTML, Nt(m.innerHTML);
   }), h.onclick = () => {
     setTimeout(function() {
-      Vt(r);
+      Jt(r);
     }, 2e3);
     let l = JSON.parse(
       window.localStorage.getItem("currentPageTabs")
@@ -3278,10 +3275,10 @@ function Yt(z = null) {
     )) : window.localStorage.setItem(
       "currentPageTabs",
       JSON.stringify([n + `_@COL@_New-Page${n}.html`])
-    ), Lt(r, `drop-here-indicator-${n}`), Nt(
+    ), Bt(r, `drop-here-indicator-${n}`), Lt(
       `dropzone-elem-${n}`,
       `drop-here-indicator-${n}`
-    ), At(r), Bt();
+    ), It(r), Ot();
   }, h == null || h.click();
   let o = "";
   h.onclick = (l) => {
@@ -3310,31 +3307,31 @@ function Yt(z = null) {
     h.setAttribute("contenteditable", "false");
   });
 }
-Mt && Mt.addEventListener("click", () => {
-  Yt();
+Ft && Ft.addEventListener("click", () => {
+  Vt();
 });
-function Lt(z, I) {
+function Bt(z, A) {
   let i = document.querySelector("#" + z);
   i.ondragover = (k) => {
-    $t(k, I);
+    Ut(k, A);
   }, i.ondrop = (k) => {
-    Zt(k, z);
+    Ht(k, z);
   };
 }
-function Nt(z, I) {
+function Lt(z, A) {
   let i = document.getElementsByClassName(z);
   for (let k = 0; k < i.length; k++) {
     let u = i[k];
     u.ondragover = (n) => {
-      $t(n, I);
+      Ut(n, A);
     }, u.ondragend = (n) => {
-      Ht(n, z);
+      $t(n, z);
     }, u.ondrop = (n) => {
-      Zt(n, z);
+      Ht(n, z);
     };
   }
 }
-function Dt(z = null) {
+function Nt(z = null) {
   var g;
   let i = `Global-${(g = document.querySelector(".tabPageName")) == null ? void 0 : g.innerHTML}`;
   z && (i = `Global-${z}`);
@@ -3352,20 +3349,20 @@ function Dt(z = null) {
   );
   u.value = "", n.value = "", a.value = "", r.value = "", d.value = "", k && (u.value = k.page_title, n.value = k.seo_description, a.value = k.seo_keyword, r.value = k.external_js_url, d.value = k.external_css_url);
 }
-let jt = document.getElementsByClassName("global-set");
-for (let z = 0; z < jt.length; z++) {
-  let I = jt[z];
-  I.onkeyup = (i) => {
-    Ee(i);
+let Mt = document.getElementsByClassName("global-set");
+for (let z = 0; z < Mt.length; z++) {
+  let A = Mt[z];
+  A.onkeyup = (i) => {
+    Se(i);
   };
 }
-function Ee(z) {
+function Se(z) {
   var u;
-  let I = z.target.id, i = (u = document.querySelector(".tabPageName")) == null ? void 0 : u.innerHTML, k = JSON.parse(
+  let A = z.target.id, i = (u = document.querySelector(".tabPageName")) == null ? void 0 : u.innerHTML, k = JSON.parse(
     window.localStorage.getItem(`Global-${i}`)
   );
   if (k)
-    k[I] = z.target.value, window.localStorage.setItem(
+    k[A] = z.target.value, window.localStorage.setItem(
       `Global-${i}`,
       JSON.stringify(k)
     );
@@ -3377,16 +3374,16 @@ function Ee(z) {
       external_js_url: "",
       external_css_url: ""
     };
-    n[I] = z.target.value, window.localStorage.setItem(`Global-${i}`, JSON.stringify(n));
+    n[A] = z.target.value, window.localStorage.setItem(`Global-${i}`, JSON.stringify(n));
   }
 }
-let It = JSON.parse(
+let Tt = JSON.parse(
   window.localStorage.getItem("currentPageTabs")
 );
-if (It)
-  for (let z = 0; z < It.length; z++) {
-    let I = It[z].split("_@COL@_");
-    Yt(I), Wt(null, "dropzone-" + I[0]);
+if (Tt)
+  for (let z = 0; z < Tt.length; z++) {
+    let A = Tt[z].split("_@COL@_");
+    Vt(A), Zt(null, "dropzone-" + A[0]);
   }
 /*!
 =========================================================
@@ -3400,66 +3397,59 @@ if (It)
 *
 =========================================================
 */
-class Te {
-  constructor(I, i) {
-    ft(this, "$actionPreview", null);
-    ft(this, "$actionDownload", null);
-    ft(this, "$actionDeploy", null);
-    ft(this, "$closeModal", null);
-    ft(this, "$fullScreenOption", null);
-    ft(this, "$tabletOption", null);
-    ft(this, "$mobileOption", null);
-    ft(this, "$deployForm", null);
-    ft(this, "$dropContainer");
-    ft(this, "$dropIndicator");
+const Ce = {
+  dropContainer: "dropzone",
+  dropIndicator: "drop-here-indicator"
+}, ze = {
+  actionPreview: "#action_preview",
+  actionDownload: "#action_download",
+  actionDeploy: "#action_deploy",
+  closeModal: "#closeModal",
+  fullScreenOption: "#fullScreenOption",
+  tabletOption: "#tabletOption",
+  mobileOption: "#mobileOption",
+  deployForm: "#deployForm"
+}, Ee = {
+  $actionPreview: null,
+  $actionDownload: null,
+  $actionDeploy: null,
+  $closeModal: null,
+  $fullScreenOption: null,
+  $tabletOption: null,
+  $mobileOption: null,
+  $deployForm: null,
+  $dropContainer: "",
+  $dropIndicator: "",
+  setup: function(z = Ce, A = ze) {
     const {
-      actionPreview: k,
-      actionDownload: u,
-      actionDeploy: n,
-      deployForm: a,
-      mobileOption: r,
-      tabletOption: d,
-      fullScreenOption: g,
-      closeModal: _
-    } = i, { dropContainer: b, dropIndicator: y } = I;
-    k && (this.$actionPreview = document.querySelector(k)), u && (this.$actionDownload = document.querySelector(u)), n && (this.$actionDeploy = document.querySelector(n)), _ && (this.$closeModal = document.querySelector(_)), g && (this.$fullScreenOption = document.querySelector(g)), d && (this.$tabletOption = document.querySelector(d)), r && (this.$mobileOption = document.querySelector(r)), a && (this.$deployForm = document.querySelector(a)), this.$dropContainer = b, this.$dropIndicator = y, this.setup(), this.render();
-  }
-  setup() {
-    document.addEventListener("DOMContentLoaded", () => {
-      this.$actionPreview && this.$actionPreview.addEventListener("click", Se), this.$actionDownload && this.$actionDownload.addEventListener("click", we), this.$actionDeploy && this.$actionDeploy.addEventListener("click", ve), this.$closeModal && this.$closeModal.addEventListener("click", Ce), this.$fullScreenOption && this.$fullScreenOption.addEventListener(
+      actionPreview: i,
+      actionDownload: k,
+      actionDeploy: u,
+      deployForm: n,
+      mobileOption: a,
+      tabletOption: r,
+      fullScreenOption: d,
+      closeModal: g
+    } = A || {}, { dropContainer: _, dropIndicator: b } = z;
+    i && (this.$actionPreview = document.querySelector(i)), k && (this.$actionDownload = document.querySelector(k)), u && (this.$actionDeploy = document.querySelector(u)), g && (this.$closeModal = document.querySelector(g)), d && (this.$fullScreenOption = document.querySelector(d)), r && (this.$tabletOption = document.querySelector(r)), a && (this.$mobileOption = document.querySelector(a)), n && (this.$deployForm = document.querySelector(n)), this.$dropContainer = _, this.$dropIndicator = b, document.addEventListener("DOMContentLoaded", () => {
+      this.$actionPreview && this.$actionPreview.addEventListener("click", ve), this.$actionDownload && this.$actionDownload.addEventListener("click", be), this.$actionDeploy && this.$actionDeploy.addEventListener("click", _e), this.$closeModal && this.$closeModal.addEventListener("click", xe), this.$fullScreenOption && this.$fullScreenOption.addEventListener(
         "click",
-        () => Tt("fullScreen")
+        () => Et("fullScreen")
       ), this.$tabletOption && this.$tabletOption.addEventListener(
         "click",
-        () => Tt("tablet")
+        () => Et("tablet")
       ), this.$mobileOption && this.$mobileOption.addEventListener(
         "click",
-        () => Tt("mobile")
-      ), this.$actionPreview && this.$actionPreview.addEventListener("submit", xe);
+        () => Et("mobile")
+      ), this.$actionPreview && this.$actionPreview.addEventListener("submit", ye);
     });
-  }
-  render() {
-    Bt(this.$dropContainer), Lt(this.$dropContainer, this.$dropIndicator), Nt(this.$dropContainer, this.$dropIndicator), Dt(), be().then(() => {
-      Vt(this.$dropContainer);
-    }), Wt(null, this.$dropContainer), At(this.$dropContainer);
-  }
-}
-new Te(
-  {
-    dropContainer: "dropzone",
-    dropIndicator: "drop-here-indicator"
   },
-  {
-    actionPreview: "#action_preview",
-    actionDownload: "#action_download",
-    actionDeploy: "#action_deploy",
-    closeModal: "#closeModal",
-    fullScreenOption: "#fullScreenOption",
-    tabletOption: "#tabletOption",
-    mobileOption: "#mobileOption",
-    deployForm: "#deployForm"
+  render: function() {
+    Ot(this.$dropContainer), Bt(this.$dropContainer, this.$dropIndicator), Lt(this.$dropContainer, this.$dropIndicator), Nt(), pe().then(() => {
+      Jt(this.$dropContainer);
+    }), Zt(null, this.$dropContainer), It(this.$dropContainer);
   }
-);
+};
 export {
-  Te as DNDBuilder
+  Ee as DNDBuilder
 };
