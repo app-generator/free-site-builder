@@ -42,6 +42,22 @@ type TOptions = {
   dropIndicator: string;
 };
 
+const DEFAULT_OPTIONS: TOptions = {
+  dropContainer: "dropzone",
+  dropIndicator: "drop-here-indicator",
+};
+
+const DEFAULT_SELECTORS: TSelectors = {
+  actionPreview: "#action_preview",
+  actionDownload: "#action_download",
+  actionDeploy: "#action_deploy",
+  closeModal: "#closeModal",
+  fullScreenOption: "#fullScreenOption",
+  tabletOption: "#tabletOption",
+  mobileOption: "#mobileOption",
+  deployForm: "#deployForm",
+};
+
 const DNDBuilder = {
   $actionPreview: null as HTMLButtonElement | null,
   $actionDownload: null as HTMLButtonElement | null,
@@ -54,7 +70,7 @@ const DNDBuilder = {
   $dropContainer: '',
   $dropIndicator: '',
 
-  setup: function(options: TOptions, selectors?: TSelectors) {
+  setup: function(options: TOptions = DEFAULT_OPTIONS, selectors: TSelectors = DEFAULT_SELECTORS) {
     const {
       actionPreview,
       actionDownload,
@@ -139,22 +155,3 @@ const DNDBuilder = {
     setupGlobalEvents(this.$dropContainer);
   },
 };
-
-DNDBuilder.setup(
-  {
-    dropContainer: "dropzone",
-    dropIndicator: "drop-here-indicator",
-  },
-  {
-    actionPreview: "#action_preview",
-    actionDownload: "#action_download",
-    actionDeploy: "#action_deploy",
-    closeModal: "#closeModal",
-    fullScreenOption: "#fullScreenOption",
-    tabletOption: "#tabletOption",
-    mobileOption: "#mobileOption",
-    deployForm: "#deployForm",
-  }
-);
-
-DNDBuilder.render();
