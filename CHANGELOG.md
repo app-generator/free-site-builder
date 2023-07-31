@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.0.15] 2023-07-31
+### Changes
+
+- Fixes
+  - Inject params on CDN usage
+- Added Scroll to the components PANEL
+
 ## [1.0.14] 2023-07-30
 ### Changes
 
