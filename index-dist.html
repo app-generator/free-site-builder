@@ -352,7 +352,9 @@
     crossorigin="anonymous"></script>
 
   <!-- Builder CORE JS (Vanilla) -->
-  <script type="module" crossorigin src="./dist/index.js">
+  <script type="module">
+    import { DNDBuilder } from "./dist/index.js";
+
     DNDBuilder.setup(
       {
         dropContainer: "dropzone",
