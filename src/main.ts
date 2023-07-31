@@ -286,6 +286,24 @@ function drawHTMLForDownload(
         <meta name="keywords" content="${globalSetData?.seo_keyword}">
         <title>${globalSetData?.page_title}</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+        <link type="text/css" href="https://appseed-srv1.com/builder/pixel/css/pixel.css" rel="stylesheet">
+        <link type="text/css"
+        href="https://appseed-srv1.com/builder/pixel/vendor/@fortawesome/fontawesome-free/css/all.min.css"
+        rel="stylesheet">
+        <!-- Builder Specific -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css"
+            integrity="sha512-uf06llspW44/LZpHzHT6qBOIVODjWtv4MxCricRxkzvopAlSWnTf6hpZTFxuuZcuNE9CBQhqE0Seu1CoRk84nQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"
+            integrity="sha512-8RnEqURPUc5aqFEN04aQEiPlSAdE0jlFS/9iGgUyNtwFnSKCXhmB6ZTNl7LnDtDWKabJIASzXrzD0K+LYexU9g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/javascript/javascript.min.js"
+            integrity="sha512-I6CdJdruzGtvDyvdO4YsiAq+pkWf2efgd1ZUSK2FnM/u2VuRASPC7GowWQrWyjxCZn6CT89s3ddGI+be0Ak9Fg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/css/css.min.js"
+            integrity="sha512-rQImvJlBa8MV1Tl1SXR5zD2bWfmgCEIzTieFegGg89AAt7j/NBEe50M5CqYQJnRwtkjKMmuYgHBqtD1Ubbk5ww=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://kit.fontawesome.com/ea9bd22eef.js" crossorigin="anonymous"></script>
         <link href="${globalSetData?.external_css_url}" rel="stylesheet" crossorigin="anonymous">
         <link href="assets/css/index.css" rel="stylesheet">
         <style>
@@ -382,11 +400,13 @@ export function openPreviewModal() {
   }
 
   let processedContent = processComponent(dropzone as HTMLElement);
-
+  console.log(document.styleSheets);
   // Load the content of the dropzone into the iframe
   let iframeContent = `
       <html>
         <head>
+          <!-- Pixel CSS -->
+          <link type="text/css" href="https://appseed-srv1.com/builder/pixel/css/pixel.css" rel="stylesheet">
           <style>
             ${Array.from(document.styleSheets)
               .map((sheet) => {
