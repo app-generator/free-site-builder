@@ -40,7 +40,7 @@
   <script src="https://kit.fontawesome.com/ea9bd22eef.js" crossorigin="anonymous"></script>
 
   <!-- Builder CORE Style -->
-  <link href="https://cdn.jsdelivr.net/gh/app-generator/free-site-builder@1.0.12/dist/style.css" rel="stylesheet" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/gh/app-generator/free-site-builder@latest/dist/style.css" rel="stylesheet" crossorigin="anonymous">
 
   <style id="global-custom-style"></style>
 </head>
@@ -353,7 +353,28 @@
     crossorigin="anonymous"></script>
 
   <!-- Builder CORE JS (Vanilla) -->
-  <script type="module" crossorigin src="https://cdn.jsdelivr.net/gh/app-generator/free-site-builder@1.0.12/dist/index.js"></script>
+  <script type="module">
+    import { DNDBuilder } from "https://cdn.jsdelivr.net/gh/app-generator/free-site-builder@latest/dist/index.js";
+
+    DNDBuilder.setup(
+      {
+        dropContainer: "dropzone",
+        dropIndicator: "drop-here-indicator",
+      },
+      {
+        actionPreview: "#action_preview",
+        actionDownload: "#action_download",
+        actionDeploy: "#action_deploy",
+        closeModal: "#closeModal",
+        fullScreenOption: "#fullScreenOption",
+        tabletOption: "#tabletOption",
+        mobileOption: "#mobileOption",
+        deployForm: "#deployForm",
+      }
+    );
+
+    DNDBuilder.render();
+  </script>
 
   <script>
     $(document).ready(function () {
