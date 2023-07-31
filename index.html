@@ -349,7 +349,7 @@
   <script type="module">
     import { DNDBuilder } from "./index";
 
-    DNDBuilder.setup();
+    DNDBuilder.setup({ dropContainer: "dropzone", dropIndicator: "drop-here-indicator", backendUrl: "https://components-server.onrender.com/", uiKit: "bs5" });
     DNDBuilder.render();
   </script>
   <script>

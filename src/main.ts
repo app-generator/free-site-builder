@@ -14,6 +14,7 @@
 import "./style.css";
 import style from "./style.css?inline";
 import JSZip from "jszip";
+import { Config } from "./config";
 
 import {
   onDragStart,
@@ -25,28 +26,23 @@ import {
   setupGlobalEvents,
 } from "./dnd.ts";
 
-const BACKEND_URL = "https://components-server.onrender.com/";
 const url = import.meta.env.VITE_BACKEND_URL
   ? import.meta.env.VITE_BACKEND_URL
-  : BACKEND_URL;
-
-const UI_KIT = "bs5";
-const ui_kit = import.meta.env.VITE_UI_KIT
-  ? import.meta.env.VITE_UI_KIT
-  : UI_KIT;
+  : Config.backendUrl;
 
 // Using Promise syntax:
-export function downloadComponents() {
+export function downloadComponents(backendUrl: string, uiKit: string) {
   let loading = document.createElement("div");
 
   loading.style.display = "flex";
 
-  return fetch(`${url}kits/${ui_kit}/`)
+  return fetch(`${backendUrl}kits/${uiKit}/`)
     .then((response) => response.text())
     .then((response_raw) => {
       loading.style.display = "none";
       let response_json = JSON.parse(response_raw);
       window.localStorage.setItem("components", JSON.stringify(response_json));
+      console.log(response_json);
       drawComponents(response_json);
     })
     .catch((error) => console.error(error));
