@@ -287,12 +287,12 @@ button.btnDefault:hover, button.btnDefault:focus {
   border-color: #454d54 !important;
 }
 button.btnRestore, .btn-primary {
-  background: #5d73e3;
-  border-color: #5d73e3;
+  background: #242e4c;
+  border-color: #242e4c;
 }
 button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-primary:focus {
-  background: #4458bf !important;
-  border-color: #4458bf !important;
+  background: #1c2540 !important;
+  border-color: #1c2540 !important;
 }
 /*aside left*/
 .leftAside {
@@ -440,6 +440,7 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
 }
 .card .card-body{
   padding: 5px;
+  text-align: left;
 }
 .card .card-body .card-title{
   font-size: 13px;
@@ -973,6 +974,7 @@ body body {
   position: relative;
   background: #000;
   padding: 10px 10px;
+  width: 100%;
 }
 .cntrctBox video {
   position: absolute;
@@ -1044,7 +1046,7 @@ body body {
 }
 
 .bs-popover-auto { z-index: 99999; font-size: 11px; }
-.btn.btn-primary {font-size: 12px;font-weight: 500; padding: 7px 12px;}
+.btn.btn-primary {font-size: 12px;font-weight: 500; padding: 5px 12px;}
 .alert {margin-bottom: 0;}
 .defModal .modal-header {
   padding: 8px 16px;
@@ -1077,9 +1079,11 @@ body body {
 }
 .btn {box-shadow: none !important;}
 .action_clear_cancle {
-  padding: 7px 12px !important;
+  padding: 5px 12px !important;
   font-size: 12px;
   font-weight: 500;
+  background-color: #4B5563;
+  border-color: #4B5563;
 }
 p, ol li, ul li {font-weight: 600;}
 .dropdown-toggle {
@@ -1102,4 +1106,33 @@ p, ol li, ul li {font-weight: 600;}
 .carousel-control-prev-icon::before,
 .carousel-control-next-icon:before {
   font-size: 1.5rem !important;
+}
+.form-group {
+  text-align: left;
+}
+.carousel-caption, .carousel-caption h5, .carousel-caption .h5 {
+  color: #000;
+}
+.carousel-indicators [data-bs-target] {
+  height: 8px;
+  width: 8px;
+  border: none;
+  border-radius: 50%;
+  background: #c6c6c6;
+}
+.carousel-indicators .active {
+  background: #090909;
+}
+.portfolioBox .carousel-control-prev, .portfolioBox .carousel-control-next {
+  font-size: 1rem !important;
+  color: #999999;
+}
+.portfolioBox .carousel-control-prev-icon::before, .portfolioBox .carousel-control-next-icon:before {
+  font-size: 1rem !important;
+}
+.formBoxv2 {
+  text-align: left;
+}
+.formBoxv2.formBox .mb-3 label {
+  color: #fff;
 }
