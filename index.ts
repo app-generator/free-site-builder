@@ -11,6 +11,7 @@
 =========================================================
 */
 
+import { Config } from "./src/config";
 import { onRestore, setupGlobalEvents } from "./src/dnd";
 import {
   captureDeployRequest,
@@ -40,11 +41,16 @@ type TSelectors = {
 type TOptions = {
   dropContainer: string;
   dropIndicator: string;
+  backendUrl?: string;
+  uiKit?: string;
 };
 
 const DEFAULT_OPTIONS: TOptions = {
   dropContainer: "dropzone",
   dropIndicator: "drop-here-indicator",
+  // TODO: Update backendUrl and uiKit to pull from .env? Or probably better to just use the defaults?
+  backendUrl: "https://components-server.onrender.com/",
+  uiKit: "bs5",
 };
 
 const DEFAULT_SELECTORS: TSelectors = {
@@ -109,6 +115,9 @@ export const DNDBuilder = {
     this.$dropContainer = dropContainer;
     this.$dropIndicator = dropIndicator;
 
+    Config.backendUrl = options.backendUrl ? options.backendUrl : DEFAULT_OPTIONS.backendUrl!;
+    Config.uiKit = options.uiKit ? options.uiKit : DEFAULT_OPTIONS.uiKit!;
+
     document.addEventListener("DOMContentLoaded", () => {
       if (this.$actionPreview) {
         this.$actionPreview.addEventListener("click", openPreviewModal);
@@ -148,7 +157,7 @@ export const DNDBuilder = {
     initDropZone(this.$dropContainer, this.$dropIndicator);
     initGridDropZone(this.$dropContainer, this.$dropIndicator);
     setGlobalInput();
-    downloadComponents().then(() => {
+    downloadComponents(Config.backendUrl, Config.uiKit).then(() => {
       misc(this.$dropContainer);
     });
     onRestore(null, this.$dropContainer);
