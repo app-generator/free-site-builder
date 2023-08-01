@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.0.16] 2023-08-01
+### Changes
+
+- Inject CFG in `DNDBuilder`
+  - `backendUrl`, default value: "https://components-server.onrender.com/"
+  - `uiKit`, default value: "bs5"
+
 ## [1.0.15] 2023-07-31
 ### Changes
 
