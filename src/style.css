@@ -897,7 +897,8 @@ body body {
 }
 .cardImg {
   max-width: 100%;
-  margin-bottom: 10px;
+  display: block;
+  margin: 0 auto 10px auto;
 }
 .cmnBox {
   text-align: left;
