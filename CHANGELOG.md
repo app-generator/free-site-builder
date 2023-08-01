@@ -1,7 +1,11 @@
 # Change Log
 
-## [1.0.17] 2023-08-01
+## [1.0.18] 2023-08-01
 ### Changes
+
+- Integrate PIXEL
+  - index-pixel.html
+  - dist/style-pixel.css
 
 ## [1.0.16] 2023-08-01
 ### Changes
