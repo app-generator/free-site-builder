@@ -1096,6 +1096,9 @@ p, ol li, ul li {font-weight: 600;}
   padding-bottom: 5px;
   background-color: #f8f9fa;
 }
+.navbar.navbar-dark {
+  background-color: #242e4c;
+}
 .navbar .container {
   padding: 0 12px;
 }
@@ -1135,4 +1138,8 @@ p, ol li, ul li {font-weight: 600;}
 }
 .formBoxv2.formBox .mb-3 label {
   color: #fff;
+}
+.miscBox {
+  width: 100% !important;
+  text-align: left;
 }
