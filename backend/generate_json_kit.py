@@ -33,13 +33,20 @@ def process_templates(root_directory):
 
                 # Create the JSON file within the component folder
                 parent_folder_name = os.path.basename(os.path.dirname(components_dir))
+
+                # Define the order of keys
+                ordered_keys = ["Grids", "Navigation", "Common"] + [k for k in file_keys.keys() if k not in ["Grids", "Navigation", "Common", "Footers"]] + ["Footers"]
+
+                # Create a new dictionary with ordered keys
+                ordered_file_keys = {k: file_keys[k] for k in ordered_keys if k in file_keys}
+
                 json_data = {
                     "name": parent_folder_name,
                     "content": {
                         "layouts": {
                             "base.html": "BASE64"
                         },
-                        "components": file_keys
+                        "components": ordered_file_keys
                     }
                 }
                 with open(os.path.join(json_path, 'info.json'), 'w') as json_file:
