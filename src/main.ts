@@ -30,6 +30,28 @@ const url = import.meta.env.VITE_BACKEND_URL
   ? import.meta.env.VITE_BACKEND_URL
   : Config.backendUrl;
 
+type KitConfig = {
+  [key: string]: {
+    script: string;
+    styles: string;
+    customStyles: string;
+  };
+};
+
+// Define a dictionary to store the scripts and styles for each kit
+const kits: KitConfig = {
+  'bs5': {
+      'script': 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js',
+      'styles': 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css',
+      'customStyles': '.border-dotted, .border-props, .cross-icon { border: none !important; } .upButton, .downButton, .cross-icon { display: none !important; }'
+  },
+  'pixel': {
+      'script': 'https://appseed-srv1.com/builder/pixel/assets/js/pixel.js',
+      'styles': 'https://appseed-srv1.com/builder/pixel/css/pixel.css',
+      'customStyles': ''
+  },
+};
+
 // Using Promise syntax:
 export function downloadComponents(backendUrl: string, uiKit: string) {
   let loading = document.createElement("div");
@@ -314,7 +336,15 @@ function drawHTMLForDownload(
   return htmlContent;
 }
 
-export function openPreviewModal() {
+export function openPreviewModal(kitName: string) {
+  // Get the resources for the current kit
+  const kit = kits[kitName];
+
+  if (!kit) {
+      console.error(`Unknown kit: ${kitName}`);
+      return;
+  }
+
   let currentPages = JSON.parse(
     <string>window.localStorage.getItem("currentPageTabs")
   );
@@ -396,7 +426,7 @@ export function openPreviewModal() {
               .upButton, .downButton, .cross-icon { display: none !important; }
           </style>
         </head>
-        <body style="padding: 15px;">
+        <body style="padding: 15px; text-align: center;">
         <div style="width: 100%;">
             ${currentPageList}
             ${processedContent.outerHTML}
@@ -453,6 +483,29 @@ export function openPreviewModal() {
         </script>
       </html>
     `;
+  
+  // Assuming iframe is the iframe element
+  const iframeElement = document.querySelector('#previewFrame') as HTMLIFrameElement;
+  let iframeDocument = iframeElement.contentDocument || iframeElement.contentWindow?.document;
+
+  if (iframeDocument) {
+    // Add script
+    let scriptElement = iframeDocument.createElement('script');
+    scriptElement.src = kits[kitName].script;
+    iframeDocument.body.appendChild(scriptElement);
+
+    // Add stylesheet
+    let linkElement = iframeDocument.createElement('link');
+    linkElement.rel = 'stylesheet';
+    linkElement.href = kits[kitName].styles;
+    iframeDocument.head.appendChild(linkElement);
+
+    // Add custom styles
+    let styleElement = iframeDocument.createElement('style');
+    styleElement.textContent = kits[kitName].customStyles;
+    iframeDocument.head.appendChild(styleElement);
+  }
+
   previewFrame.srcdoc = iframeContent;
 
   // Show the modal

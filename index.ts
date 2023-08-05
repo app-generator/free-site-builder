@@ -120,7 +120,7 @@ export const DNDBuilder = {
 
     document.addEventListener("DOMContentLoaded", () => {
       if (this.$actionPreview) {
-        this.$actionPreview.addEventListener("click", openPreviewModal);
+        this.$actionPreview.addEventListener("click", () => openPreviewModal(Config.uiKit));
       }
       if (this.$actionDownload) {
         this.$actionDownload.addEventListener("click", downloadHandler);
