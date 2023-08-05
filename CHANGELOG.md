@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.0.19] 2023-08-05
+### Changes
+
+- UPD Preview 
+  - works with different kits  
+
 ## [1.0.18] 2023-08-01
 ### Changes
 
