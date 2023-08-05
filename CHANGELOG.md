@@ -1,5 +1,10 @@
 # Change Log
 
+## [1.0.20] 2023-08-05
+### Changes
+
+- Add `style-pixel.css` (deleted by mistake)
+
 ## [1.0.19] 2023-08-05
 ### Changes
 
