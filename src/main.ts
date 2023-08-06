@@ -33,7 +33,7 @@ const url = import.meta.env.VITE_BACKEND_URL
 type KitConfig = {
   [key: string]: {
     script: string;
-    styles: string;
+    styles: string[];
     customStyles: string;
   };
 };
@@ -41,14 +41,14 @@ type KitConfig = {
 // Define a dictionary to store the scripts and styles for each kit
 const kits: KitConfig = {
   'bs5': {
-      'script': 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js',
-      'styles': 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css',
-      'customStyles': '.border-dotted, .border-props, .cross-icon { border: none !important; } .upButton, .downButton, .cross-icon { display: none !important; }'
+    'script': 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js',
+    'styles': ['https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css'],
+    'customStyles': '.border-dotted, .border-props, .cross-icon { border: none !important; } .upButton, .downButton, .cross-icon { display: none !important; }'
   },
   'pixel': {
-      'script': 'https://appseed-srv1.com/builder/pixel/assets/js/pixel.js',
-      'styles': 'https://appseed-srv1.com/builder/pixel/css/pixel.css',
-      'customStyles': ''
+    'script': 'https://appseed-srv1.com/builder/pixel/assets/js/pixel.js',
+    'styles': ['https://appseed-srv1.com/builder/pixel/css/pixel.css', "https://cdn.jsdelivr.net/gh/app-generator/free-site-builder@1.0.20/dist/style-pixel.css"],
+    'customStyles': ''
   },
 };
 
@@ -341,8 +341,8 @@ export function openPreviewModal(kitName: string) {
   const kit = kits[kitName];
 
   if (!kit) {
-      console.error(`Unknown kit: ${kitName}`);
-      return;
+    console.error(`Unknown kit: ${kitName}`);
+    return;
   }
 
   let currentPages = JSON.parse(
@@ -400,23 +400,25 @@ export function openPreviewModal(kitName: string) {
 
   let processedContent = processComponent(dropzone as HTMLElement);
 
+  // function getStyleLinks() {
+  //   let re = "";
+  //   if (Array.isArray(kits[kitName].styles)) {
+  //     for (let s of kits[kitName].styles) {
+  //       re += `<link type="text/css" rel="stylesheet" href="${s}">`
+  //     }
+  //   } else {
+  //     re += `<link type="text/css" rel="stylesheet" href="${kits[kitName].styles}">`
+  //   }
+  //   return re;
+  // }
+
   // Load the content of the dropzone into the iframe
   let iframeContent = `
       <html>
         <head>
-          <style>
-            ${Array.from(document.styleSheets)
-              .map((sheet) => {
-                try {
-                  return Array.from(sheet.cssRules)
-                    .map((rule) => rule.cssText)
-                    .join("\n");
-                } catch (e) {
-                  console.warn("Cannot load styles from stylesheet", e);
-                  return "";
-                }
-              })
-              .join("\n")}
+        <link type="text/css" href="https://appseed-srv1.com/builder/pixel/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+       ${kits[kitName].styles.map(s => `<link type="text/css" href="${s}" rel="stylesheet">`).join("\n")}
+          <style>            
               body {
                 display: flex;
                 justify-content: center;
@@ -483,30 +485,34 @@ export function openPreviewModal(kitName: string) {
         </script>
       </html>
     `;
-  
-  // Assuming iframe is the iframe element
-  const iframeElement = document.querySelector('#previewFrame') as HTMLIFrameElement;
-  let iframeDocument = iframeElement.contentDocument || iframeElement.contentWindow?.document;
 
-  if (iframeDocument) {
-    // Add script
-    let scriptElement = iframeDocument.createElement('script');
-    scriptElement.src = kits[kitName].script;
-    iframeDocument.body.appendChild(scriptElement);
-
-    // Add stylesheet
-    let linkElement = iframeDocument.createElement('link');
-    linkElement.rel = 'stylesheet';
-    linkElement.href = kits[kitName].styles;
-    iframeDocument.head.appendChild(linkElement);
-
-    // Add custom styles
-    let styleElement = iframeDocument.createElement('style');
-    styleElement.textContent = kits[kitName].customStyles;
-    iframeDocument.head.appendChild(styleElement);
-  }
 
   previewFrame.srcdoc = iframeContent;
+
+  // // Assuming iframe is the iframe element
+  // const iframeElement = document.querySelector('#previewFrame') as HTMLIFrameElement;
+  // let iframeDocument = iframeElement.contentDocument || iframeElement.contentWindow?.document;
+
+  // if (iframeDocument) {
+  //   // Add script
+  //   let scriptElement = iframeDocument.createElement('script');
+  //   scriptElement.src = kits[kitName].script;
+  //   iframeDocument.body.appendChild(scriptElement);
+
+  //   for (let s of kits[kitName].styles) {
+  //     // Add stylesheet
+  //     let linkElement = iframeDocument.createElement('link');
+  //     linkElement.rel = 'stylesheet';
+  //     linkElement.href = s;
+  //     iframeDocument.head.appendChild(linkElement);
+  //   }
+
+
+  //   // Add custom styles
+  //   let styleElement = iframeDocument.createElement('style');
+  //   styleElement.textContent = kits[kitName].customStyles;
+  //   iframeDocument.head.appendChild(styleElement);
+  // }
 
   // Show the modal
   previewModal.style.display = "block";
