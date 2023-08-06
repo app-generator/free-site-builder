@@ -1,6 +1,6 @@
 {
   "name": "free-site-builder",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "description": "Open-Source Site Builder - Simpllo.com",
   "license": "SEE LICENSE IN LICENSE.md",
   "main": "dist/index.js",
