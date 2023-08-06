@@ -42,12 +42,12 @@ type KitConfig = {
 const kits: KitConfig = {
   'bs5': {
     'script': 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js',
-    'styles': ['https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css',"https://cdn.jsdelivr.net/gh/app-generator/free-site-builder@1.0.21/dist/style.css"],
+    'styles': ['https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css',"https://cdn.jsdelivr.net/gh/app-generator/free-site-builder@latest/dist/style.css"],
     'customStyles': '.border-dotted, .border-props, .cross-icon { border: none !important; } .upButton, .downButton, .cross-icon { display: none !important; }'
   },
   'pixel': {
     'script': 'https://appseed-srv1.com/builder/pixel/assets/js/pixel.js',
-    'styles': ['https://appseed-srv1.com/builder/pixel/css/pixel.css', "https://cdn.jsdelivr.net/gh/app-generator/free-site-builder@1.0.21/dist/style-pixel.css"],
+    'styles': ['https://appseed-srv1.com/builder/pixel/css/pixel.css', "https://cdn.jsdelivr.net/gh/app-generator/free-site-builder@latest/dist/style-pixel.css"],
     'customStyles': ''
   },
 };

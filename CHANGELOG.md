@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.0.22] 2023-08-06
+### Changes
+
+- Fix `cross-kit` PREVIEW
+  - by [deroude](https://github.com/deroude) 
+
 ## [1.0.21] 2023-08-06
 ### Changes
 
