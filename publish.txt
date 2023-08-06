@@ -4,7 +4,7 @@ UPD version               --> src/index.js
 yarn build                --> Build production version  
 copy CSS specific in DIST --> `src-css/*.css` 
 git commit                --> all local changes 
-npm version 1.0.17        --> tag changes 
+npm version 1.0.21        --> tag changes 
 git push origin --tags    --> push tag 
 
 CREATE delivery           --> https://github.com/app-generator/free-site-builder
