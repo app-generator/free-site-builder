@@ -506,6 +506,9 @@ export function onSave(event: any, param: any) {
     console.log(' > ACTION: save', param);
     let content = <HTMLElement>document.querySelector('#'+param);
     window.localStorage.setItem(`editME-${param}`, content.innerHTML);
+
+    // need this for active components
+    window.location.reload();
 }
 
 export function onRestore(event: any, param: any) {
