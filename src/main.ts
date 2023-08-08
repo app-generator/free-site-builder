@@ -11,8 +11,8 @@
 =========================================================
 */
 
-import "./style-volt.css";
-import style from "./style-volt.css?inline";
+import "./style.css";
+import style from "./style.css?inline";
 import JSZip from "jszip";
 import { Config } from "./config";
 
@@ -52,7 +52,7 @@ const kits: KitConfig = {
   },
   'volt': {
     'script': 'https://appsrv1-147a1.kxcdn.com/builder/volt/assets/js/volt.js',
-    'styles': ['https://appsrv1-147a1.kxcdn.com/builder/volt/css/volt.css', "https://cdn.jsdelivr.net/gh/app-generator/free-site-builder@latest/dist/style-pixel.css"],
+    'styles': ['https://appsrv1-147a1.kxcdn.com/builder/volt/css/volt.css', "https://cdn.jsdelivr.net/gh/app-generator/free-site-builder@latest/dist/style-volt.css"],
     'customStyles': ''
   },  
 };

@@ -1,5 +1,10 @@
 # Change Log
 
+## [1.0.24] 2023-08-08
+### Changes
+
+- Preview - Update assets for VOLT
+
 ## [1.0.23] 2023-08-08
 ### Changes
 
