@@ -1,5 +1,13 @@
 # Change Log
 
+## [1.0.25] 2023-08-08
+### Changes
+
+- VOLT, added active components
+- UpDate onSave Handler
+  - save the page(s)
+  - reload page (force INIT for active components)
+
 ## [1.0.24] 2023-08-08
 ### Changes
 

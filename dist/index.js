@@ -208,7 +208,7 @@ function fe(C, O) {
 function he(C, O) {
   console.log(" > ACTION: save", O);
   let o = document.querySelector("#" + O);
-  window.localStorage.setItem(`editME-${O}`, o.innerHTML);
+  window.localStorage.setItem(`editME-${O}`, o.innerHTML), window.location.reload();
 }
 function Jt(C, O) {
   console.log(" > ACTION: restore", O);
@@ -3414,7 +3414,7 @@ if (At)
   }
 /*!
 =========================================================
-* Rocket Builder - v1.0.24
+* Rocket Builder - v1.0.25
 =========================================================
 *
 * Product: https://www.simpllo.com
