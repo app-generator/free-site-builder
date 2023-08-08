@@ -11,8 +11,8 @@
 =========================================================
 */
 
-import "./style.css";
-import style from "./style.css?inline";
+import "./style-volt.css";
+import style from "./style-volt.css?inline";
 import JSZip from "jszip";
 import { Config } from "./config";
 
@@ -46,10 +46,15 @@ const kits: KitConfig = {
     'customStyles': '.border-dotted, .border-props, .cross-icon { border: none !important; } .upButton, .downButton, .cross-icon { display: none !important; }'
   },
   'pixel': {
-    'script': 'https://appseed-srv1.com/builder/pixel/assets/js/pixel.js',
-    'styles': ['https://appseed-srv1.com/builder/pixel/css/pixel.css', "https://cdn.jsdelivr.net/gh/app-generator/free-site-builder@latest/dist/style-pixel.css"],
+    'script': 'https://appsrv1-147a1.kxcdn.com/builder/pixel/assets/js/pixel.js',
+    'styles': ['https://appsrv1-147a1.kxcdn.com/builder/pixel/css/pixel.css', "https://cdn.jsdelivr.net/gh/app-generator/free-site-builder@latest/dist/style-pixel.css"],
     'customStyles': ''
   },
+  'volt': {
+    'script': 'https://appsrv1-147a1.kxcdn.com/builder/volt/assets/js/volt.js',
+    'styles': ['https://appsrv1-147a1.kxcdn.com/builder/volt/css/volt.css', "https://cdn.jsdelivr.net/gh/app-generator/free-site-builder@latest/dist/style-pixel.css"],
+    'customStyles': ''
+  },  
 };
 
 // Using Promise syntax:

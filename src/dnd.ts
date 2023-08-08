@@ -155,16 +155,19 @@ export function onDragEnd(event: any, param: any) {
 
 export function onDrop(event: any, param: any) {
 
-    console.log(' > on_DROP() ');
+    
 
-    const id = event.dataTransfer.getData('text');
+    const placeholder_id = event.dataTransfer.getData('text');
+    const id = placeholder_id.replace('-placeholder', '');
 
     let element = <HTMLElement>document.getElementById(id);
 
     if (!element) {
-        console.log(' > NULL element: ' + id);
+        //console.log(' > NULL element: ' + id);
         return;
     }
+
+    console.log(' > on_DROP() -> ' + id);
 
     let editableComponent = element.cloneNode(true) as HTMLElement;
     let content = <HTMLElement>document.querySelector('.drop-indicator');
@@ -187,6 +190,8 @@ export function onDrop(event: any, param: any) {
     editableComponent.classList.remove('draggable');
     editableComponent.classList.add('component');
     editableComponent.removeAttribute('draggable');
+    editableComponent.style.display = 'block';
+    
     // Some Stuff 
     if (event.target.id == param) {
         onReposition(editableComponent, param);    // reorder & delete
