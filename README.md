@@ -2,7 +2,7 @@
 
 **Free & [Open-Source Site Builder](https://www.simpllo.com/)** that uses `Vanilla JS` and a `Remote Server` for components injection - Actively supported by `AppSeed`.
 
-- 👉 [Free Site Builder](https://www.simpllo.com/) - `Live DEMO` (BS5), **[Pixel](https://www.simpllo.com/pixel/)**, [Volt BS5](https://www.simpllo.com/volt/)
+- 👉 [Free Site Builder](https://www.simpllo.com/) - `Live DEMO` (BS5), **[Pixel](https://www.simpllo.com/pixel/)**, **[Volt BS5](https://www.simpllo.com/volt/)**
 - 👉 [Free Site Builder](https://www.docs.simpllo.com/) - `Documentation`
 - 🚀 [Join the Community](https://discord.gg/AWh6TFcEwU) - `Discord`
 
