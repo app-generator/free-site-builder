@@ -2,7 +2,7 @@
 
 **Free & [Open-Source Site Builder](https://www.simpllo.com/)** that uses `Vanilla JS` and a `Remote Server` for components injection - Actively supported by `AppSeed`.
 
-- 👉 [Free Site Builder](https://www.simpllo.com/) - `Live DEMO`
+- 👉 [Free Site Builder](https://www.simpllo.com/) - `Live DEMO` (BS5), **[Pixel](https://www.simpllo.com/pixel/)**, [Volt BS5](https://www.simpllo.com/volt/)
 - 👉 [Free Site Builder](https://www.docs.simpllo.com/) - `Documentation`
 - 🚀 [Join the Community](https://discord.gg/AWh6TFcEwU) - `Discord`
 
@@ -15,7 +15,10 @@
 | Status | Item | info | 
 | --- | --- | --- |
 | ✅ | **Core** |  `Vanilla JS` |
-| ✅ | **Components** | `Bootstrap 5` |
+| ✅ | `Components/KIT` | **Bootstrap 5** |
+| ✅ | `Components/KIT` | **[Pixel BS5](https://www.simpllo.com/pixel/)** |
+| ✅ | `Components/KIT` | **[Volt BS5](https://www.simpllo.com/volt/)** |
+| ✅ | **Components/KIT** | `Bootstrap 5` |
 | ✅ | **Remote Components Server** | https://components-server.onrender.com/kits/bs5/ |
 | ✅ | **Persistence** (local storage) | Save, Restore, Clear |
 | ✅ | **One-Page Layout** | `Single Component` Drag & Drop |
