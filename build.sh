@@ -10,7 +10,7 @@ cp homepage-min.html dist/index.html
 
 # Copy bs5 
 mkdir dist/bootstrap
-cp index-cdn.html bootstrap/index.html 
+cp index-cdn.html dist/bootstrap/index.html 
 
 # Copy volt 
 mkdir dist/volt
