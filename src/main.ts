@@ -71,6 +71,9 @@ export function downloadComponents(backendUrl: string, uiKit: string) {
       window.localStorage.setItem("components", JSON.stringify(response_json));
       console.log(response_json);
       drawComponents(response_json);
+      setTimeout(function(){
+        misc('dropzone-nav');
+      }, 2000)
     })
     .catch((error) => console.error(error));
 }
@@ -131,7 +134,7 @@ export function setNavigation(param: any) {
 
 // SETUP Components
 export function misc(param: any) {
-  //console.log(param, "misc");
+  console.log(param, "misc------------------");
 
   let draggableElems = document.querySelectorAll(".draggable");
 
@@ -151,24 +154,26 @@ export function downloadHandler() {
   let currentPages = JSON.parse(
     <string>window.localStorage.getItem("currentPageTabs")
   );
-  let indexhtmlContent = drawHTMLForDownload("dropzone", "index.html");
+  let indexhtmlContent = drawHTMLForDownload('pagesTabContent', 'index.html');
   // Add the HTML file to the zip
   zip.file("index.html", indexhtmlContent);
   zip.file("assets/css/index.css", style);
+  if (currentPages.length > 0) {
+    for (let i = 0; i < currentPages.length; i++) {
+      let pageTab = currentPages[i].split("_@COL@_");
+      console.log(pageTab);
 
-  for (let i = 0; i < currentPages.length; i++) {
-    let pageTab = currentPages[i].split("_@COL@_");
-    console.log(pageTab);
-
-    let htmlContent = drawHTMLForDownload(
-      "dropzone-" + pageTab[0],
-      pageTab[1],
-      pageTab[0]
-    );
-    // Add the HTML file to the zip
-    zip.file(pageTab[1], htmlContent);
-    // Generate the zip file
+      let htmlContent = drawHTMLForDownload(
+        "dropzone-" + pageTab[0],
+        pageTab[1],
+        pageTab[0]
+      );
+      // Add the HTML file to the zip
+      zip.file(pageTab[1], htmlContent);
+      // Generate the zip file
+    }
   }
+
   zip.generateAsync({ type: "blob" }).then(function (content: any) {
     // Create a download link
     const link = document.createElement("a");
@@ -216,7 +221,7 @@ function deployToNetlify(siteName: string, netlifyToken: string): void {
   );
 
   // For each page, generate the HTML content and add it to the zip file
-  let indexhtmlContent = drawHTMLForDownload("dropzone", "index.html");
+  let indexhtmlContent = drawHTMLForDownload('pagesTabContent', 'index.html');
   zip.file("index.html", indexhtmlContent);
   zip.file("assets/css/index.css", style);
 
@@ -284,6 +289,8 @@ function drawHTMLForDownload(
   index: any = null
 ) {
   let dropzone = document.querySelector(`#${dropzoneId}`) as HTMLElement;
+  if (dropzoneId == "pagesTabContent") 
+    dropzone = document.querySelector(`.${dropzoneId}`) as HTMLElement;
   let globalSetData = JSON.parse(
     <string>window.localStorage.getItem(`Global-${pageName}`)
   );
@@ -303,7 +310,7 @@ function drawHTMLForDownload(
         <link href="${globalSetData?.external_css_url}" rel="stylesheet" crossorigin="anonymous">
         <link href="assets/css/index.css" rel="stylesheet">
         <style>
-        .${dropzoneId} {
+        .${dropzoneId}, .dropzone {
           border-radius: 0 !important;
           border: none !important;
         }
@@ -487,6 +494,9 @@ export function openPreviewModal(kitName: string) {
             }
           }
           clearActive();
+          let defaultActivePreviewTab = document.querySelector('#indexTab');
+          defaultActivePreviewTab.classList.add('active');
+          defaultActivePreviewTab.classList.add('show');
         </script>
       </html>
     `;
@@ -551,16 +561,28 @@ export function setPreviewMode(mode: "fullScreen" | "tablet" | "mobile") {
 }
 
 let pageTabBtn = document.querySelector(`#index-tabA`);
+let globalPageTabBtn = document.querySelector(`#global-tabA`) as HTMLButtonElement;
+globalPageTabBtn.onclick = () => {
+  let navEle = document.querySelector('.drop-nav') as HTMLElement;
+  navEle.style.display = "none";
+};
 function addIndexTab() {
+  let navEle = document.querySelector('.drop-nav') as HTMLElement;
+  navEle.style.display = "block";
   window.localStorage.setItem("activePageTab", "dropzone");
   document.querySelector(".tabPageName")!.innerHTML = "index.html";
   setGlobalInput();
   initDropZone("dropzone", `drop-here-indicator`);
+  initDropZone('dropzone-nav', 'drop-here-indicator-nav');
   initGridDropZone(`dropzone`, `drop-here-indicator`);
+  initGridDropZone('dropzone-nav', 'drop-here-indicator-nav');
   setupGlobalEvents("dropzone");
   setNavigation("dropzone");
+  setupGlobalEvents('dropzone-nav');
+  setNavigation('dropzone-nav');
 }
 if (pageTabBtn) {
+  addIndexTab();
   pageTabBtn.addEventListener("click", () => {
     addIndexTab();
   });
@@ -602,7 +624,8 @@ function onAddPage(param = null) {
   tempContainer.setAttribute("role", "presentation");
 
   let tempContentContainer = document.createElement("div");
-  tempContentContainer.className = "tab-pane fade";
+  // tempContentContainer.className = "tab-pane fade";
+  tempContentContainer.className = "drop-container col col-md-9 tab-pane fade";
   tempContentContainer.id = `page-${pageIndex}`;
   tempContentContainer.setAttribute("role", "tabpanel");
   tempContentContainer.setAttribute("aria-labelledby", `page-tab-${pageIndex}`);
@@ -686,12 +709,20 @@ function onAddPage(param = null) {
     }
 
     initDropZone(dropZoneID, `drop-here-indicator-${pageIndex}`);
+    initDropZone('dropzone-nav', `drop-here-indicator-nav`);
     initGridDropZone(
       `dropzone-elem-${pageIndex}`,
       `drop-here-indicator-${pageIndex}`
     );
+    initGridDropZone(
+      `dropzone-nav`,
+      `drop-here-indicator-nav`
+    );
+
     setupGlobalEvents(dropZoneID);
     setNavigation(dropZoneID);
+    setupGlobalEvents('dropzone-nav');
+    setNavigation('dropzone-nav');
   };
 
   pageTabBtn?.click();
@@ -700,6 +731,8 @@ function onAddPage(param = null) {
   // });
   let originalTabName = "";
   pageTabBtn.onclick = (event) => {
+    let navEle = document.querySelector('.drop-nav') as HTMLElement;
+    navEle.style.display = "block";
     let clickedEle = event.target as HTMLElement;
     originalTabName = clickedEle?.innerHTML;
     pageTabBtn.setAttribute("contenteditable", "true");
@@ -871,3 +904,4 @@ if (currentTabs) {
     onRestore(null, "dropzone-" + tabInfo[0]);
   }
 }
+onRestore(null, 'dropzone-nav');

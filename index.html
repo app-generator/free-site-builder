@@ -52,7 +52,25 @@
     integrity="sha512-rQImvJlBa8MV1Tl1SXR5zD2bWfmgCEIzTieFegGg89AAt7j/NBEe50M5CqYQJnRwtkjKMmuYgHBqtD1Ubbk5ww=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://kit.fontawesome.com/ea9bd22eef.js" crossorigin="anonymous"></script>
-
+  <style>
+    .page-container {
+      margin-right: 0px !important;
+    }
+    .page-container .col {
+      padding-right: 1px !important;
+    }
+    .dropzone-nav {
+      background-color: #eaeaea;
+      flex-basis: 100%;
+      flex-grow: 1;
+      margin-bottom: 10px;
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 10px;
+      border: 2px dashed #ccc;
+      min-height: 300px;
+    }
+  </style>
   <!-- Builder DYNAMIC CSS -->
   <style id="global-custom-style"></style>
 
@@ -148,16 +166,23 @@
               <li class="nav-item d-flex align-items-center add-page-list"><a href="#" id="add-page-button">+</a></li>
             </ul>
           </div>
-          <div class="tab-content forScroll pagesTabContent" id="myTabContent">
-            <div class="tab-pane fade show active" id="indexTab" role="tabpanel" aria-labelledby="index-tabA">
-              <div id="drop-here-indicator"></div>
+          <div class="tab-content forScroll pagesTabContent row page-container" id="myTabContent">
+            <div class="drop-nav col col-md-3">
               
               <!-- DROPZONE -->
-              <div id="dropzone" class="dropzone"></div>
+              <!-- <div id="dropzone" class="dropzone"></div> -->
+              <div id="drop-here-indicator-nav"></div>
+              <div id="dropzone-nav" class="dropzone-nav">
+                <!-- <div class="placeholder-markup"><span class="text-secondary">Navbar</span></div> -->
+              </div>
               <!-- DROPZONE: END -->
 
             </div>
-            <div class="tab-pane fade" id="globalA" role="tabpanel" aria-labelledby="global-tabA">
+            <div class="drop-container col col-md-9 tab-pane fade show active" id="indexTab" role="tabpanel" aria-labelledby="index-tabA">
+              <div id="drop-here-indicator"></div>
+              <div id="dropzone" class="dropzone"></div>
+            </div>
+            <div class="drop-container col col-md-12 tab-pane fade" id="globalA" role="tabpanel" aria-labelledby="global-tabA">
               <div class="d-flex">
                 <div class="editor-container w-50">
                   <textarea id="css-editor"></textarea>

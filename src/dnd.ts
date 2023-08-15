@@ -55,6 +55,10 @@ export function onDragOver(event: any, param2: any) {
     remClassProcessor('border-dotted');
 
     event.target.classList.add('border-dotted');
+    let targetDropId = event.target.id;
+    if (targetDropId.indexOf('dropzone') > -1) {
+        window.localStorage.setItem('targetPlace', targetDropId);
+    }
     event.preventDefault();
 }
 
@@ -150,6 +154,12 @@ export function onDragEnd(event: any, param: any) {
         .style
         .backgroundColor = '#ffffff';
 
+
+    let navbar = document.querySelector('.drop-nav .dropzone-nav') as HTMLElement;
+    if (navbar.children.length > 1) {
+        let placeholder = document.querySelector('.placeholder-markup') as HTMLElement;
+        placeholder.style.display = 'none';
+    }
     onSave(event, param);
 }
 
@@ -220,6 +230,7 @@ export function onDelete(element: any, param: any) {
     console.log(' > on_DELETE() ');
 
     element.style.display = "none";
+    element.remove();
     const localStorageData = window.localStorage.getItem(`editME-${param}`)?.split(param)[1] || "";
 
     var div = document.createElement('div');
@@ -233,7 +244,8 @@ export function onDelete(element: any, param: any) {
     updatedData.forEach(item => {
         div.appendChild(item);
     });
-
+    let content = <HTMLElement>document.querySelector('#'+param);
+    window.localStorage.setItem(`editME-${param}`, content.innerHTML);
     // window.localStorage.setItem('editME', div.innerHTML)
 }
 
@@ -503,9 +515,11 @@ export function onClear(event: any, param: any) {
 
 export function onSave(event: any, param: any) {
     event;
-    console.log(' > ACTION: save', param);
-    let content = <HTMLElement>document.querySelector('#'+param);
-    window.localStorage.setItem(`editME-${param}`, content.innerHTML);
+
+    let target = window.localStorage.getItem('targetPlace');
+    console.log(' > ACTION: save', param, event, target);
+    let content = <HTMLElement>document.querySelector('#'+target);
+    window.localStorage.setItem(`editME-${target}`, content.innerHTML);
 
     // need this for active components
     window.location.reload();
@@ -518,7 +532,6 @@ export function onRestore(event: any, param: any) {
     console.log(' > ACTION: restore', param);
 
     let content = <HTMLElement>document.querySelector('#'+param);
-
     let saved_content = <string>window.localStorage.getItem(`editME-${param}`);
     
     // Check that we have data to restore
