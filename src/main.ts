@@ -428,7 +428,7 @@ export function openPreviewModal(kitName: string) {
   let iframeContent = `
       <html>
         <head>
-        <link type="text/css" href="https://appseed-srv1.com/builder/pixel/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+        <link type="text/css" href="https://appsrv1-147a1.kxcdn.com/builder/pixel/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
        ${kits[kitName].styles.map(s => `<link type="text/css" href="${s}" rel="stylesheet">`).join("\n")}
           <style>            
               body {
