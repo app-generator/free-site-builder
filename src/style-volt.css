@@ -352,6 +352,9 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
   border-left: 1px solid #dee2e6 !important;
 }
 .defTabs.pagesTabs li button.active {
+  border-bottom: 1px solid #f2f4f6 !important;
+}
+.defTabs.pagesTabs li button.active {
   border-top: 1px solid #dee2e6 !important;
 }
 .defTabs.pagesTabs li button:hover{
@@ -474,7 +477,7 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
 /**/
 .dropzone {
   border: 1px dashed #ccc;
-  min-height: 300px;
+  min-height: calc(100vh - 122px);
 }
 .drpznBttm {
   font-size: 13px;
@@ -1178,7 +1181,11 @@ p, ol li, ul li {font-weight: 600;}
   width: 20.5%;
   padding-right: 1px;
 }
-.vltcol-3 .dropzone-nav {padding: 0;}
+.vltcol-3 .dropzone-nav {
+  padding: 0;
+  min-height: calc(100vh - 122px);
+  background: #1f2937;
+}
 .vltcol-9 {
   width: 79.5%;
   padding-left: 0;
