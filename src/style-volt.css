@@ -321,7 +321,7 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
   background: #fff;
   width: 260px;
   height: calc(100vh - 65px);
-  z-index: 9;
+  z-index: 999;
 }
 .defTabs {
   margin-top: -1px;
@@ -659,7 +659,7 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
   color: #fff;
 }
 /**/
-@media screen and (min-width: 1025px) {
+@media screen and (min-width: 1281px) {
   .menuLeftbtn {
     display: none;
   }
@@ -672,7 +672,7 @@ button.btnRestore:hover, button.btnRestore:focus, .btn-primary:hover, .btn-prima
     padding: 10px 255px 10px 255px;
   }
 }
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1280px) {
   .header {
     padding: 10px 0px;
   }
@@ -1177,8 +1177,12 @@ p, ol li, ul li {font-weight: 600;}
 .previewFrame .sidebar{
   top: 49px;
 }
+.pagesTabContentLayout {
+  display: flex;
+}
 .vltcol-3 {
-  width: 20.5%;
+  width: 100%;
+  max-width: 260px;
   padding-right: 1px;
 }
 .vltcol-3 .dropzone-nav {
@@ -1187,7 +1191,7 @@ p, ol li, ul li {font-weight: 600;}
   background: #1f2937;
 }
 .vltcol-9 {
-  width: 79.5%;
+  width: calc(100% - 260px);
   padding-left: 0;
   padding-right: 0;
 }
@@ -1197,4 +1201,19 @@ p, ol li, ul li {font-weight: 600;}
     width: 100%;
     max-width: 268px;
   }
+}
+@media screen and (max-width: 1439px) {
+  .search-bar .form-control {
+    max-width: 280px;
+    width: auto;
+  }
+}
+@media screen and (max-width: 991px) {
+  .pagesTabContentLayout {
+    flex-direction: column;
+    height: auto;
+  }
+  .vltcol-3 {max-width: 100%;padding-left: 0;}
+  .vltcol-3 .dropzone-nav {min-height: initial;}
+  .vltcol-9 {width: 100%;}
 }
