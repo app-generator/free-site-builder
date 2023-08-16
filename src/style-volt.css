@@ -186,10 +186,11 @@ button:focus-visible {
 .dropzone-elem {
   margin-bottom: 0px;
   margin-top: 0px;
-  padding: 4px;
   font-size: 11px;
+  padding: 0px 4px;
 }
 .innCol {
+  padding: 4px 0;
   background-color: #5d73e338;
 }
 .component {
@@ -1160,3 +1161,23 @@ p, ol li, ul li {font-weight: 600;}
   width: 100% !important;
   text-align: left;
 }
+.rltvSidebar .sidebar {
+  position: relative;
+}
+.rltvSidebar .simplebar-mask {
+  position: relative;
+}
+.rltvSidebar .simplebar-offset {position: relative;}
+.previewFrame .sidebar{
+  top: 49px;
+}
+.vltcol-3 {
+  width: 21%;
+}
+.vltcol-3 .dropzone-nav {padding: 0;}
+.vltcol-9 {
+  width: 79%;
+  padding-left: 0;
+  padding-right: 0;
+}
+.text-dark {color: #1F2937 !important;}
