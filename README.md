@@ -8,7 +8,7 @@
 - 👉 [Free Site Builder](https://www.docs.simpllo.com/) - `Documentation`
 - 🚀 [Join the Community](https://discord.gg/AWh6TFcEwU) - `Discord`
 
-![Free & Open-Source Website Builder - Actively Supported by AppSeed.](https://github.com/app-generator/free-site-builder/assets/51070104/9d8f60a4-84f1-4723-9170-276818db89a5) 
+![Free & Open-Source Website Builder - Actively Supported by AppSeed.](https://github.com/app-generator/free-site-builder/assets/51070104/46640070-2924-4a9c-b072-a7fbc196a141)
 
 <br />
 
