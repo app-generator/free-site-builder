@@ -321,8 +321,8 @@ function drawHTMLForDownload(
           margin-bottom: 10px;
           margin-top: 10px;
           padding: 10px;
-          border-radius: 10px;
-          border: 2px dashed #ccc;
+          border-radius: 0px;
+          border: 1px dashed #ccc;
           min-height: 300px;
         }
         
@@ -625,7 +625,7 @@ function onAddPage(param = null) {
 
   let tempContentContainer = document.createElement("div");
   // tempContentContainer.className = "tab-pane fade";
-  tempContentContainer.className = "drop-container col col-md-9 tab-pane fade";
+  tempContentContainer.className = "drop-container vltcol-9 col-md-9 tab-pane fade";
   tempContentContainer.id = `page-${pageIndex}`;
   tempContentContainer.setAttribute("role", "tabpanel");
   tempContentContainer.setAttribute("aria-labelledby", `page-tab-${pageIndex}`);
@@ -639,15 +639,15 @@ function onAddPage(param = null) {
   }
   let newStyle = `
     .${dropZoneID} {
-      background-color: #eaeaea;
+      background-color: #f2f4f6;
       flex-basis: 100%;
       flex-grow: 1;
       margin-bottom: 10px;
       margin-top: 10px;
-      padding: 10px;
-      border-radius: 10px;
-      border: 2px dashed #ccc;
-      min-height: 300px;
+      padding: 0 10px;
+      border-radius: 0px;
+      border: 1px dashed #ccc;
+      min-height: 500px;
     }
     
     .dropzone-elem-${pageIndex} {
