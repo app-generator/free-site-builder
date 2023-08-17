@@ -1068,6 +1068,7 @@ body body {
 
 .bs-popover-auto { z-index: 99999; font-size: 11px; }
 .btn.btn-primary {font-size: 12px;font-weight: 500; padding: 5px 12px;}
+.btn.action_clear_btn {font-size: 12px;font-weight: 500; padding: 5px 12px;}
 .alert {margin-bottom: 0;}
 .defModal .modal-header {
   padding: 8px 16px;
