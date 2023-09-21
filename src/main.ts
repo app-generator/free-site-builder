@@ -156,18 +156,20 @@ export function downloadHandler() {
   zip.file("index.html", indexhtmlContent);
   zip.file("assets/css/index.css", style);
 
-  for (let i = 0; i < currentPages.length; i++) {
-    let pageTab = currentPages[i].split("_@COL@_");
-    console.log(pageTab);
+  if (currentPages) {
+      for (let i = 0; i < currentPages.length; i++) {
+        let pageTab = currentPages[i].split("_@COL@_");
+        console.log(pageTab);
 
-    let htmlContent = drawHTMLForDownload(
-      "dropzone-" + pageTab[0],
-      pageTab[1],
-      pageTab[0]
-    );
-    // Add the HTML file to the zip
-    zip.file(pageTab[1], htmlContent);
-    // Generate the zip file
+        let htmlContent = drawHTMLForDownload(
+          "dropzone-" + pageTab[0],
+          pageTab[1],
+          pageTab[0]
+        );
+        // Add the HTML file to the zip
+        zip.file(pageTab[1], htmlContent);
+        // Generate the zip file
+      }
   }
   zip.generateAsync({ type: "blob" }).then(function (content: any) {
     // Create a download link
