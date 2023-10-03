@@ -10,9 +10,9 @@ This document explains the usage of this **open-source** product developed by **
 
 > The Terms:
 
-- `Solo-Developer`: code digital products as freelencer (without being incorporated in a company)
+- `Solo-Developer`: code digital products as freelancer (without being incorporated in a company)
 - `StartUp` - young company founded 12mo (or less) in the past
-- `Small Company` - maximum 5 developers, active for more than 1year 
+- `Small Company` - maximum 5 developers, active for more than 1 year 
 - `Company` - More than 5 developers and less than 50
 - `Corporate` - More than 50 developers 
 - `NGO` - [Non Governmental Organization](https://en.wikipedia.org/wiki/Non-governmental_organization)
@@ -57,7 +57,7 @@ The license covers:
 - `Unlimited projects` (commercial included)
 - `Premium` [Support](https://appseed.us/support/) via Email / `Discord`
 
-> `IMPORTANT`: The **End-product that use the tool should NOT compete with Simpllo/AppSeed**.
+> `IMPORTANT`: The **End-product that uses the tool should NOT compete with Simpllo/AppSeed**.
 
 <br />
 
