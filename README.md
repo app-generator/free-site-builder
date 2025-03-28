@@ -9,7 +9,7 @@
 
 ## **[BUY Simpllo.com](https://www.namecheap.com/domains/registration/results/?domain=simpllo.com)**
 
-Includes **the domain** price and commercial rights for **the builder** and **repository transfer**. Transaction secured by Namecheap.
+> NOTE: Includes **the domain** price and commercial rights for **the builder** and **repository transfer**. Transaction secured by Namecheap.
 
 <br />
 
