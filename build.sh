@@ -6,7 +6,7 @@ yarn
 yarn build 
 
 # Copy HOMEpage 
-cp homepage-min.html dist/index.html 
+cp homepage.html dist/index.html 
 
 # Copy bs5 
 mkdir dist/bootstrap
