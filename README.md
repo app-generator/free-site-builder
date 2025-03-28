@@ -1,18 +1,23 @@
 # [Free Site Builder](https://www.simpllo.com/) `Simpllo`
 
-**Free & [Open-Source Site Builder](https://www.simpllo.com/)** that uses `Vanilla JS` and a `Remote Server` for components injection - Actively supported by `AppSeed`.
+**[Free, Open-Source Site Builder](https://www.simpllo.com/)** that uses `Vanilla JS` and a `Remote Server` for components injection - Provided by **[App-Generator](https://app-generator.dev/)**.
 
-- 👉 [Free Site Builder](https://www.simpllo.com/) - `Live DEMO` (BS5)
-  -  ✅ **[Pixel BS5](https://www.simpllo.com/pixel/)** - `demo`
-  -  ✅ **[Volt BS5](https://www.simpllo.com/volt/)** - `demo`
+- 👉 [Free Site Builder](https://www.simpllo.com/) - `Live DEMO
 - 👉 [Free Site Builder](https://www.docs.simpllo.com/) - `Documentation`
-- 🚀 [Join the Community](https://discord.gg/AWh6TFcEwU) - `Discord`
+
+<br />
+
+## **[BUY Simpllo.com](https://www.namecheap.com/domains/registration/results/?domain=simpllo.com)**
+
+Includes **the domain** price and commercial rights for **the builder** and **repository transfer**. Transaction secured by Namecheap.
+
+<br />
 
 ![Free & Open-Source Website Builder - Actively Supported by AppSeed.](https://github.com/app-generator/free-site-builder/assets/51070104/46640070-2924-4a9c-b072-a7fbc196a141)
 
 <br />
 
-## Roadmap & [SPECS](https://docs.google.com/document/d/1YbmZro0b8ucMGE227xSMzcQGNbWgTaiOKfjgEW9RsWE/edit?usp=sharing) 
+## Features
 
 | Status | Item | info | 
 | --- | --- | --- |
@@ -136,4 +141,4 @@ For more information, contact [AppSeed](http://appseed.us/) `support@appseed.us`
 <br />
 
 ---
-[Free Site Builder](https://www.simpllo.com/) - Provided by **AppSeed**.
+[Free Site Builder](https://www.simpllo.com/) - Provided by **[App-Generator](https://app-generator.dev/)**.

@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.0.26] 2025-03-28
+### Changes
+
+- Update README
+- Added **[BUY Simpllo.com](https://www.namecheap.com/domains/registration/results/?domain=simpllo.com)** Link
+  - Includes the domain price and commercial rights for the builder and repository transfer. Transaction secured by Namecheap. 
+
 ## [1.0.25] 2023-08-08
 ### Changes
 
