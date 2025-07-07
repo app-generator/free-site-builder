@@ -2,7 +2,7 @@
 
 **[Free, Open-Source Site Builder](https://www.simpllo.com/)** that uses `Vanilla JS` and a `Remote Server` for components injection - Provided by **[App-Generator](https://app-generator.dev/)**.
 
-- 👉 [Free Site Builder](https://www.simpllo.com/) - `Live DEMO
+- 👉 [Free Site Builder](https://www.simpllo.com/) - `Live DEMO`
 - 👉 [Free Site Builder](https://www.docs.simpllo.com/) - `Documentation`
 
 <br />
