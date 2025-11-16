@@ -7,6 +7,14 @@
 
 <br />
 
+## [BUY Simpllo](https://www.simpllo.com/) (domain and full rights for the page builder)
+
+- `Domain only` - **$10k**
+- `Domain`, `free site builder` repo, and page builder rights: **$25k**
+- `Contact`: **chirilovadrian@gmail.com**
+
+<br />
+
 ## Features
 
 | Status | Item | info | 
